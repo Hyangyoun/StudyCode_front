@@ -16,7 +16,7 @@ function MainPage(props) {
                         <span className="info">만들어보세요!</span>
                         <div className="gotoBlog">내 블로그 만들러가기</div>
                     </li>
-                    <li className="blogSection">
+                    <li className="blogSection blogflex">
                         <span className="newPost">최근포스트</span>
                         <Slider>
                             <img src="./image/icon/arrow_left.png" alt="화살표" />
@@ -63,7 +63,7 @@ function MainPage(props) {
                         <span className="info">코드를 짜다가 궁금한것이 있으면 물어보세요</span>
                         <span className="info">여러분 모두가 질문자와 답변자가 될수있습니다</span>
                     </li>
-                    <li className="qnaSection">
+                    <li className="qnaSection qnaflex">
                         <span>최근 질문태그</span>
                         <div>
                             <li>#JavaScript</li>
@@ -145,14 +145,6 @@ const Guide = styled.div`
             color: #674188;
         }
 
-        .newPost {
-            font-size: 20px;
-            font-weight: bold;
-            position: relative;
-            right: 280px;
-            bottom: 50px;
-        }
-
         &:not(:last-child) {
             margin-right: 40px;
         }
@@ -163,6 +155,15 @@ const Guide = styled.div`
         }
     }
 
+    .blogflex {
+        align-items: start;
+        &>span {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 45px 70px;
+        }
+    }
+
     .qnaSection {
         flex-direction: column;
         align-items: center;
@@ -170,19 +171,20 @@ const Guide = styled.div`
             width: 88px; height: auto;
         }
         &>div {
-            width: 480px; height: 117px;
+            width: 500px; height: 117px;
             display: flex;
             flex-direction: row;
+            justify-content: center;
             align-items: center;
-            justify-content: space-around;
             flex-wrap: wrap;
-            :nth-child(n+5) {
-                margin-left: 20px;
+            margin-bottom: 30px;
+            :nth-child(5) {
+                margin-left: 75.5px;
             }
             :nth-child(7) {
-                margin-right: 20px;
+                margin-right: 75.5px;
             }
-
+            
             &>li {
                 width: 103px; height: 25px;
                 background-color: #FFFBF5;
@@ -191,7 +193,16 @@ const Guide = styled.div`
                 justify-content: center;
                 font-size: 15px;
                 color: #674188;
+                margin: 0 10px;
             }
+        }
+    }
+    .qnaflex {
+        align-items: start;
+        &>span {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
     }
 `
@@ -201,6 +212,7 @@ const Slider = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 70px;
     li {
         flex-direction: column;
         width: 200px; height: 245px;

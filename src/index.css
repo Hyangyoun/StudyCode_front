@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: #FFFBF5;
 
   @font-face {
     font-family: 'Noto Sans KR';
