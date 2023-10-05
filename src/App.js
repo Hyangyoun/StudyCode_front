@@ -1,9 +1,13 @@
-import Header from "./Main/Header";
+import MainPage from './Page/MainPage';
+import GlobalStyle from './GlobalStyle';
+import './App.css';
+
 function App() {
   return (
-    <div>
-      <Header/>
-    </div>
+    <>
+      <GlobalStyle />
+      <MainPage />
+    </>
   );
 }
 
