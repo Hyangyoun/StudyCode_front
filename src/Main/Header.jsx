@@ -1,29 +1,29 @@
 import React, { useState } from "react";
-import styled from "styled-components"
+import styled from "styled-components";
 
 function Header(props) {
     const [search,setSearch] = useState([]);
     const [tooltip,setTooltip] = useState(true);
-    console.log(tooltip)
     return(
-    <div>
+        <div>
                 <Head>
-                <div className="logo">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
+                <img className="logo" src="./image/icon/logo.png" alt="12" />
                         <div className="searchForm">
                             <img className="searchLeft" src="./image/icon/icon_search.png" alt="123" />
                             <input type="text" />
                             <img className="searchRight" src="./image/icon/icon_searchright.png" alt="12"/>
                         </div>
-                    <div>
-                    <img className="myImg" src="./image/icon/profile.png" 
-                    alt="123" 
-                    onClick={() => {setTooltip((t) => !t)}}/>
-                    <ul className="tooltips" hidden={tooltip}>
+                    <div className="profileBox">
+                        <img className="myImg"
+                        src="./image/icon/profile.png"
+                        alt="123"
+                        onClick={() => {setTooltip((t) => !t)}}/>
+                        {tooltip ? <ul className="tooltips">
                         <li>마이페이지</li>
                         <li>내 블로그</li>
                         <li>내 팔로우</li>
                         <li>로그아웃</li>
-                    </ul>
+                        </ul> : null}
                     </div>
                 </Head>
                 <HBtn>
@@ -31,7 +31,7 @@ function Header(props) {
                     <li className="navBtn">Q&A</li>
                     <li className="navBtn">Community</li>
                 </HBtn>
-    </div>
+        </div>
     )
 }
 
@@ -44,14 +44,11 @@ const Head = styled.div`
     justify-content: space-between;
     margin:auto;
 .logo{
-    width: 198px;height:41px;
-    position: relative;
-    margin-top:40px;
+    width: 198px;
     cursor: pointer;
 
 }
 .searchForm{
-    margin-top:40px;
     position: relative;
     display: flex;
     align-items: center;
@@ -60,8 +57,8 @@ const Head = styled.div`
         width: 598px; height: 38px;
         border-bottom :1px solid #674188 ;
         border-width: 0 0 1px 0;
-        padding: 15px 20px 0 20px;
-        margin: 10px;
+        padding: 12px 20px 0;
+        box-sizing: border-box;
         font-size: 15px;
         outline: none;
         background-color:  #FFFBF5;
@@ -70,22 +67,23 @@ const Head = styled.div`
         position: absolute;
         margin: auto;
         object-fit: cover;
-        top: 35px;
-        left: 10px;
+        top: 15px;
+        left: 3px;
     }
     &>.searchRight{
         position: absolute;
         object-fit: cover;
-        top: 35px;
-        right: 12px;
+        top: 14px;
+        right: 1px;
         cursor: pointer;
     }
 }
+.profileBox{
+    width: 50px; height: 50px;
+    margin-right: 93px;
+}
 .myImg{
     width: 50px; height: 50px;
-    position: relative;
-    margin-right: 90px;
-    margin-top:210px;
     cursor: pointer;
 }
 .tooltips{
