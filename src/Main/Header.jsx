@@ -2,22 +2,23 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 function Header(props) {
-    const [search,setSearch] = useState([]);
-    const [tooltip,setTooltip] = useState(true);
+    const [search,setSearch] = useState("");
+    const [tooltip,setTooltip] = useState(false);
     return(
         <div>
-                <Head>
-                <img className="logo" src="./image/icon/logo.png" alt="12" />
-                        <div className="searchForm">
-                            <img className="searchLeft" src="./image/icon/icon_search.png" alt="123" />
-                            <input type="text" />
-                            <img className="searchRight" src="./image/icon/icon_searchright.png" alt="12"/>
-                        </div>
+            <Head>
+                <div>
+                    <img className="logo" src="./image/icon/logo.png" alt="StudyCode" />
+                    <div className="searchForm">
+                        <img className="searchLeft" src="./image/icon/icon_search.png" alt="화살표" />
+                        <input type="text" />
+                        <img className="searchRight" src="./image/icon/icon_searchright.png" alt="검색버튼"/>
+                    </div>
                     <div className="profileBox">
                         <img className="myImg"
                         src="./image/icon/profile.png"
-                        alt="123"
-                        onClick={() => {setTooltip((t) => !t)}}/>
+                        alt="프로필"
+                        onClick={() => {setTooltip(!tooltip)}} />
                         {tooltip ? <ul className="tooltips">
                         <li>마이페이지</li>
                         <li>내 블로그</li>
@@ -25,12 +26,13 @@ function Header(props) {
                         <li>로그아웃</li>
                         </ul> : null}
                     </div>
-                </Head>
+                </div>
                 <HBtn>
-                    <li className="navBtn">BLOG</li>
-                    <li className="navBtn">Q&A</li>
-                    <li className="navBtn">Community</li>
+                    <li>BLOG</li>
+                    <li>Q&A</li>
+                    <li>Community</li>
                 </HBtn>
+            </Head>
         </div>
     )
 }
@@ -38,15 +40,26 @@ function Header(props) {
     
 const Head = styled.div`
     background-color: #FFFBF5;
-    width: 1200px;height: 149px;
+    width: 1200px;height: 290px;
     display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+    border-bottom :1px solid #C3ACD0 ;
+    border-width: 0 0 1px 0;
+
+&>div {
+    margin-top: 110px;
+    width: 1200px; height: auto;
+    display:flex;
+    margin-bottom: 60px;
     align-items: center;
     justify-content: space-between;
-    margin:auto;
-.logo{
-    width: 198px;
-    cursor: pointer;
+}
 
+.logo{
+    width: 198px; height: auto;
+    cursor: pointer;
 }
 .searchForm{
     position: relative;
@@ -80,48 +93,45 @@ const Head = styled.div`
 }
 .profileBox{
     width: 50px; height: 50px;
-    margin-right: 93px;
+    margin-right: 50px;
 }
 .myImg{
     width: 50px; height: 50px;
     cursor: pointer;
 }
 .tooltips{
-    list-style: none;
-    border-bottom :1px solid #F7EFE5 ;
-    background-color: #ffff;
-    margin-top: 0px;
-    width: 116px; height: 133px;
+    border :1px solid #F7EFE5 ;
+    background-color: #ffffff;
+    margin: 0;
+    width: 116px; height: 140px;
     display: flex;
     position: relative;
     right: 65px;
-    padding: 0;
     flex-direction: column;
-    justify-content: space-evenly;
     font-size: 15px;
     cursor: pointer;
     li:hover{
         background-color: #C3ACD0;
     }
+    &>li {
+        align-items: center;
+        padding-left: 10px;
+        height: 35px;
+    }
 }
 `
 
 const HBtn = styled.ul`
-    font-size: 15px;
-    list-style: none;
-    background-color: #FFFBF5;
-    width: 1160px;height: 141px;
+    width: 1200px; height: auto;
     display:flex;
     align-items: center;
     justify-content: center;
-    margin: auto;
-    border-bottom :1px solid #C3ACD0 ;
-    border-width: 0 0 1px 0;
+    margin: 0;
 
-.navBtn{
-    width: 185px; height:53px;
+li{
+    font-size: 15px;
+    width: 185px; height:50px;
     background-color: #F7EFE5;
-    border-width: 0px;
     border-radius: 50px;
     margin: 0 30px;
     display:flex;
