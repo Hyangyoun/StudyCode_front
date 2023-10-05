@@ -14,7 +14,7 @@ function MainPage(props) {
                         <span className="guideTitle">BLOG</span>
                         <span className="info">빠르고 손쉽게 나만의 개발블로그를</span>
                         <span className="info">만들어보세요!</span>
-                        <div className="gotoBlog">내 블로그 만들러가기</div>
+                        <div className="gotoCategory">내 블로그 만들러가기</div>
                     </li>
                     <li className="blogSection blogflex">
                         <span className="newPost">최근포스트</span>
@@ -65,7 +65,7 @@ function MainPage(props) {
                     </li>
                     <li className="qnaSection qnaflex">
                         <span>최근 질문태그</span>
-                        <div>
+                        <div className="tagDiv">
                             <li>#JavaScript</li>
                             <li>#JavaScript</li>
                             <li>#JavaScript</li>
@@ -78,6 +78,56 @@ function MainPage(props) {
                             <li>#JavaScript</li>
                             <li>#JavaScript</li>
                         </div>
+                        <div className="gotoCategory gotoCateFix">지금 질문하러 가기</div>
+                    </li>
+                </ul>
+                <ul className="communityul">
+                    <li className="commuSection">
+                        <span>최근 게시물</span>
+                        <ul>
+                            <li className="commuLi">
+                                <span className="commuCategory">&lt;모임&amp;스터디/&gt;</span>
+                                <span className="commuCategory">scss사용하는 프로젝트 인원 모집합니다</span>
+                                <span className="commuListSmall">1010jk</span>
+                                <span className="commuListTiny">23.09.14</span>
+                                <span className="commuListSmall">모집중</span>
+                            </li>
+                            <li className="commuLi">
+                                <span className="commuCategory">&lt;모임&amp;스터디/&gt;</span>
+                                <span className="commuCategory">scss사용하는 프로젝트 인원 모집합니다</span>
+                                <span className="commuListSmall">1010jk</span>
+                                <span className="commuListTiny">23.09.14</span>
+                                <span className="commuListSmall">모집중</span>
+                            </li>
+                            <li className="commuLi">
+                                <span className="commuCategory">&lt;모임&amp;스터디/&gt;</span>
+                                <span className="commuCategory">scss사용하는 프로젝트 인원 모집합니다</span>
+                                <span className="commuListSmall">1010jk</span>
+                                <span className="commuListTiny">23.09.14</span>
+                                <span className="commuListSmall">모집중</span>
+                            </li>
+                            <li className="commuLi">
+                                <span className="commuCategory">&lt;모임&amp;스터디/&gt;</span>
+                                <span className="commuCategory">scss사용하는 프로젝트 인원 모집합니다</span>
+                                <span className="commuListSmall">1010jk</span>
+                                <span className="commuListTiny">23.09.14</span>
+                                <span className="commuListSmall">모집중</span>
+                            </li>
+                            <li className="commuLi">
+                                <span className="commuCategory">&lt;모임&amp;스터디/&gt;</span>
+                                <span className="commuCategory">scss사용하는 프로젝트 인원 모집합니다</span>
+                                <span className="commuListSmall">1010jk</span>
+                                <span className="commuListTiny">23.09.14</span>
+                                <span className="commuListSmall">모집중</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li className=" commuSecInfo">
+                        <img src="./image/icon/icon_community.png" alt="커뮤니티 아이콘" />
+                        <span className="guideTitle">Community</span>
+                        <span className="info">나와 비슷한 사람들과 이야기를 나누며</span>
+                        <span className="info">친해질수 있고 프로젝트도 모집할수있습니다</span>
+                        <div className="gotoCategory">커뮤니티</div>
                     </li>
                 </ul>
             </Guide>
@@ -122,6 +172,21 @@ const Guide = styled.div`
         font-size: 15px;
     }
 
+    .gotoCategory {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 54px auto 0;
+        width: 198px; height: 45px;
+        border: 1px solid #674188;
+        border-radius: 50px;
+        font-size: 15px;
+        color: #674188;
+    }
+    .gotoCateFix {
+        margin-top: 40px;
+    }
+
     .blogSection {
         width: 360px; height: 380px;
         background-color: #F7EFE5;
@@ -132,17 +197,6 @@ const Guide = styled.div`
 
         &>img {
             width: 88px; height: auto;
-        }
-        .gotoBlog {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 54px;
-            width: 198px; height: 45px;
-            border: 1px solid #674188;
-            border-radius: 50px;
-            font-size: 15px;
-            color: #674188;
         }
 
         &:not(:last-child) {
@@ -170,14 +224,14 @@ const Guide = styled.div`
         &>img {
             width: 88px; height: auto;
         }
-        &>div {
+        .tagDiv {
             width: 500px; height: 117px;
             display: flex;
             flex-direction: row;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 30px;
+
             :nth-child(5) {
                 margin-left: 75.5px;
             }
@@ -203,6 +257,77 @@ const Guide = styled.div`
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 20px;
+            margin-left: 10px;
+        }
+    }
+
+    .communityul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 1200px; height: 452px;
+
+        .commuSection {
+            width: 793px; height: 452px;
+            background-color: #F7EFE5;
+            border-radius: 15px;
+            margin-right: 46px;
+            flex-direction: column;
+
+            &>span {
+                font-size: 20px;
+                font-weight: bold;
+                margin: 32px 0 0 98px;
+            }
+
+            &>ul {
+                margin: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                :last-child {
+                    margin: 0;
+                }
+            }
+        }
+
+        .commuSecInfo {
+            width: 360px; height: 380px;
+            background-color: #F7EFE5;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            
+            &>img {
+                width: 88px; height: auto;
+                margin-bottom: 10px;
+            }
+        }
+        .commuListSmall {
+            font-size: 12px;
+        }
+        .commuListTiny {
+            font-size: 10px;
+        }
+
+        .commuLi {
+            width: 600px; height: 50px;
+            background-color: #FFFBF5;
+            border-radius: 15px;
+            align-items: center;
+            justify-content: space-around;
+            margin-bottom: 15px;
+            
+            :nth-child(2) {
+                margin-right: 45px;
+            }
+        }
+
+        .commuCategory {
+            font-size: 15px;
         }
     }
 `
