@@ -1,12 +1,8 @@
-import MainPage from './Page/MainPage';
-import GlobalStyle from './GlobalStyle';
-import './App.css';
-
+import Membership from "./Page/Membership"
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <MainPage />
+    <Membership/>
     </>
   );
 }
