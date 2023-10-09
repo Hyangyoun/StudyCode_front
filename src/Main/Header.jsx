@@ -13,18 +13,18 @@ function Header(props) {
         if(login) {
             setTooltip(!tooltip)
         }
-        else navigate('/Login')
+        else navigate("/login")
     }
 
     return(
         <div>
             <Head>
                 <div>
-                    <img className="logo" src="./image/icon/logo.png" alt="StudyCode" />
+                    <img className="logo" src="/image/icon/logo.png" alt="StudyCode" onClick={() => navigate("/")} />
                     <div className="searchForm">
-                        <img className="searchLeft" src="./image/icon/icon_search.png" alt="화살표" />
+                        <img className="searchLeft" src="/image/icon/icon_search.png" alt="화살표" />
                         <input type="text" />
-                        <img className="searchRight" src="./image/icon/icon_searchright.png" alt="검색버튼"/>
+                        <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼"/>
                     </div>
                     <div className="profileBox">
                         <img className="myImg"
