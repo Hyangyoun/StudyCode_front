@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function Header(props) {
     const [search,setSearch] = useState("");
     const [tooltip,setTooltip] = useState(false);
+    const [login, setLogin] = useState(false)
+    
+    const navigate = useNavigate()
+
+    const ClickProfile = () => {
+        if(login) {
+            setTooltip(!tooltip)
+        }
+        else navigate('/Login')
+    }
+
     return(
         <div>
             <Head>
@@ -18,7 +30,7 @@ function Header(props) {
                         <img className="myImg"
                         src="./image/icon/profile.png"
                         alt="프로필"
-                        onClick={() => {setTooltip(!tooltip)}} />
+                        onClick={ClickProfile} />
                         {tooltip ? <ul className="tooltips">
                         <li>마이페이지</li>
                         <li>내 블로그</li>
