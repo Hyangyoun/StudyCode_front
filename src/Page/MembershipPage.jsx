@@ -1,41 +1,66 @@
-import { useState,useEffect } from "react";
-import SMHeader from "../Main/SmallHeader"
+import { useState } from "react";
+import SmallHeader from "../Main/SmallHeader";
 import styled from "styled-components";
 
-function Membership(props){
-    const [idCheck , setIdCheck] = useState(false)
+function MembershipPage(props){
+    
+    //----------회원정보----------//
+    const [id, setId] = useState("")
     const [password , setPassword] = useState("")
-    const [samePW , setSamePW] = useState("")
-    const [checkPW, setCheckPW] = useState(false)
-    const [emailCheck , setEmailCheck] = useState(false) //유효성검사시
     const [email , setEmail] = useState("")
+    const [nickName, setNickName] = useState("")
+    
+    //---------이메일 인증번호---------//
     const [emailNum , setEmailNum] = useState(null)
-    const [inputEmailNum, setInputEmailNum] = useState(0)
-
-    useEffect(() => { //
-        if(password === samePW && password !== ""){
-            setCheckPW(true)
+    
+    //-----------입력란 유효성------------//
+    const [idCheck , setIdCheck] = useState(false)
+    const [pwCheck, setPwCheck] = useState(false)
+    const [emailCheck , setEmailCheck] = useState(false)
+    
+    /** 최종 가입정보 api Post */
+    const PostMemberData = () => {
+        const data = {
+            "id" : id,
+            "password" : password,
+            "email" : email,
+            "nickname" : nickName,
+            "social" : false
         }
-        else {setCheckPW(false)}
-    },[password,samePW])
 
+        if(idCheck && pwCheck && emailCheck){
+            console.log(data)
+        }
+    }
+
+    /** 이메일 인증번호api 요청 */
     const ExportEmail = () =>{
-        if(!email.includes("@") || email.length < 15){ //
+        if(!email.includes("@") || email.length < 15) { //
             return;
         }
         setEmailNum(123456)
     }
 
-    useEffect(() => {
-        if(inputEmailNum == emailNum){  //
+    /** 패스워드 일치 검사 */
+    const CheckPassword = (e) => {
+        if(password === e.target.value && password !== "") {
+            setPwCheck(true)
+        }
+        else setPwCheck(false)
+    }
+
+    /** 이메일 인증번호 일치 검사 */
+    const CheckEmail = (e) => {
+        if(emailNum === e.target.value) {
             setEmailCheck(true)
         }
-        else {setEmailCheck(false)}
-    },[inputEmailNum,emailNum])
+        else setEmailCheck(false)
+    }
+
 
     return(
         <>
-            <SMHeader/>
+            <SmallHeader/>
             <MembershipTool>
                 <div>
                     <ul>
@@ -43,6 +68,7 @@ function Membership(props){
                             <span className="inputName">아이디</span>
                             <input className="inputId" type="text"
                             placeholder="아이디를 입력하세요"
+                            onChange={(e) => setId(e.target.value)}
                             />
                             <div onClick={() => {setIdCheck(true)}}>중복확인</div>
                             <span className="inputCon">{idCheck ? "확인되었습니다" : "영문+숫자 최소5자이상 최대15자이하"}</span>
@@ -58,10 +84,10 @@ function Membership(props){
                         <li>
                             <span className="inputName">비밀번호 확인</span>
                             <input className="inputId" type="password"
-                            placeholder="비밀번호를 입력하세요"
-                            onChange={(e) =>setSamePW(e.target.value)}
+                            placeholder="비밀번호를 재입력하세요"
+                            onChange={(e) => CheckPassword(e)}
                             />
-                            <span className="inputCondition">{checkPW ? "일치합니다" :"영문자+숫자 9자이상"}</span>
+                            <span className="inputCondition">{pwCheck ? "일치합니다" :"영문자+숫자 9자이상"}</span>
                         </li>
                         <li>
                             <span className="inputName">이메일</span>
@@ -75,6 +101,7 @@ function Membership(props){
                             <span className="inputName">닉네임</span>
                             <input className="inputId" type="text" 
                             placeholder="닉네임을 입력하세요"
+                            onChange={(e) => setNickName(e.target.value)}
                             />
                             <span className="inputCondition">
                                 최소2자,최대15자, 특수문자는 "_"만가능</span>
@@ -83,12 +110,12 @@ function Membership(props){
                         <span className="inputName"> </span>
                             <input className="inputId" type="text" 
                             placeholder="인증번호 입력"
-                            onChange={(e) => setInputEmailNum(e.target.value)}
+                            onChange={(e) => CheckEmail(e)}
                             />
                             <span className="inputCondition">{emailCheck ? "인증되었습니다": null}</span>
                         </li> : null}
                     </ul>
-                    <div className="membership">
+                    <div className="membership" onClick={PostMemberData}>
                         회원가입
                     </div>
                 </div>
@@ -167,4 +194,4 @@ const MembershipTool = styled.div`
         cursor: pointer;
     }
 `
-export default Membership
+export default MembershipPage

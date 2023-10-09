@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../Main/Header";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage(props) {
+
+    const navigate = useNavigate()
+
     return(
         <>
             <Header />
@@ -21,19 +25,19 @@ function LoginPage(props) {
                     <span>비밀번호 찾기</span>
                 </div>
                 <div className="socialBox">
-                    <img src="./image/icon/kakao.png" alt="카카오" />
-                    <img src="./image/icon/google.png" alt="구글" />
-                    <img src="./image/icon/naver.png" alt="네이버" />
+                    <img src="/image/icon/kakao.png" alt="카카오" />
+                    <img src="/image/icon/google.png" alt="구글" />
+                    <img src="/image/icon/naver.png" alt="네이버" />
                 </div>
                 <span>아직 회원이 아니신가요?</span>
-                <div className="membershipBox">회원가입</div>
+                <div className="membershipBox" onClick={() => navigate("/login/membership")}>회원가입</div>
             </LoginSection>
         </>
     )
 }
 
 const LoginSection = styled.div`
-    width: 1200px; height: 600px;
+    width: 1200px; height: 1200px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -132,6 +136,9 @@ const LoginSection = styled.div`
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        &>img {
+            cursor: pointer;
+        }
     }
 
     .membershipBox {
@@ -144,6 +151,7 @@ const LoginSection = styled.div`
         align-items: center;
         justify-content: center;
         font-size: 15px;
+        cursor: pointer;
     }
 `
 

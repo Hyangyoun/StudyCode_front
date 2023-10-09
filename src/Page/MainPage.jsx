@@ -10,7 +10,7 @@ function MainPage(props) {
             <Guide>
                 <ul className="blogul">
                     <li className="blogSection">
-                        <img src="./image/icon/icon_blog.png" alt="블로그이미지" />
+                        <img src="/image/icon/icon_blog.png" alt="블로그이미지" />
                         <span className="guideTitle">BLOG</span>
                         <span className="info">빠르고 손쉽게 나만의 개발블로그를</span>
                         <span className="info">만들어보세요!</span>
@@ -19,10 +19,10 @@ function MainPage(props) {
                     <li className="blogSection blogflex">
                         <span className="newPost">최근포스트</span>
                         <Slider>
-                            <img src="./image/icon/arrow_left.png" alt="화살표" />
+                            <img src="/image/icon/arrow_left.png" alt="화살표" />
                             <ul>
                                 <li>
-                                    <img src="./image/icon/sample.png" alt="썸네일" />
+                                    <img src="/image/icon/sample.png" alt="썸네일" />
                                     <span className="title">내 토요일 내놔</span>
                                     <span className="content">미안하다 이거 보여줄려고 어...</span>
                                     <span className="like">15</span>
@@ -32,7 +32,7 @@ function MainPage(props) {
                                     </div>
                                 </li>
                                 <li>
-                                    <img src="./image/icon/sample.png" alt="썸네일" />
+                                    <img src="/image/icon/sample.png" alt="썸네일" />
                                     <span className="title">내 토요일 내놔</span>
                                     <span className="content">미안하다 이거 보여줄려고 어...</span>
                                     <span className="like">15</span>
@@ -42,7 +42,7 @@ function MainPage(props) {
                                     </div>
                                 </li>
                                 <li>
-                                    <img src="./image/icon/sample.png" alt="썸네일" />
+                                    <img src="/image/icon/sample.png" alt="썸네일" />
                                     <span className="title">내 토요일 내놔</span>
                                     <span className="content">미안하다 이거 보여줄려고 어...</span>
                                     <span className="like">15</span>
@@ -52,20 +52,20 @@ function MainPage(props) {
                                     </div>
                                 </li>
                             </ul>
-                            <img src="./image/icon/arrow_right.png" alt="화살표" />
+                            <img src="/image/icon/arrow_right.png" alt="화살표" />
                         </Slider>
                     </li>
                 </ul>
                 <ul className="qnaul">
                     <li className="qnaSection">
-                        <img src="./image/icon/icon_qna.png" alt="Q&A" />
+                        <img src="/image/icon/icon_qna.png" alt="Q&A" />
                         <span className="guideTitle">Q&A</span>
                         <span className="info">코드를 짜다가 궁금한것이 있으면 물어보세요</span>
                         <span className="info">여러분 모두가 질문자와 답변자가 될수있습니다</span>
                     </li>
                     <li className="qnaSection qnaflex">
                         <span>최근 질문태그</span>
-                        <div className="tagDiv">
+                        <ul className="tagUl">
                             <li>#JavaScript</li>
                             <li>#JavaScript</li>
                             <li>#JavaScript</li>
@@ -77,7 +77,7 @@ function MainPage(props) {
                             <li>#JavaScript</li>
                             <li>#JavaScript</li>
                             <li>#JavaScript</li>
-                        </div>
+                        </ul>
                         <div className="gotoCategory gotoCateFix">지금 질문하러 가기</div>
                     </li>
                 </ul>
@@ -224,7 +224,7 @@ const Guide = styled.div`
         &>img {
             width: 88px; height: auto;
         }
-        .tagDiv {
+        .tagUl {
             width: 500px; height: 117px;
             display: flex;
             flex-direction: row;
