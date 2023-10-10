@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Header(props) {
     const [search,setSearch] = useState("");
     const [tooltip,setTooltip] = useState(false);
-    const [login, setLogin] = useState(false)
+    const [login, setLogin] = useState(true)
     
     const navigate = useNavigate()
 
@@ -33,7 +33,7 @@ function Header(props) {
                         onClick={ClickProfile} />
                         {tooltip ? <ul className="tooltips">
                         <li>마이페이지</li>
-                        <li>내 블로그</li>
+                        <li onClick={() => navigate("/blog")}>내 블로그</li>
                         <li>내 팔로우</li>
                         <li>로그아웃</li>
                         </ul> : null}
