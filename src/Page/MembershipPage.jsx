@@ -51,7 +51,7 @@ function MembershipPage(props){
 
     /** 이메일 인증번호 일치 검사 */
     const CheckEmail = (e) => {
-        if(emailNum === e.target.value) {
+        if(emailNum == e.target.value) {
             setEmailCheck(true)
         }
         else setEmailCheck(false)
@@ -123,6 +123,7 @@ function MembershipPage(props){
         </>
           )
 }
+
 const MembershipTool = styled.div`
     width: 635px; height: 560px;
     display:flex;
