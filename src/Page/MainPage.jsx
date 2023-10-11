@@ -164,7 +164,7 @@ const Guide = styled.div`
         align-items: center;
         justify-content: space-evenly;
         width: 1200px; height: 380px;
-        background-color: #F7EFE5;
+        background-color: var(--second2);
         border-radius: 50px;
     }
 
@@ -185,10 +185,10 @@ const Guide = styled.div`
         justify-content: center;
         margin: 54px auto 0;
         width: 198px; height: 45px;
-        border: 1px solid #674188;
+        border: 1px solid var(--primary);
         border-radius: 50px;
         font-size: 15px;
-        color: #674188;
+        color: var(--primary);
     }
     .gotoCateFix {
         margin-top: 40px;
@@ -198,7 +198,7 @@ const Guide = styled.div`
         display: flex;
         list-style-type: none;
         width: 360px; height: 380px;
-        background-color: #F7EFE5;
+        background-color: var(--second2);
         border-radius: 50px;
         flex-direction: column;
         align-items: center;
@@ -253,12 +253,12 @@ const Guide = styled.div`
             &>li {
                 display: flex;              
                 width: 103px; height: 25px;
-                background-color: #FFFBF5;
+                background-color: var(--background);
                 border-radius: 50px;
                 align-items: center;
                 justify-content: center;
                 font-size: 15px;
-                color: #674188;
+                color: var(--primary);
                 margin: 0 10px;
             }
         }
@@ -284,7 +284,7 @@ const Guide = styled.div`
         .commuSection {
             display: flex;
             width: 793px; height: 452px;
-            background-color: #F7EFE5;
+            background-color: var(--second2);
             border-radius: 15px;
             margin-right: 46px;
             flex-direction: column;
@@ -310,8 +310,8 @@ const Guide = styled.div`
 
         .commuSecInfo {
             width: 360px; height: 380px;
-            background-color: #F7EFE5;
             display: flex;
+            background-color: var(--second2);
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -331,7 +331,7 @@ const Guide = styled.div`
 
         .commuLi {
             width: 600px; height: 50px;
-            background-color: #FFFBF5;
+            background-color: var(--background);
             border-radius: 15px;
             display: flex;
             align-items: center;
@@ -360,7 +360,7 @@ const Slider = styled.div`
         display: flex;
         flex-direction: column;
         width: 200px; height: 245px;
-        background-color: #FFFBF5;
+        background-color: var(--background);
         border-radius: 5px;
         &:not(:last-child) {
             margin-right: 40px;
@@ -397,7 +397,7 @@ const Slider = styled.div`
             flex-direction: row;
             justify-content: space-between;
             border-width: 1px 0 0 0;
-            border-color: #F7EFE5;
+            border-color: var(--second2);
             border-style: solid;
         }
     }

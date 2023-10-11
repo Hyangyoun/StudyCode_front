@@ -37,13 +37,13 @@ function SmallHeader(props) {
 }
 
 const Head = styled.div`
-    background-color: #FFFBF5;
+    background-color: var(--background);
     width: 1200px;height: 149px;
     display:flex;
     flex-direction: column;
     align-items: center;
     margin:auto;
-    border-bottom :1px solid #C3ACD0 ;
+    border-bottom :1px solid var(--second) ;
     border-width: 0 0 1px 0;
 
 &>div {
@@ -65,13 +65,13 @@ const Head = styled.div`
    
     &>input{
         width: 598px; height: 38px;
-        border-bottom :1px solid #674188 ;
+        border-bottom :1px solid var(--primary) ;
         border-width: 0 0 1px 0;
         padding: 12px 20px 0;
         box-sizing: border-box;
         font-size: 15px;
         outline: none;
-        background-color:  #FFFBF5;
+        background-color:  var(--background);
     }
     &>.searchLeft{
         position: absolute;
@@ -97,8 +97,8 @@ const Head = styled.div`
     cursor: pointer;
 }
 .tooltips{
-    border :1px solid #F7EFE5 ;
-    background-color: #ffffff;
+    border :1px solid var(--second2);
+    background-color: white;
     margin: 0;
     width: 116px; height: 140px;
     display: flex;
@@ -108,7 +108,8 @@ const Head = styled.div`
     font-size: 15px;
     cursor: pointer;
     li:hover{
-        background-color: #C3ACD0;
+        background-color: var(--second);
+        font-weight: bold;
     }
     &>li {
         align-items: center;
