@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-/** 윈도우 크기 감지 state */
 function BlogSkin1Header(props){
+
+/** 클릭시 색 변화 감지 state */
+    const [menuClick, setMenuClick] = useState(1)
+
+/** 코데 스터디 등 메뉴의 보이기 유무 state */
+    const [menu , setMenu] =useState(false)
+
+/** 윈도우 크기 감지 state */
     const [screenSize , setScreenSize] = useState(window.innerWidth - 250)
 
 /** 윈도우 변화 감지 */
@@ -20,16 +27,16 @@ function BlogSkin1Header(props){
 /** 블로그 헤더  */
 
     return(
-        <BlogHeader $screenSize={screenSize}> 
+        <BlogHeader $screenSize={screenSize} $menuClick={menuClick}> 
             <div className="blogName">내 토요일 내놔</div>
             <div className="blogMain">메인(overview)</div>
             <div>
-                <ul className="blogMenu">
-                    <li>코테</li>
-                    <li>스터디&모음</li>
-                    <li>프로젝트</li>
+                {menu ? null:<ul className="blogMenu">
+                    <li onClick={() => setMenuClick(1)}>코테</li>
+                    <li onClick={() => setMenuClick(2)}>스터디&모음</li>
+                    <li onClick={() => setMenuClick(3)}>프로젝트</li>
                     <li>+</li>
-                </ul>
+                </ul>}
             </div>
         </BlogHeader>
     )
@@ -46,6 +53,7 @@ const BlogHeader = styled.div`
         margin-top: 80px;
         font-size: 30px;
         font-weight: bold;
+        cursor: pointer;
     }
     .blogMain{
         margin-top: 80px;
@@ -66,8 +74,14 @@ const BlogHeader = styled.div`
             cursor: pointer;
         }
         > li:hover {
+            color: white;
             background-color: #C3ACD0;
         }
+        :nth-child(${props =>props.$menuClick}){
+            background-color: #C3ACD0;
+            color: white;
+        }
+
     }
 
 `

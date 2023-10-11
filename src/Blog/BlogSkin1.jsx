@@ -1,8 +1,13 @@
+import { useState } from "react";
 import styled from "styled-components";
 
+/** 블로그 메인  */
+
 function BlogMainSkin1(props){
+    const [clickCartegory , setClickCartegory] = useState(1)
+    console.log(clickCartegory)
     return(
-        <Sidebar>
+        <Sidebar $cartegorys={clickCartegory}>
             <img className="profilepicture" src="/image/icon/profile.png" alt="프로필사진"/>
             <div className="nickname">js싫어요</div>
             <div className="follow">
@@ -10,10 +15,10 @@ function BlogMainSkin1(props){
                 <span>팔로잉{}</span>
             </div>
             <span className="write">글쓰기</span>
-            <div className="cartegoryform">
-                <div>메인(overview)</div>
-                <div>포스트(post)</div>
-                <div>repository</div>
+            <div className="cartegoryform" >
+                <div onClick={() => setClickCartegory(1)} className="overview">메인(overview)</div>
+                <div onClick={() => setClickCartegory(2)} className="post">포스트(post)</div>
+                <div onClick={() => setClickCartegory(3)} className="repository">repository</div>
             </div>
             <div className="tagBox"> Tag
                 <ul>
@@ -22,10 +27,14 @@ function BlogMainSkin1(props){
                     <li>React</li>
                 </ul>
             </div>
+            <a href="./">
             <img className="home" src="/image/icon/home.png" alt="프로필사진"/>
+            </a>
         </Sidebar>
     )
 }
+
+/** 블로그 스타일 컴포넌트  */
 
 const Sidebar = styled.div`
     width: 250px; height: 1180px;
@@ -34,15 +43,20 @@ const Sidebar = styled.div`
     flex-direction: column;
     align-items: center;
     font-size: 15px;
+
     .profilepicture{
         width: 150px; height: auto;
         margin-top: 85px;
+        cursor: pointer;
     }
+
     .nickname{
         margin-top: 10px;
         align-items: center;
         text-align: center;
+        cursor: pointer;
     }
+
     .follow{
         margin-top: 15px;
         display: flex;
@@ -52,14 +66,18 @@ const Sidebar = styled.div`
             margin: 0 10px 0 10px;
         }
     }
+
     .write{
         margin-top: 10px;
         display: flex;
-       justify-content:center;
+        justify-content:center;
+        color: #674188;
+        cursor: pointer;
     }
+
     .cartegoryform{
     margin-top: 70px;
-
+    
         >div{
             width: 135px; height: 40px;
             margin: 10px;
@@ -68,7 +86,18 @@ const Sidebar = styled.div`
             justify-content: center;
             align-items: center;
         }
+        >div:hover{
+            border: 1px solid #674188;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        :nth-child(${props =>props.$cartegorys}){
+            border: 1px solid #674188;
+            font-weight: bold;
+            cursor: pointer;
+        }
     }
+
     .tagBox {
         margin-top: 40px;
         font-size: 20px;
@@ -92,6 +121,7 @@ const Sidebar = styled.div`
     .home{
         margin-top: 400px;
         width: 30px; height: auto;
+        cursor: pointer;
     }
     `
 
