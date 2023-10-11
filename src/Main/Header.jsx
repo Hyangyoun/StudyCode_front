@@ -28,7 +28,7 @@ function Header(props) {
                     </div>
                     <div className="profileBox">
                         <img className="myImg"
-                        src="./image/icon/profile.png"
+                        src="/image/icon/profile.png"
                         alt="프로필"
                         onClick={ClickProfile} />
                         {tooltip ? <ul className="tooltips">

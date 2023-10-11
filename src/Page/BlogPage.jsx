@@ -21,4 +21,5 @@ const BlogSection = styled.div`
     display: flex;
     flex-direction: row;
         `
+
 export default BlogPage
