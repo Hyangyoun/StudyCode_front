@@ -3,28 +3,24 @@ import styled from "styled-components";
 
 function BlogSkin1Header(props){
 
-/** 클릭시 색 변화 감지 state */
-    const [menuClick, setMenuClick] = useState(1)
+    const {menuIndex, changeMenuIndex} = props
 
-/** 코데 스터디 등 메뉴의 보이기 유무 state */
-    const [menu , setMenu] =useState(false)
-
-/** 윈도우 크기 감지 state */
-    const [screenSize , setScreenSize] = useState(window.innerWidth - 250)
+    const [menuClick, setMenuClick] = useState(1) //클릭시 색 변화 감지 state
+    const [menu , setMenu] =useState(false) //코데 스터디 등 메뉴의 보이기 유무 state
+    const [screenSize , setScreenSize] = useState(window.innerWidth - 250) //윈도우 크기 감지 state
 
 /** 윈도우 변화 감지 */
     const HandleScreenSize = () => {
         setScreenSize(window.innerWidth - 250)
     }
 
-/** 윈도우 변화를 감시할 이벤트 생성과 삭제 */
+//윈도우 변화를 감시할 이벤트 생성과 삭제
     useEffect(()=>{
         window.addEventListener('resize', HandleScreenSize);
         return () => { // cleanup 
             window.removeEventListener('resize', HandleScreenSize);
-        }},[])
-
-/** 블로그 헤더  */
+        }
+    },[])
 
     return(
         <BlogHeader $screenSize={screenSize} $menuClick={menuClick}> 

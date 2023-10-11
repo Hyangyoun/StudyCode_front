@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 /** 블로그 메인  */
 
-function BlogMainSkin1(props){
-    const [clickCartegory , setClickCartegory] = useState(1)
-    console.log(clickCartegory)
+function BlogSkin1Side(props){
+    const {menuIndex, changeMenuIndex} = props
+
     return(
-        <Sidebar $cartegorys={clickCartegory}>
+        <Sidebar $menuIndex={menuIndex}>
             <img className="profilepicture" src="/image/icon/profile.png" alt="프로필사진"/>
             <div className="nickname">js싫어요</div>
             <div className="follow">
@@ -16,9 +16,9 @@ function BlogMainSkin1(props){
             </div>
             <span className="write">글쓰기</span>
             <div className="cartegoryform" >
-                <div onClick={() => setClickCartegory(1)} className="overview">메인(overview)</div>
-                <div onClick={() => setClickCartegory(2)} className="post">포스트(post)</div>
-                <div onClick={() => setClickCartegory(3)} className="repository">repository</div>
+                <div onClick={() => changeMenuIndex(1)} className="overview">메인(overview)</div>
+                <div onClick={() => changeMenuIndex(2)} className="post">포스트(post)</div>
+                <div onClick={() => changeMenuIndex(3)} className="repository">repository</div>
             </div>
             <div className="tagBox"> Tag
                 <ul>
@@ -35,7 +35,6 @@ function BlogMainSkin1(props){
 }
 
 /** 블로그 스타일 컴포넌트  */
-
 const Sidebar = styled.div`
     width: 250px; height: 1180px;
     border-right: 1px solid #C3ACD0;
@@ -91,7 +90,7 @@ const Sidebar = styled.div`
             font-weight: bold;
             cursor: pointer;
         }
-        :nth-child(${props =>props.$cartegorys}){
+        :nth-child(${props =>props.$menuIndex}){
             border: 1px solid #674188;
             font-weight: bold;
             cursor: pointer;
@@ -125,4 +124,4 @@ const Sidebar = styled.div`
     }
     `
 
-export default BlogMainSkin1
+export default BlogSkin1Side

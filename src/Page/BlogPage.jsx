@@ -1,20 +1,33 @@
 import { useState } from "react";
-import BlogMainSkin1 from "../Blog/BlogSkin1";
+import BlogSkin1Side from "../Blog/BlogSkin1Side";
 import BlogSkin1Header from "../Blog/BlogSkin1Header";
+import BlogSkin2 from "../Blog/BlogSkin2";
 import styled from "styled-components";
 
 
 function BlogPage(props){
-    // const [search, setSearch] = useState()
-    // const changeSearch = (value) => {
-    //     setSearch(value);
-    // };
-    // console.log(props)
+    const [menuIndex, setMenuIndex] = useState(1)
+    const [skin, setSkin] = useState(1)
+
+    /** props로 넘어갈 state set 함수 */
+    const ChangeMenuIndex = (value) => {
+        setMenuIndex(value);
+    };
+
     return(
-        <BlogSection>
-            <BlogMainSkin1 />
-            <BlogSkin1Header />
-        </BlogSection>
+        <>
+            {skin === 1 ?
+                <BlogSection>
+                    <BlogSkin1Side menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                    <BlogSkin1Header menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                </BlogSection>
+                :
+                skin === 2 ?
+                    <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex}>
+                    </BlogSkin2>
+                    : null
+            }
+        </>
     )
 }
 const BlogSection = styled.div`

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 function BlogSkin2(props) {
+    const {menuIndex, changeMenuIndex} = props
+
     const [side, setSide] = useState(false)
-    const [selecMenu, setSelectMenu] = useState(1)
     const [screen, Setscreen] = useState(window.innerWidth)
 
-    console.log(screen)
-
+    /** 브라우저 창크기 변경 감지 */
     const GetScreenSize = () => {
         Setscreen(window.innerWidth)
     }
@@ -44,15 +44,15 @@ function BlogSkin2(props) {
                 </div>
             </SideBar>
             {side ? <SideBack onClick={() => setSide(!side)}/> : null}
-            <Header $sm = {selecMenu} $screen = {screen}>
+            <Header $menuIndex = {menuIndex} $screen = {screen}>
                 <SideBT onClick={() => setSide(!side)} />
                 <div className="blogName">내 토요일 내놔</div>
                 <div className="menuBox">
                     <div className="menu">
-                        <div onClick={() => setSelectMenu(1)}>Overview</div>
-                        <div onClick={() => setSelectMenu(2)}>Post</div>
-                        <div onClick={() => setSelectMenu(3)}>Category</div>
-                        <div onClick={() => setSelectMenu(4)}>Repository</div>
+                        <div onClick={() => changeMenuIndex(1)}>Overview</div>
+                        <div onClick={() => changeMenuIndex(2)}>Post</div>
+                        <div onClick={() => changeMenuIndex(3)}>Category</div>
+                        <div onClick={() => changeMenuIndex(4)}>Repository</div>
                     </div>
                     <div className="pointer"/>
                 </div>
@@ -185,7 +185,7 @@ const Header = styled.div`
                 border-bottom: 2px solid white;
             }
 
-            & :not(:nth-child(${props => props.$sm})) {
+            & :not(:nth-child(${props => props.$menuIndex})) {
                 opacity: 0.5;
             }
         }
@@ -194,7 +194,7 @@ const Header = styled.div`
     .pointer {
             position: absolute;
             width: 175px; height: 65px;
-            left: ${props => (((props.$screen - 1060) / 2) - 295) + (props.$sm * 295)}px;
+            left: ${props => (((props.$screen - 1060) / 2) - 295) + (props.$menuIndex * 295)}px;
             border-bottom: 2px solid var(--primary);
             transition: 0.5s;
         }
