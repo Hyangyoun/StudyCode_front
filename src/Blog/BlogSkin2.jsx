@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 function BlogSkin2(props) {
     const [side, setSide] = useState(false)
-    const [selecMenu, setSelectMenu] = useState(2)
+    const [selecMenu, setSelectMenu] = useState(1)
+    const [screen, Setscreen] = useState(window.innerWidth)
+
+    console.log(screen)
+
+    const GetScreenSize = () => {
+        Setscreen(window.innerWidth)
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', GetScreenSize)
+        return (() => {
+            window.removeEventListener('resize', GetScreenSize)
+        })
+    },[])
 
     return (
         <>
@@ -30,14 +44,17 @@ function BlogSkin2(props) {
                 </div>
             </SideBar>
             {side ? <SideBack onClick={() => setSide(!side)}/> : null}
-            <Header $sm = {selecMenu}>
+            <Header $sm = {selecMenu} $screen = {screen}>
                 <SideBT onClick={() => setSide(!side)} />
                 <div className="blogName">내 토요일 내놔</div>
                 <div className="menuBox">
-                    <div onClick={() => setSelectMenu(1)}>Overview</div>
-                    <div onClick={() => setSelectMenu(2)}>Post</div>
-                    <div onClick={() => setSelectMenu(3)}>Category</div>
-                    <div onClick={() => setSelectMenu(4)}>Repository</div>
+                    <div className="menu">
+                        <div onClick={() => setSelectMenu(1)}>Overview</div>
+                        <div onClick={() => setSelectMenu(2)}>Post</div>
+                        <div onClick={() => setSelectMenu(3)}>Category</div>
+                        <div onClick={() => setSelectMenu(4)}>Repository</div>
+                    </div>
+                    <div className="pointer"/>
                 </div>
             </Header>
         </>
@@ -57,6 +74,7 @@ const SideBar = styled.div`
     left: ${(props) => (props.$side ? 0 : -250)}px;
     transition: 0.5s;
     z-index: 2;
+    overflow: scroll;
 
     .profileBox {
         width: 180px; height: 225px;
@@ -148,24 +166,38 @@ const Header = styled.div`
         align-items: center;
         justify-content: center;
 
-        & > div {
-            width: 175px; height: 65px;
-            margin: 0 60px;
-            font-size: 20px;
+        .menu {
+            width: 100%; height: 70px;
             display: flex;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
-            transition: 0.5s;
-            cursor: pointer;
-        }
-        & :nth-child(${props => props.$sm}) {
-            border-bottom: 2px solid var(--primary);
-        }
-        & :not(:nth-child(${props => props.$sm})) {
-            opacity: 0.5;
-            border-bottom: 2px solid white;
+
+            & > div{
+                width: 175px; height: 65px;
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: 0.5s;
+                cursor: pointer;
+                margin: 0 60px;
+                border-bottom: 2px solid white;
+            }
+
+            & :not(:nth-child(${props => props.$sm})) {
+                opacity: 0.5;
+            }
         }
     }
+
+    .pointer {
+            position: absolute;
+            width: 175px; height: 65px;
+            left: ${props => (((props.$screen - 1060) / 2) - 295) + (props.$sm * 295)}px;
+            border-bottom: 2px solid var(--primary);
+            transition: 0.5s;
+        }
 `
 
 const SideBT = styled.div`
