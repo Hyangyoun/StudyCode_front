@@ -7,7 +7,7 @@ function OverView(props) {
 
     return (
         <MarkDownSection>
-            <Markdown rehypePlugins={[remarkGfm]}>
+            <Markdown rehypePlugins={[remarkGfm]} className={"MarkDown"}>
                 {text}
             </Markdown>
         </MarkDownSection>
@@ -30,13 +30,55 @@ ___
 
 * BUILD 폴더에서 해당 게임의 final Build 확인 가능합니다.
 #### **해당 프로젝트에 대한 문의는 kushkim@icloud.com 으로 문의 부탁드립니다.**
+
+# h1
+## h2
+### h3
+#### h4
+##### h5
+###### h6
+
+![이미지](https://d1ictngapj85w0.cloudfront.net/landing_template/4f9fd4fd3121f3e7314941e1abdbcf47.jpg)
+
+> 위키백과?
+>> 중대장 드립 검색
+>>> "오늘 중대장은 너희에게 실망했다"
 `
 
 const MarkDownSection = styled.div`
     width: 1200px; height: auto;
+    padding: 16px 32px 32px;
+    box-sizing: border-box;
     margin: auto;
     border: 2px solid var(--second2);
     background-color: white;
+
+    .MarkDown {
+        * {
+            box-sizing: border-box;
+        }
+        h1 {
+            padding-bottom: 0.3em;
+            font-size: 30px;
+            border-bottom: 1px solid var(--second);
+        }
+
+        ul {
+            padding-left: 2em;
+            margin: 0 0 16px;
+        }
+
+        hr {
+            border: 2px solid var(--second);
+            margin: 24px 0;
+        }
+
+        blockquote {
+            padding: 0 1em;
+            border-left: 0.25em solid var(--second);
+            margin: 0 0 16px;
+        }
+    }
 `
 
 export default OverView
