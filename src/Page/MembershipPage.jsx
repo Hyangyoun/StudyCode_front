@@ -62,6 +62,7 @@ function MembershipPage(props){
         <>
             <SmallHeader/>
             <MembershipTool>
+                <form onSubmit={PostMemberData}>
                 <div>
                     <ul>
                         <li>
@@ -119,6 +120,7 @@ function MembershipPage(props){
                         회원가입
                     </div>
                 </div>
+                </form>
             </MembershipTool>
         </>
           )
@@ -149,14 +151,14 @@ const MembershipTool = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1px solid #C3ACD0;
+        border: 1px solid var(--second);
         border-radius: 5px;
         cursor: pointer;
     }
     .inputCon{
         font-size: 12px;
         padding-left: 50px;
-        color: #674188;
+        color: var(--primary);
         position: relative;
         top: 35px;
         right: 575px;
@@ -170,7 +172,7 @@ const MembershipTool = styled.div`
     .inputId{
         width: 420px; height: 50px;
         box-sizing: border-box;
-        border: 1px solid #C3ACD0;
+        border: 1px solid var(--second);
         border-radius: 5px;
         outline: 0;
         padding: 0 10px 0 10px;
@@ -178,16 +180,16 @@ const MembershipTool = styled.div`
     .inputCondition{
         font-size: 12px;
         padding-left: 50px;
-        color: #674188;
+        color: var(--primary);
         position: relative;
         top: 35px;
         right: 470px;
     }
     .membership{
         width: 260px; height: 40px;
-        border: 1px solid #C3ACD0;
+        border: 1px solid var(--second);
         border-radius: 5px;
-        background-color: #C3ACD0;
+        background-color: var(--second);
         margin: 80px auto 125px auto;
         display: flex;
         align-items: center;

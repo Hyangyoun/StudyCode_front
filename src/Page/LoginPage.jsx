@@ -51,7 +51,7 @@ const LoginSection = styled.div`
         width: 420px; height: 50px;
         outline: none;
         border-radius: 5px;
-        border: 1px solid #C3ACD0;
+        border: 1px solid var(--second);
         font-size: 15px;
         box-sizing: border-box;
         padding: 0 10px;
@@ -86,7 +86,7 @@ const LoginSection = styled.div`
             margin-right: 5px;
             box-sizing: border-box;
             width: 15px; height: 15px;
-            border: 1px solid #C3ACD0;
+            border: 1px solid var(--second);
             border-radius: 3px;
         }
 
@@ -95,14 +95,14 @@ const LoginSection = styled.div`
             color: white;
             border: none;
             text-align: center;
-            background-color: #C3ACD0;
+            background-color: var(--second);
         }
     }
 
     .loginBox {
         width: 420px; height: 50px;
         margin-top: 15px;
-        background-color: #C3ACD0;
+        background-color: var(--second);
         color: white;
         border-radius: 5px;
         display: flex;
@@ -143,7 +143,7 @@ const LoginSection = styled.div`
 
     .membershipBox {
         width: 420px; height: 50px;
-        background-color: #C3ACD0;
+        background-color: var(--second);
         color: white;
         border-radius: 5px;
         margin-top: 10px;
@@ -154,7 +154,5 @@ const LoginSection = styled.div`
         cursor: pointer;
     }
 `
-
-
 
 export default LoginPage
