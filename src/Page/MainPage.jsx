@@ -150,10 +150,16 @@ const Guide = styled.div`
     justify-content: center;
 
     .blogul {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
         margin-bottom: 105px;
         align-items: center;
     }
     .qnaul {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
         margin-bottom: 105px;
         align-items: center;
         justify-content: space-evenly;
@@ -174,6 +180,7 @@ const Guide = styled.div`
 
     .gotoCategory {
         display: flex;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
         margin: 54px auto 0;
@@ -188,6 +195,8 @@ const Guide = styled.div`
     }
 
     .blogSection {
+        display: flex;
+        list-style-type: none;
         width: 360px; height: 380px;
         background-color: #F7EFE5;
         border-radius: 50px;
@@ -219,6 +228,7 @@ const Guide = styled.div`
     }
 
     .qnaSection {
+        display: flex;
         flex-direction: column;
         align-items: center;
         &>img {
@@ -231,6 +241,7 @@ const Guide = styled.div`
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            padding: 0;
 
             :nth-child(5) {
                 margin-left: 75.5px;
@@ -240,6 +251,7 @@ const Guide = styled.div`
             }
             
             &>li {
+                display: flex;              
                 width: 103px; height: 25px;
                 background-color: #FFFBF5;
                 border-radius: 50px;
@@ -266,9 +278,11 @@ const Guide = styled.div`
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        padding: 0;
         width: 1200px; height: 452px;
 
         .commuSection {
+            display: flex;
             width: 793px; height: 452px;
             background-color: #F7EFE5;
             border-radius: 15px;
@@ -287,6 +301,7 @@ const Guide = styled.div`
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                padding: 0;
                 :last-child {
                     margin: 0;
                 }
@@ -296,6 +311,7 @@ const Guide = styled.div`
         .commuSecInfo {
             width: 360px; height: 380px;
             background-color: #F7EFE5;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -317,6 +333,7 @@ const Guide = styled.div`
             width: 600px; height: 50px;
             background-color: #FFFBF5;
             border-radius: 15px;
+            display: flex;
             align-items: center;
             justify-content: space-around;
             margin-bottom: 15px;
@@ -335,10 +352,12 @@ const Guide = styled.div`
 const Slider = styled.div`
     width: 800px;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 70px;
     li {
+        display: flex;
         flex-direction: column;
         width: 200px; height: 245px;
         background-color: #FFFBF5;
@@ -387,6 +406,9 @@ const Slider = styled.div`
         width: 50px; height: 50px;
     }
     ul {
+        padding: 0;
+        display: flex;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
     }
