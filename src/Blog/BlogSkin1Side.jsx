@@ -37,7 +37,7 @@ function BlogSkin1Side(props){
 /** 블로그 스타일 컴포넌트  */
 const Sidebar = styled.div`
     width: 250px; height: 1180px;
-    border-right: 1px solid #C3ACD0;
+    border-right: 1px solid var(--second);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,8 +70,11 @@ const Sidebar = styled.div`
         margin-top: 10px;
         display: flex;
         justify-content:center;
-        color: #674188;
+        color: var(--primary);
         cursor: pointer;
+        &:hover{
+            font-weight: bold;
+        }
     }
 
     .cartegoryform{
@@ -80,18 +83,18 @@ const Sidebar = styled.div`
         >div{
             width: 135px; height: 40px;
             margin: 10px;
-            border: 1px solid #C3ACD0;
+            border: 1px solid var(--second);
             display: flex;
             justify-content: center;
             align-items: center;
         }
         >div:hover{
-            border: 1px solid #674188;
+            border: 1px solid var(--primary);
             font-weight: bold;
             cursor: pointer;
         }
         :nth-child(${props =>props.$menuIndex}){
-            border: 1px solid #674188;
+            border: 1px solid var(--primary);
             font-weight: bold;
             cursor: pointer;
         }
@@ -109,7 +112,7 @@ const Sidebar = styled.div`
                 cursor: pointer;
             }
             > li:hover {
-                color: #674188;
+                color: var(--primary);
                 text-decoration: underline;
             }
             li:not(:last-child) {
