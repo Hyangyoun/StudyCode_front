@@ -105,10 +105,13 @@ const Sidebar = styled.div`
         font-size: 20px;
 
         &>ul {
+            display: flex;
             flex-direction: column;
             margin: 15px 0 0 30px;
+            padding: 0;
             font-size: 15px;
             > li {
+                display: flex;
                 cursor: pointer;
             }
             > li:hover {

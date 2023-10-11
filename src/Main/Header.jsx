@@ -121,12 +121,15 @@ const Head = styled.div`
     right: 65px;
     flex-direction: column;
     font-size: 15px;
+    padding: 0;
     cursor: pointer;
     li:hover{
         background-color: var(--second);
         font-weight: bold;
     }
     &>li {
+        display: flex;
+        flex-direction: row;
         align-items: center;
         padding-left: 10px;
         height: 35px;

@@ -115,11 +115,14 @@ const SideBar = styled.div`
         margin-top: 35px;
 
         &>ul {
+            display: flex;
+            padding: 0;
             flex-direction: column;
             margin: 15px 0 0 30px;
             font-size: 15px;
 
             > li {
+                display: flex;
                 cursor: pointer;
             }
 
