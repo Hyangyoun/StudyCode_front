@@ -354,8 +354,9 @@ const Slider = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 70px;
+    position: relative;
     li {
         display: flex;
         flex-direction: column;

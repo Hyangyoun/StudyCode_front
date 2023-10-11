@@ -54,7 +54,7 @@ const BlogHeader = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-bottom :1px solid var(--second) ;
+    border-bottom :1px solid var(--second);
     .blogName{
         margin-top: 80px;
         font-size: 30px;
@@ -73,6 +73,9 @@ const BlogHeader = styled.div`
         justify-content: flex-start;
         font-size: 15px;
         > li {
+            display: flex;
+            flex-direction: row;
+            list-style: none;
             border :1px solid var(--second) ;
             width: 135px; height: 40px;
             align-items: center;

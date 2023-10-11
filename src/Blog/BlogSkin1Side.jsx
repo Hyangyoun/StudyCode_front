@@ -42,7 +42,6 @@ const Sidebar = styled.div`
     flex-direction: column;
     align-items: center;
     font-size: 15px;
-
     .profilepicture{
         width: 150px; height: auto;
         margin-top: 85px;
