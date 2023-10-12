@@ -1,20 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function OverView(props) {
 
     return (
         <MarkDownSection>
-            <Markdown rehypePlugins={[remarkGfm]} className={"MarkDown"}>
+            <Markdown 
+            rehypePlugins={[remarkGfm]} 
+            className={"MarkDown"} 
+            components={{
+                code(props) {
+                  const {children, className, node, ...rest} = props
+                  const match = /language-(\w+)/.exec(className || '')
+                  return match ? (
+                    <SyntaxHighlighter
+                      {...rest}
+                      children={String(children).replace(/\n$/, '')}
+                      style={oneLight}
+                      language={match[1]}
+                      PreTag="div"
+                    />
+                  ) : (
+                    <code {...rest} className={className}>
+                      {children}
+                    </code>
+                  )
+                }
+              }}
+            >
                 {text}
             </Markdown>
         </MarkDownSection>
     )
 }
 
-const text = `# Project_Dream
+const text = `
+# Project_Dream
 
 * ### 사용시 주의사항!
 ___
@@ -38,13 +63,27 @@ ___
 ##### h5
 ###### h6
 
-![이미지](https://d1ictngapj85w0.cloudfront.net/landing_template/4f9fd4fd3121f3e7314941e1abdbcf47.jpg)
+![이미지](https://img.danawa.com/prod_img/500000/104/574/img/3574104_1.jpg?_v=20230811151418)
 
 > 위키백과?
 >> 중대장 드립 검색
 >>> "오늘 중대장은 너희에게 실망했다"
-`
 
+\`\`\`python
+py_vector = one_hot_encoding("파이",word2index)
+py_vector.dot(torch_vector)
+>>> 0.0
+\`\`\`
+
+\`\`\`java
+int a = 1;
+String b = "";
+\`\`\`
+
+\`asdf\`   
+asdfasdf   
+asdfasdf
+`
 const MarkDownSection = styled.div`
     width: 1200px; height: auto;
     padding: 16px 32px 32px;
@@ -52,6 +91,10 @@ const MarkDownSection = styled.div`
     margin: auto;
     border: 2px solid var(--second2);
     background-color: white;
+
+    textarea {
+        width: 1000px; height: 400px;
+    }
 
     .MarkDown {
         * {
@@ -77,6 +120,16 @@ const MarkDownSection = styled.div`
             padding: 0 1em;
             border-left: 0.25em solid var(--second);
             margin: 0 0 16px;
+        }
+
+        p > code {
+            background-color: #E9ECEF;
+            border-radius: 0.3em;
+            padding: 0.3em 0.5em;
+        }
+
+        pre > div {
+            border: 1px solid var(--second);
         }
     }
 `
