@@ -27,16 +27,20 @@ function BlogSkin1Side(props){
                     <li>React</li>
                 </ul>
             </div>
+            <div className="home">
             <a href="./">
-            <img className="home" src="/image/icon/home.png" alt="프로필사진"/>
+            <img src="/image/icon/home.png" alt="메인화면으로돌아가기"/>
             </a>
+            </div>
         </Sidebar>
     )
 }
 
 /** 블로그 스타일 컴포넌트  */
 const Sidebar = styled.div`
-    width: 250px; height: 1180px;
+    width: 250px; height: auto;
+    min-height: 100%;
+    padding-bottom: 40px;
     border-right: 1px solid var(--second);
     display: flex;
     flex-direction: column;
@@ -123,8 +127,10 @@ const Sidebar = styled.div`
         }
     }
     .home{
-        margin-top: 400px;
-        width: 30px; height: auto;
+        width:30px; height: auto;
+        margin-top: 20%;
+        top: 900px;
+        position: sticky;
         cursor: pointer;
     }
     `
