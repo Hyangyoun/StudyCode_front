@@ -23,9 +23,9 @@ function BlogPage(props){
                 <BlogSection>
                     <BlogSkin1Side menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
                     <div>
-                    <BlogSkin1Header menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
-                    { menuIndex === 2 ? <BlogSkin1Post/> : null}
-                    { menuIndex === 1 ? null :<BlogSkin1Footer/>}
+                        <BlogSkin1Header menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                        { menuIndex === 2 ? <BlogSkin1Post/> : null}
+                        { menuIndex === 1 ? null :<BlogSkin1Footer/>}
                     </div>
                 </BlogSection>
             </>
