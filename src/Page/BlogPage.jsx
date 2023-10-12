@@ -3,6 +3,8 @@ import BlogSkin1Side from "../Blog/BlogSkin1Side";
 import BlogSkin1Header from "../Blog/BlogSkin1Header";
 import BlogSkin2 from "../Blog/BlogSkin2";
 import styled from "styled-components";
+import BlogSkin1Post from "../Blog/BlogSkin1Post";
+import BlogSkin1Footer from "../Blog/BlogSkin1Footer";
 
 
 function BlogPage(props){
@@ -17,10 +19,16 @@ function BlogPage(props){
     return(
         <>
             {skin === 1 ?
+            <>
                 <BlogSection>
                     <BlogSkin1Side menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                    <div>
                     <BlogSkin1Header menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                    { menuIndex === 2 ? <BlogSkin1Post/> : null}
+                    { menuIndex === 1 ? null :<BlogSkin1Footer/>}
+                    </div>
                 </BlogSection>
+            </>
                 :
                 skin === 2 ?
                     <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex}>
@@ -33,6 +41,10 @@ function BlogPage(props){
 const BlogSection = styled.div`
     display: flex;
     flex-direction: row;
+    div{
+        display: flex;
+        flex-direction: column;
+    }
         `
 
 export default BlogPage
