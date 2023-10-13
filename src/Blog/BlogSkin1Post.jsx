@@ -27,11 +27,11 @@ useEffect(()=>{
                     <span className="content">미안하다 이거 보여줄려고 어그로끌었다.. 
                     나루토 사스케 싸움수준 ㄹㅇ실화냐? 진짜 세계관최강자들의 싸움이다...</span>
                     <ul className="tagUl">
-                            <li>#JavaScript</li>
-                            <li>#JavaScript</li>
+                        <li>#JavaScript</li>
+                        <li>#JavaScript</li>
                     </ul>
-                        <span className="like">15</span>
-                        <span className="tiny">2023.09.13</span>
+                    <span className="like">15</span>
+                    <span className="tiny">2023.09.13</span>
                 </li>
             </ul>
         </BlogPost>
