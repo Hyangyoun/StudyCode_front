@@ -5,6 +5,8 @@ import BlogSkin2 from "../Blog/BlogSkin2";
 import styled from "styled-components";
 import BlogSkin1Post from "../Blog/BlogSkin1Post";
 import BlogSkin1Footer from "../Blog/BlogSkin1Footer";
+import BlogSkin1Repo from "../Blog/BlogSkin1Repo";
+import BlogSkin1Main from "../Blog/BlogSkin1Main";
 
 
 function BlogPage(props){
@@ -23,9 +25,10 @@ function BlogPage(props){
                 <BlogSection>
                     <BlogSkin1Side menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
                     <div>
-                    <BlogSkin1Header menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
-                    { menuIndex === 2 ? <BlogSkin1Post/> : null}
-                    { menuIndex === 1 ? null :<BlogSkin1Footer/>}
+                        <BlogSkin1Header menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                        {menuIndex === 1 ? <BlogSkin1Main/> :  menuIndex === 2 ? <BlogSkin1Post/> :
+                         menuIndex === 3 ? <BlogSkin1Repo/> : null}
+                        { menuIndex === 1 ? null :<BlogSkin1Footer/>}
                     </div>
                 </BlogSection>
             </>

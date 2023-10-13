@@ -31,10 +31,10 @@ const HandleScreenSize = () => {
     },[])
 
     return(
-        <BlogHeader $screenSize={screenSize} $menuClick={menuClick}>
+        <BlogHeader $screenSize={screenSize} $menuClick={menuClick} $menuIndex={menuIndex}>
             <div className="blogName">내 토요일 내놔</div>
             <div className="blogMain">
-                {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" : menuIndex === 3 ? "repository" : null}
+                {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" : menuIndex === 3 ? "repository[코테]" : null}
             </div>
             <div>
                 {menu ? null:
@@ -55,7 +55,7 @@ const BlogHeader = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-bottom :1px solid var(--second);
+    border-bottom :${props => props.$menuIndex === 3 ? null : 1}px solid var(--second);
     .blogName{
         margin-top: 80px;
         font-size: 30px;
