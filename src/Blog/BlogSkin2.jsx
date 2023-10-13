@@ -70,7 +70,7 @@ const SideBar = styled.div`
     position: fixed;
     box-sizing: border-box;
     top: 0;
-    border: 1px solid #674188;
+    border: 1px solid var(--primary);
     left: ${(props) => (props.$side ? 0 : -250)}px;
     transition: 0.5s;
     z-index: 2;
@@ -115,11 +115,14 @@ const SideBar = styled.div`
         margin-top: 35px;
 
         &>ul {
+            display: flex;
+            padding: 0;
             flex-direction: column;
             margin: 15px 0 0 30px;
             font-size: 15px;
 
             > li {
+                display: flex;
                 cursor: pointer;
             }
 

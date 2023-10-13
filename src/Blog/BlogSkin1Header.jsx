@@ -5,12 +5,20 @@ function BlogSkin1Header(props){
 
     const {menuIndex, changeMenuIndex} = props
 
-    const [menuClick, setMenuClick] = useState(1) //클릭시 색 변화 감지 state
-    const [menu , setMenu] =useState(false) //코데 스터디 등 메뉴의 보이기 유무 state
+    const [menuClick, setMenuClick] = useState(1) // 코테 스터디 등 메뉴 클릭 감지 state
+    const [menu , setMenu] =useState(true) //코데 스터디 등 메뉴의 보이기 유무 state
     const [screenSize , setScreenSize] = useState(window.innerWidth - 250) //윈도우 크기 감지 state
 
+/** menuIndex 변화 감지 */
+    useEffect(() => {
+        if(menuIndex === 2){
+            return setMenu(false)
+        }
+        else setMenu(true)
+    },[menuIndex])
+
 /** 윈도우 변화 감지 */
-    const HandleScreenSize = () => {
+const HandleScreenSize = () => {
         setScreenSize(window.innerWidth - 250)
     }
 
@@ -23,11 +31,14 @@ function BlogSkin1Header(props){
     },[])
 
     return(
-        <BlogHeader $screenSize={screenSize} $menuClick={menuClick}> 
+        <BlogHeader $screenSize={screenSize} $menuClick={menuClick} $menuIndex={menuIndex}>
             <div className="blogName">내 토요일 내놔</div>
-            <div className="blogMain">메인(overview)</div>
+            <div className="blogMain">
+                {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" : menuIndex === 3 ? "repository" : null}
+            </div>
             <div>
-                {menu ? null:<ul className="blogMenu">
+                {menu ? null:
+                <ul className="blogMenu">
                     <li onClick={() => setMenuClick(1)}>코테</li>
                     <li onClick={() => setMenuClick(2)}>스터디&모음</li>
                     <li onClick={() => setMenuClick(3)}>프로젝트</li>
@@ -44,7 +55,7 @@ const BlogHeader = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-bottom :1px solid #C3ACD0 ;
+    border-bottom :${props => props.$menuIndex === 3 ? null : 1}px solid var(--second);
     .blogName{
         margin-top: 80px;
         font-size: 30px;
@@ -63,7 +74,10 @@ const BlogHeader = styled.div`
         justify-content: flex-start;
         font-size: 15px;
         > li {
-            border :1px solid #C3ACD0 ;
+            display: flex;
+            flex-direction: row;
+            list-style: none;
+            border :1px solid var(--second) ;
             width: 135px; height: 40px;
             align-items: center;
             justify-content: center;
@@ -71,10 +85,10 @@ const BlogHeader = styled.div`
         }
         > li:hover {
             color: white;
-            background-color: #C3ACD0;
+            background-color: var(--second);
         }
         :nth-child(${props =>props.$menuClick}){
-            background-color: #C3ACD0;
+            background-color: var(--second);
             color: white;
         }
 

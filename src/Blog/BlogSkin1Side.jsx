@@ -8,14 +8,14 @@ function BlogSkin1Side(props){
 
     return(
         <Sidebar $menuIndex={menuIndex}>
-            <img className="profilepicture" src="/image/icon/profile.png" alt="프로필사진"/>
-            <div className="nickname">js싫어요</div>
+            <img className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
+            <div className="nickName">js싫어요</div>
             <div className="follow">
                 <span>팔로우{}</span>
                 <span>팔로잉{}</span>
             </div>
             <span className="write">글쓰기</span>
-            <div className="cartegoryform" >
+            <div className="cartegoryForm" >
                 <div onClick={() => changeMenuIndex(1)} className="overview">메인(overview)</div>
                 <div onClick={() => changeMenuIndex(2)} className="post">포스트(post)</div>
                 <div onClick={() => changeMenuIndex(3)} className="repository">repository</div>
@@ -26,30 +26,38 @@ function BlogSkin1Side(props){
                     <li>Spring</li>
                     <li>React</li>
                 </ul>
+            </div >{ menuIndex !== 1 ?
+            <div className="searchForm">
+                <input className="searchInput" type="text" />
+                <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼"/>
+            </div> : null}
+            <div className="home">
+                <a href="./">
+                    <img src="/image/icon/home.png" alt="메인화면으로돌아가기"/>
+                </a>
             </div>
-            <a href="./">
-            <img className="home" src="/image/icon/home.png" alt="프로필사진"/>
-            </a>
         </Sidebar>
     )
 }
 
 /** 블로그 스타일 컴포넌트  */
 const Sidebar = styled.div`
-    width: 250px; height: 1180px;
-    border-right: 1px solid #C3ACD0;
+    width: 250px; height: auto;
+    min-height: 100%;
+    padding-bottom: 40px;
+    border-right: 1px solid var(--second);
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 15px;
 
-    .profilepicture{
+    .profilePicture{
         width: 150px; height: auto;
         margin-top: 85px;
         cursor: pointer;
     }
 
-    .nickname{
+    .nickName{
         margin-top: 10px;
         align-items: center;
         text-align: center;
@@ -60,7 +68,6 @@ const Sidebar = styled.div`
         margin-top: 15px;
         display: flex;
         flex-direction: row;
-
         >span{
             margin: 0 10px 0 10px;
         }
@@ -70,28 +77,30 @@ const Sidebar = styled.div`
         margin-top: 10px;
         display: flex;
         justify-content:center;
-        color: #674188;
+        color: var(--primary);
         cursor: pointer;
+        &:hover{
+            font-weight: bold;
+        }
     }
 
-    .cartegoryform{
+    .cartegoryForm{
     margin-top: 70px;
-    
         >div{
             width: 135px; height: 40px;
             margin: 10px;
-            border: 1px solid #C3ACD0;
+            border: 1px solid var(--second);
             display: flex;
             justify-content: center;
             align-items: center;
         }
         >div:hover{
-            border: 1px solid #674188;
+            border: 1px solid var(--primary);
             font-weight: bold;
             cursor: pointer;
         }
         :nth-child(${props =>props.$menuIndex}){
-            border: 1px solid #674188;
+            border: 1px solid var(--primary);
             font-weight: bold;
             cursor: pointer;
         }
@@ -100,16 +109,18 @@ const Sidebar = styled.div`
     .tagBox {
         margin-top: 40px;
         font-size: 20px;
-
         &>ul {
+            display: flex;
             flex-direction: column;
             margin: 15px 0 0 30px;
+            padding: 0;
             font-size: 15px;
             > li {
+                display: flex;
                 cursor: pointer;
             }
             > li:hover {
-                color: #674188;
+                color: var(--primary);
                 text-decoration: underline;
             }
             li:not(:last-child) {
@@ -117,9 +128,30 @@ const Sidebar = styled.div`
             }
         }
     }
+
+    .searchForm{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
+    
+    .searchInput{
+        box-sizing: border-box;
+        width: 150px; height: 30px;
+        padding-right: 30px;
+    }
+
+    .searchRight{
+        position: relative;
+        left: 60px;
+        bottom: 27px;
+    }
     .home{
-        margin-top: 400px;
-        width: 30px; height: auto;
+        width:30px; height: auto;
+        margin-top: 20%;
+        top: 900px;
+        position: sticky;
         cursor: pointer;
     }
     `
