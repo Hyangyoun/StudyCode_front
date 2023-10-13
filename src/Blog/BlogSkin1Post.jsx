@@ -6,17 +6,17 @@ function BlogSkin1Post(props){
     const [screenSize , setScreenSize] = useState(window.innerWidth - 250) //윈도우 크기 감지 state
 
     /** 윈도우 변화 감지 */
-const HandleScreenSize = () => {
-    setScreenSize(window.innerWidth - 250)
-}
+    const HandleScreenSize = () => {
+        setScreenSize(window.innerWidth - 250)
+    }
 
 //윈도우 변화를 감시할 이벤트 생성과 삭제
-useEffect(()=>{
-    window.addEventListener('resize', HandleScreenSize);
-    return () => { // cleanup 
-        window.removeEventListener('resize', HandleScreenSize);
-    }
-},[])
+    useEffect(()=>{
+        window.addEventListener('resize', HandleScreenSize);
+        return () => { // cleanup 
+            window.removeEventListener('resize', HandleScreenSize);
+        }
+    },[])
 
     return(
         <BlogPost $screenSize={screenSize} >
@@ -27,11 +27,13 @@ useEffect(()=>{
                     <span className="content">미안하다 이거 보여줄려고 어그로끌었다.. 
                     나루토 사스케 싸움수준 ㄹㅇ실화냐? 진짜 세계관최강자들의 싸움이다...</span>
                     <ul className="tagUl">
-                            <li>#JavaScript</li>
-                            <li>#JavaScript</li>
+                        <li>JavaScript</li>
+                        <li>React</li>
                     </ul>
+                    <div className="likeDiv">
                         <span className="like">15</span>
                         <span className="tiny">2023.09.13</span>
+                    </div>
                 </li>
             </ul>
         </BlogPost>
@@ -65,6 +67,7 @@ const BlogPost = styled.div`
         }
         .title {
             font-size: 20px;
+            font-weight: bold;
             margin: 20px 0 ;
             cursor: pointer;
 
@@ -72,21 +75,24 @@ const BlogPost = styled.div`
         .content {
             font-size: 15px;
             margin-bottom: 20px;
+            
+        }
+        .likeDiv{
+            margin-top: 20px;
+            display: inline-block;
+            font-size: 12px;
 
         }
-        .tiny {
-            margin: 0 5px 0 auto;
-            font-size: 12px;
-        }
         .like {
-            font-size: 12px;
-            margin: 0 5px 0 auto;
             cursor: pointer;
             &::before{
                 object-fit: fill;
                 width: auto; height: 15px;
                 content: url("./image/icon/heart.png");
             }
+        }
+        .tiny {
+            margin-left: 10px;
         }
     }
     .tagUl {
@@ -96,7 +102,6 @@ const BlogPost = styled.div`
             align-items: center;
             flex-wrap: wrap;
             padding: 0;
-            cursor: pointer;
             &>li {
                 display: flex;              
                 width: 103px; height: 25px;
@@ -107,6 +112,7 @@ const BlogPost = styled.div`
                 font-size: 15px;
                 color: var(--primary);
                 margin: 0 5px;
+                cursor: pointer;
             }
     }
 `

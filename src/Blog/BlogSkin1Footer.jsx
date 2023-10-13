@@ -22,10 +22,10 @@ useEffect(()=>{
 
     return(
         <BlogFooter $postListIndex={postListIndex}>
-        <ul className="nextbutton">
-            <li onClick={() => {setpostListIndex(1)}}>{1}</li>
-            <li onClick={() => {setpostListIndex((i) => i + 1)}}>{2}</li>
-        </ul>
+            <ul className="nextbutton">
+                <li onClick={() => {setpostListIndex(1)}}>{1}</li>
+                <li onClick={() => {setpostListIndex((i) => i + 1)}}>{2}</li>
+            </ul>
         </BlogFooter>
     )
 }
