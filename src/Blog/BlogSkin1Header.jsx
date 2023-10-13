@@ -37,7 +37,8 @@ const HandleScreenSize = () => {
                 {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" : menuIndex === 3 ? "repository" : null}
             </div>
             <div>
-                {menu ? null:<ul className="blogMenu">
+                {menu ? null:
+                <ul className="blogMenu">
                     <li onClick={() => setMenuClick(1)}>코테</li>
                     <li onClick={() => setMenuClick(2)}>스터디&모음</li>
                     <li onClick={() => setMenuClick(3)}>프로젝트</li>
