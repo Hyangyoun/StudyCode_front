@@ -5,6 +5,7 @@ import BlogSkin2 from "../Blog/BlogSkin2";
 import styled from "styled-components";
 import BlogSkin1Post from "../Blog/BlogSkin1Post";
 import BlogSkin1Footer from "../Blog/BlogSkin1Footer";
+import BlogSkin1Followers from "../Blog/BlogSkin1Followers";
 
 
 function BlogPage(props){
@@ -26,6 +27,7 @@ function BlogPage(props){
                         <BlogSkin1Header menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
                         { menuIndex === 2 ? <BlogSkin1Post/> : null}
                         { menuIndex === 1 ? null :<BlogSkin1Footer/>}
+                        { menuIndex === 4 ? <BlogSkin1Followers/> : null}
                     </div>
                 </BlogSection>
             </>
