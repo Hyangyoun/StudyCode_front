@@ -11,8 +11,8 @@ function BlogSkin1Side(props){
             <img className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
             <div className="nickName">js싫어요</div>
             <div className="follow">
-                <span>팔로우{}</span>
-                <span>팔로잉{}</span>
+                <span onClick={() => changeMenuIndex(4)}>팔로우{}</span>
+                <span onClick={() => changeMenuIndex(4)}>팔로잉{}</span>
             </div>
             <span className="write">글쓰기</span>
             <div className="cartegoryForm" >
@@ -26,7 +26,7 @@ function BlogSkin1Side(props){
                     <li>Spring</li>
                     <li>React</li>
                 </ul>
-            </div >{ menuIndex !== 1 ?
+            </div >{ menuIndex === 2 || menuIndex === 3 ?
             <div className="searchForm">
                 <input className="searchInput" type="text" />
                 <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼"/>
@@ -69,6 +69,7 @@ const Sidebar = styled.div`
         display: flex;
         flex-direction: row;
         >span{
+            cursor: pointer;
             margin: 0 10px 0 10px;
         }
     }

@@ -6,6 +6,7 @@ import OverView from "../Blog/OverView";
 import styled from "styled-components";
 import BlogSkin1Post from "../Blog/BlogSkin1Post";
 import BlogSkin1Footer from "../Blog/BlogSkin1Footer";
+import BlogSkin1Followers from "../Blog/BlogSkin1Followers";
 import BlogSkin1Repo from "../Blog/BlogSkin1Repo";
 import BlogSkin1Main from "../Blog/BlogSkin1Main";
 
