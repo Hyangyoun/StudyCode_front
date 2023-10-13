@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import React, { useEffect, useState } from "react";
 
 function BlogSkin1Repo(props){
 
@@ -8,9 +7,7 @@ function BlogSkin1Repo(props){
             <ul className="repo">
                 <li className="repoFirst">
                     <span className="nickName">{"js싫어요"} 의 저장소</span>
-                    <label htmlFor="addInput" className="addFolder">폴더추가
-                        <input type="file" accept="" id="addInput" />
-                    </label >
+                    <div className="addFolder">폴더추가</div >
                 </li>
                 <li className="repoList">
                     <span className="folderName">React</span>
@@ -76,10 +73,6 @@ const RepoList = styled.div`
         }
     }
     
-    #addInput{
-        display: none;
-    }
-
     .repoList{
         width:auto;
         height: 40px;

@@ -34,7 +34,7 @@ const HandleScreenSize = () => {
         <BlogHeader $screenSize={screenSize} $menuClick={menuClick} $menuIndex={menuIndex}>
             <div className="blogName">내 토요일 내놔</div>
             <div className="blogMain">
-                {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" : menuIndex === 3 ? "repository[코테]" : null}
+                {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" : menuIndex === 3 ? "repository" : null}
             </div>
             <div>
                 {menu ? null:
