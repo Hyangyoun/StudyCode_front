@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BlogSkin1Side from "../Blog/BlogSkin1Side";
 import BlogSkin1Header from "../Blog/BlogSkin1Header";
 import BlogSkin2 from "../Blog/BlogSkin2";
@@ -39,12 +39,14 @@ function BlogPage(props){
                     <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
                     : null
             }
-            <OverView overView={overView}/> 
+            
         </>
     )
 }
 
-const overView = `
+const overView = {
+blogIndex: 1,
+content:`
 # Project_Dream
 
 * ### 사용시 주의사항!
@@ -89,7 +91,7 @@ String b = "";
 \`asdf\`   
 asdfasdf   
 asdfasdf
-`
+`}
 const BlogSection = styled.div`
     display: flex;
     flex-direction: row;

@@ -4,7 +4,6 @@ import LoginPage from './Page/LoginPage';
 import MembershipPage from './Page/MembershipPage';
 import BlogPage from './Page/BlogPage';
 import { BrowserRouter,Route, Routes } from 'react-router-dom';
-import './App.css';
 
 function App() {
   return (
