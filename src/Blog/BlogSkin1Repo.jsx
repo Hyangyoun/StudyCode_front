@@ -7,7 +7,7 @@ function BlogSkin1Repo(props){
             <ul className="repo">
                 <li className="repoFirst">
                     <span className="nickName">{"js싫어요"} 의 저장소</span>
-                    <div className="addFolder">폴더추가</div >
+                    <div className="addFolder">폴더추가</div>
                 </li>
                 <li className="repoList">
                     <span className="folderName">React</span>

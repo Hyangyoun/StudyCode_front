@@ -55,7 +55,7 @@ const BlogHeader = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-bottom :${props => props.$menuIndex === 3 ? null : 1}px solid var(--second);
+    border-bottom :${props => props.$menuIndex === 3 ? null : props.$menuIndex === 4 ? null : 1}px solid var(--second);
     .blogName{
         margin-top: 80px;
         font-size: 30px;

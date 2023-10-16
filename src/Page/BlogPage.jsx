@@ -13,7 +13,7 @@ import BlogSkin1Main from "../Blog/BlogSkin1Main";
 
 function BlogPage(props){
     const [menuIndex, setMenuIndex] = useState(1)
-    const [skin, setSkin] = useState(2)
+    const [skin, setSkin] = useState(1)
 
     /** props로 넘어갈 state set 함수 */
     const ChangeMenuIndex = (value) => {
@@ -29,7 +29,7 @@ function BlogPage(props){
                     <div>
                         <BlogSkin1Header menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
                         {menuIndex === 1 ? <BlogSkin1Main/> :  menuIndex === 2 ? <BlogSkin1Post/> :
-                         menuIndex === 3 ? <BlogSkin1Repo/> : null}
+                         menuIndex === 3 ? <BlogSkin1Repo/> : menuIndex === 4 ? <BlogSkin1Followers/> : null}
                         { menuIndex === 2 ? <BlogSkin1Footer/> : null}
                     </div>
                 </BlogSection>
