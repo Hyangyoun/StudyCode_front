@@ -9,7 +9,7 @@ import BlogSkin1Main from "../Blog/BlogSkin1Main";
 
 function BlogSkin1 (props){
 
-    const {menuIndex, changeMenuIndex} = props
+    const {menuIndex, changeMenuIndex ,overView} = props
 
     const [menuClick, setMenuClick] = useState(1) // 코테 스터디 등 메뉴 클릭 감지 state
     const [menu , setMenu] =useState(true) //코데 스터디 등 메뉴의 보이기 유무 state
@@ -38,25 +38,27 @@ const HandleScreenSize = () => {
 
     return(
         <BlogSection>
-        <BlogSkin1Side menuIndex={menuIndex} changeMenuIndex={changeMenuIndex}/>
-        <BlogHeader $screenSize={screenSize} $menuClick={menuClick} $menuIndex={menuIndex}>
-            <div className="blogName">내 토요일 내놔</div>
-            <div className="blogMain">
-                {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" :
-                 menuIndex === 3 ? "repository": menuIndex === 4 ? "팔로워": null}
-            <div>
-                {menu ? null:
-                <ul className="blogMenu">
-                    <li onClick={() => setMenuClick(1)}>코테</li>
-                    <li onClick={() => setMenuClick(2)}>스터디&모음</li>
-                    <li onClick={() => setMenuClick(3)}>프로젝트</li>
-                    <li>+</li>
-                </ul>}
-            </div>
-            </div>
-                    {menuIndex === 1 ? <BlogSkin1Main/> :  menuIndex === 2 ? <BlogSkin1Post/> :
-                     menuIndex === 3 ? <BlogSkin1Repo/> : menuIndex === 4 ? <BlogSkin1Followers/> : null}
-        </BlogHeader>
+
+            <BlogSkin1Side menuIndex={menuIndex} changeMenuIndex={changeMenuIndex}/>
+
+            <BlogHeader $screenSize={screenSize} $menuClick={menuClick} $menuIndex={menuIndex}>
+                <div className="blogName">내 토요일 내놔</div>
+                <div className="blogMain">
+                        {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" :
+                        menuIndex === 3 ? "repository": menuIndex === 4 ? "팔로워": null}
+                    <div>
+                        {menu ? null:
+                        <ul className="blogMenu">
+                            <li onClick={() => setMenuClick(1)}>코테</li>
+                            <li onClick={() => setMenuClick(2)}>스터디&모음</li>
+                            <li onClick={() => setMenuClick(3)}>프로젝트</li>
+                            <li>+</li>
+                        </ul>}
+                    </div>
+                </div>
+                        {menuIndex === 1 ? <BlogSkin1Main overView={overView}/> :  menuIndex === 2 ? <BlogSkin1Post/> :
+                        menuIndex === 3 ? <BlogSkin1Repo/> : menuIndex === 4 ? <BlogSkin1Followers/> : null}
+            </BlogHeader>
         </BlogSection>
     )
 }
@@ -85,6 +87,7 @@ const BlogHeader = styled.div`
     }
     .blogMain{
         margin-top: 80px;
+        padding-bottom: 10px;
         font-size: 20px;
         font-weight: bold;
         display: flex;

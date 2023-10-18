@@ -11,7 +11,7 @@ function BlogSkin1Repo(props){
                     <div className="folderform">
                         { addFolder ? 
                         <div className="addBox">
-                            <input type="text"/><div className="addFolder">추가하기</div>
+                            <input type="text" placeholder="폴더이름"/><div className="addFolder">추가하기</div>
                         </div>
                         : null}
                         <div className="addFolderBtn" onClick={() => setAddFolder(!addFolder)}>폴더추가</div>

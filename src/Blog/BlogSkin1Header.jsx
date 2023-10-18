@@ -9,7 +9,7 @@ import BlogSkin1Side from "./BlogSkin1Side";
 
 function BlogSkin1Header(props){
 
-    const {menuIndex, changeMenuIndex} = props
+    const {menuIndex} = props
 
     const [menuClick, setMenuClick] = useState(1) // 코테 스터디 등 메뉴 클릭 감지 state
     const [menu , setMenu] =useState(true) //코데 스터디 등 메뉴의 보이기 유무 state
@@ -68,126 +68,9 @@ const BlogSection = styled.div`
         flex-direction: column;
     }
 `
-/** 블로그 사이드바 스타일 컴포넌트  */
-const Sidebar = styled.div`
-    width: 250px; height: auto;
-    min-height: 100%;
-    padding-bottom: 40px;
-    border-right: 1px solid var(--second);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 15px;
-
-    .profilePicture{
-        width: 150px; height: auto;
-        margin-top: 85px;
-        cursor: pointer;
-    }
-
-    .nickName{
-        margin-top: 10px;
-        align-items: center;
-        text-align: center;
-        cursor: pointer;
-    }
-
-    .follow{
-        margin-top: 15px;
-        display: flex;
-        flex-direction: row;
-        >span{
-            cursor: pointer;
-            margin: 0 10px 0 10px;
-        }
-    }
-
-    .write{
-        margin-top: 10px;
-        display: flex;
-        justify-content:center;
-        color: var(--primary);
-        cursor: pointer;
-        &:hover{
-            font-weight: bold;
-        }
-    }
-
-    .cartegoryForm{
-    margin-top: 70px;
-        >div{
-            width: 135px; height: 40px;
-            margin: 10px;
-            border: 1px solid var(--second);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        >div:hover{
-            border: 1px solid var(--primary);
-            font-weight: bold;
-            cursor: pointer;
-        }
-        :nth-child(${props =>props.$menuIndex}){
-            border: 1px solid var(--primary);
-            font-weight: bold;
-            cursor: pointer;
-        }
-    }
-
-    .tagBox {
-        margin-top: 40px;
-        font-size: 20px;
-        &>ul {
-            display: flex;
-            flex-direction: column;
-            margin: 15px 0 0 30px;
-            padding: 0;
-            font-size: 15px;
-            > li {
-                display: flex;
-                cursor: pointer;
-            }
-            > li:hover {
-                color: var(--primary);
-                text-decoration: underline;
-            }
-            li:not(:last-child) {
-                margin-bottom: 10px;
-            }
-        }
-    }
-
-    .searchForm{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 40px;
-    }
-    
-    .searchInput{
-        box-sizing: border-box;
-        width: 150px; height: 30px;
-        padding-right: 30px;
-    }
-
-    .searchRight{
-        position: relative;
-        left: 60px;
-        bottom: 27px;
-    }
-    .home{
-        width:30px; height: auto;
-        margin-top: 20%;
-        top: 900px;
-        position: sticky;
-        cursor: pointer;
-    }
-    `
-
 const BlogHeader = styled.div`
     width:${props => props.$screenSize}px;
-    height: 290px;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -200,7 +83,7 @@ const BlogHeader = styled.div`
         cursor: pointer;
     }
     .blogMain{
-        margin-top: 80px;
+        margin-top: 120px;
         font-size: 20px;
         font-weight: bold;
     }

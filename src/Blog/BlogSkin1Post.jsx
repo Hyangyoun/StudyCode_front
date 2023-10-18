@@ -55,7 +55,7 @@ const BlogPost = styled.div`
         margin: 0;
     }
     .post {
-        margin-top: 30px;
+        margin-top: 40px;
         display: flex;
         flex-direction: column;
         width: 700px; height: 600px;

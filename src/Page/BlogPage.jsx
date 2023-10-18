@@ -14,20 +14,17 @@ function BlogPage(props){
 
     return(
         <>
-            {skin === 1 ?<BlogSkin1 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />:
+            {skin === 1 ?<BlogSkin1 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} overView={overView} />:
             skin === 2 ?
             <>
                 <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex}/>
-                <OverView/>
             </>:
             null}
         </>
     )
 }
 
-const overView = {
-blogIndex: 1,
-content:`
+const overView = `
 # Project_Dream
 
 * ### 사용시 주의사항!
@@ -72,6 +69,6 @@ String b = "";
 \`asdf\`   
 asdfasdf   
 asdfasdf
-`}
+`
 
 export default BlogPage
