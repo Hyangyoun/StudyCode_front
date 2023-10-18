@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import BlogSkin1Footer from "../Blog/BlogSkin1Footer";
 
 function BlogSkin1Post(props){
 
@@ -19,6 +20,7 @@ function BlogSkin1Post(props){
     },[])
 
     return(
+    <>
         <BlogPost $screenSize={screenSize} >
             <ul>
                 <li className="post">
@@ -37,6 +39,8 @@ function BlogSkin1Post(props){
                 </li>
             </ul>
         </BlogPost>
+        <BlogSkin1Footer/>
+    </>
     )
 }
 
@@ -61,7 +65,6 @@ const BlogPost = styled.div`
             width: 700px; height: 370px;
             border-radius: 5px 5px 0 0;
             overflow: hidden;
-            margin-top: 30px;
             cursor: pointer;
 
         }

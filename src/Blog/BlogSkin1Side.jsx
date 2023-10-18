@@ -40,7 +40,7 @@ function BlogSkin1Side(props){
     )
 }
 
-/** 블로그 스타일 컴포넌트  */
+/** 블로그 사이드바 스타일 컴포넌트  */
 const Sidebar = styled.div`
     width: 250px; height: auto;
     min-height: 100%;
