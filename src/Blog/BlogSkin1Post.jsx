@@ -50,17 +50,17 @@ const BlogPost = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: 0;
+
     ul{
         margin: 0;
     }
     .post {
+        margin-top: 30px;
         display: flex;
         flex-direction: column;
         width: 700px; height: 600px;
         background-color: var(--background);
         border-bottom:1px solid var(--second);
-
         &>img{
             width: 700px; height: 370px;
             border-radius: 5px 5px 0 0;

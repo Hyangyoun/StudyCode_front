@@ -4,6 +4,7 @@ import BlogSkin1Post from "../Blog/BlogSkin1Post";
 import BlogSkin1Followers from "../Blog/BlogSkin1Followers";
 import BlogSkin1Repo from "../Blog/BlogSkin1Repo";
 import BlogSkin1Main from "../Blog/BlogSkin1Main";
+import BlogSkin1Side from "./BlogSkin1Side";
 
 
 function BlogSkin1Header(props){
@@ -37,36 +38,7 @@ const HandleScreenSize = () => {
 
     return(
         <BlogSection>
-        <Sidebar $menuIndex={menuIndex}>
-        <img className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
-        <div className="nickName">js싫어요</div>
-        <div className="follow">
-            <span onClick={() => changeMenuIndex(4)}>팔로우{}</span>
-            <span onClick={() => changeMenuIndex(4)}>팔로잉{}</span>
-        </div>
-        <span className="write">글쓰기</span>
-        <div className="cartegoryForm" >
-            <div onClick={() => changeMenuIndex(1)} className="overview">메인(overview)</div>
-            <div onClick={() => changeMenuIndex(2)} className="post">포스트(post)</div>
-            <div onClick={() => changeMenuIndex(3)} className="repository">repository</div>
-        </div>
-        <div className="tagBox"> Tag
-            <ul>
-                <li>JavaScript</li>
-                <li>Spring</li>
-                <li>React</li>
-            </ul>
-        </div >{ menuIndex === 2 || menuIndex === 3 ?
-        <div className="searchForm">
-            <input className="searchInput" type="text" />
-            <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼"/>
-        </div> : null}
-        <div className="home">
-            <a href="./">
-                <img src="/image/icon/home.png" alt="메인화면으로돌아가기"/>
-            </a>
-        </div>
-    </Sidebar>
+        <BlogSkin1Side menuIndex={menuIndex}/>
         <BlogHeader $screenSize={screenSize} $menuClick={menuClick} $menuIndex={menuIndex}>
             <div className="blogName">내 토요일 내놔</div>
             <div className="blogMain">

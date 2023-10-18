@@ -35,7 +35,7 @@ const RepoList = styled.div`
         width: 1000px;
         height: auto;
         padding: 0;
-        margin: 0;
+        margin: 70px 0 0 0;
         list-style: none;
     }
 

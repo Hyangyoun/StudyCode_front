@@ -1,13 +1,18 @@
+import { useState } from "react"
 import styled from "styled-components"
 
 function BlogSkin1Repo(props){
-
+    const [addFolder,setAddFolder] = useState(false)
     return(
         <RepoList>
             <ul className="repo">
                 <li className="repoFirst">
                     <span className="nickName">{"js싫어요"} 의 저장소</span>
-                    <div className="addFolder">폴더추가</div>
+                    <div className="folderform">
+                    <div className="addFolderBtn" onClick={() => setAddFolder(!addFolder)}>폴더추가</div>
+                    { addFolder ?
+                    <div className="addfolder"><input placeholder="폴더 이름"/></div> : null
+                    }</div>
                 </li>
                 <li className="repoList">
                     <span className="folderName">React</span>
@@ -36,8 +41,8 @@ const RepoList = styled.div`
         width: 1000px;
         height: auto;
         padding: 0;
-        margin: 0;
         list-style: none;
+        margin: 70px 0 0 0;
     }
 
     .repoFirst{
@@ -52,12 +57,15 @@ const RepoList = styled.div`
         background-color: var(--second2);
     }
 
+    .addfolder{
+        
+    }
     .nickName{
         margin-left: 10px;
         font-size: 15px;
     }
 
-    .addFolder{
+    .addFolderBtn{
         width: 70px; height: 20px;
         border: 1px solid var(--second);
         border-radius: 5px;
