@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import PostList from "../Blog/PostList";
+import Repo from "../Blog/Repo";
+import OverView from "./OverView";
+import Cartegory from "./Cartegory"
 
 function BlogSkin2(props) {
-    const {menuIndex, changeMenuIndex} = props
+    const {menuIndex, changeMenuIndex, overView} = props
 
     const [side, setSide] = useState(false)
     const [screen, Setscreen] = useState(window.innerWidth)
@@ -55,6 +59,10 @@ function BlogSkin2(props) {
                         <div onClick={() => changeMenuIndex(4)}>Repository</div>
                     </div>
                     <div className="pointer"/>
+                </div>
+                <div>
+                    {menuIndex === 1 ? <OverView overView={overView}/> :  menuIndex === 2 ? <PostList/> :
+                    menuIndex === 3 ? <Cartegory/> : menuIndex === 4 ? <Repo/> : null}
                 </div>
             </Header>
         </>
