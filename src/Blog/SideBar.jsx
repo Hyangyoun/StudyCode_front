@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 /** 블로그 메인  */
 
 function SideBar(props){
     const {menuIndex, changeMenuIndex} = props;
+    const navigate = useNavigate();
 
     return(
         <Sidebar $menuIndex={menuIndex}>
@@ -36,9 +38,7 @@ function SideBar(props){
                 null
             }
             <div className="home">
-                <a href="./">
-                    <img src="/image/icon/home.png" alt="메인화면으로돌아가기"/>
-                </a>
+                <img src="/image/icon/home.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
             </div>
         </Sidebar>
     )
@@ -46,13 +46,15 @@ function SideBar(props){
 
 /** 블로그 사이드바 스타일 컴포넌트  */
 const Sidebar = styled.div`
-    width: 250px; height: auto;
-    min-height: 100%;
+    width: 250px;
+    flex: 100%;
     padding-bottom: 40px;
     border-right: 1px solid var(--second);
     display: flex;
+    box-sizing: border-box;
     flex-direction: column;
     align-items: center;
+    position: relative;
     font-size: 15px;
 
     .profilePicture{
@@ -63,7 +65,6 @@ const Sidebar = styled.div`
 
     .nickName{
         margin-top: 10px;
-        align-items: center;
         text-align: center;
         cursor: pointer;
     }
@@ -74,14 +75,12 @@ const Sidebar = styled.div`
         flex-direction: row;
         >span{
             cursor: pointer;
-            margin: 0 10px 0 10px;
+            margin: 0 10px 0;
         }
     }
 
     .write{
         margin-top: 10px;
-        display: flex;
-        justify-content:center;
         color: var(--primary);
         cursor: pointer;
         &:hover{
@@ -93,7 +92,7 @@ const Sidebar = styled.div`
         margin-top: 70px;
         >div{
             width: 135px; height: 40px;
-            margin: 10px;
+            margin: 10px 0;
             border: 1px solid var(--second);
             display: flex;
             justify-content: center;
@@ -136,15 +135,17 @@ const Sidebar = styled.div`
 
     .searchForm{
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top: 40px;
+        margin: 40px 0 60px;
     }
     
     .searchInput{
         box-sizing: border-box;
         width: 150px; height: 30px;
         padding-right: 30px;
+        outline: none;
     }
 
     .searchRight{
@@ -154,9 +155,8 @@ const Sidebar = styled.div`
     }
     .home{
         width:30px; height: auto;
-        margin-top: 20%;
-        top: 900px;
-        position: sticky;
+        bottom: 40px;
+        position: absolute;
         cursor: pointer;
     }
     `

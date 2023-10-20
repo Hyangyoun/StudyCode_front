@@ -9,6 +9,10 @@ const GlobalStyle = createGlobalStyle`
         --background: #FFFBF5;
     }
 
+html, body, #root {
+  height: auto;
+}
+
 body {
   margin: 0;
   background-color: #FFFBF5;
@@ -44,7 +48,6 @@ body {
   }
   
   * {
-    box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
   }
 }

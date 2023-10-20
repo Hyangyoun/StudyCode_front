@@ -14,7 +14,7 @@ function BlogSkin1 (props){
     const [menu , setMenu] =useState(true) //코데 스터디 등 메뉴의 보이기 유무 state
     const [screenSize , setScreenSize] = useState(window.innerWidth - 250) //윈도우 크기 감지 state
 
-/** menuIndex 변화 감지 */
+    /** menuIndex 변화 감지 */
     useEffect(() => {
         if(menuIndex === 2){
             return setMenu(false)
@@ -22,12 +22,12 @@ function BlogSkin1 (props){
         else setMenu(true)
     },[menuIndex])
 
-/** 윈도우 변화 감지 */
-const HandleScreenSize = () => {
+    /** 윈도우 변화 감지 */
+    const HandleScreenSize = () => {
         setScreenSize(window.innerWidth - 250)
     }
 
-//윈도우 변화를 감시할 이벤트 생성과 삭제
+    //윈도우 변화를 감시할 이벤트 생성과 삭제
     useEffect(()=>{
         window.addEventListener('resize', HandleScreenSize);
         return () => { // cleanup 
@@ -41,8 +41,8 @@ const HandleScreenSize = () => {
             <BlogHeader $screenSize={screenSize} $menuClick={menuClick} $menuIndex={menuIndex}>
                 <div className="blogName">내 토요일 내놔</div>
                 <div className="blogMain">
-                        {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" :
-                        menuIndex === 3 ? "repository": menuIndex === 4 ? "팔로워": null}
+                    {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" :
+                    menuIndex === 3 ? "repository": menuIndex === 4 ? "팔로워": null}
                     <div>{menu ? null:
                         <ul className="blogMenu">
                             <li onClick={() => setMenuClick(1)}>코테</li>
@@ -50,22 +50,20 @@ const HandleScreenSize = () => {
                             <li onClick={() => setMenuClick(3)}>프로젝트</li>
                             <li>+</li>
                         </ul>
-                    }</div>
+                        }
+                    </div>
                 </div>
                 {menuIndex === 1 ? <OverView overView={overView}/> :  menuIndex === 2 ? <PostList/> :
                 menuIndex === 3 ? <Repo/> : menuIndex === 4 ? <Followers/> : null}
             </BlogHeader>
         </BlogSection>
-        )
+    )
 }
 
 const BlogSection = styled.div`
     display: flex;
     flex-direction: row;
-    div{
-        display: flex;
-        flex-direction: column;
-    }
+    height: auto;
 `
 /**블로그 헤더 스타일 */
 const BlogHeader = styled.div`
@@ -74,6 +72,7 @@ const BlogHeader = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    
     .blogName{
         margin-top: 80px;
         font-size: 30px;
@@ -82,14 +81,14 @@ const BlogHeader = styled.div`
     }
     .blogMain{
         margin-top: 80px;
-        padding-bottom: 10px;
         font-size: 20px;
         font-weight: bold;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         width:${props => props.$screenSize}px;
-        border-bottom :${props => props.$menuIndex === 3 ? null : props.$menuIndex === 4 ? null : 1}px solid var(--second);
+        border-bottom :${props => props.$menuIndex >= 3 ? null : 1}px solid var(--second);
     }
     .blogMenu{ 
         display: flex;
@@ -97,12 +96,13 @@ const BlogHeader = styled.div`
         align-items: center;
         justify-content: flex-start;
         font-size: 15px;
-        margin: 20px 0 0 0;
+        padding: 0;
+        margin: 20px 0 10px 0;
         > li {
             display: flex;
             flex-direction: row;
             list-style: none;
-            border :1px solid var(--second) ;
+            border :1px solid var(--second);
             width: 135px; height: 40px;
             align-items: center;
             justify-content: center;
@@ -115,6 +115,9 @@ const BlogHeader = styled.div`
         :nth-child(${props =>props.$menuClick}){
             background-color: var(--second);
             color: white;
+        }
+        :not(:last-child) {
+            border-right: 0;
         }
 
     }

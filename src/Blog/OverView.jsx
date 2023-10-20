@@ -48,10 +48,10 @@ function OverView(props) {
 }
 
 const MarkDownSection = styled.div`
-    width: 1200px; height: auto;
+    width: 80%; height: auto;
     padding: 16px 32px 32px;
     box-sizing: border-box;
-    margin: auto;
+    margin: 10px auto 0;
     border: 2px solid var(--second2);
     background-color: white;
 

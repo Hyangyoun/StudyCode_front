@@ -7,30 +7,30 @@ function Cartegory(props) {
             <Item>
                 <ul>
                     <div className="itemBox">
-                        <li><img className="itemImg" src="/image/icon/sample.png" alt="post" /></li>
-                        <li><img className="itemImg" src="/image/icon/naver.png" alt="post" /></li>
-                        <li><img className="itemImg" src="/image/icon/google.png" alt="post" /></li>
-                        <li><img className="itemImg" src="/image/icon/kakao.png" alt="post" /></li>
+                        <li><img src="/image/icon/naver.png" alt="post" /></li>
+                        <li><img src="/image/icon/sample.png" alt="post" /></li>
+                        <li><img src="/image/icon/google.png" alt="post" /></li>
+                        <li><img src="/image/icon/kakao.png" alt="post" /></li>
                     </div>
                     <span className="title" >프로젝트</span>
                     <span className="postCount">{4}</span>
                 </ul>
                 <ul>
                     <div className="itemBox">
-                        <li><img className="itemImg" src="/image/icon/sample.png" alt="post" /></li>
-                        <li><img className="itemImg" src="/image/icon/naver.png" alt="post" /></li>
-                        <li><img className="itemImg" src="/image/icon/google.png" alt="post" /></li>
-                        <li><img className="itemImg" src="/image/icon/kakao.png" alt="post" /></li>
+                        <li><img src="/image/icon/sample.png" alt="post" /></li>
+                        <li><img src="/image/icon/naver.png" alt="post" /></li>
+                        <li><img src="/image/icon/google.png" alt="post" /></li>
+                        <li><img src="/image/icon/kakao.png" alt="post" /></li>
                     </div>
                     <span className="title" >프로젝트</span>
                     <span className="postCount">{4}</span>
                 </ul>
                 <ul>
                     <div className="itemBox">
-                        <li><img className="itemImg" src="/image/icon/sample.png" alt="post" /></li>
-                        <li><img className="itemImg" src="/image/icon/naver.png" alt="post" /></li>
-                        <li><img className="itemImg" src="/image/icon/google.png" alt="post" /></li>
-                        <li><img className="itemImg" src="/image/icon/kakao.png" alt="post" /></li>
+                        <li><img src="/image/icon/sample.png" alt="post" /></li>
+                        <li><img src="/image/icon/naver.png" alt="post" /></li>
+                        <li><img src="/image/icon/google.png" alt="post" /></li>
+                        <li><img src="/image/icon/kakao.png" alt="post" /></li>
                     </div>
                     <span className="title" >프로젝트</span>
                     <span className="postCount">{4}</span>
@@ -69,7 +69,7 @@ const Item = styled.div`
         border-radius: 5px;
         margin-bottom: 10px;
     }
-    .itemImg{
+    Img{
         width: 130px; height: 70px;
         margin: 5px;
     }
@@ -81,7 +81,7 @@ const Item = styled.div`
     .postCount{
         font-size: 12px;
         &:after{
-            content: "의 포스트";
+            content: "개의 포스트";
         }
     }
     ul{

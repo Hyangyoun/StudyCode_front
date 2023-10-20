@@ -82,7 +82,6 @@ const SideBar = styled.div`
     left: ${(props) => (props.$side ? 0 : -250)}px;
     transition: 0.5s;
     z-index: 2;
-    overflow: scroll;
 
     .profileBox {
         width: 180px; height: 225px;

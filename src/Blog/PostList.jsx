@@ -12,7 +12,7 @@ function PostList(props){
         setScreenSize(window.innerWidth - 250)
     }
 
-//윈도우 변화를 감시할 이벤트 생성과 삭제
+    //윈도우 변화를 감시할 이벤트 생성과 삭제
     useEffect(()=>{
         window.addEventListener('resize', HandleScreenSize);
         return () => { // cleanup 
@@ -35,7 +35,7 @@ function PostList(props){
                             </ul>
                             <div className="likeDiv">
                                 <span className="like">15</span>
-                                <span className="tiny">2023.09.13</span>
+                                <span>2023.09.13</span>
                             </div>
                         </li>
                     </ul>
@@ -43,7 +43,7 @@ function PostList(props){
                 <BlogFooter $postListIndex={postListIndex}>
                     <ul className="nextbutton">
                         <li onClick={() => {setpostListIndex(1)}}>{1}</li>
-                        <li onClick={() => {setpostListIndex((i) => i + 1)}}>{2}</li>
+                        <li onClick={() => {setpostListIndex(2)}}>{2}</li>
                     </ul>
                 </BlogFooter>
             </>
@@ -59,6 +59,7 @@ const BlogPost = styled.div`
 
     ul{
         margin: 0;
+        padding: 0;
     }
     .post {
         margin-top: 40px;
@@ -72,36 +73,29 @@ const BlogPost = styled.div`
             border-radius: 5px 5px 0 0;
             overflow: hidden;
             cursor: pointer;
-
         }
         .title {
             font-size: 20px;
             font-weight: bold;
             margin: 20px 0 ;
             cursor: pointer;
-
         }
         .content {
             font-size: 15px;
             margin-bottom: 20px;
-            
         }
         .likeDiv{
             margin-top: 20px;
-            display: inline-block;
             font-size: 12px;
-
         }
         .like {
             cursor: pointer;
+            margin-right: 10px;
             &::before{
                 object-fit: fill;
                 width: auto; height: 15px;
                 content: url("./image/icon/heart.png");
             }
-        }
-        .tiny {
-            margin-left: 10px;
         }
     }
     .tagUl {
@@ -134,7 +128,6 @@ const BlogFooter = styled.div`
     justify-content: center;
     margin: 0;
     .nextbutton{
-        list-style: none;
         margin-top: 15px;
         padding: 0;
         display: flex;
@@ -144,7 +137,7 @@ const BlogFooter = styled.div`
         >li{
             width: 40px; height: 40px;
             color: black;
-            border-radius: 40px;
+            border-radius: 20px;
             margin: 0 5px;
             display: flex;
             justify-content: center;

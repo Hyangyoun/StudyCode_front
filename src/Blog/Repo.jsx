@@ -46,6 +46,12 @@ const RepoList = styled.div`
         padding: 0;
         list-style: none;
         margin: 70px 0 0 0;
+        border: 1px solid var(--second);
+        border-radius: 5px;
+
+        &>li:not(:last-child) {
+            border-bottom: 1px solid var(--second);
+        }
     }
 
     .repoFirst{
@@ -55,7 +61,6 @@ const RepoList = styled.div`
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        border: 1px solid var(--second);
         border-radius: 5px 5px 0 0;
         background-color: var(--second2);
     }
@@ -83,8 +88,8 @@ const RepoList = styled.div`
                 
         &>input{
         border-radius: 5px;
+        border-width: 0;
         border-bottom :1px solid var(--primary) ;
-        border-width: 0 0 1px 0;
         box-sizing: border-box;
         font-size: 15px;
         outline: none;
@@ -110,6 +115,7 @@ const RepoList = styled.div`
 
     .addFolder{
         display: flex;
+        justify-content: center;
         align-items: center;
         cursor: pointer;
         &:hover {
@@ -125,8 +131,6 @@ const RepoList = styled.div`
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        border: 1px solid var(--second);
-        border-top: 0px;
     }
 
     .folderName{
