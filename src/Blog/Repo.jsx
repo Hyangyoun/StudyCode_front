@@ -1,13 +1,21 @@
+import { useState } from "react"
 import styled from "styled-components"
 
-function BlogSkin1Repo(props){
-
+function Repo(props){
+    const [addFolder,setAddFolder] = useState(false) //폴더 추가 버튼
     return(
         <RepoList>
             <ul className="repo">
                 <li className="repoFirst">
                     <span className="nickName">{"js싫어요"} 의 저장소</span>
-                    <div className="addFolder">폴더추가</div>
+                    <div className="folderform">{addFolder ?
+                        <div className="addBox">
+                            <input type="text" placeholder="폴더이름"/><div className="addFolder">추가하기</div>
+                        </div>
+                        :
+                        null}
+                        <div className="addFolderBtn" onClick={() => setAddFolder(!addFolder)}>폴더추가</div>
+                    </div>
                 </li>
                 <li className="repoList">
                     <span className="folderName">React</span>
@@ -36,8 +44,8 @@ const RepoList = styled.div`
         width: 1000px;
         height: auto;
         padding: 0;
-        margin: 0;
         list-style: none;
+        margin: 70px 0 0 0;
     }
 
     .repoFirst{
@@ -51,13 +59,40 @@ const RepoList = styled.div`
         border-radius: 5px 5px 0 0;
         background-color: var(--second2);
     }
-
+    
     .nickName{
         margin-left: 10px;
         font-size: 15px;
     }
+    .folderform{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
 
-    .addFolder{
+    .addBox{
+        background-color: var(--second2);
+        display: flex;
+        flex-direction: column;
+        border-radius: 5px;
+        border: 1px solid var(--second);
+        font-size: 12px;
+        position: relative;
+        top:30px;
+        left: 70px;
+                
+        &>input{
+        border-radius: 5px;
+        border-bottom :1px solid var(--primary) ;
+        border-width: 0 0 1px 0;
+        box-sizing: border-box;
+        font-size: 15px;
+        outline: none;
+        background-color: var(--background);
+        }
+    }
+
+    .addFolderBtn{
         width: 70px; height: 20px;
         border: 1px solid var(--second);
         border-radius: 5px;
@@ -72,7 +107,17 @@ const RepoList = styled.div`
             background-color: var(--second);
         }
     }
-    
+
+    .addFolder{
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+            color: white;
+            background-color: var(--second);
+        }
+
+    }
     .repoList{
         width:auto;
         height: 40px;
@@ -123,4 +168,4 @@ const RepoList = styled.div`
         cursor: pointer;
     }
 `
-export default BlogSkin1Repo
+export default Repo

@@ -1,26 +1,26 @@
 import { useState } from "react"
 import styled from "styled-components"
 
-function BlogSkin1Followers(props){
+function Followers(props){
 
-    const [following , setFollowing] = useState(true);
+    const [following , setFollowing] = useState(true); //팔로우 언팔로우 버튼
 
     return(
-        <RepoList>
-            <ul className="followers">
-                <div className="followerFirst"></div>
-                <li className="followerList">
-                    <div className="follower">
-                        <img className="profileImage" src="/image/icon/profile.png" alt="profileImage"/>
-                        <span className="followerName">1010jk</span>
-                    </div>
-                    <div className="follwerBtn" onClick={() => setFollowing(!following)}>
-                        {following  ? "unfollow" : "follow"}
-                    </div>
-                </li>
-            </ul>
-        </RepoList>
-    )
+            <RepoList>
+                <ul className="followers">
+                    <div className="followerFirst"></div>
+                    <li className="followerList">
+                        <div className="follower">
+                            <img className="profileImage" src="/image/icon/profile.png" alt="profileImage"/>
+                            <span className="followerName">1010jk</span>
+                        </div>
+                        <div className="follwerBtn" onClick={() => setFollowing(!following)}>
+                            {following  ? "unfollow" : "follow"}
+                        </div>
+                    </li>
+                </ul>
+            </RepoList>
+        )
 }
 
 const RepoList = styled.div`
@@ -35,7 +35,7 @@ const RepoList = styled.div`
         width: 1000px;
         height: auto;
         padding: 0;
-        margin: 0;
+        margin: 70px 0 0 0;
         list-style: none;
     }
 
@@ -61,6 +61,7 @@ const RepoList = styled.div`
         border: 1px solid var(--second);
         border-top: 0px;
     }
+
     .follower{
         display: flex;
         flex-direction: row;
@@ -70,6 +71,7 @@ const RepoList = styled.div`
             text-decoration: underline;
         }
     }
+    
     .profileImage{
         width: 25px; height: auto;
     }
@@ -92,4 +94,4 @@ const RepoList = styled.div`
         cursor: pointer;
     }
 `
-export default BlogSkin1Followers
+export default Followers

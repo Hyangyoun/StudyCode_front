@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 /** 블로그 메인  */
 
-function BlogSkin1Side(props){
-    const {menuIndex, changeMenuIndex} = props
+function SideBar(props){
+    const {menuIndex, changeMenuIndex} = props;
 
     return(
         <Sidebar $menuIndex={menuIndex}>
@@ -26,11 +26,15 @@ function BlogSkin1Side(props){
                     <li>Spring</li>
                     <li>React</li>
                 </ul>
-            </div >{ menuIndex === 2 || menuIndex === 3 ?
-            <div className="searchForm">
-                <input className="searchInput" type="text" />
-                <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼"/>
-            </div> : null}
+            </div >
+            { menuIndex === 2 || menuIndex === 3 ?
+                <div className="searchForm">
+                    <input className="searchInput" type="text" />
+                    <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼"/>
+                </div>
+                :
+                null
+            }
             <div className="home">
                 <a href="./">
                     <img src="/image/icon/home.png" alt="메인화면으로돌아가기"/>
@@ -40,7 +44,7 @@ function BlogSkin1Side(props){
     )
 }
 
-/** 블로그 스타일 컴포넌트  */
+/** 블로그 사이드바 스타일 컴포넌트  */
 const Sidebar = styled.div`
     width: 250px; height: auto;
     min-height: 100%;
@@ -86,7 +90,7 @@ const Sidebar = styled.div`
     }
 
     .cartegoryForm{
-    margin-top: 70px;
+        margin-top: 70px;
         >div{
             width: 135px; height: 40px;
             margin: 10px;
@@ -157,4 +161,4 @@ const Sidebar = styled.div`
     }
     `
 
-export default BlogSkin1Side
+export default SideBar

@@ -1,19 +1,11 @@
 import { useEffect, useState } from "react";
-import BlogSkin1Side from "../Blog/BlogSkin1Side";
-import BlogSkin1Header from "../Blog/BlogSkin1Header";
 import BlogSkin2 from "../Blog/BlogSkin2";
 import OverView from "../Blog/OverView";
-import styled from "styled-components";
-import BlogSkin1Post from "../Blog/BlogSkin1Post";
-import BlogSkin1Footer from "../Blog/BlogSkin1Footer";
-import BlogSkin1Followers from "../Blog/BlogSkin1Followers";
-import BlogSkin1Repo from "../Blog/BlogSkin1Repo";
-import BlogSkin1Main from "../Blog/BlogSkin1Main";
-
+import BlogSkin1 from "../Blog/BlogSkin1";
 
 function BlogPage(props){
     const [menuIndex, setMenuIndex] = useState(1)
-    const [skin, setSkin] = useState(1)
+    const [skin, setSkin] = useState(2)
 
     /** props로 넘어갈 state set 함수 */
     const ChangeMenuIndex = (value) => {
@@ -22,31 +14,17 @@ function BlogPage(props){
 
     return(
         <>
-            {skin === 1 ?
+            {skin === 1 ?<BlogSkin1 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} overView={overView} />:
+            skin === 2 ?
             <>
-                <BlogSection>
-                    <BlogSkin1Side menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
-                    <div>
-                        <BlogSkin1Header menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
-                        {menuIndex === 1 ? <BlogSkin1Main/> :  menuIndex === 2 ? <BlogSkin1Post/> :
-                         menuIndex === 3 ? <BlogSkin1Repo/> : menuIndex === 4 ? <BlogSkin1Followers/> : null}
-                        { menuIndex === 2 ? <BlogSkin1Footer/> : null}
-                    </div>
-                </BlogSection>
-            </>
-                :
-                skin === 2 ?
-                    <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
-                    : null
-            }
-            
+                <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} overView={overView}/>
+            </>:
+            null}
         </>
     )
 }
 
-const overView = {
-blogIndex: 1,
-content:`
+const overView = `
 # Project_Dream
 
 * ### 사용시 주의사항!
@@ -91,15 +69,6 @@ String b = "";
 \`asdf\`   
 asdfasdf   
 asdfasdf
-`}
-const BlogSection = styled.div`
-    display: flex;
-    flex-direction: row;
-    
-    div{
-        display: flex;
-        flex-direction: column;
-    }
 `
 
 export default BlogPage

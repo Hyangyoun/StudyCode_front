@@ -1,0 +1,29 @@
+[
+  {
+    "postIndex": 1,
+    "memId": "thakd7092",
+    "categoryName": "리액트",
+    "title": "내 토요일 내놔",
+    "content": "이거 보여줄려고 어그로 끌었다",
+    "like": 0,
+    "postDate": "2023-10-17"
+  },
+  {
+    "postIndex": 3,
+    "memId": "thakd7092",
+    "categoryName": "코테",
+    "title": "내 월요일 저리가",
+    "content": "영차!",
+    "like": 0,
+    "postDate": "2023-10-16"
+  },
+  {
+    "postIndex": 5,
+    "memId": "thakd7092",
+    "categoryName": null,
+    "title": "내 수요일 저리가",
+    "content": "진행시켜!",
+    "like": 0,
+    "postDate": "2023-10-15"
+  }
+]
