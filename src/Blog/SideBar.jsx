@@ -37,9 +37,10 @@ function SideBar(props){
                 :
                 null
             }
-            <div className="home">
-                <img src="/image/icon/home.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
+            <div className="logo">
+                <img src="/image/icon/logo.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
             </div>
+            <span>블로그 설정</span>
         </Sidebar>
     )
 }
@@ -85,6 +86,7 @@ const Sidebar = styled.div`
         cursor: pointer;
         &:hover{
             font-weight: bold;
+            text-decoration:underline;
         }
     }
 
@@ -153,8 +155,7 @@ const Sidebar = styled.div`
         left: 60px;
         bottom: 27px;
     }
-    .home{
-        width:30px; height: auto;
+    .logo{
         bottom: 40px;
         position: absolute;
         cursor: pointer;

@@ -11,16 +11,7 @@ function BlogSkin1 (props){
     const {menuIndex, changeMenuIndex ,overView} = props
 
     const [menuClick, setMenuClick] = useState(1) // 코테 스터디 등 메뉴 클릭 감지 state
-    const [menu , setMenu] =useState(true) //코데 스터디 등 메뉴의 보이기 유무 state
     const [screenSize , setScreenSize] = useState(window.innerWidth - 250) //윈도우 크기 감지 state
-
-    /** menuIndex 변화 감지 */
-    useEffect(() => {
-        if(menuIndex === 2){
-            return setMenu(false)
-        }
-        else setMenu(true)
-    },[menuIndex])
 
     /** 윈도우 변화 감지 */
     const HandleScreenSize = () => {
@@ -38,24 +29,29 @@ function BlogSkin1 (props){
     return(
         <BlogSection>
             <SideBar menuIndex={menuIndex} changeMenuIndex={changeMenuIndex}/>
-            <BlogHeader $screenSize={screenSize} $menuClick={menuClick} $menuIndex={menuIndex}>
-                <div className="blogName">내 토요일 내놔</div>
-                <div className="blogMain">
-                    {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" :
-                    menuIndex === 3 ? "repository": menuIndex === 4 ? "팔로워": null}
-                    <div>{menu ? null:
-                        <ul className="blogMenu">
-                            <li onClick={() => setMenuClick(1)}>코테</li>
-                            <li onClick={() => setMenuClick(2)}>스터디&모음</li>
-                            <li onClick={() => setMenuClick(3)}>프로젝트</li>
-                            <li>+</li>
-                        </ul>
-                        }
+            <div>
+                <BlogHeader $screenSize={screenSize} $menuClick={menuClick} $menuIndex={menuIndex}>
+                    <div>
+                    <div className="blogName">내 토요일 내놔</div>
+                    <div className="blogMain">
+                        {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" :
+                        menuIndex === 3 ? "repository": menuIndex === 4 ? "팔로워": null}
+                        <div>{menuIndex ? 
+                            <ul className="blogMenu">
+                                <li onClick={() => setMenuClick(1)}>코테</li>
+                                <li onClick={() => setMenuClick(2)}>스터디&모음</li>
+                                <li onClick={() => setMenuClick(3)}>프로젝트</li>
+                                <li>+</li>
+                            </ul>
+                            :null
+                            }
+                        </div>
                     </div>
-                </div>
+                    </div>
+                </BlogHeader>
                 {menuIndex === 1 ? <OverView overView={overView}/> :  menuIndex === 2 ? <PostList/> :
                 menuIndex === 3 ? <Repo/> : menuIndex === 4 ? <Followers/> : null}
-            </BlogHeader>
+            </div>
         </BlogSection>
     )
 }
