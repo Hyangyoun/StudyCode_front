@@ -48,7 +48,7 @@ function SideBar(props){
 /** 블로그 사이드바 스타일 컴포넌트  */
 const Sidebar = styled.div`
     width: 250px;
-    min-height: 1100px;
+    min-height: 965px;
     flex: 100%;
     padding-bottom: 40px;
     border-right: 1px solid var(--second);
@@ -169,12 +169,17 @@ const Sidebar = styled.div`
         position: absolute;
         cursor: pointer;
         > img{
-            width: 130px;
-            height: 28px;
+            width: 150px;
+            height: auto;
         }
         > div{
             margin-top: 5px;
             text-align: center;
+            font-size: 12px;
+            color: var(--second);
+            &:hover {
+                color: var(--primary);
+            }
         }
     }
     `

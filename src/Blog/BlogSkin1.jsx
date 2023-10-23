@@ -31,36 +31,36 @@ function BlogSkin1 (props){
             <SideBar menuIndex={menuIndex} changeMenuIndex={changeMenuIndex}/>
             <div>
                 <BlogHeader $screenSize={screenSize} $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
-                        <span >{"내 토요일 내놔"}</span>
-                        <span className="blogMenu">
+                    <span >{"내 토요일 내놔"}</span>
+                    <span className="blogMenu">
+                        {
                             {
-                                {
-                                    1 : "메인",
-                                    2 : "post",
-                                    3 : "repository",
-                                    4 : "팔로워",
-                                }[menuIndex]
-                            }
-                        </span>
-                        {menuIndex === 2 ? 
-                            <ul className="categorys">
-                                <li onClick={() => setCartegoryIndex(1)}>코테</li>
-                                <li onClick={() => setCartegoryIndex(2)}>스터디&모음</li>
-                                <li onClick={() => setCartegoryIndex(3)}>프로젝트</li>
-                                <li onClick={() => setCartegoryIndex(4)}>분류없음</li>
-                                <li>+</li>
-                            </ul>
-                            :null
+                                1 : "메인",
+                                2 : "post",
+                                3 : "repository",
+                                4 : "팔로워",
+                            }[menuIndex]
                         }
+                    </span>
+                    {menuIndex === 2 ? 
+                        <ul className="categorys">
+                            <li onClick={() => setCartegoryIndex(1)}>코테</li>
+                            <li onClick={() => setCartegoryIndex(2)}>스터디&모음</li>
+                            <li onClick={() => setCartegoryIndex(3)}>프로젝트</li>
+                            <li onClick={() => setCartegoryIndex(4)}>분류없음</li>
+                            <li>+</li>
+                        </ul>
+                        :null
+                    }
                 </BlogHeader>
                 {
-                        {
-                            1 : <OverView/>,
-                            2 : <PostList/>,
-                            3 : <Repo/>,
-                            4 : <Followers/>,
-                        }[menuIndex]
-                    }
+                    {
+                        1 : <OverView overView={overView}/>,
+                        2 : <PostList/>,
+                        3 : <Repo/>,
+                        4 : <Followers/>,
+                    }[menuIndex]
+                }
             </div>
         </BlogSection>
     )

@@ -45,7 +45,7 @@ const BlogPost = styled.ul`
         margin-top: 40px;
         display: flex;
         flex-direction: column;
-        width: 700px; height: 600px;
+        width: 700px; height: 580px;
         background-color: var(--background);
         border-bottom:1px solid var(--second);
         &>img{
@@ -96,6 +96,8 @@ const BlogPost = styled.ul`
                 font-size: 15px;
                 color: var(--primary);
                 margin: 5px 5px 0;
+                box-sizing: border-box;
+                padding: 0 10px;
                 overflow:hidden;
                 text-overflow: ellipsis;  	// 로 ... 을 만들기 
                 white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
