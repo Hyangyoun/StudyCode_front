@@ -4,6 +4,7 @@ import OverView from "../Blog/OverView";
 import BlogSkin1 from "../Blog/BlogSkin1";
 
 function BlogPage(props){
+    
     const [menuIndex, setMenuIndex] = useState(1)
     const [skin, setSkin] = useState(2)
 
@@ -15,10 +16,7 @@ function BlogPage(props){
     return(
         <>
             {skin === 1 ?<BlogSkin1 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} overView={overView} />:
-            skin === 2 ?
-            <>
-                <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} overView={overView}/>
-            </>:
+            skin === 2 ?<BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} overView={overView}/>:
             null}
         </>
     )

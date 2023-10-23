@@ -64,6 +64,7 @@ const CartegoryList = styled.div`
     align-items: center;
     margin: auto;
 `
+
 const Item = styled.ul`
     display: flex;
     margin: auto;

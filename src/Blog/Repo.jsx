@@ -53,7 +53,7 @@ function Repo(props){
     )
 }
 
-const RepoList = styled.div`
+const RepoList = styled.ul`
     width: auto;
     height: auto;
     display: flex;

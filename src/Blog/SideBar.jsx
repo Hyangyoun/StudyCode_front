@@ -16,7 +16,7 @@ function SideBar(props){
                 <span onClick={() => changeMenuIndex(4)}>팔로우{}</span>
                 <span onClick={() => changeMenuIndex(4)}>팔로잉{}</span>
             </div>
-            <span className="write">글쓰기</span>
+            <div className="write">새 포스트</div>
             <div className="cartegoryForm" >
                 <div onClick={() => changeMenuIndex(1)} className="overview">메인(overview)</div>
                 <div onClick={() => changeMenuIndex(2)} className="post">포스트(post)</div>
@@ -37,8 +37,9 @@ function SideBar(props){
                 :
                 null
             }
-            <div className="home">
-                <img src="/image/icon/home.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
+            <div className="logo">
+                <img src="/image/icon/logo.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
+                <div>블로그 설정</div>
             </div>
         </Sidebar>
     )
@@ -47,6 +48,7 @@ function SideBar(props){
 /** 블로그 사이드바 스타일 컴포넌트  */
 const Sidebar = styled.div`
     width: 250px;
+    min-height: 965px;
     flex: 100%;
     padding-bottom: 40px;
     border-right: 1px solid var(--second);
@@ -82,10 +84,19 @@ const Sidebar = styled.div`
     .write{
         margin-top: 10px;
         color: var(--primary);
+        width: 120px; height: 30px;
+        border: 1px solid var(--second);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
         cursor: pointer;
-        &:hover{
-            font-weight: bold;
-        }
+
+        &:hover {
+            background-color: var(--second);
+            color: white;
+        }    
     }
 
     .cartegoryForm{
@@ -153,11 +164,23 @@ const Sidebar = styled.div`
         left: 60px;
         bottom: 27px;
     }
-    .home{
-        width:30px; height: auto;
+    .logo{
         bottom: 40px;
         position: absolute;
         cursor: pointer;
+        > img{
+            width: 150px;
+            height: auto;
+        }
+        > div{
+            margin-top: 5px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--second);
+            &:hover {
+                color: var(--primary);
+            }
+        }
     }
     `
 

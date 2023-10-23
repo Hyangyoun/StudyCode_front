@@ -7,52 +7,43 @@ function Followers(props){
 
     return(
             <RepoList>
-                <ul className="followers">
-                    <div className="followerFirst"></div>
-                    <li className="followerList">
-                        <div className="follower">
-                            <img className="profileImage" src="/image/icon/profile.png" alt="profileImage"/>
-                            <span className="followerName">1010jk</span>
-                        </div>
-                        <div className="follwerBtn" onClick={() => setFollowing(!following)}>
-                            {following  ? "unfollow" : "follow"}
-                        </div>
-                    </li>
-                </ul>
+                <li className="followerList">
+                    <div className="follower"></div>
+                </li>
+                <li className="followerList">
+                    <div className="follower">
+                        <img className="profileImage" src="/image/icon/profile.png" alt="profileImage"/>
+                        <span className="followerName">1010jk</span>
+                    </div>
+                    <div className="follwerBtn" onClick={() => setFollowing(!following)}>
+                        {following  ? "unfollow" : "follow"}
+                    </div>
+                </li>
             </RepoList>
         )
 }
 
-const RepoList = styled.div`
-    width: auto;
+const RepoList = styled.ul`
+    width: 1000px;
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0;
+    margin: 70px auto 0;
+    list-style: none;
 
-    .followers{
+    >li:first-child{
         width: 1000px;
-        height: auto;
-        padding: 0;
-        margin: 70px 0 0 0;
-        list-style: none;
-    }
-
-    .followerFirst{
-        width:auto;
         height: 40px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
         border: 1px solid var(--second);
         border-radius: 5px 5px 0 0;
         background-color: var(--second2);
-    }
 
+    }
     .followerList{
-        width:auto;
+        width: 1000px;
         height: 40px;
         display: flex;
         flex-direction: row;
