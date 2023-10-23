@@ -16,7 +16,7 @@ function SideBar(props){
                 <span onClick={() => changeMenuIndex(4)}>팔로우{}</span>
                 <span onClick={() => changeMenuIndex(4)}>팔로잉{}</span>
             </div>
-            <span className="write">글쓰기</span>
+            <div className="write">새 포스트</div>
             <div className="cartegoryForm" >
                 <div onClick={() => changeMenuIndex(1)} className="overview">메인(overview)</div>
                 <div onClick={() => changeMenuIndex(2)} className="post">포스트(post)</div>
@@ -48,7 +48,7 @@ function SideBar(props){
 /** 블로그 사이드바 스타일 컴포넌트  */
 const Sidebar = styled.div`
     width: 250px;
-    min-height: 880px;
+    min-height: 1100px;
     flex: 100%;
     padding-bottom: 40px;
     border-right: 1px solid var(--second);
@@ -84,11 +84,19 @@ const Sidebar = styled.div`
     .write{
         margin-top: 10px;
         color: var(--primary);
+        width: 120px; height: 30px;
+        border: 1px solid var(--second);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
         cursor: pointer;
-        &:hover{
-            font-weight: bold;
-            text-decoration:underline;
-        }
+
+        &:hover {
+            background-color: var(--second);
+            color: white;
+        }    
     }
 
     .cartegoryForm{

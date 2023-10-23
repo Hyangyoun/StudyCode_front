@@ -2,40 +2,45 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 function PostList(props){
+    const [isBlog , setIsBlog] = useState(true)
 
     return(
-                <BlogPost >
-                    <ul>
-                        <li className="post">
-                            <img src="/image/icon/sample.png" alt="썸네일" />
-                            <span className="title">내 토요일 내놔</span>
-                            <span className="content">미안하다 이거 보여줄려고 어그로끌었다.. 
-                            나루토 사스케 싸움수준 ㄹㅇ실화냐? 진짜 세계관최강자들의 싸움이다...</span>
-                            <ul className="tagUl">
-                                <li>JavaScript</li>
-                                <li>React</li>
-                            </ul>
-                            <div className="likeDiv">
-                                <span className="like">15</span>
-                                <span>2023.09.13</span>
-                            </div>
-                        </li>
+        <>
+        {isBlog ?
+            <BlogPost >
+                <li className="post">
+                    <img src="/image/icon/sample.png" alt="썸네일" />
+                    <span className="title">내 토요일 내놔</span>
+                    <div className="content">미안하다 이거 보여줄려고 어그로끌었다.. 
+                    나루토 사스케 싸움수준 ㄹㅇ실화냐? 진짜 세계관최강자들의 싸움이다...</div>
+                    <ul className="tagUl">
+                        <li>JavaScript</li>
+                        <li>React</li>
+                        <li>JavaScriptttttttttttt</li>
                     </ul>
-                </BlogPost>
+                    <div className="likeDiv">
+                        <span className="like">15</span>
+                        <span>2023.09.13</span>
+                    </div>
+                </li>
+            </BlogPost> :
+            <NoBlog>
+                <span>등록되어있는 포스트가 없습니다.</span>
+                <div>포스트 작성하기</div>
+            </NoBlog>
+        }</>
     )
 }
 
-const BlogPost = styled.div`
-    width:80%; height: auto;
+const BlogPost = styled.ul`
+    width:100%; height: auto;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: auto;
+    padding: 0;
 
-    ul{
-        margin: 0;
-        padding: 0;
-    }
     .post {
         margin-top: 40px;
         display: flex;
@@ -57,7 +62,10 @@ const BlogPost = styled.div`
         }
         .content {
             font-size: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            overflow:hidden;
+            text-overflow: ellipsis;  	// ... 을 만들기 
+            white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
         }
         .likeDiv{
             margin-top: 20px;
@@ -81,18 +89,52 @@ const BlogPost = styled.div`
             flex-wrap: wrap;
             padding: 0;
             &>li {
-                display: flex;              
+                display: block;               //block일때만 textoverflow 사용가능
                 width: 103px; height: 25px;
                 background-color: var(--second2);
                 border-radius: 50px;
-                align-items: center;
-                justify-content: center;
                 font-size: 15px;
                 color: var(--primary);
-                margin: 0 5px;
+                margin: 5px 5px 0;
+                overflow:hidden;
+                text-overflow: ellipsis;  	// 로 ... 을 만들기 
+                white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
+                text-align: center;
                 cursor: pointer;
+            }
+            & > li:nth-child(6n-5){
+                margin-left: 0;
             }
     }
 `
+const NoBlog = styled.div`
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 1200px;
+    height: 500px;
+    font-size: 20px;
+    color: var(--primary);
+
+    & > div{
+        width: 150px; height: 40px;
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--second);
+        border-radius: 5px;
+        font-size: 15px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--second);
+            color: white;
+        }
+    }
+`
+
 
 export default PostList

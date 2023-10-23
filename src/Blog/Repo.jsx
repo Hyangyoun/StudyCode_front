@@ -32,13 +32,14 @@ function Repo(props){
     )
 }
 
-const RepoList = styled.div`
+const RepoList = styled.ul`
     width: auto;
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: auto;
 
     .repo{
         width: 1000px;

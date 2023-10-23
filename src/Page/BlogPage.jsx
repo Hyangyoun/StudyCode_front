@@ -4,6 +4,7 @@ import OverView from "../Blog/OverView";
 import BlogSkin1 from "../Blog/BlogSkin1";
 
 function BlogPage(props){
+    
     const [menuIndex, setMenuIndex] = useState(1)
     const [skin, setSkin] = useState(1)
 

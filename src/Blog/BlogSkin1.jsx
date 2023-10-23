@@ -33,8 +33,14 @@ function BlogSkin1 (props){
                 <BlogHeader $screenSize={screenSize} $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
                         <span >{"내 토요일 내놔"}</span>
                         <span className="blogMenu">
-                            {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" :
-                            menuIndex === 3 ? "repository": menuIndex === 4 ? "팔로워": null}
+                            {
+                                {
+                                    1 : "메인",
+                                    2 : "post",
+                                    3 : "repository",
+                                    4 : "팔로워",
+                                }[menuIndex]
+                            }
                         </span>
                         {menuIndex === 2 ? 
                             <ul className="categorys">
@@ -47,8 +53,14 @@ function BlogSkin1 (props){
                             :null
                         }
                 </BlogHeader>
-                {menuIndex === 1 ? <OverView/> :  menuIndex === 2 ? <PostList/> :
-                menuIndex === 3 ? <Repo/> : menuIndex === 4 ? <Followers/> : null}
+                {
+                        {
+                            1 : <OverView/>,
+                            2 : <PostList/>,
+                            3 : <Repo/>,
+                            4 : <Followers/>,
+                        }[menuIndex]
+                    }
             </div>
         </BlogSection>
     )
