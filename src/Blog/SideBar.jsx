@@ -39,8 +39,8 @@ function SideBar(props){
             }
             <div className="logo">
                 <img src="/image/icon/logo.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
+                <div>블로그 설정</div>
             </div>
-            <span>블로그 설정</span>
         </Sidebar>
     )
 }
@@ -48,6 +48,7 @@ function SideBar(props){
 /** 블로그 사이드바 스타일 컴포넌트  */
 const Sidebar = styled.div`
     width: 250px;
+    min-height: 880px;
     flex: 100%;
     padding-bottom: 40px;
     border-right: 1px solid var(--second);
@@ -159,6 +160,14 @@ const Sidebar = styled.div`
         bottom: 40px;
         position: absolute;
         cursor: pointer;
+        > img{
+            width: 130px;
+            height: 28px;
+        }
+        > div{
+            margin-top: 5px;
+            text-align: center;
+        }
     }
     `
 

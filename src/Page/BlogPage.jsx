@@ -15,10 +15,7 @@ function BlogPage(props){
     return(
         <>
             {skin === 1 ?<BlogSkin1 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} overView={overView} />:
-            skin === 2 ?
-            <>
-                <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} overView={overView}/>
-            </>:
+            skin === 2 ?<BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} overView={overView}/>:
             null}
         </>
     )

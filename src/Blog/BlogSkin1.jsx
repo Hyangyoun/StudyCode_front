@@ -10,7 +10,7 @@ function BlogSkin1 (props){
 
     const {menuIndex, changeMenuIndex ,overView} = props
 
-    const [menuClick, setMenuClick] = useState(1) // 코테 스터디 등 메뉴 클릭 감지 state
+    const [CartegoryIndex, setCartegoryIndex] = useState(1) // 코테 스터디 등 메뉴 클릭 감지 state
     const [screenSize , setScreenSize] = useState(window.innerWidth - 250) //윈도우 크기 감지 state
 
     /** 윈도우 변화 감지 */
@@ -30,26 +30,24 @@ function BlogSkin1 (props){
         <BlogSection>
             <SideBar menuIndex={menuIndex} changeMenuIndex={changeMenuIndex}/>
             <div>
-                <BlogHeader $screenSize={screenSize} $menuClick={menuClick} $menuIndex={menuIndex}>
-                    <div>
-                    <div className="blogName">내 토요일 내놔</div>
-                    <div className="blogMain">
-                        {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" :
-                        menuIndex === 3 ? "repository": menuIndex === 4 ? "팔로워": null}
-                        <div>{menuIndex ? 
-                            <ul className="blogMenu">
-                                <li onClick={() => setMenuClick(1)}>코테</li>
-                                <li onClick={() => setMenuClick(2)}>스터디&모음</li>
-                                <li onClick={() => setMenuClick(3)}>프로젝트</li>
+                <BlogHeader $screenSize={screenSize} $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
+                        <span >{"내 토요일 내놔"}</span>
+                        <span className="blogMenu">
+                            {menuIndex === 1 ? "메인" :  menuIndex === 2 ? "post" :
+                            menuIndex === 3 ? "repository": menuIndex === 4 ? "팔로워": null}
+                        </span>
+                        {menuIndex === 2 ? 
+                            <ul className="categorys">
+                                <li onClick={() => setCartegoryIndex(1)}>코테</li>
+                                <li onClick={() => setCartegoryIndex(2)}>스터디&모음</li>
+                                <li onClick={() => setCartegoryIndex(3)}>프로젝트</li>
+                                <li onClick={() => setCartegoryIndex(4)}>분류없음</li>
                                 <li>+</li>
                             </ul>
                             :null
-                            }
-                        </div>
-                    </div>
-                    </div>
+                        }
                 </BlogHeader>
-                {menuIndex === 1 ? <OverView overView={overView}/> :  menuIndex === 2 ? <PostList/> :
+                {menuIndex === 1 ? <OverView/> :  menuIndex === 2 ? <PostList/> :
                 menuIndex === 3 ? <Repo/> : menuIndex === 4 ? <Followers/> : null}
             </div>
         </BlogSection>
@@ -66,56 +64,52 @@ const BlogHeader = styled.div`
     width:${props => props.$screenSize}px;
     height: auto;
     display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
-    
+    margin-top: 80px;
+    border-bottom :${props => props.$menuIndex >= 3 ? null : 1}px solid var(--second);
+    font-size: 20px;
+    font-weight: bold;
+
     .blogName{
         margin-top: 80px;
         font-size: 30px;
         font-weight: bold;
         cursor: pointer;
     }
-    .blogMain{
-        margin-top: 80px;
-        font-size: 20px;
-        font-weight: bold;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width:${props => props.$screenSize}px;
-        border-bottom :${props => props.$menuIndex >= 3 ? null : 1}px solid var(--second);
+    .blogMenu{
+        margin: 80px 0 10px 0; 
     }
-    .blogMenu{ 
+    .categorys{ 
+        width: 685px;
+        height: auto;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         font-size: 15px;
         padding: 0;
-        margin: 20px 0 10px 0;
+        margin: 0 0 10px 0;
+        flex-flow: row wrap;
         > li {
             display: flex;
-            flex-direction: row;
             list-style: none;
             border :1px solid var(--second);
             width: 135px; height: 40px;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+
         }
         > li:hover {
             color: white;
             background-color: var(--second);
         }
-        :nth-child(${props =>props.$menuClick}){
+        :nth-child(${props =>props.$CartegoryIndex}){
             background-color: var(--second);
             color: white;
         }
-        :not(:last-child) {
-            border-right: 0;
-        }
-
     }
 
 `
