@@ -52,6 +52,7 @@ const CartegoryList = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: auto;
     `
 const Item = styled.div`
     display: flex;

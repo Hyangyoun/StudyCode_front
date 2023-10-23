@@ -2,70 +2,50 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 function PostList(props){
-
-    const[postListIndex , setpostListIndex] = useState(1) //포스트 리스트 다음줄 생성 버튼
-
-    const [screenSize , setScreenSize] = useState(window.innerWidth - 250) //윈도우 크기 감지 state
-
-    /** 윈도우 변화 감지 */
-    const HandleScreenSize = () => {
-        setScreenSize(window.innerWidth - 250)
-    }
-
-    //윈도우 변화를 감시할 이벤트 생성과 삭제
-    useEffect(()=>{
-        window.addEventListener('resize', HandleScreenSize);
-        return () => { // cleanup 
-            window.removeEventListener('resize', HandleScreenSize);
-        }
-    },[])
+    const [isBlog , setIsBlog] = useState(true)
 
     return(
-            <>
-                <BlogPost $screenSize={screenSize} >
-                    <ul>
-                        <li className="post">
-                            <img src="/image/icon/sample.png" alt="썸네일" />
-                            <span className="title">내 토요일 내놔</span>
-                            <span className="content">미안하다 이거 보여줄려고 어그로끌었다.. 
-                            나루토 사스케 싸움수준 ㄹㅇ실화냐? 진짜 세계관최강자들의 싸움이다...</span>
-                            <ul className="tagUl">
-                                <li>JavaScript</li>
-                                <li>React</li>
-                            </ul>
-                            <div className="likeDiv">
-                                <span className="like">15</span>
-                                <span>2023.09.13</span>
-                            </div>
-                        </li>
+        <>
+        {isBlog ?
+            <BlogPost >
+                <li className="post">
+                    <img src="/image/icon/sample.png" alt="썸네일" />
+                    <span className="title">내 토요일 내놔</span>
+                    <div className="content">미안하다 이거 보여줄려고 어그로끌었다.. 
+                    나루토 사스케 싸움수준 ㄹㅇ실화냐? 진짜 세계관최강자들의 싸움이다...</div>
+                    <ul className="tagUl">
+                        <li>JavaScript</li>
+                        <li>React</li>
+                        <li>JavaScriptttttttttttt</li>
                     </ul>
-                </BlogPost>
-                <BlogFooter $postListIndex={postListIndex}>
-                    <ul className="nextbutton">
-                        <li onClick={() => {setpostListIndex(1)}}>{1}</li>
-                        <li onClick={() => {setpostListIndex(2)}}>{2}</li>
-                    </ul>
-                </BlogFooter>
-            </>
+                    <div className="likeDiv">
+                        <span className="like">15</span>
+                        <span>2023.09.13</span>
+                    </div>
+                </li>
+            </BlogPost> :
+            <NoBlog>
+                <span>등록되어있는 포스트가 없습니다.</span>
+                <div>포스트 작성하기</div>
+            </NoBlog>
+        }</>
     )
 }
 
-const BlogPost = styled.div`
-    width:${props => props.$screenSize}px; height: auto;
+const BlogPost = styled.ul`
+    width:100%; height: auto;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: auto;
+    padding: 0;
 
-    ul{
-        margin: 0;
-        padding: 0;
-    }
     .post {
         margin-top: 40px;
         display: flex;
         flex-direction: column;
-        width: 700px; height: 600px;
+        width: 700px; height: 580px;
         background-color: var(--background);
         border-bottom:1px solid var(--second);
         &>img{
@@ -82,7 +62,10 @@ const BlogPost = styled.div`
         }
         .content {
             font-size: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            overflow:hidden;
+            text-overflow: ellipsis;  	// ... 을 만들기 
+            white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
         }
         .likeDiv{
             margin-top: 20px;
@@ -106,51 +89,54 @@ const BlogPost = styled.div`
             flex-wrap: wrap;
             padding: 0;
             &>li {
-                display: flex;              
+                display: block;               //block일때만 textoverflow 사용가능
                 width: 103px; height: 25px;
                 background-color: var(--second2);
                 border-radius: 50px;
-                align-items: center;
-                justify-content: center;
                 font-size: 15px;
                 color: var(--primary);
-                margin: 0 5px;
+                margin: 5px 5px 0;
+                box-sizing: border-box;
+                padding: 0 10px;
+                overflow:hidden;
+                text-overflow: ellipsis;  	// 로 ... 을 만들기 
+                white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
+                text-align: center;
                 cursor: pointer;
+            }
+            & > li:nth-child(6n-5){
+                margin-left: 0;
             }
     }
 `
-
-const BlogFooter = styled.div`
-    width:${props => props.$screenSize}px; height: auto;
+const NoBlog = styled.div`
+    margin: auto;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    .nextbutton{
-        margin-top: 15px;
-        padding: 0;
+    width: 1200px;
+    height: 500px;
+    font-size: 20px;
+    color: var(--primary);
+
+    & > div{
+        width: 150px; height: 40px;
+        margin-top: 40px;
         display: flex;
-        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--second);
+        border-radius: 5px;
+        font-size: 15px;
         cursor: pointer;
 
-        >li{
-            width: 40px; height: 40px;
-            color: black;
-            border-radius: 20px;
-            margin: 0 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            &:hover{
-                background-color: var(--second);
-                color: white;
-            }
-            &:nth-child(${props => props.$postListIndex}){
-                background-color: var(--second);
-                color: white;
-            }
+        &:hover {
+            background-color: var(--second);
+            color: white;
         }
     }
 `
+
+
 export default PostList
