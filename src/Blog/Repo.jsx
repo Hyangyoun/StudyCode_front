@@ -60,7 +60,7 @@ const RepoList = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: auto;
+    margin: 0 auto;
 
     .repo{
         width: 1000px;
