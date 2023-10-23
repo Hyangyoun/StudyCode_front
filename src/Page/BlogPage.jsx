@@ -5,7 +5,7 @@ import BlogSkin1 from "../Blog/BlogSkin1";
 
 function BlogPage(props){
     const [menuIndex, setMenuIndex] = useState(1)
-    const [skin, setSkin] = useState(1)
+    const [skin, setSkin] = useState(2)
 
     /** props로 넘어갈 state set 함수 */
     const ChangeMenuIndex = (value) => {
@@ -49,7 +49,7 @@ ___
 ##### h5
 ###### h6
 
-![이미지](https://img.danawa.com/prod_img/500000/104/574/img/3574104_1.jpg?_v=20230811151418)
+![이미지](https://converse.co.kr/web/product/extra/big/202105/f4e45e9891638f2f3ea5b102c4c427bc.jpg)
 
 > 위키백과?
 >> 중대장 드립 검색

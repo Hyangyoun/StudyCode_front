@@ -1,20 +1,41 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import styled from "styled-components"
 
 function Repo(props){
     const [addFolder,setAddFolder] = useState(false) //폴더 추가 버튼
+    const folderNameInput = useRef();
+    const addFolderBox = useRef();
+
+    useEffect(() => {
+        if(addFolder) {
+            folderNameInput.current.focus()
+        }
+    },[addFolder])
+
+    const CloseBox = (event) => {
+        if(!addFolderBox.current.contains(event.target)) {
+            setAddFolder(false)
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener("mousedown", CloseBox)
+        return (() => {
+            document.removeEventListener("mousedown", CloseBox)
+        })
+    },[])
+
     return(
-        <RepoList>
+        <RepoList $addFolder={addFolder}>
             <ul className="repo">
                 <li className="repoFirst">
                     <span className="nickName">{"js싫어요"} 의 저장소</span>
-                    <div className="folderform">{addFolder ?
-                        <div className="addBox">
-                            <input type="text" placeholder="폴더이름"/><div className="addFolder">추가하기</div>
+                    <div className="folderform">
+                        <div className="addBox" ref={addFolderBox}>
+                            <input type="text" placeholder="폴더이름" ref={folderNameInput} />
+                            <div className="addFolder">추가하기</div>
                         </div>
-                        :
-                        null}
-                        <div className="addFolderBtn" onClick={() => setAddFolder(!addFolder)}>폴더추가</div>
+                        <div className="addFolderBtn" onClick={() => setAddFolder(true)}>폴더추가</div>
                     </div>
                 </li>
                 <li className="repoList">
@@ -39,6 +60,7 @@ const RepoList = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: auto;
 
     .repo{
         width: 1000px;
@@ -73,27 +95,41 @@ const RepoList = styled.div`
         display: flex;
         flex-direction: row;
         align-items: center;
+        position: relative;
     }
 
     .addBox{
-        background-color: var(--second2);
-        display: flex;
-        flex-direction: column;
+        width: 300px; height: 50px;
+        background-color: var(--background);
+        display: ${(props) => props.$addFolder ? "flex" : "none"};
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
         border-radius: 5px;
         border: 1px solid var(--second);
-        font-size: 12px;
-        position: relative;
-        top:30px;
-        left: 70px;
+        position: absolute;
+        top: 25px;
+        left: -230px;
                 
         &>input{
-        border-radius: 5px;
-        border-width: 0;
-        border-bottom :1px solid var(--primary) ;
-        box-sizing: border-box;
-        font-size: 15px;
-        outline: none;
-        background-color: var(--background);
+            width: 215px; height: 25px;
+            border :1px solid var(--second) ;
+            box-sizing: border-box;
+            font-size: 12px;
+            outline: none;
+            background-color: white;
+        }
+
+        .addFolder{
+            width: 60px; height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--second);
+            border-radius: 5px;
+            font-size: 12px;
+            color: white;
+            cursor: pointer;
         }
     }
 
@@ -113,17 +149,6 @@ const RepoList = styled.div`
         }
     }
 
-    .addFolder{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        &:hover {
-            color: white;
-            background-color: var(--second);
-        }
-
-    }
     .repoList{
         width:auto;
         height: 40px;

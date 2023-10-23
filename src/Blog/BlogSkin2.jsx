@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import PostList from "../Blog/PostList";
 import Repo from "../Blog/Repo";
@@ -10,22 +10,32 @@ function BlogSkin2(props) {
 
     const [side, setSide] = useState(false)
     const [screen, Setscreen] = useState(window.innerWidth)
+    const sideRef = useRef()
 
     /** 브라우저 창크기 변경 감지 */
     const GetScreenSize = () => {
         Setscreen(window.innerWidth)
     }
 
+    /** 사이드바 자동 닫힘 함수 */
+    const CloseSide = (event) => {
+        if(!sideRef.current.contains(event.target)) {
+            setSide(false)
+        }
+    }
+
     useEffect(() => {
         window.addEventListener('resize', GetScreenSize)
+        document.addEventListener('mousedown', CloseSide)
         return (() => {
             window.removeEventListener('resize', GetScreenSize)
+            document.removeEventListener('mousedown', CloseSide)
         })
     },[])
 
     return (
         <>
-            <SideBar $side={side}>
+            <SideBar $side={side} ref={sideRef}>
                 <img src="/image/icon/logo.png" alt="studycode" />
                 <div className="profileBox">
                     <img src="/image/icon/profile.png" alt="프로필사진" />
@@ -47,9 +57,11 @@ function BlogSkin2(props) {
                     </ul>
                 </div>
             </SideBar>
-            {side ? <SideBack onClick={() => setSide(!side)}/> : null}
+            {side ? <SideBack /> : null}
             <Header $menuIndex = {menuIndex} $screen = {screen}>
-                <SideBT onClick={() => setSide(!side)} />
+                <SideBT onClick={() => setSide(!side)}>
+                    <img src="/image/icon/sideBT.png" alt="사이드버튼" />
+                </SideBT>
                 <div className="blogName">내 토요일 내놔</div>
                 <div className="menuBox">
                     <div className="menu">
@@ -60,11 +72,15 @@ function BlogSkin2(props) {
                     </div>
                     <div className="pointer"/>
                 </div>
-                <div>
-                    {menuIndex === 1 ? <OverView overView={overView}/> :  menuIndex === 2 ? <PostList/> :
-                    menuIndex === 3 ? <Cartegory/> : menuIndex === 4 ? <Repo/> : null}
-                </div>
             </Header>
+            {
+                {
+                    1 : <OverView overView={overView} />,
+                    2 : <PostList />,
+                    3 : <Cartegory />,
+                    4 : <Repo />
+                }[menuIndex]
+            }
         </>
     )
 }
@@ -153,6 +169,7 @@ const SideBar = styled.div`
 const Header = styled.div`
     display: flex;
     flex-direction: column;
+    position: relative;
     align-items: center;
     width: 100%; height: 260px;
     border-width: 0 0 1px;
@@ -213,9 +230,12 @@ const Header = styled.div`
 const SideBT = styled.div`
     width: 50px; height: 50px;
     background-color: var(--second2);
-    position: fixed;
+    position: absolute;
     top: 25px;
     left: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
 `
 
