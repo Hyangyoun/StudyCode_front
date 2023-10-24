@@ -12,11 +12,17 @@ function SideBar(props){
         <Sidebar $menuIndex={menuIndex}>
             <img className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
             <div className="nickName">js싫어요</div>
-            <div className="follow">
+            <div className="follows" >
+                {menuIndex !== 5 ?
+                <> 
                 <span onClick={() => changeMenuIndex(4)}>팔로우{}</span>
                 <span onClick={() => changeMenuIndex(4)}>팔로잉{}</span>
+                <div className="write">새 포스트</div>
+                </>
+                :
+                <div className="blogName">내 토요일 내놔</div>
+                }
             </div>
-            <div className="write">새 포스트</div>
             <div className="cartegoryForm" >
                 <div onClick={() => changeMenuIndex(1)} className="overview">메인(overview)</div>
                 <div onClick={() => changeMenuIndex(2)} className="post">포스트(post)</div>
@@ -49,7 +55,6 @@ function SideBar(props){
 const Sidebar = styled.div`
     width: 250px;
     min-height: 965px;
-    flex: 100%;
     padding-bottom: 40px;
     border-right: 1px solid var(--second);
     display: flex;
@@ -70,15 +75,14 @@ const Sidebar = styled.div`
         text-align: center;
         cursor: pointer;
     }
-
-    .follow{
+    .follows{
         margin-top: 15px;
-        display: flex;
-        flex-direction: row;
-        >span{
+    }
+
+    div>span{
+        margin:0 10px ;
             cursor: pointer;
             margin: 0 10px 0;
-        }
     }
 
     .write{
@@ -99,6 +103,11 @@ const Sidebar = styled.div`
         }    
     }
 
+    .blogName{
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+    }
     .cartegoryForm{
         margin-top: 70px;
         >div{

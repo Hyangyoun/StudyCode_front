@@ -5,6 +5,7 @@ import PostList from "../Blog/PostList";
 import Followers from "../Blog/Followers";
 import Repo from "../Blog/Repo";
 import OverView from "./OverView";
+import Viewer from "./Viewer";
 
 function BlogSkin1 (props){
 
@@ -30,7 +31,8 @@ function BlogSkin1 (props){
         <BlogSection>
             <SideBar menuIndex={menuIndex} changeMenuIndex={changeMenuIndex}/>
             <div>
-                <BlogHeader $screenSize={screenSize} $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
+                {menuIndex !== 5 ?
+                 <BlogHeader $screenSize={screenSize} $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
                     <span >{"내 토요일 내놔"}</span>
                     <span className="blogMenu">
                         {
@@ -52,7 +54,8 @@ function BlogSkin1 (props){
                         </ul>
                         :null
                     }
-                </BlogHeader>
+                 </BlogHeader> : <Viewer/>
+                }
                 {
                     {
                         1 : <OverView overView={overView}/>,

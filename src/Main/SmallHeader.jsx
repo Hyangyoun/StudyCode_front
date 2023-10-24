@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 function SmallHeader(props) {
     const [search,setSearch] = useState("");
-    const [tooltip,setTooltip] = useState(false);
 
     const navigate = useNavigate()
 
@@ -21,14 +20,7 @@ function SmallHeader(props) {
                     <div className="profileBox">
                         <img className="myImg"
                         src="/image/icon/profile.png"
-                        alt="프로필"
-                        onClick={() => {setTooltip(!tooltip)}} />
-                        {tooltip ? <ul className="tooltips">
-                        <li>마이페이지</li>
-                        <li>내 블로그</li>
-                        <li>내 팔로우</li>
-                        <li>로그아웃</li>
-                        </ul> : null}
+                        alt="프로필"/>
                     </div>
                 </div>
                 </Head>
@@ -91,31 +83,12 @@ const Head = styled.div`
 .profileBox{
     width: 50px; height: 50px;
     margin-right: 50px;
+    position: relative;
+
 }
 .myImg{
     width: 50px; height: 50px;
     cursor: pointer;
-}
-.tooltips{
-    border :1px solid var(--second2);
-    background-color: white;
-    margin: 0;
-    width: 116px; height: 140px;
-    display: flex;
-    position: relative;
-    right: 65px;
-    flex-direction: column;
-    font-size: 15px;
-    cursor: pointer;
-    li:hover{
-        background-color: var(--second);
-        font-weight: bold;
-    }
-    &>li {
-        align-items: center;
-        padding-left: 10px;
-        height: 35px;
-    }
 }
 `
 export default SmallHeader

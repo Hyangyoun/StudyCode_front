@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import PostList1 from "../DummyData/PostList1.json"
 
 function PostList(props){
+
     const [isBlog , setIsBlog] = useState(true)
     const [posts , setPosts] = useState([])
 
@@ -15,11 +15,11 @@ function PostList(props){
         <>
         {isBlog ?
             <BlogPost >
-                {posts.map((post) => 
+                {posts.map((post) =>
                     <li className="post" key={post.Index} value={post.memId}>
-                        <img src="/image/icon/sample.png" alt="썸네일"/>
-                        <span className="title">title={post.title}</span>
-                        <div className="content">{post.content}</div>
+                        <img src="/image/icon/sample.png" alt="썸네일" />
+                        <span className="title" >{post.title}</span>
+                        <div className="content" >{post.content}</div>
                         <ul className="tagUl">
                             <li>JavaScript</li>
                             <li>React</li>
