@@ -1,10 +1,14 @@
 import styled from "styled-components"
 import Review from "./Review"
+import { useState } from "react"
 
 function Viewer(props){
+
+    const [addFolder, setAddFolder] = useState(false) //파일보기위한 버튼
+
     return(
         <>
-            <BlogViewer>
+            <BlogViewer $addFolder={addFolder}>
                 <img className="logo" src="/image/icon/logo.png" alt="로고"/>
                 <div className="title" >내토요일 내놔</div>
                 <div className="date">
@@ -14,15 +18,27 @@ function Viewer(props){
                 <div className="tagbox">
                     <li>JavaScript</li>
                     <li>React</li>
-                    <li>JavaScriptttttttttttt</li>
+                    <li>JavaScriptttttttttttt</li>                    
                 </div>
-                <div className="contents">
-                    <div >파일첨부
-                        <div className="fileName">test.jsx</div>
+                <div className="filebox">
+                    <div onClick={() => {setAddFolder(!addFolder)}} >파일첨부
+                        <ul className="fileName">
+                            <li >logo.png</li>
+                            <li>lddd.png</li>
+                        </ul>
                     </div>
+                </div>
+                <div className="images" >
                     <img src="/image/icon/sample.png" alt="썸네일" />
                 </div>
+                <div className="images" >
+                    <img src="/image/icon/sample.png" alt="썸네일" />
+                </div>
+                <div className="contents">
+                    <span>이거 보여줄려고 어그로 끌었다</span>
+                </div>
             </BlogViewer>
+                <div className="like"><img src="./image/icon/bigheart1.png" alt="좋아요"/>{12}</div>
             <Review/>
         </>
     )
@@ -34,45 +50,41 @@ const BlogViewer = styled.div`
     display: flex;
     flex-direction: column;
     align-items:center;
-    padding: 0;
     margin: auto;
+    position: relative;
 
-    &>div{
-        flex-direction: row;
-    }
     .logo{
         width: 195px;
         height: auto;
         margin-top: 70px;
     }
+    
+.title{
+    display: flex;
+    align-items: center;
+    margin-top: 55px;
+    width: 875px;
+    height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--primary);
+}
     .date{
         width: 875px;
         height: auto;
         display: flex;
-        /* justify-content: flex-start; */
         font-size:12px;
         margin-top: 5px;
         padding-left:5px;
         &>span:nth-child(2){
             margin-left: 20px;
         }
-
-    }
-    .title{
-        display: flex;
-        align-items: center;
-        margin-top: 55px;
-        width: 875px;
-        height: 60px;
-        font-size: 20px;
-        font-weight: bold;
-        border-bottom: 1px solid var(--primary);
-    }
+}
     .tagbox{
         width: 875px;
         height: auto;
         display: flex;
-        /* justify-content: flex-start; */
+        flex-wrap: wrap;
         >li {
             display: block;               //block일때만 textoverflow 사용가능
             width: 103px; height: 25px;
@@ -89,29 +101,92 @@ const BlogViewer = styled.div`
             text-align: center;
             cursor: pointer;
         }
-        & > li:nth-child(6n-5){
+        & > li:nth-child(7n-6){
                 margin-left: 0;
             }
     }
-    .contents{
-        margin-top: 180px;
+
+    .like{
+        width: 55px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--second2);
+        border: 1px solid var(--second);
+        border-radius: 35px;
+        position: sticky;
+        bottom: 100px;
+        left: 200px;
+        &>img{
+            margin-bottom: 10px;
+        }
+    }
+    .filebox{
+        margin-top: 150px;
         width: 750px;
-        >div{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        position: relative;
+        
+        &>div{
             width: 130px;
             height: 35px;
             border-radius: 5px 5px 0 0 ;
             background-color: var(--second2);
+            font-size: 15px;
             display: flex;
             align-items: center;
-            position: relative;
+            justify-content: center;
         }
-        >img{
+    }
+        .fileName{
+            display: ${(props) => props.$addFolder ? "inline" : "none"};
+            width: 200px;
+            height: auto;
+            min-height: 100px;
+            box-sizing: border-box;
+            list-style: none;
+            margin: 0;
+            padding-left: 15px;
+            background-color: var(--second2);
+            font-size: 15px;
+            position: absolute;
+            right: 0;
+            top: 35px;
+        &>li{
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+            &::before{
+                margin-right: 10px;
+                padding-top: 5px;
+                content: url("./image/icon/File.png");
+            }
+            &:hover{
+                text-decoration: underline;
+            }
+            &:last-child{
+                margin-bottom: 5px;
+            }
+        }
+        }
+    .images{
+        width: 750px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .img{
             width: 100%;
         }
     }
-    .fileName{
-        width: 200px;
-        min-height: 100px;
+    .contents{
+        width: 750px;
+        font-size: 15px;
+        display: flex;
+        align-items: flex-start;
     }
 `
 export default Viewer
