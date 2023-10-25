@@ -4,6 +4,7 @@ import PostList from "../Blog/PostList";
 import Repo from "../Blog/Repo";
 import OverView from "./OverView";
 import Cartegory from "./Cartegory"
+import Viewer from "./Viewer";
 
 function BlogSkin2(props) {
     const {menuIndex, changeMenuIndex, overView} = props

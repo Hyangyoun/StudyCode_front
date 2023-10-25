@@ -17,7 +17,7 @@ function PostList(props){
             <BlogPost >
                 {posts.map((post) =>
                     <li className="post" key={post.Index} value={post.memId}>
-                        <img src="/image/icon/sample.png" alt="썸네일" />
+                        <img  src="/image/icon/sample.png" alt="썸네일" />
                         <span className="title" >{post.title}</span>
                         <div className="content" >{post.content}</div>
                         <ul className="tagUl">
