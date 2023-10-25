@@ -1,8 +1,26 @@
 import styled from "styled-components"
 import Review from "./Review"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 function Viewer(props){
+    const test = useRef();
+
+    const ScollEvent = () => {
+        if(window.scrollY >= 100) {
+            console.log("인지되었습니다")
+            test.current.style.position = "fixed"
+        }
+        else test.current.style.position = "static"
+    }
+
+    useEffect(() => {
+        document.addEventListener("scroll",ScollEvent);
+        return(() => {
+            document.removeEventListener("scroll",ScollEvent);
+        })
+    })
+
+
 
     const [addFolder, setAddFolder] = useState(false) //파일보기위한 버튼
 
@@ -10,7 +28,7 @@ function Viewer(props){
         <>
             <BlogViewer $addFolder={addFolder}>
                 <div className="heart">
-                    <div className="like">
+                    <div className="like" ref={test}>
                         <img src="./image/icon/bigheart1.png" alt="좋아요"/>{12}
                     </div>
                 </div>
@@ -44,6 +62,7 @@ function Viewer(props){
                         <span>이거 보여줄려고 어그로 끌었다</span>
                     </div>
                 </div>
+                <div />
             </BlogViewer>
             <Review/>
         </>
@@ -51,15 +70,18 @@ function Viewer(props){
 }
 
 const BlogViewer = styled.div`
-    width: 100%;
-    height: auto;
+    width: 85%;
+    height: 4000px;
     display: flex;
     flex-direction: row;
+    margin: auto;
+    position: relative;
+    background-color: white;
     .heart{
         height: 80%;
         position: absolute;
         top: 230px;
-        left: 30px;
+        left: -6%;
     }
     .like{
         width: 55px;
@@ -71,8 +93,7 @@ const BlogViewer = styled.div`
         background-color: var(--second2);
         border: 1px solid var(--second);
         border-radius: 35px;
-        position: sticky;
-        top:100px;
+        top:150px;
 
         &>img{
             margin-bottom: 10px;
@@ -80,7 +101,7 @@ const BlogViewer = styled.div`
     }
 
     .post{
-        width: 95%;
+        width: 100%;
         height: auto;
         display: flex;
         flex-direction: column;
@@ -98,14 +119,14 @@ const BlogViewer = styled.div`
     display: flex;
     align-items: center;
     margin-top: 55px;
-    width: 80%;
+    width: 100%;
     height: 60px;
     font-size: 20px;
     font-weight: bold;
     border-bottom: 1px solid var(--primary);
 }
     .date{
-        width: 80%;
+        width: 100%;
         height: auto;
         display: flex;
         font-size:12px;
@@ -116,7 +137,7 @@ const BlogViewer = styled.div`
         }
 }
     .tagbox{
-        width: 80%;
+        width: 100%;
         height: auto;
         display: flex;
         flex-wrap: wrap;
@@ -143,7 +164,7 @@ const BlogViewer = styled.div`
 
     .filebox{
         margin-top: 150px;
-        width: 80%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
