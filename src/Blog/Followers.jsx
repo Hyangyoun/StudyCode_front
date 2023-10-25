@@ -24,7 +24,7 @@ function Followers(props){
 }
 
 const RepoList = styled.ul`
-    width: 1000px;
+    width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;

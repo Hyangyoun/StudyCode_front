@@ -28,11 +28,11 @@ function BlogSkin1 (props){
     },[])
 
     return(
-        <BlogSection>
+        <BlogSection $screenSize={screenSize}>
             <SideBar menuIndex={menuIndex} changeMenuIndex={changeMenuIndex}/>
             <div className="blogBody">
                 {menuIndex !== 5 ?
-                 <BlogHeader $screenSize={screenSize} $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
+                 <BlogHeader $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
                     <span >{"내 토요일 내놔"}</span>
                     <span className="blogMenu">
                         {
@@ -74,12 +74,13 @@ const BlogSection = styled.div`
     flex-direction: row;
     height: auto;
     .blogBody{
+        width:${props => props.$screenSize}px;
         position: relative;
     }
 `
 /**블로그 헤더 스타일 */
 const BlogHeader = styled.div`
-    width:${props => props.$screenSize}px;
+    width: 100%;
     height: auto;
     display: flex;
     justify-content: center;
