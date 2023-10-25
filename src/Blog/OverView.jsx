@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import MDediter from "../MarkDownEditer/MDediter";
+import MarkDownEditer from "../MarkDownEditer/MarkDownEditer";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function OverView(props) {
     const {overView} = props
-    const [over, setOver] = useState("");
+    const [editOver, setEditOver] = useState("");
     return (
         <>
             {   overView != null ?
@@ -45,7 +45,7 @@ function OverView(props) {
                     <div>소개글 작성하기</div>
                 </NoOverview>
             }
-            <MDediter over={over} setOver={setOver} />
+            <MarkDownEditer value={editOver} setValue={setEditOver} />
         </>
     )
 }
