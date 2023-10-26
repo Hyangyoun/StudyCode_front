@@ -3,36 +3,45 @@ import Review from "./Review"
 import { useEffect, useRef, useState } from "react"
 
 function Viewer(props){
-    const test = useRef();
 
-    const ScollEvent = () => {
-        if(window.scrollY >= 100) {
-            console.log("인지되었습니다")
-            test.current.style.position = "fixed"
+    const heartButton = useRef();  //하트버튼 참조용으로 만듦
+
+    const [end , setEnd] = useState() // 댓글 위치 받음
+
+    const [ changeHeart , setChangeHeart] = useState(false); // 하트 색 변경
+
+    /** 스크롤 이벤트를 받는 함수 */
+    const ScrollEvent = () => {
+        if(window.scrollY >= 100 && window.scrollY <= end.current.offsetTop - 230) {
+            heartButton.current.style.position = "fixed"
         }
-        else test.current.style.position = "static"
+        else {
+            heartButton.current.style.position = "static"
+            
+        }
     }
 
+    /** 스크롤 변화가있을때마다 변화감지함 */
     useEffect(() => {
-        document.addEventListener("scroll",ScollEvent);
+        document.addEventListener("scroll",ScrollEvent);
         return(() => {
-            document.removeEventListener("scroll",ScollEvent);
+            document.removeEventListener("scroll",ScrollEvent);
         })
     })
-
 
 
     const [addFolder, setAddFolder] = useState(false) //파일보기위한 버튼
 
     return(
         <>
-            <BlogViewer $addFolder={addFolder}>
-                <div className="heart">
-                    <div className="like" ref={test}>
-                        <img src="./image/icon/bigheart1.png" alt="좋아요"/>{12}
+            <BlogViewer $addFolder={addFolder} >
+                <div  className="heart">
+                    <div className="like" ref={heartButton} onClick={() => {setChangeHeart(!changeHeart)}}>
+                        {changeHeart ? 
+                        <img src="./image/icon/bigheart2.png" alt="좋아요"/> : <img src="./image/icon/bigheart1.png" alt="좋아요"/>}{12}
                     </div>
                 </div>
-                <div className="post">
+                <div  className="post">
                     <img className="logo" src="/image/icon/logo.png" alt="로고"/>
                     <div className="title" >내토요일 내놔</div>
                     <div className="date">
@@ -45,12 +54,11 @@ function Viewer(props){
                         <li>JavaScriptttttttttttt</li>                    
                     </div>
                     <div className="filebox">
-                        <div onClick={() => {setAddFolder(!addFolder)}} >파일첨부
-                            <ul className="fileName">
-                                <li >logo.png</li>
-                                <li>lddd.png</li>
-                            </ul>
-                        </div>
+                        <div className="fileBtn" onClick={() => {setAddFolder(!addFolder)}} >파일첨부</div>
+                        <ul className="fileName">
+                            <li >logo.png</li>
+                            <li>lddd.png</li>
+                        </ul>
                     </div>
                     <div className="images" >
                         <img src="/image/icon/sample.png" alt="썸네일" />
@@ -61,27 +69,27 @@ function Viewer(props){
                     <div className="contents">
                         <span>이거 보여줄려고 어그로 끌었다</span>
                     </div>
-                </div>
-                <div />
-            </BlogViewer>
-            <Review/>
+                    <Review ChangeTop={setEnd}/>
+                </div >
+            </BlogViewer >
         </>
     )
 }
 
 const BlogViewer = styled.div`
     width: 85%;
-    height: 4000px;
+    height: auto;
     display: flex;
     flex-direction: row;
     margin: auto;
     position: relative;
-    background-color: white;
     .heart{
         height: 80%;
         position: absolute;
         top: 230px;
         left: -6%;
+        z-index: 10;
+
     }
     .like{
         width: 55px;
@@ -93,9 +101,12 @@ const BlogViewer = styled.div`
         background-color: var(--second2);
         border: 1px solid var(--second);
         border-radius: 35px;
-        top:150px;
+        top:125px;
+        cursor: pointer;
 
         &>img{
+            width: 27px;
+            height: auto;
             margin-bottom: 10px;
         }
     }
@@ -113,6 +124,7 @@ const BlogViewer = styled.div`
         width: 195px;
         height: auto;
         margin: 70px auto 0;
+        cursor: pointer;
     }
     
 .title{
@@ -170,7 +182,7 @@ const BlogViewer = styled.div`
         align-items: flex-end;
         position: relative;
         
-        &>div{
+        .fileBtn{
             width: 130px;
             height: 35px;
             border-radius: 5px 5px 0 0 ;
@@ -179,6 +191,7 @@ const BlogViewer = styled.div`
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
         }
     }
         .fileName{
@@ -199,6 +212,7 @@ const BlogViewer = styled.div`
             display: flex;
             align-items: center;
             box-sizing: border-box;
+            cursor: pointer;
             &::before{
                 margin-right: 10px;
                 padding-top: 5px;

@@ -63,6 +63,8 @@ const Sidebar = styled.div`
     align-items: center;
     position: relative;
     font-size: 15px;
+    background-color: var(--background);
+    z-index: 100;
 
     .profilePicture{
         width: 150px; height: auto;
