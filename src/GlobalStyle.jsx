@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
     * {
-        flex-shrink: 0;
+        //flex-shrink: 0;
         --primary: #674188;
         --second: #C3ACD0;
         --second2: #F7EFE5;
@@ -21,34 +21,28 @@ body {
     font-family: 'Noto Sans KR';
     font-style: nomal;
     font-weight: 300;
-    src: url('./styles/fonts/NotoSansKR-Light.ttf') format('woff2'),
-      url('./styles/fonts/NotoSansKR-Light.ttf') format('woff'),
-      url('./styles/fonts/NotoSansKR-Light.ttf') format('truetype');
+    src: url('/styles/fonts/NotoSansKR-Light.ttf') format('ttf');
   }
   
   @font-face {
     font-family: 'Noto Sans KR';
     font-weight: 400;
-    src: url('./styles/fonts/NotoSansKR-Regular.ttf') format('woff2'),
-      url('./styles/fonts/NotoSansKR-Regular.ttf') format('woff'),
-      url('./styles/fonts/NotoSansKR-Regular.ttf') format('truetype');
+    src: url('/styles/fonts/NotoSansKR-Regular.ttf') format('ttf');
   }
   @font-face {
     font-family: 'Noto Sans KR';
     font-weight: 500;
-    src: url('styles/fonts/NotoSansKR-Medium.ttf') format('woff2');
+    src: url('styles/fonts/NotoSansKR-Medium.ttf') format('ttf');
   }
   
   @font-face {
     font-family: 'Noto Sans KR';
     font-weight: bold;
-    src: url('./styles/fonts/NotoSansKR-Bold.ttf') format('woff2'),
-      url('./styles/fonts/NotoSansKR-Bold.ttf') format('woff'),
-      url('./styles/fonts/NotoSansKR-Bold.ttf') format('truetype');
+    src: url('/styles/fonts/NotoSansKR-Bold.ttf') format('ttf');
   }
   
   * {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif !important;
   }
 }
 
