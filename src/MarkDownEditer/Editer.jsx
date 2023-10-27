@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import MDEditor, { commands } from "@uiw/react-md-editor";
 import styled from "styled-components";
 
@@ -6,7 +6,6 @@ export const buttonType = {
     title1: "title1",
     title2: "title2",
     title3: "title3",
-    title4: "title4",
     bold: "bold",
     italic: "italic",
     strikethrough: "strikethrough",
@@ -15,15 +14,15 @@ export const buttonType = {
     quote: "quote",
     link: "link",
     image: "image",
+    line: "line",
 }
 
 function Editer({value, setValue, height, buttonList}) {
     
     useEffect(() => {
-        commands.title1.icon = (<Icon src="/image/icon/kakao.png" />)
-        commands.title2.icon = (<Icon src="/image/icon/kakao.png" />)
-        commands.title3.icon = (<Icon src="/image/icon/kakao.png" />)
-        commands.title4.icon = (<Icon src="/image/icon/kakao.png" />)
+        commands.title1.icon = (<Icon src="/image/icon/H1.png" />)
+        commands.title2.icon = (<Icon src="/image/icon/H2.png" />)
+        commands.title3.icon = (<Icon src="/image/icon/H3.png" />)
         commands.bold.icon = (<Icon src="/image/icon/kakao.png" />)
         commands.italic.icon = (<Icon src="/image/icon/kakao.png" />)
         commands.strikethrough.icon = (<Icon src="/image/icon/kakao.png" />)
@@ -86,7 +85,7 @@ function Editer({value, setValue, height, buttonList}) {
         })
     }
 
-    console.log(button)
+    console.log(commands.title1)
     
     return (
         <EditerBox>
@@ -94,7 +93,7 @@ function Editer({value, setValue, height, buttonList}) {
                 value={value}
                 onChange={setValue}
                 commands={buttonList != null ? button 
-                    : [commands.title1,commands.title2,commands.divider,commands.bold,commands.italic]
+                    : [commands.title1,commands.title2,commands.title3,commands.divider,commands.bold,commands.italic]
                 }
                 preview="edit"
                 visibleDragbar={false}
@@ -125,25 +124,33 @@ const EditerBox = styled.div`
         > ul {
             display: flex;
             align-items: center;
+            height: auto;
+        }
+
+        .w-md-editor-toolbar-divider {
+            margin: 0 10px !important;
+            height: 16px;
         }
 
         li {
-            margin: 0 1px;
-            height: 20px;
+            margin: 0 px;
+            height: auto;
         }
 
         button {
-            width: 20px; height: 20px;
+            width: 32px; height: 32px;
             border: 0;
             padding: 0;
             margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 `
 
 const Icon = styled.img`
-    width: 20px; height: 20px;
-    overflow: hidden;
+    width: 16px; height: 16px;
 `
 
 export default Editer
