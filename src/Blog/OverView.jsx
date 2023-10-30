@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Editer, { buttonType } from "../MarkDownEditer/Editer";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function OverView(props) {
     const {overView} = props
+    const [editOver, setEditOver] = useState("");
     return (
         <>
             {   overView != null ?
@@ -43,6 +45,11 @@ function OverView(props) {
                     <div>소개글 작성하기</div>
                 </NoOverview>
             }
+            <Editer value={editOver} setValue={setEditOver} height={700} buttonList={[
+                [buttonType.title1, buttonType.title2, buttonType.title3],
+                [buttonType.bold, buttonType.italic, buttonType.strikethrough],
+                [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.link, buttonType.image, buttonType.line]
+            ]} />
         </>
     )
 }
