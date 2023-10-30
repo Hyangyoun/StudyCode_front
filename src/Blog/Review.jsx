@@ -8,7 +8,7 @@ function Review(props) {
     /** 리뷰의 맨위위치를 알려주는 함수 */
     function ReviewTop(){
         const ReviewHead = amount.current.offsetTop
-        return( props.ReviewTop(ReviewHead))
+        return( props.setEnd(ReviewHead))
     } 
 
     useEffect(
@@ -33,7 +33,7 @@ function Review(props) {
                 <div className="reviewId"><img src="./image/icon/profile.png" alt="아이디프로필"/>댜대기1</div>
                 <textarea placeholder="댓글을 입력하세요" onChange={HandleInputValue}>{inputValue}</textarea>
                 <div className="exportRereview">등록</div>
-                <div onClick={() => {setReReview(<div></div>)}} className="closeBtn">X</div>
+                <span onClick={() => {setReReview(<div></div>)}} className="closeBtn">X</span>
             </div>
             )
         )
@@ -60,7 +60,7 @@ function Review(props) {
                 </li>
             </ul>
             <div className="writeReview">
-                <div className="guest"><img src="./image/icon/profile.png" alt="게스트프로필"/>다대기1</div>
+                <span className="guest"><img src="./image/icon/profile.png" alt="게스트프로필"/>다대기1</span>
                 <textarea placeholder="댓글을 입력하세요"></textarea>
                 <div className="exportReview">등록</div>
             </div>
@@ -69,6 +69,7 @@ function Review(props) {
 }
 
 const Reviews = styled.div`
+    user-select: none; // 드래그시 파란색 없애는 것 
     background-color: var(--second2);
     margin: 15px 0 30px 0;
     width: 100%; 
@@ -147,21 +148,21 @@ const Reviews = styled.div`
     //대댓글 작성칸///////////////////////////////////////////////////
 
     .rereview{
-        width: 100%;
+        width: 85%;
         height: auto;
         min-height: 110px;
         flex-direction: column;
         display: flex;
         margin:  10px 0;
         position: relative;
-        overflow: hidden;
         border-top: 1px solid var(--second);
         &>textarea{
             margin: 0;
+            padding: 0;
             font-size: 15px;
-            width: 85%;
+            width: 100%;
             min-height: 20px;
-            border: 1px solid var(--second);
+            border: 0;
             outline: none;
             resize: none;
             overflow: hidden;
@@ -171,14 +172,12 @@ const Reviews = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: 10px 0 auto auto;
         width: 75px;
         height: 20px;
         background-color: var(--second);
         color: white;
         border-radius: 3px;
-        position: absolute;
-        top: 90px;
-        left: 78%;
         cursor: pointer;
     }
     .closeBtn{
@@ -187,12 +186,11 @@ const Reviews = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        position: absolute;
         border: 1px solid var(--second);
-        left: 90%;
-        bottom: 35px;
+        position: absolute;
+        top: 50px;
+        left: 105%;
         cursor: pointer;
-
         &:hover{
             background-color: var(--primary);
             color: white;
@@ -203,43 +201,42 @@ const Reviews = styled.div`
 
     //댓글 작성칸/////////////////////////////////////////////////////
     .writeReview{
-        width: 100%;
-        height: auto;
-        min-height: 170px;
+        width: 85%;
+        height: 170px;
         flex-direction: column;
         display: flex;
-        margin:  35px 0;
-        position: relative;
+        margin: 35px auto;
+
         &>textarea{
-            margin-left: 40px;
-            padding: 35px 10px 0 10px;
-            font-size: 15px;
-            width: 90%;
-            min-height: 95px;
+            margin:0 auto;
             background-color: var(--background);
-            border: 1px solid var(--second);
+            padding: 0 10px;
+            font-size: 15px;
+            width: 100%;
+            min-height: 95px;
+            border: 0;
             outline: none;
             resize: none;
             overflow: hidden;
+            box-sizing: border-box;
         }
     }
     .guest{
-        width: 91% ;
+        width: 100% ;
         height: 35px;
         font-size: 15px;
         display: flex;
         align-items: center;
-        position: absolute;
-        margin: 0;
-        top: 1px;
-        left: 50px;
+        margin: 0 auto;
         background-color: var(--background);
         z-index: 5;
+        flex-shrink: 1;
         &>img{
             object-fit: fill;
             width: 20px;
             height: auto;
-            margin-right: 5px;
+            margin: 0 10px;
+            
         }
 }
     .exportReview{
@@ -248,12 +245,10 @@ const Reviews = styled.div`
         align-items: center;
         width: 75px;
         height: 20px;
+        margin: auto 0 auto auto;
         background-color: var(--second);
         color: white;
         border-radius: 3px;
-        position: absolute;
-        top: 135px;
-        left: 89%;
         cursor: pointer;
     }
 
