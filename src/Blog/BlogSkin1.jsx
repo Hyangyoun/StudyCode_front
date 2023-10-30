@@ -5,17 +5,18 @@ import PostList from "../Blog/PostList";
 import Followers from "../Blog/Followers";
 import Repo from "../Blog/Repo";
 import OverView from "./OverView";
+import Viewer from "./Viewer";
 
 function BlogSkin1 (props){
 
     const {menuIndex, changeMenuIndex ,overView} = props
 
     const [CartegoryIndex, setCartegoryIndex] = useState(1) // 코테 스터디 등 메뉴 클릭 감지 state
-    const [screenSize , setScreenSize] = useState(window.innerWidth - 250) //윈도우 크기 감지 state
+    const [screenSize , setScreenSize] = useState(window.innerWidth - 267) //윈도우 크기 감지 state
 
     /** 윈도우 변화 감지 */
     const HandleScreenSize = () => {
-        setScreenSize(window.innerWidth - 250)
+        setScreenSize(window.innerWidth - 267)
     }
 
     //윈도우 변화를 감시할 이벤트 생성과 삭제
@@ -27,10 +28,11 @@ function BlogSkin1 (props){
     },[])
 
     return(
-        <BlogSection>
+        <BlogSection $screenSize={screenSize}>
             <SideBar menuIndex={menuIndex} changeMenuIndex={changeMenuIndex}/>
-            <div>
-                <BlogHeader $screenSize={screenSize} $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
+            <div className="blogBody">
+                {menuIndex !== 5 ?
+                 <BlogHeader $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
                     <span >{"내 토요일 내놔"}</span>
                     <span className="blogMenu">
                         {
@@ -52,7 +54,8 @@ function BlogSkin1 (props){
                         </ul>
                         :null
                     }
-                </BlogHeader>
+                 </BlogHeader> : <Viewer/>
+                }
                 {
                     {
                         1 : <OverView overView={overView}/>,
@@ -70,10 +73,14 @@ const BlogSection = styled.div`
     display: flex;
     flex-direction: row;
     height: auto;
+    .blogBody{
+        width:${props => props.$screenSize}px;
+        position: relative;
+    }
 `
 /**블로그 헤더 스타일 */
 const BlogHeader = styled.div`
-    width:${props => props.$screenSize}px;
+    width: 100%;
     height: auto;
     display: flex;
     justify-content: center;

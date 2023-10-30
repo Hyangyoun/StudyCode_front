@@ -1,28 +1,36 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import PostList1 from "../DummyData/PostList1.json"
 
 function PostList(props){
+
     const [isBlog , setIsBlog] = useState(true)
+    const [posts , setPosts] = useState([])
+
+    useEffect((() => {
+        setPosts(PostList1)
+    }),[])
 
     return(
         <>
         {isBlog ?
             <BlogPost >
-                <li className="post">
-                    <img src="/image/icon/sample.png" alt="썸네일" />
-                    <span className="title">내 토요일 내놔</span>
-                    <div className="content">미안하다 이거 보여줄려고 어그로끌었다.. 
-                    나루토 사스케 싸움수준 ㄹㅇ실화냐? 진짜 세계관최강자들의 싸움이다...</div>
-                    <ul className="tagUl">
-                        <li>JavaScript</li>
-                        <li>React</li>
-                        <li>JavaScriptttttttttttt</li>
-                    </ul>
-                    <div className="likeDiv">
-                        <span className="like">15</span>
-                        <span>2023.09.13</span>
-                    </div>
-                </li>
+                {posts.map((post) =>
+                    <li className="post" key={post.Index} value={post.memId}>
+                        <img  src="/image/icon/sample.png" alt="썸네일" />
+                        <span className="title" >{post.title}</span>
+                        <div className="content" >{post.content}</div>
+                        <ul className="tagUl">
+                            <li>JavaScript</li>
+                            <li>React</li>
+                            <li>JavaScriptttttttttttt</li>
+                        </ul>
+                        <div className="likeDiv">
+                            <span className="like">{post.like}</span>
+                            <span>{post.postDate}</span>
+                        </div>
+                    </li>
+                )}
             </BlogPost> :
             <NoBlog>
                 <span>등록되어있는 포스트가 없습니다.</span>
@@ -115,7 +123,7 @@ const NoBlog = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 1200px;
+    width: 100%;
     height: 500px;
     font-size: 20px;
     color: var(--primary);
