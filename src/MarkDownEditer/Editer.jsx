@@ -13,24 +13,23 @@ export const buttonType = {
     codeBlock: "codeBlock",
     quote: "quote",
     link: "link",
-    image: "image",
-    line: "line",
+    image: "image"
 }
 
 function Editer({value, setValue, height, buttonList}) {
     
     useEffect(() => {
-        commands.title1.icon = (<Icon src="/image/icon/H1.png" />)
-        commands.title2.icon = (<Icon src="/image/icon/H2.png" />)
-        commands.title3.icon = (<Icon src="/image/icon/H3.png" />)
-        commands.bold.icon = (<Icon src="/image/icon/kakao.png" />)
-        commands.italic.icon = (<Icon src="/image/icon/kakao.png" />)
-        commands.strikethrough.icon = (<Icon src="/image/icon/kakao.png" />)
-        commands.code.icon = (<Icon src="/image/icon/kakao.png" />)
-        commands.codeBlock.icon = (<Icon src="/image/icon/kakao.png" />)
-        commands.quote.icon = (<Icon src="/image/icon/kakao.png" />)
-        commands.link.icon = (<Icon src="/image/icon/kakao.png" />)
-        commands.image.icon = (<Icon src="/image/icon/kakao.png" />)
+        commands.title1.icon = (<Icon src="/image/icon/h1.png" alt="h1" />)
+        commands.title2.icon = (<Icon src="/image/icon/h2.png" alt="h2" />)
+        commands.title3.icon = (<Icon src="/image/icon/h3.png" alt="h3" />)
+        commands.bold.icon = (<Icon src="/image/icon/bold.png" alt="bold" />)
+        commands.italic.icon = (<Icon src="/image/icon/italic.png"  alt="italic" />)
+        commands.strikethrough.icon = (<Icon src="/image/icon/strikethrough.png" alt="strikethrough" />)
+        commands.code.icon = (<Icon src="/image/icon/code.png" alt="code" />)
+        commands.codeBlock.icon = (<Icon src="/image/icon/codeblock.png" alt="codeBlock" />)
+        commands.quote.icon = (<Icon src="/image/icon/quote.png" alt="quote" />)
+        commands.link.icon = (<Icon src="/image/icon/link.png"  alt="link" />)
+        commands.image.icon = (<Icon src="/image/icon/image.png" alt="image" />)
     },[])
 
     const button = []
@@ -99,7 +98,11 @@ function Editer({value, setValue, height, buttonList}) {
                 visibleDragbar={false}
                 extraCommands={[]}
                 height={height}
+                textareaProps={{
+                    placeholder: "당신의 생각을 자유롭게 표현해보세요. . ."
+                }}
             />
+            <div className="preview">미리보기</div>
         </EditerBox>
     )
 }
@@ -107,6 +110,28 @@ function Editer({value, setValue, height, buttonList}) {
 const EditerBox = styled.div`
     width: 85%;
     margin: auto auto 40px;
+
+    .preview {
+        width: 140px; height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        border: 1px solid var(--second);
+        margin: 10px 0 0 auto;
+        font-size: 15px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--second);
+            color: white;
+        }
+    }
+
+    .w-md-editor {
+        box-shadow: none !important;
+        background-color: transparent;
+    }
 
     .w-md-editor-text-input,
     .w-md-editor-text-pre > code,
@@ -117,6 +142,8 @@ const EditerBox = styled.div`
     }
 
     .w-md-editor-toolbar {
+        background-color: transparent;
+        border-color: var(--second);
         * {
             display: block;
         }
@@ -129,7 +156,7 @@ const EditerBox = styled.div`
 
         .w-md-editor-toolbar-divider {
             margin: 0 10px !important;
-            height: 16px;
+            height: 24px;
         }
 
         li {
@@ -138,7 +165,7 @@ const EditerBox = styled.div`
         }
 
         button {
-            width: 32px; height: 32px;
+            width: 48px; height: 48px;
             border: 0;
             padding: 0;
             margin: 0;
@@ -150,7 +177,7 @@ const EditerBox = styled.div`
 `
 
 const Icon = styled.img`
-    width: 16px; height: 16px;
+    width: 20px; height: 20px;
 `
 
 export default Editer

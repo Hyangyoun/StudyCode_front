@@ -46,9 +46,9 @@ function OverView(props) {
                 </NoOverview>
             }
             <Editer value={editOver} setValue={setEditOver} height={700} buttonList={[
-                [buttonType.title1, buttonType.title2],
-                [buttonType.bold, buttonType.italic],
-                [buttonType.code, buttonType.codeBlock]
+                [buttonType.title1, buttonType.title2, buttonType.title3],
+                [buttonType.bold, buttonType.italic, buttonType.strikethrough],
+                [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.link, buttonType.image, buttonType.line]
             ]} />
         </>
     )
