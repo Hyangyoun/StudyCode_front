@@ -128,5 +128,3 @@ const InputSection = styled.div`
         background-color: transparent;
     }
 `
-
-export default MDediter
