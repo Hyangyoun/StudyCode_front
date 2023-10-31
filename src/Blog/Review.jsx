@@ -195,7 +195,6 @@ const Reviews = styled.div`
             background-color: var(--primary);
             color: white;
         }
-
     }
 
 

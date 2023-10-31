@@ -2,7 +2,7 @@ import styled from "styled-components"
 import Review from "./Review"
 import { useEffect, useRef, useState } from "react"
 
-function Viewer(props){
+function BlogViewer(props){
 
     const [changePosition , setChangePosition] = useState(false); //포시션 바꾸기위해 넣은 state
 
@@ -37,7 +37,7 @@ function Viewer(props){
 
     return(
         <>
-            <BlogViewer $addFolder={addFolder} $changePosition={changePosition} $end={end}>
+            <ViewerStyle $addFolder={addFolder} $changePosition={changePosition} $end={end}>
                 <div  className="heart">
                     <div className="like" ref={heartButton} onClick={() => {setChangeHeart(!changeHeart)}}>
                          <img src={ changeHeart ? "./image/icon/bigheart2.png" : "./image/icon/bigheart1.png"} alt="좋아요"/>{12}
@@ -73,12 +73,12 @@ function Viewer(props){
                     
                     <Review setEnd={setEnd}/>
                 </div >
-            </BlogViewer >
+            </ViewerStyle >
         </>
     )
 }
 
-const BlogViewer = styled.div`
+const ViewerStyle = styled.div`
     user-select: none; // 드래그시 파란색 없애는 것 
     width: 85%;
     height: auto;
@@ -248,4 +248,4 @@ const BlogViewer = styled.div`
         display: flex;
     }
 `
-export default Viewer
+export default BlogViewer
