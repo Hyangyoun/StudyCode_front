@@ -84,7 +84,7 @@ function Editer({value, setValue, height, buttonList}) {
         })
     }
 
-    console.log(commands.title1)
+    // console.log(commands.title1)
     
     return (
         <EditerBox>
@@ -131,6 +131,7 @@ const EditerBox = styled.div`
     .w-md-editor {
         box-shadow: none !important;
         background-color: transparent;
+        border-bottom: 1px solid var(--second);
     }
 
     .w-md-editor-text-input,
