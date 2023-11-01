@@ -92,11 +92,15 @@ const WriteStyle = styled.form`
             display: flex;
             flex-direction: row;
             align-items: center;
+            /* overflow: hidden; */
+            /* flex-wrap: wrap; */ //둘중 선택
             & > input {
                 width: 100%;
             }
             & > div {
-                width: auto; height: 25px;
+                width: auto;
+                height: 25px;
+                flex-shrink: 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
