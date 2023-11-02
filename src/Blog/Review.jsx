@@ -85,7 +85,7 @@ const Reviews = styled.div`
     }
 
     .reviewHead{
-        padding-left: 10px;
+        padding: 5px 10px ;
         font-size: 20px;
         font-weight: bold;
         border-bottom: 1px solid var(--second);

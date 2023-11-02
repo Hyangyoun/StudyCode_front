@@ -33,8 +33,14 @@ function BlogWrite(props){
 
     const [addFolder,setAddFolder] = useState(false) //폴더 추가 버튼
 
+    ////////////////////////////////////최종선택 ////////////////////////////
+
+    const [selectButton , setSelectButton] = useState(true);    // 최종선택에서 공개 비공개 선택버튼
+
+    const [selectCartegory , setSelectCartegory] = useState(false)  //최종선택에서 카테고리 선택버튼
+
     return(
-        <WriteStyle $addFolder={addFolder}>
+        <WriteStyle $addFolder={addFolder}  $selectButton={selectButton} $selectCartegory={selectCartegory}>
             <div className="head"></div>
             <div className="Form">                 {/**폼을 만든이유는 input세로정렬을 위해 만듬 */}
                 <input maxLength={15} className="title" placeholder="제목을 입력하세요"/>
@@ -45,7 +51,7 @@ function BlogWrite(props){
                 </div>
             </div>
             <div className="writeForm">             {/**writeForm 으로 감싼이유는 inportFile의 위치 고정을 위함 */}
-                <Editer value={editOver} setValue={setEditOver} height={700} buttonList={[
+                <Editer value={editOver} setValue={setEditOver} height={500} buttonList={[
                     [buttonType.title1, buttonType.title2, buttonType.title3],
                     [buttonType.bold, buttonType.italic, buttonType.strikethrough],
                     [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.link, buttonType.image, buttonType.line]
@@ -69,7 +75,50 @@ function BlogWrite(props){
                 </ul>
             </div>
             <div className="writeBtn">다음</div>
+{/* ///////////////////////////// 최종선택////////////////////////////////////////////////////////// */}
+            <div className="lastPreview">
+                <img src="/image/icon/logo.png" alt="로고"/>
+                <div className="addSection">
+                    <div className="imgSection">
+                        <div>
+                            <img src="/image/icon/addimage.png" alt="이미지추가"/>
+                            <span>썸네일 이미지 추가</span>
+                        </div>
+                    </div>
+                    <div className="categorySection">{
+                        selectCartegory ?
+                            <div className="chooseCategory">카테고리 선택
+                                <ul>
+                                    <li>프로젝트</li>
+                                    <li>스터디</li>
+                                    <li>코테</li>
+                                    <li>기타</li>
+                                </ul>
+                                <div className="chooseButton">
+                                    <div>취소</div>
+                                    <div  onClick={() => setSelectCartegory(!selectCartegory)}>선택하기</div>
+                                </div> 
+                            </div>
+                            :
+                            <>
+                                <div className="addcartegory" onClick={() => setSelectCartegory(!selectCartegory)}>
+                                    <img src="/image/icon/addcategory.png" alt="카테고리추가"/>카테고리에 추가하기
+                                </div>
+                                <div className="publics">
+                                    <div onClick={() => setSelectButton(true)}>공개</div>
+                                    <div onClick={() => setSelectButton(false)}>비공개</div>
+                                </div>
+                            </>
+                    }</div>
+
+                </div>
+                <div className="yesOrNoBtn">
+                    <div>다시 수정하기</div>
+                    <div>올리기</div>
+                </div>
+            </div>
         </WriteStyle>
+        
     )
 }
 
@@ -78,7 +127,7 @@ const WriteStyle = styled.form`
     height: auto;
     .head{
         width: 90%;
-        height: 200px;
+        height: 150px;
         background-color: aqua;
         margin: auto;
     }
@@ -89,14 +138,30 @@ const WriteStyle = styled.form`
         flex-direction: column;
 
         .tagBox{
+            width: 100%;
+            padding: 10px 0;
             display: flex;
             flex-direction: row;
             align-items: center;
-            /* overflow: hidden; */
-            /* flex-wrap: wrap; */ //둘중 선택
-            & > input {
-                width: 100%;
+            flex-wrap: wrap; //둘중 선택
+
+            .tags{
+            width: 200px;
+            height: 25px;
+            font-size: 15px;
+            outline: none;
+            border: 0;
+            background-color: var(--background);
+            color: var(--second);
+            margin-bottom: 10px;
+            padding: 0 2px;
+
+            &::placeholder{
+                color: var(--second);
+                font-size: 15px;
             }
+        }
+
             & > div {
                 width: auto;
                 height: 25px;
@@ -107,6 +172,7 @@ const WriteStyle = styled.form`
                 background-color: var(--second);
                 border-radius: 10px;
                 padding: 0 10px;
+                margin-bottom: 10px;
                 margin-right: 10px;
                 font-size: 15px;
                 flex-wrap: nowrap;
@@ -124,17 +190,6 @@ const WriteStyle = styled.form`
             border: 0;
             border-bottom: 2px solid var(--second);
             background-color: var(--background);
-        }
-        .tags{
-            font-size: 20px;
-            outline: none;
-            border: 0;
-            background-color: var(--background);
-            color: var(--second);
-            
-            &::placeholder{
-                color: var(--second);
-            }
         }
     }
     .writeForm{
@@ -238,6 +293,194 @@ const WriteStyle = styled.form`
         &:hover{
             background-color: var(--second);
             color: white;
+        }
+    }
+
+    /////////////////////////////////////// 최종선택 칸
+
+    .lastPreview{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        background-color: var(--background);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .addSection{
+            width: 875px;
+            height: 450px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto 0;
+
+            .imgSection{
+                width: 50%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-right: 1px solid var(--second);
+
+                &>div{
+                    width: 400px;
+                    height: 250px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    background-color: var(--second2);
+
+                    &>img{
+                        margin-bottom: 15px;
+                    }
+                    &>span{
+                        font-size: 15px;
+                        color: var(--second);
+                    }
+                }
+            }
+
+            .categorySection{
+                width: 50%;
+                display: flex;
+                align-items:center;
+                flex-direction: column;
+                font-size: 15px;
+
+                .chooseCategory{
+                    width: 310px;
+                    height: 355px;
+                    display: flex;
+                    flex-direction: column;
+                    list-style: none;
+
+                    &>ul{
+                        width: 100%;
+                        height: 320px;
+                        padding: 0;
+                        margin: 0;
+                        overflow: hidden;
+                        border: 1px solid var(--second);
+                        
+                        &>li{
+                            width: 100%;
+                            height: 25px;
+                            display: flex;
+                            align-items: center;
+                            padding-left: 10px;
+                            border-bottom: 1px solid var(--second);
+                            
+                            &:hover{
+                                background-color: var(--second);
+                                color: white;
+                            }
+                        }
+                    }
+                
+                .chooseButton{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: end;
+                    align-items: center;
+                    margin-top: 10px;
+                    font-size: 15px;
+                    &>div:first-child{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 45px;
+                        height: 20px;
+                        color: var(--primary);
+                        cursor: pointer;
+                    }
+                    
+                    &>div:last-child{
+                        width: 70px;
+                        height: 25px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: 1px solid var(--second);
+                        border-radius: 3px;
+                        color: var(--second);
+                        cursor: pointer;
+                        &:hover{
+                            background-color: var(--primary);
+                            color: white;
+                        }
+                    }
+                }
+                }
+
+                .addcartegory{
+                    width: 400px;
+                    height: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid var(--second);
+                    border-radius: 5px;
+                    margin-bottom: 75px;
+                    cursor: pointer;
+                }
+
+                .publics{
+                    width: 400px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+
+                    &>div{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 180px;
+                        height: 40px;
+                        border-radius: 5px;
+                        border:1px solid var(--second);
+                        color: var(--second);
+                        font-weight: normal;
+                        cursor: pointer;
+                        
+                        &:hover{
+                            border:1px solid var(--primary);
+                            color: var(--primary);
+                            font-weight: bold;
+                        }
+
+                        &:${props => props.$selectButton ? "first-child" : "last-child"}{
+                        border:1px solid var(--primary);
+                        color: var(--primary);
+                        font-weight: bold;
+                        }
+
+                    }
+                
+                }
+            }
+        }
+        .yesOrNoBtn{
+            width: 610px;
+            height: 35px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 30px auto 0;
+            &>div{
+                width: 265px;
+                background-color: var(--second);
+                border-radius: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
         }
     }
 `
