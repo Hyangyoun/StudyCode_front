@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import PostList1 from "../DummyData/PostList1.json"
+import PostList1 from "../DummyData/postList.json"
 
 function PostList(props){
 

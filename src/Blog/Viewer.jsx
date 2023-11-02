@@ -170,16 +170,16 @@ const BlogViewer = styled.div`
         cursor: pointer;
     }
     
-.title{
-    display: flex;
-    align-items: center;
-    margin-top: 55px;
-    width: 100%;
-    height: 60px;
-    font-size: 20px;
-    font-weight: bold;
-    border-bottom: 1px solid var(--primary);
-}
+    .title{
+        display: flex;
+        align-items: center;
+        margin-top: 55px;
+        width: 100%;
+        height: 60px;
+        font-size: 20px;
+        font-weight: bold;
+        border-bottom: 1px solid var(--primary);
+    }
     .date{
         width: 100%;
         height: auto;
