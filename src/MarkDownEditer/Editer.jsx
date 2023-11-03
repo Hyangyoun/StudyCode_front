@@ -102,7 +102,6 @@ function Editer({value, setValue, height, buttonList}) {
                     placeholder: "당신의 생각을 자유롭게 표현해보세요. . ."
                 }}
             />
-            <div className="preview">미리보기</div>
         </EditerBox>
     )
 }
@@ -111,26 +110,10 @@ const EditerBox = styled.div`
     width: 85%;
     margin: auto auto 40px;
 
-    .preview {
-        width: 140px; height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 5px;
-        border: 1px solid var(--second);
-        margin: 10px 0 0 auto;
-        font-size: 15px;
-        cursor: pointer;
-
-        &:hover {
-            background-color: var(--second);
-            color: white;
-        }
-    }
-
     .w-md-editor {
         box-shadow: none !important;
         background-color: transparent;
+        border-bottom: 1px solid var(--second);
     }
 
     .w-md-editor-text-input,

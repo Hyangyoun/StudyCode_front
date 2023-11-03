@@ -71,15 +71,15 @@ function BlogSkin2(props) {
                         <div onClick={() => changeMenuIndex(3)}>Category</div>
                         <div onClick={() => changeMenuIndex(4)}>Repository</div>
                     </div>
-                    <div className="pointer"/>
                 </div>
             </Header>
             {
                 {
-                    1 : <OverView  />,
+                    1 : <OverView overView={overView} />,
                     2 : <PostList />,
                     3 : <Cartegory />,
-                    4 : <Repo />
+                    4 : <Repo />,
+                    5 : <Viewer />
                 }[menuIndex]
             }
         </>
@@ -172,11 +172,12 @@ const Header = styled.div`
     flex-direction: column;
     position: relative;
     align-items: center;
-    width: 100%; height: 260px;
+    width: 95%; height: 260px;
     border-width: 0 0 1px;
     border-style: solid;
     border-color: var(--second);
     box-sizing: border-box;
+    margin: auto;
 
     .blogName {
         width: 100%; height: 190px;
@@ -210,22 +211,19 @@ const Header = styled.div`
                 transition: 0.5s;
                 cursor: pointer;
                 margin: 0 60px;
-                border-bottom: 2px solid white;
+                border-bottom: 2px solid var(--background);
             }
 
             & :not(:nth-child(${props => props.$menuIndex})) {
                 opacity: 0.5;
             }
+
+            & :nth-child(${props => props.$menuIndex}) {
+                opacity: 1;
+                border-bottom: 2px solid var(--primary);
+            }
         }
     }
-
-    .pointer {
-            position: absolute;
-            width: 175px; height: 65px;
-            left: ${props => (((props.$screen - 1060) / 2) - 295) + (props.$menuIndex * 295)}px;
-            border-bottom: 2px solid var(--primary);
-            transition: 0.5s;
-        }
 `
 
 const SideBT = styled.div`
@@ -233,7 +231,7 @@ const SideBT = styled.div`
     background-color: var(--second2);
     position: absolute;
     top: 25px;
-    left: 25px;
+    left: 0;
     display: flex;
     align-items: center;
     justify-content: center;
