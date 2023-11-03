@@ -84,7 +84,7 @@ function Editer({value, setValue, height, buttonList}) {
         })
     }
 
-    console.log(commands.title1)
+    // console.log(commands.title1)
     
     return (
         <EditerBox>

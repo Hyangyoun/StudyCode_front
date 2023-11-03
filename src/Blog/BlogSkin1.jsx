@@ -5,7 +5,8 @@ import PostList from "../Blog/PostList";
 import Followers from "../Blog/Followers";
 import Repo from "../Blog/Repo";
 import OverView from "./OverView";
-import Viewer from "./Viewer";
+import BlogViewer from "./BlogViewer";
+import BlogWrite from "./BlogWrite";
 
 function BlogSkin1 (props){
 
@@ -28,44 +29,48 @@ function BlogSkin1 (props){
     },[])
 
     return(
-        <BlogSection $screenSize={screenSize}>
-            <SideBar menuIndex={menuIndex} changeMenuIndex={changeMenuIndex}/>
-            <div className="blogBody">
-                {menuIndex !== 5 ?
-                 <BlogHeader $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
-                    <span >{"내 토요일 내놔"}</span>
-                    <span className="blogMenu">
-                        {
+        <>{menuIndex !== 6 ?
+            <BlogSection $screenSize={screenSize}>
+                <SideBar menuIndex={menuIndex} changeMenuIndex={changeMenuIndex}/>
+                <div className="blogBody">
+                    {menuIndex !== 5 ?
+                     <BlogHeader $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
+                        <span >{"내 토요일 내놔"}</span>
+                        <span className="blogMenu">
                             {
-                                1 : "메인",
-                                2 : "post",
-                                3 : "repository",
-                                4 : "팔로워",
-                            }[menuIndex]
+                                {
+                                    1 : "메인",
+                                    2 : "post",
+                                    3 : "repository",
+                                    4 : "팔로워",
+                                }[menuIndex]
+                            }
+                        </span>
+                        {menuIndex === 2 ? 
+                            <ul className="categorys">
+                                <li onClick={() => setCartegoryIndex(1)}>코테</li>
+                                <li onClick={() => setCartegoryIndex(2)}>스터디&모음</li>
+                                <li onClick={() => setCartegoryIndex(3)}>프로젝트</li>
+                                <li onClick={() => setCartegoryIndex(4)}>분류없음</li>
+                                <li>+</li>
+                            </ul>
+                            :null
                         }
-                    </span>
-                    {menuIndex === 2 ? 
-                        <ul className="categorys">
-                            <li onClick={() => setCartegoryIndex(1)}>코테</li>
-                            <li onClick={() => setCartegoryIndex(2)}>스터디&모음</li>
-                            <li onClick={() => setCartegoryIndex(3)}>프로젝트</li>
-                            <li onClick={() => setCartegoryIndex(4)}>분류없음</li>
-                            <li>+</li>
-                        </ul>
-                        :null
+                     </BlogHeader> : <BlogViewer/>
                     }
-                 </BlogHeader> : <Viewer/>
-                }
-                {
                     {
-                        1 : <OverView overView={overView}/>,
-                        2 : <PostList/>,
-                        3 : <Repo/>,
-                        4 : <Followers/>,
-                    }[menuIndex]
-                }
-            </div>
-        </BlogSection>
+                        {
+                            1 : <OverView overView={overView}/>,
+                            2 : <PostList/>,
+                            3 : <Repo/>,
+                            4 : <Followers/>,
+                        }[menuIndex]
+                    }
+                </div>
+            </BlogSection>
+            :
+            <BlogWrite/>
+        }</>
     )
 }
 
