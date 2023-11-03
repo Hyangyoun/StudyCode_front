@@ -16,23 +16,17 @@ function OverView(props) {
                     <div>소개글 작성하기</div>
                 </NoOverview>
             }
-            <Editer value={editOver} setValue={setEditOver} height={700} buttonList={[
-                [buttonType.title1, buttonType.title2, buttonType.title3],
-                [buttonType.bold, buttonType.italic, buttonType.strikethrough],
-                [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.link, buttonType.image]
-            ]} />
         </>
     )
 }
 
 
 const NoOverview = styled.div`
-    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 1200px;
+    width: 100%;
     height: 500px;
     font-size: 20px;
     color: var(--primary);

@@ -61,9 +61,10 @@ const Sidebar = styled.div`
     box-sizing: border-box;
     flex-direction: column;
     align-items: center;
-    position: relative;
+    position: fixed;
+    left: 0;
     font-size: 15px;
-    background-color: var(--background);
+    background-color: var(--background);;
     z-index: 100;
 
     .profilePicture{

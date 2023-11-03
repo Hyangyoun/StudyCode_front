@@ -13,25 +13,11 @@ function BlogSkin1 (props){
     const {menuIndex, changeMenuIndex ,overView} = props
 
     const [CartegoryIndex, setCartegoryIndex] = useState(1) // 코테 스터디 등 메뉴 클릭 감지 state
-    const [screenSize , setScreenSize] = useState(window.innerWidth - 267) //윈도우 크기 감지 state
-
-    /** 윈도우 변화 감지 */
-    const HandleScreenSize = () => {
-        setScreenSize(window.innerWidth - 267)
-    }
-
-    //윈도우 변화를 감시할 이벤트 생성과 삭제
-    useEffect(()=>{
-        window.addEventListener('resize', HandleScreenSize);
-        return () => { // cleanup 
-            window.removeEventListener('resize', HandleScreenSize);
-        }
-    },[])
+    
 
     return(
         <>{menuIndex !== 6 ?
-            <BlogSection $screenSize={screenSize}>
-                <SideBar menuIndex={menuIndex} changeMenuIndex={changeMenuIndex}/>
+            <BlogSection>
                 <div className="blogBody">
                     {menuIndex !== 5 ?
                      <BlogHeader $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
@@ -58,14 +44,6 @@ function BlogSkin1 (props){
                         }
                      </BlogHeader> : <BlogViewer/>
                     }
-                    {
-                        {
-                            1 : <OverView overView={overView}/>,
-                            2 : <PostList/>,
-                            3 : <Repo/>,
-                            4 : <Followers/>,
-                        }[menuIndex]
-                    }
                 </div>
             </BlogSection>
             :
@@ -79,7 +57,7 @@ const BlogSection = styled.div`
     flex-direction: row;
     height: auto;
     .blogBody{
-        width:${props => props.$screenSize}px;
+        width:100%;
         position: relative;
     }
 `

@@ -73,15 +73,6 @@ function BlogSkin2(props) {
                     </div>
                 </div>
             </Header>
-            {
-                {
-                    1 : <OverView overView={overView} />,
-                    2 : <PostList />,
-                    3 : <Cartegory />,
-                    4 : <Repo />,
-                    5 : <Viewer />
-                }[menuIndex]
-            }
         </>
     )
 }

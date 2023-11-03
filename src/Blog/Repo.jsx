@@ -57,6 +57,7 @@ const RepoList = styled.ul`
     width: auto;
     height: auto;
     display: flex;
+    padding: 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
