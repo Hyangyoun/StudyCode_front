@@ -12,7 +12,7 @@ import Repo from "../Blog/Repo";
 function BlogPage(props){
     
     const [menuIndex, setMenuIndex] = useState(1)
-    const [skin, setSkin] = useState(2)
+    const [skin, setSkin] = useState(1)
 
     /** props로 넘어갈 state set 함수 */
     const ChangeMenuIndex = (value) => {
@@ -21,21 +21,23 @@ function BlogPage(props){
 
     return(
         <BlogSection $skin={skin}>
-            {skin === 1 ?
-            <>
-                <SideBar menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
-                <BlogSkin1 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
-            </>:
-            skin === 2 ?<BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />:
-            null}
             {
-                        {
-                            1 : <OverView />,
-                            2 : <PostList />,
-                            3 : <Cartegory />,
-                            4 : <Repo />,
-                            5 : <Followers />,
-                        }[menuIndex]
+                {
+                    1 : <>
+                        <SideBar menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                        <BlogSkin1 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                    </>,
+                    2 : <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                }[skin]
+            }
+            {
+                {
+                    1 : <OverView />,
+                    2 : <PostList />,
+                    3 : <Cartegory />,
+                    4 : <Repo />,
+                    5 : <Followers />,
+                }[menuIndex]
             }
         </BlogSection>
     )
