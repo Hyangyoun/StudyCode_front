@@ -4,6 +4,8 @@ import React, { useState } from "react";
 
 function BlogWrite(props){
 
+    //////////////////// tag 입력받는 영역/////////////////////////////
+
     const [tagList , setTagList] = useState([]) //tag리스트 공간 state
 
     const [tagName , setTagName] = useState('') //input 값받는 state
@@ -26,12 +28,15 @@ function BlogWrite(props){
         }
     }
     
+    ///////////////////////////////////각종 기타 버튼들//////////////////////
 
     const [chooseFolder, SetChooseFolder] = useState(null); //폴더이름선택 버튼
 
     const [editOver, setEditOver] = useState(""); //에디터 사용을 위해 가져온값
 
     const [addFolder,setAddFolder] = useState(false) //폴더 추가 버튼
+
+    const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
 
     ////////////////////////////////////최종선택 ////////////////////////////
 
@@ -40,14 +45,15 @@ function BlogWrite(props){
     const [selectCartegory , setSelectCartegory] = useState(false)  //최종선택에서 카테고리 선택버튼
 
     return(
-        <WriteStyle $addFolder={addFolder}  $selectButton={selectButton} $selectCartegory={selectCartegory}>
+        <WriteStyle $addFolder={addFolder}  $selectButton={selectButton} 
+        $selectCartegory={selectCartegory} $nextButton={nextButton}>
             <div className="head"></div>
             <div className="Form">                 {/**폼을 만든이유는 input세로정렬을 위해 만듬 */}
                 <input maxLength={15} className="title" placeholder="제목을 입력하세요"/>
                 <div className="tagBox">
                     {tagList.map((item , index) => <div key={index}>{item}</div>)}
                     <input value={tagName} onChange={(e) => {setTagName(e.target.value)}}
-                    onKeyDown={handleTagList} className="tags" placeholder="태그를 입력하세요"/>
+                    onKeyDown={handleTagList} className="taginput" placeholder="태그를 입력하세요"/>
                 </div>
             </div>
             <div className="writeForm">             {/**writeForm 으로 감싼이유는 inportFile의 위치 고정을 위함 */}
@@ -74,7 +80,7 @@ function BlogWrite(props){
                     <li >+</li>
                 </ul>
             </div>
-            <div className="writeBtn">다음</div>
+            <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div>
 {/* ///////////////////////////// 최종선택////////////////////////////////////////////////////////// */}
             <div className="lastPreview">
                 <img src="/image/icon/logo.png" alt="로고"/>
@@ -96,24 +102,23 @@ function BlogWrite(props){
                                 </ul>
                                 <div className="chooseButton">
                                     <div>취소</div>
-                                    <div  onClick={() => setSelectCartegory(!selectCartegory)}>선택하기</div>
+                                    <div  onClick={() => setSelectCartegory(true)}>선택하기</div>
                                 </div> 
                             </div>
                             :
                             <>
-                                <div className="addcartegory" onClick={() => setSelectCartegory(!selectCartegory)}>
+                                <div className="addcartegory" onClick={() => setSelectCartegory(false)}>
                                     <img src="/image/icon/addcategory.png" alt="카테고리추가"/>카테고리에 추가하기
                                 </div>
-                                <div className="publics">
+                                <div className="publicPrivate">
                                     <div onClick={() => setSelectButton(true)}>공개</div>
                                     <div onClick={() => setSelectButton(false)}>비공개</div>
                                 </div>
                             </>
                     }</div>
-
                 </div>
                 <div className="yesOrNoBtn">
-                    <div>다시 수정하기</div>
+                    <div onClick={() => setNextButton(false)}>다시 수정하기</div>
                     <div>올리기</div>
                 </div>
             </div>
@@ -125,27 +130,39 @@ function BlogWrite(props){
 const WriteStyle = styled.form`
     width: 100%;
     height: auto;
-    .head{
+
+    .head{                              ///////////////로고/////////////
         width: 90%;
         height: 150px;
         background-color: aqua;
         margin: auto;
     }
-    .Form{
+
+    .Form{                             ///////////////타이틀이랑태그/////////////
         width: 85%;
         margin: auto;
         display: flex;
         flex-direction: column;
 
+        .title{                             ///////////////타이틀/////////////
+            font-size: 20px;
+            font-weight: bold;
+            outline: none;
+            border: 0;
+            border-bottom: 2px solid var(--second);
+            background-color: var(--background);
+        }
+        
         .tagBox{
             width: 100%;
             padding: 10px 0;
             display: flex;
             flex-direction: row;
             align-items: center;
-            flex-wrap: wrap; //둘중 선택
+            flex-wrap: wrap;
 
-            .tags{
+            
+            .taginput{                             ///////////////태그안에 입력값/////////////
             width: 200px;
             height: 25px;
             font-size: 15px;
@@ -162,7 +179,7 @@ const WriteStyle = styled.form`
             }
         }
 
-            & > div {
+            & > div {                             ///////////////태그/////////////
                 width: auto;
                 height: 25px;
                 flex-shrink: 0;
@@ -179,23 +196,16 @@ const WriteStyle = styled.form`
                 
             }
         }
-        &>input{
+        &>input{                             ///////////////taginput과 서로영행받음(추측)/////////////
             width: 90%;
             height: 60px;
         }
-        .title{
-            font-size: 20px;
-            font-weight: bold;
-            outline: none;
-            border: 0;
-            border-bottom: 2px solid var(--second);
-            background-color: var(--background);
-        }
     }
-    .writeForm{
+
+    .writeForm{                             ///////////////글쓰기 공간/////////////
         position: relative;
     
-        .importFile{
+        .importFile{                        ///////////////파일첨부/////////////
             user-select: none; // 드래그시 파란색 없애는 것 
             width: 410px;
             height: auto;
@@ -206,7 +216,7 @@ const WriteStyle = styled.form`
             position: absolute;
             left: 8%;
             top:94%;
-            &>li{
+            &>li{                             ///////////////파일첨부안에 내용속성/////////////
                 height: 30px;
                 font-size: 15px;
                 font-weight: normal;
@@ -216,7 +226,7 @@ const WriteStyle = styled.form`
                 align-items: center;
                 padding: 0;
 
-                    &:first-child{
+                    &:first-child{         ////////// 파일첨부 글씨
                         font-size: 20px;
                         position: relative;
                     }
@@ -244,7 +254,7 @@ const WriteStyle = styled.form`
                         border-bottom: 0;
                         cursor: pointer;
                     }
-                    .selectFolder{
+                    .selectFolder{          /////////////파일첨부안에 내용들
                         display: ${(props) => props.$addFolder ? "block" : "none"};
                         width: 80px;
                         height: auto;
@@ -255,7 +265,7 @@ const WriteStyle = styled.form`
                         border: 1px solid var(--second);
                         background-color: var(--background);
 
-                        &>li{
+                        &>li{                 ///////////////파일첨부안에 내용속성
                             width: auto;
                             height: 20px;
                             margin: auto;
@@ -279,7 +289,7 @@ const WriteStyle = styled.form`
             }
         }
     }
-    .writeBtn{
+    .writeBtn{                               ///////////////다음으로 넘어가는 버튼/////////////
         margin: 140px auto 20px;
         width: 260px;
         height: 35px;
@@ -296,13 +306,15 @@ const WriteStyle = styled.form`
         }
     }
 
-    /////////////////////////////////////// 최종선택 칸
+    /////////////////////////////////////// 최종선택 칸////////////////////////////
 
-    .lastPreview{
+    .lastPreview{ 
         width: 100%;
         height: 100%;
         position: fixed;
-        top: 0px;
+        transition: 1.5s ease-in-out;
+        transition-delay: 0s;
+        top: ${props => props.$nextButton ? 0 : 100}vh;
         left: 0px;
         background-color: var(--background);
         display: flex;
@@ -310,7 +322,7 @@ const WriteStyle = styled.form`
         justify-content: center;
         align-items: center;
 
-        .addSection{
+        .addSection{                            /////////////// 공간나누는 영역/////////////
             width: 875px;
             height: 450px;
             display: flex;
@@ -319,7 +331,7 @@ const WriteStyle = styled.form`
             align-items: center;
             margin: 20px auto 0;
 
-            .imgSection{
+            .imgSection{                        ///////////////왼쪽 그림 영역/////////////
                 width: 50%;
                 height: 100%;
                 display: flex;
@@ -327,7 +339,7 @@ const WriteStyle = styled.form`
                 align-items: center;
                 border-right: 1px solid var(--second);
 
-                &>div{
+                &>div{                 ///////////////왼쪽 그림과 글씨 정렬하는 div/////////////
                     width: 400px;
                     height: 250px;
                     display: flex;
@@ -346,21 +358,21 @@ const WriteStyle = styled.form`
                 }
             }
 
-            .categorySection{
+            .categorySection{           ///////////////오른쪽 카테고리 영역/////////////
                 width: 50%;
                 display: flex;
                 align-items:center;
                 flex-direction: column;
                 font-size: 15px;
 
-                .chooseCategory{
+                .chooseCategory{           ///////////////카테고리 선택(카테고리추가하기를 누르면 나타나는영역)/////////////
                     width: 310px;
                     height: 355px;
                     display: flex;
                     flex-direction: column;
                     list-style: none;
 
-                    &>ul{
+                    &>ul{                 ///////////////카테고리 선택 영역/////////////
                         width: 100%;
                         height: 320px;
                         padding: 0;
@@ -368,7 +380,7 @@ const WriteStyle = styled.form`
                         overflow: hidden;
                         border: 1px solid var(--second);
                         
-                        &>li{
+                        &>li{              ///////////////카테고리들/////////////
                             width: 100%;
                             height: 25px;
                             display: flex;
@@ -383,14 +395,14 @@ const WriteStyle = styled.form`
                         }
                     }
                 
-                .chooseButton{
+                .chooseButton{                 ////////카테고리추가 누르면 나오는 취소 선택 버튼
                     display: flex;
                     flex-direction: row;
                     justify-content: end;
                     align-items: center;
                     margin-top: 10px;
                     font-size: 15px;
-                    &>div:first-child{
+                    &>div:first-child{          ////////취소 버튼
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -400,7 +412,7 @@ const WriteStyle = styled.form`
                         cursor: pointer;
                     }
                     
-                    &>div:last-child{
+                    &>div:last-child{           ////////선택 버튼
                         width: 70px;
                         height: 25px;
                         display: flex;
@@ -418,7 +430,7 @@ const WriteStyle = styled.form`
                 }
                 }
 
-                .addcartegory{
+                .addcartegory{                 ////////카테고리에 추가하기 
                     width: 400px;
                     height: 40px;
                     display: flex;
@@ -430,13 +442,13 @@ const WriteStyle = styled.form`
                     cursor: pointer;
                 }
 
-                .publics{
+                .publicPrivate{                 ////////공개 비공개 유무 버튼영역div
                     width: 400px;
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
 
-                    &>div{
+                    &>div{                      ////////공개 비공개 유무 버튼
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -465,7 +477,7 @@ const WriteStyle = styled.form`
                 }
             }
         }
-        .yesOrNoBtn{
+        .yesOrNoBtn{                 ////////마지막 수정 아니면 올리기 버튼
             width: 610px;
             height: 35px;
             display: flex;
