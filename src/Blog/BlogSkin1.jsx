@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import SideBar from "./SideBar";
-import PostList from "../Blog/PostList";
-import Followers from "../Blog/Followers";
-import Repo from "../Blog/Repo";
-import OverView from "./OverView";
 import BlogViewer from "./BlogViewer";
-import BlogWrite from "./BlogWrite";
 
 function BlogSkin1 (props){
 
@@ -16,9 +10,7 @@ function BlogSkin1 (props){
     
 
     return(
-            <BlogSection>
-                <div className="blogBody">
-                    {menuIndex !== 5 ?
+                <BlogBody>
                      <BlogHeader $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
                         <span >{"내 토요일 내놔"}</span>
                         <span className="blogMenu">
@@ -31,31 +23,18 @@ function BlogSkin1 (props){
                                 }[menuIndex]
                             }
                         </span>
-                        {menuIndex === 2 ? 
-                            <ul className="categorys">
-                                <li onClick={() => setCartegoryIndex(1)}>코테</li>
-                                <li onClick={() => setCartegoryIndex(2)}>스터디&모음</li>
-                                <li onClick={() => setCartegoryIndex(3)}>프로젝트</li>
-                                <li onClick={() => setCartegoryIndex(4)}>분류없음</li>
-                                <li>+</li>
-                            </ul>
-                            :null
-                        }
-                     </BlogHeader> : <BlogViewer/>
-                    }
-                </div>
-            </BlogSection>
+                     </BlogHeader>
+                </BlogBody>
+
     )
 }
 
-const BlogSection = styled.div`
+const BlogBody = styled.div`
     display: flex;
     flex-direction: row;
     height: auto;
-    .blogBody{
-        width:100%;
-        position: relative;
-    }
+    width:100%;
+    position: relative;
 `
 /**블로그 헤더 스타일 */
 const BlogHeader = styled.div`
@@ -66,7 +45,7 @@ const BlogHeader = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 80px;
-    border-bottom :${props => props.$menuIndex >= 3 ? null : 1}px solid var(--second);
+    border-bottom :1px solid var(--second);
     font-size: 20px;
     font-weight: bold;
 
