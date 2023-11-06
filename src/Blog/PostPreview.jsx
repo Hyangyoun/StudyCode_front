@@ -12,40 +12,40 @@ function PostPreview(props) {
 
     return(
         <LastPreview $nextButton={nextButton} $selectButton={selectButton}>
-        <img src="/image/icon/logo.png" alt="로고"/>
-        <div className="addSection">
-            <div className="imgSection">
-                <div>
-                    <img src="/image/icon/addimage.png" alt="이미지추가"/>
-                    <span>썸네일 이미지 추가</span>
-                </div>
-            </div>
-            <div className="categorySection">{
-                selectCartegory ?
-                    <div className="chooseCategory">카테고리 선택
-                        <ul>
-                            <li>프로젝트</li>
-                            <li>스터디</li>
-                            <li>코테</li>
-                            <li>기타</li>
-                        </ul>
-                        <div className="chooseButton">
-                            <div>취소</div>
-                            <div  onClick={() => setSelectCartegory(true)}>선택하기</div>
-                        </div> 
+            <img src="/image/icon/logo.png" alt="로고"/>
+            <div className="addSection">
+                <div className="imgSection">
+                    <div>
+                        <img src="/image/icon/addimage.png" alt="이미지추가"/>
+                        <span>썸네일 이미지 추가</span>
                     </div>
-                    :
-                    <>
-                        <div className="addcartegory" onClick={() => setSelectCartegory(false)}>
-                            <img src="/image/icon/addcategory.png" alt="카테고리추가"/>카테고리에 추가하기
+                </div>
+                <div className="categorySection">{
+                    selectCartegory ?
+                        <div className="chooseCategory">카테고리 선택
+                            <ul>
+                                <li>프로젝트</li>
+                                <li>스터디</li>
+                                <li>코테</li>
+                                <li>기타</li>
+                            </ul>
+                            <div className="chooseButton">
+                                <div>취소</div>
+                                <div  onClick={() => setSelectCartegory(true)}>선택하기</div>
+                            </div> 
                         </div>
-                        <div className="publicPrivate">
-                            <div onClick={() => setSelectButton(true)}>공개</div>
-                            <div onClick={() => setSelectButton(false)}>비공개</div>
-                        </div>
-                    </>
-            }</div>
-        </div>
+                        :
+                        <>
+                            <div className="addcartegory" onClick={() => setSelectCartegory(false)}>
+                                <img src="/image/icon/addcategory.png" alt="카테고리추가"/>카테고리에 추가하기
+                            </div>
+                            <div className="publicPrivate">
+                                <div onClick={() => setSelectButton(true)}>공개</div>
+                                <div onClick={() => setSelectButton(false)}>비공개</div>
+                            </div>
+                        </>
+                }</div>
+            </div>
         <div className="yesOrNoBtn">
             <div onClick={() => setNextButton(false)}>다시 수정하기</div>
             <div>올리기</div>
@@ -56,7 +56,6 @@ function PostPreview(props) {
 }
 
 const LastPreview = styled.div`
-
             width: 100%;
             height: 100%;
             position: fixed;

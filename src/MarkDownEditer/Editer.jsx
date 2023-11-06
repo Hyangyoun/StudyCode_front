@@ -107,8 +107,8 @@ function Editer({value, setValue, height, buttonList}) {
 }
 
 const EditerBox = styled.div`
-    width: 85%;
-    margin: auto auto 40px;
+    width: 100%;
+    margin: auto;
 
     .w-md-editor {
         box-shadow: none !important;

@@ -41,38 +41,51 @@ function BlogWrite(props){
 
     return(
         <WriteStyle $addFolder={addFolder} $nextButton={nextButton}>
-            <div className="head"></div>
-            <div className="Form">                 {/**폼을 만든이유는 input세로정렬을 위해 만듬 */}
-                <input maxLength={15} className="title" placeholder="제목을 입력하세요"/>
-                <div className="tagBox">
-                    {tagList.map((item , index) => <div key={index}>{item}</div>)}
-                    <input value={tagName} onChange={(e) => {setTagName(e.target.value)}}
-                    onKeyDown={handleTagList} className="taginput" placeholder="태그를 입력하세요"/>
-                </div>
+            <input maxLength={15} className="title" placeholder="제목을 입력하세요"/>
+            <div className="tagBox">
+                {tagList.map((item , index) => <div key={index}>{item}</div>)}
+                <input value={tagName} onChange={(e) => {setTagName(e.target.value)}}
+                onKeyDown={handleTagList} className="taginput" placeholder="태그를 입력하세요"/>
             </div>
-            <div className="writeForm">             {/**writeForm 으로 감싼이유는 inportFile의 위치 고정을 위함 */}
-                <Editer value={WriteValue} setValue={setWriteValue} height={500} buttonList={[
-                    [buttonType.title1, buttonType.title2, buttonType.title3],
-                    [buttonType.bold, buttonType.italic, buttonType.strikethrough],
-                    [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.link, buttonType.image, buttonType.line]
-                ]} />
-                <ul className="importFile">
-                    <li>파일첨부</li>
-                    <li >
-                        <div>x</div>
-                        test.jsx
-                        <div onClick={() => setAddFolder(!addFolder)}>{chooseFolder === null ? "폴더선택" : chooseFolder}
-                            <ul className="selectFolder">
-                                <li onClick={() => SetChooseFolder(null)}>선택안함</li>
-                                <li onClick={() => SetChooseFolder("react")}>react</li>
-                                <li onClick={() => SetChooseFolder("javascript")}>javascript</li>
-                                <li onClick={() => SetChooseFolder("java")}>java</li>
-                                <li onClick={() => SetChooseFolder("기타")}>기타</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li >+</li>
-                </ul>
+            <Editer value={WriteValue} setValue={setWriteValue} height={500} buttonList={[
+                [buttonType.title1, buttonType.title2, buttonType.title3],
+                [buttonType.bold, buttonType.italic, buttonType.strikethrough],
+                [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.link, buttonType.image, buttonType.line]
+            ]} />
+            <div className="importFile">
+                <div className="attachSection">
+                    <div>파일첨부</div>
+                    <ul>
+                        <li>
+                            <span>x</span>
+                            test.jsx
+                            <div onClick={() => setAddFolder(!addFolder)}>{chooseFolder === null ? "폴더선택" : chooseFolder}
+                                <ul className="selectFolder">
+                                    <li onClick={() => SetChooseFolder(null)}>선택안함</li>
+                                    <li onClick={() => SetChooseFolder("react")}>react</li>
+                                    <li onClick={() => SetChooseFolder("javascript")}>javascript</li>
+                                    <li onClick={() => SetChooseFolder("java")}>java</li>
+                                    <li onClick={() => SetChooseFolder("기타")}>기타</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <span>x</span>
+                            Page.jsx
+                            <div onClick={() => setAddFolder(!addFolder)}>{chooseFolder === null ? "폴더선택" : chooseFolder}
+                                <ul className="selectFolder">
+                                    <li onClick={() => SetChooseFolder(null)}>선택안함</li>
+                                    <li onClick={() => SetChooseFolder("react")}>react</li>
+                                    <li onClick={() => SetChooseFolder("javascript")}>javascript</li>
+                                    <li onClick={() => SetChooseFolder("java")}>java</li>
+                                    <li onClick={() => SetChooseFolder("기타")}>기타</li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <span>+</span>
+                </div>
+                <div className="previewBT">미리보기</div>
             </div>
             <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div>
             <PostPreview setNextButton={setNextButton} nextButton={nextButton}/>
@@ -80,42 +93,35 @@ function BlogWrite(props){
     )
 }
 
-const WriteStyle = styled.form`
-    width: 100%;
+const WriteStyle = styled.div`
+    width: 85%;
     height: auto;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    .head{                              ///////////////로고/////////////
-        width: 90%;
-        height: 150px;
-        background-color: aqua;
-        margin: auto;
+    .title{                             ///////////////타이틀/////////////
+        font-size: 20px;
+        font-weight: bold;
+        outline: none;
+        border: 0;
+        border-bottom: 2px solid var(--second);
+        background-color: var(--background);
+        margin: 0 auto;
+        width: 100%;
+        height: 60px;
     }
-
-    .Form{                             ///////////////타이틀이랑태그/////////////
-        width: 85%;
-        margin: auto;
+    
+    .tagBox{
+        width: 100%;
+        padding: 10px 0;
         display: flex;
-        flex-direction: column;
-
-        .title{                             ///////////////타이틀/////////////
-            font-size: 20px;
-            font-weight: bold;
-            outline: none;
-            border: 0;
-            border-bottom: 2px solid var(--second);
-            background-color: var(--background);
-        }
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
         
-        .tagBox{
-            width: 100%;
-            padding: 10px 0;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            flex-wrap: wrap;
-
-            
-            .taginput{                             ///////////////태그안에 입력값/////////////
+        .taginput{                             ///////////////태그안에 입력값/////////////
             width: 200px;
             height: 25px;
             font-size: 15px;
@@ -125,88 +131,85 @@ const WriteStyle = styled.form`
             color: var(--second);
             margin-bottom: 10px;
             padding: 0 2px;
-
             &::placeholder{
                 color: var(--second);
                 font-size: 15px;
             }
         }
 
-            & > div {                             ///////////////태그/////////////
-                width: auto;
-                height: 25px;
-                flex-shrink: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: var(--second);
-                border-radius: 10px;
-                padding: 0 10px;
-                margin-bottom: 10px;
-                margin-right: 10px;
-                font-size: 15px;
-                flex-wrap: nowrap;
-                
-            }
-        }
-        &>input{                             ///////////////taginput과 서로영행받음(추측)/////////////
-            width: 90%;
-            height: 60px;
+        & > div {                             ///////////////태그/////////////
+            width: auto;
+            height: 25px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--second);
+            border-radius: 10px;
+            padding: 0 10px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            font-size: 15px;
+            flex-wrap: nowrap; 
         }
     }
 
-    .writeForm{                             ///////////////글쓰기 공간/////////////
-        position: relative;
-    
-        .importFile{                        ///////////////파일첨부/////////////
-            user-select: none; // 드래그시 파란색 없애는 것 
+    .importFile {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 10px;
+
+        .attachSection {
             width: 410px;
-            height: auto;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            font-size: 20px;
-            position: absolute;
-            left: 8%;
-            top:94%;
-            &>li{                             ///////////////파일첨부안에 내용속성/////////////
-                height: 30px;
-                font-size: 15px;
-                font-weight: normal;
-                border-bottom: 1px solid var(--second);
+            user-select: none;
+            font-size: 15px;
+
+            > span {
+                width: 100%;
+                height: 20px;
+                display: inline-block;
+                background-color: var(--second2);
                 display: flex;
-                justify-content: space-between;
                 align-items: center;
+                justify-content: center;
+                font-size: 15px;
+                cursor: pointer;
+            }
+
+            > div {
+                font-size: 20px;
+                border-bottom: 1px solid var(--second);
+                padding-left: 10px;
+            }
+
+            > ul {
                 padding: 0;
+                margin: 0;
 
-                    &:first-child{         ////////// 파일첨부 글씨
-                        font-size: 20px;
-                        position: relative;
-                    }
+                > li {
+                    height: 30px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    border-bottom: 1px solid var(--second);
+                    padding: 0 10px;
+                    position: relative;
 
-                    div:first-child{       //////////X 버튼
-                        margin-left: 15px;
+                    > span {
                         margin-right: 10px;
                         cursor: pointer;
                     }
-                    div:last-child{        //////////// 폴더선택
-                        display: block;
-                        width:80px;
-                        text-align: end;
-                        margin-left: 255px;
-                        overflow:hidden;
-                        white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
-                        cursor: pointer;
+
+                    > div {
+                        margin-left: auto;
+
+                        &::after {
+                            content: url("./image/icon/arrow1.png");
+                        }
                     }
-                    div:last-child:after{  //////////// 화살표
-                        content: url("./image/icon/arrow1.png");
-                    }
-                    &:last-child{           /////////////// +버튼
-                        background-color: var(--second2);
-                        justify-content: center;
-                        border-bottom: 0;
-                        cursor: pointer;
-                    }
+
                     .selectFolder{          /////////////파일첨부안에 내용들
                         display: ${(props) => props.$addFolder ? "block" : "none"};
                         width: 80px;
@@ -214,9 +217,10 @@ const WriteStyle = styled.form`
                         padding: 0;
                         list-style: none;
                         position: absolute;
-                        right: 5px;
+                        right: 10px;
                         border: 1px solid var(--second);
                         background-color: var(--background);
+                        z-index: 100;
 
                         &>li{                 ///////////////파일첨부안에 내용속성
                             width: auto;
@@ -226,24 +230,40 @@ const WriteStyle = styled.form`
                             padding-left:5px;
                             display: flex;
                             align-items: center;
-                                &:hover{
-                                    background-color: var(--second);
-                                }
-                                &:first-child{
-                                    justify-content: center;
-                                }
-                                &:not(:first-child):before{
-                                    margin-right: 5px;
-                                    content: url("./image/icon/folder.png");
-                                }
+
+                            &:hover{
+                                background-color: var(--second);
+                            }
+                            &:first-child{
+                                justify-content: center;
+                            }
+                            &:not(:first-child):before{
+                                margin-right: 5px;
+                                content: url("./image/icon/folder.png");
+                            }
                                 
                         }
                     }
+                }
             }
         }
+        
+        .previewBT {
+            user-select: none;
+            width: 115px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background-color: var(--second);
+            border-radius: 5px;
+            cursor: pointer;
+        }
     }
+
     .writeBtn{                               ///////////////다음으로 넘어가는 버튼/////////////
-        margin: 140px auto 20px;
+        margin: 100px auto 20px;
         width: 260px;
         height: 35px;
         background-color: var(--background);
