@@ -8,6 +8,7 @@ import PostList from "../Blog/PostList";
 import Cartegory from "../Blog/Cartegory";
 import Followers from "../Blog/Followers";
 import Repo from "../Blog/Repo";
+import BlogWrite from "../Blog/BlogWrite";
 
 function BlogPage(props){
     
@@ -26,12 +27,13 @@ function BlogPage(props){
                     1 : <>
                         <SideBar menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
                         <BlogSkin1 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
-                    </>,
-                    2 : <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                        </>,
+                    2 : <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />,
+                    3 : <BlogWrite/>
                 }[skin]
             }
             {
-                {
+             skin === 3 ? null : {
                     1 : <OverView />,
                     2 : <PostList />,
                     3 : <Cartegory />,

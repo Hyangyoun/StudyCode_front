@@ -17,7 +17,7 @@ function SideBar(props){
                 <> 
                 <span onClick={() => changeMenuIndex(4)}>팔로우{}</span>
                 <span onClick={() => changeMenuIndex(4)}>팔로잉{}</span>
-                <div className="write" onClick={() => changeMenuIndex(6)}>새 포스트</div>
+                <div className="write">새 포스트</div>
                 </>
                 :
                 <div className="blogName">내 토요일 내놔</div>

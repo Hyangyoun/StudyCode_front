@@ -16,7 +16,6 @@ function BlogSkin1 (props){
     
 
     return(
-        <>{menuIndex !== 6 ?
             <BlogSection>
                 <div className="blogBody">
                     {menuIndex !== 5 ?
@@ -46,9 +45,6 @@ function BlogSkin1 (props){
                     }
                 </div>
             </BlogSection>
-            :
-            <BlogWrite/>
-        }</>
     )
 }
 
