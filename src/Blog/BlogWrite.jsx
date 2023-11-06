@@ -35,12 +35,10 @@ function BlogWrite(props){
 
     const [WriteValue, setWriteValue] = useState(""); //에디터 사용을 위해 가져온값
 
-    const [addFolder,setAddFolder] = useState(false) //폴더 추가 버튼
-
     const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
 
     return(
-        <WriteStyle $addFolder={addFolder} $nextButton={nextButton}>
+        <WriteStyle $nextButton={nextButton}>
             <input maxLength={15} className="title" placeholder="제목을 입력하세요"/>
             <div className="tagBox">
                 {tagList.map((item , index) => <div key={index}>{item}</div>)}
@@ -59,7 +57,10 @@ function BlogWrite(props){
                         <li>
                             <span>x</span>
                             test.jsx
-                            <div onClick={() => setAddFolder(!addFolder)}>{chooseFolder === null ? "폴더선택" : chooseFolder}
+                            <div>
+                                {chooseFolder === null ? "폴더선택" : chooseFolder}
+                                <label htmlFor="togleSelect" />
+                                <input id="togleSelect" type="checkbox" />
                                 <ul className="selectFolder">
                                     <li onClick={() => SetChooseFolder(null)}>선택안함</li>
                                     <li onClick={() => SetChooseFolder("react")}>react</li>
@@ -71,8 +72,11 @@ function BlogWrite(props){
                         </li>
                         <li>
                             <span>x</span>
-                            Page.jsx
-                            <div onClick={() => setAddFolder(!addFolder)}>{chooseFolder === null ? "폴더선택" : chooseFolder}
+                            test.jsx
+                            <div>
+                                {chooseFolder === null ? "폴더선택" : chooseFolder}
+                                <label htmlFor="togleSelect2" />
+                                <input id="togleSelect2" type="checkbox" />
                                 <ul className="selectFolder">
                                     <li onClick={() => SetChooseFolder(null)}>선택안함</li>
                                     <li onClick={() => SetChooseFolder("react")}>react</li>
@@ -195,7 +199,6 @@ const WriteStyle = styled.div`
                     align-items: center;
                     border-bottom: 1px solid var(--second);
                     padding: 0 10px;
-                    position: relative;
 
                     > span {
                         margin-right: 10px;
@@ -204,20 +207,36 @@ const WriteStyle = styled.div`
 
                     > div {
                         margin-left: auto;
+                        position: relative;
 
                         &::after {
                             content: url("./image/icon/arrow1.png");
                         }
+
+                        > input {
+                            display: none;
+                        }
+
+                        > label {
+                            position: absolute;
+                            width: 100%; height: 100%;
+                            left: 0;
+                            top: 0;
+                        }
+
+                        > input:checked + .selectFolder {
+                            display: block;
+                        }
                     }
 
                     .selectFolder{          /////////////파일첨부안에 내용들
-                        display: ${(props) => props.$addFolder ? "block" : "none"};
+                        display: none;
                         width: 80px;
                         height: auto;
                         padding: 0;
                         list-style: none;
                         position: absolute;
-                        right: 10px;
+                        right: 0;
                         border: 1px solid var(--second);
                         background-color: var(--background);
                         z-index: 100;
