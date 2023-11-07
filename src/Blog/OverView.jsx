@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Editer, { buttonType } from "../MarkDownEditer/Editer";
 import MdViewer from "../MarkDownEditer/MDviewer";
+import { useNavigate } from "react-router-dom";
 
 function OverView(props) {
     const {overView} = props
+    const navigate = useNavigate()
     const [editOver, setEditOver] = useState("");
     return (
         <>
@@ -13,7 +15,7 @@ function OverView(props) {
                 :
                 <NoOverview>
                     <span>등록되어있는 소개글이 없습니다.</span>
-                    <div>소개글 작성하기</div>
+                    <div >소개글 작성하기</div>
                 </NoOverview>
             }
         </>
