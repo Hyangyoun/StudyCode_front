@@ -30,7 +30,7 @@ function Review(props) {
         return (
             setReReview(
             <div className="rereview">
-                <div className="reviewId"><img src="./image/icon/profile.png" alt="아이디프로필"/>댜대기1</div>
+                <div className="reviewId"><img src="/image/icon/profile.png" alt="아이디프로필"/>댜대기1</div>
                 <textarea placeholder="댓글을 입력하세요" onChange={HandleInputValue}>{inputValue}</textarea>
                 <div className="exportRereview">등록</div>
                 <span onClick={() => {setReReview(<div></div>)}} className="closeBtn">X</span>
@@ -45,7 +45,7 @@ function Review(props) {
             <ul>
                 <li className="reviews">
                     <div className="review">
-                        <div className="reviewId"><img src="./image/icon/profile.png" alt="아이디프로필"/>VKI9008</div>
+                        <div className="reviewId"><img src="/image/icon/profile.png" alt="아이디프로필"/>VKI9008</div>
                         <div className="content">
                             <img src="/image/icon/okTeakYeon.png" alt="내용이미지파일"/>
                             <div>그것도 너를향해</div>
@@ -60,7 +60,7 @@ function Review(props) {
                 </li>
             </ul>
             <div className="writeReview">
-                <span className="guest"><img src="./image/icon/profile.png" alt="게스트프로필"/>다대기1</span>
+                <span className="guest"><img src="/image/icon/profile.png" alt="게스트프로필"/>다대기1</span>
                 <textarea placeholder="댓글을 입력하세요"></textarea>
                 <div className="exportReview">등록</div>
             </div>

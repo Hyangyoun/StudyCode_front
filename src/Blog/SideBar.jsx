@@ -13,11 +13,11 @@ function SideBar(props){
             <img className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
             <div className="nickName">js싫어요</div>
             <div className="follows" >
-                {menuIndex !== 5 ?
+                {menuIndex !== 6 ?
                 <> 
-                <span onClick={() => changeMenuIndex(4)}>팔로우{}</span>
-                <span onClick={() => changeMenuIndex(4)}>팔로잉{}</span>
-                <div className="write">새 포스트</div>
+                <span onClick={() => changeMenuIndex(5)}>팔로우{}</span>
+                <span onClick={() => changeMenuIndex(5)}>팔로잉{}</span>
+                <div className="write" onClick={() => navigate("/blogWrite")}>새 포스트</div>
                 </>
                 :
                 <div className="blogName">내 토요일 내놔</div>
@@ -26,7 +26,8 @@ function SideBar(props){
             <div className="cartegoryForm" >
                 <div onClick={() => changeMenuIndex(1)} className="overview">메인(overview)</div>
                 <div onClick={() => changeMenuIndex(2)} className="post">포스트(post)</div>
-                <div onClick={() => changeMenuIndex(3)} className="repository">repository</div>
+                <div onClick={() => changeMenuIndex(3)} className="post">category</div>
+                <div onClick={() => changeMenuIndex(4)} className="repository">repository</div>
             </div>
             <div className="tagBox"> Tag
                 <ul>
@@ -54,22 +55,24 @@ function SideBar(props){
 /** 블로그 사이드바 스타일 컴포넌트  */
 const Sidebar = styled.div`
     width: 250px;
-    min-height: 965px;
+    min-height: 100%;
+    height: auto;
     padding-bottom: 40px;
     border-right: 1px solid var(--second);
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
     align-items: center;
-    position: fixed;
+    position: absolute;
     left: 0;
     font-size: 15px;
     background-color: var(--background);;
     z-index: 100;
 
+
     .profilePicture{
         width: 150px; height: auto;
-        margin-top: 85px;
+        margin-top: 73px;
         cursor: pointer;
     }
 
@@ -178,7 +181,7 @@ const Sidebar = styled.div`
     }
     .logo{
         bottom: 40px;
-        position: absolute;
+        margin-top: 60px;
         cursor: pointer;
         > img{
             width: 150px;

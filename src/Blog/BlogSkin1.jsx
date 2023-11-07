@@ -1,61 +1,43 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import SideBar from "./SideBar";
-import PostList from "../Blog/PostList";
-import Followers from "../Blog/Followers";
-import Repo from "../Blog/Repo";
-import OverView from "./OverView";
 import BlogViewer from "./BlogViewer";
-import BlogWrite from "./BlogWrite";
 
 function BlogSkin1 (props){
 
-    const {menuIndex, changeMenuIndex ,overView} = props
+    const {menuIndex} = props
 
     const [CartegoryIndex, setCartegoryIndex] = useState(1) // 코테 스터디 등 메뉴 클릭 감지 state
     
 
     return(
-            <BlogSection>
-                <div className="blogBody">
-                    {menuIndex !== 5 ?
-                     <BlogHeader $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
-                        <span >{"내 토요일 내놔"}</span>
-                        <span className="blogMenu">
-                            {
-                                {
-                                    1 : "메인",
-                                    2 : "post",
-                                    3 : "repository",
-                                    4 : "팔로워",
-                                }[menuIndex]
-                            }
-                        </span>
-                        {menuIndex === 2 ? 
-                            <ul className="categorys">
-                                <li onClick={() => setCartegoryIndex(1)}>코테</li>
-                                <li onClick={() => setCartegoryIndex(2)}>스터디&모음</li>
-                                <li onClick={() => setCartegoryIndex(3)}>프로젝트</li>
-                                <li onClick={() => setCartegoryIndex(4)}>분류없음</li>
-                                <li>+</li>
-                            </ul>
-                            :null
-                        }
-                     </BlogHeader> : <BlogViewer/>
+                <BlogBody>
+                    { menuIndex === 6 ?
+                     null
+                     :<BlogHeader $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
+                       <span >{"내 토요일 내놔"}</span>
+                       <span className="blogMenu">
+                           {
+                               {
+                                   1 : "메인",
+                                   2 : "post",
+                                   3 : "category",
+                                   4 : "repository",
+                                   5 : "follower"
+                               }[menuIndex]
+                           }
+                       </span>
+                    </BlogHeader>
                     }
-                </div>
-            </BlogSection>
+                </BlogBody>
     )
 }
 
-const BlogSection = styled.div`
+const BlogBody = styled.div`
     display: flex;
     flex-direction: row;
     height: auto;
-    .blogBody{
-        width:100%;
-        position: relative;
-    }
+    width:100%;
+    position: relative;
 `
 /**블로그 헤더 스타일 */
 const BlogHeader = styled.div`
@@ -66,7 +48,7 @@ const BlogHeader = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 80px;
-    border-bottom :${props => props.$menuIndex >= 3 ? null : 1}px solid var(--second);
+    border-bottom :1px solid var(--second);
     font-size: 20px;
     font-weight: bold;
 

@@ -9,6 +9,7 @@ import Cartegory from "../Blog/Cartegory";
 import Followers from "../Blog/Followers";
 import Repo from "../Blog/Repo";
 import BlogWrite from "../Blog/BlogWrite";
+import BlogViewer from "../Blog/BlogViewer";
 
 function BlogPage(props){
     
@@ -29,7 +30,8 @@ function BlogPage(props){
                         <BlogSkin1 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
                         </>,
                     2 : <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />,
-                    3 : <BlogWrite/>
+                    3 : <BlogWrite/>,
+
                 }[skin]
             }
             {
@@ -39,6 +41,7 @@ function BlogPage(props){
                     3 : <Cartegory />,
                     4 : <Repo />,
                     5 : <Followers />,
+                    6 : <BlogViewer/>
                 }[menuIndex]
             }
         </BlogSection>
@@ -49,6 +52,7 @@ const BlogSection = styled.div`
     width: 100%; height: auto;
     padding-left: ${props => props.$skin == 1 ? 250 : 0}px;
     display: flex;
+    position: relative;
     flex-direction: column;
     box-sizing: border-box;
 `
