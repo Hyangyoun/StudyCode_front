@@ -2,6 +2,7 @@ import styled from "styled-components"
 import Editer, { buttonType } from "../MarkDownEditer/Editer";
 import React, { useState } from "react";
 import PostPreview from "./PostPreview";
+import Preview from "./Preview";
 
 function BlogWrite(props){
 
@@ -37,63 +38,70 @@ function BlogWrite(props){
 
     const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
 
+    const [preview, setPreview] = useState(false)
+
+    const [title, setTitle] = useState("")
+
     return(
-        <WriteStyle $nextButton={nextButton}>
-            <input maxLength={15} className="title" placeholder="제목을 입력하세요"/>
-            <div className="tagBox">
-                {tagList.map((item , index) => <div key={index}>{item}</div>)}
-                <input value={tagName} onChange={(e) => {setTagName(e.target.value)}}
-                onKeyDown={handleTagList} className="taginput" placeholder="태그를 입력하세요"/>
-            </div>
-            <Editer value={WriteValue} setValue={setWriteValue} height={500} buttonList={[
-                [buttonType.title1, buttonType.title2, buttonType.title3],
-                [buttonType.bold, buttonType.italic, buttonType.strikethrough],
-                [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.link, buttonType.image, buttonType.line]
-            ]} />
-            <div className="importFile">
-                <div className="attachSection">
-                    <div>파일첨부</div>
-                    <ul>
-                        <li>
-                            <span>x</span>
-                            test.jsx
-                            <div>
-                                {chooseFolder === null ? "폴더선택" : chooseFolder}
-                                <label htmlFor="togleSelect" />
-                                <input id="togleSelect" type="checkbox" />
-                                <ul className="selectFolder">
-                                    <li onClick={() => SetChooseFolder(null)}>선택안함</li>
-                                    <li onClick={() => SetChooseFolder("react")}>react</li>
-                                    <li onClick={() => SetChooseFolder("javascript")}>javascript</li>
-                                    <li onClick={() => SetChooseFolder("java")}>java</li>
-                                    <li onClick={() => SetChooseFolder("기타")}>기타</li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <span>x</span>
-                            test.jsx
-                            <div>
-                                {chooseFolder === null ? "폴더선택" : chooseFolder}
-                                <label htmlFor="togleSelect2" />
-                                <input id="togleSelect2" type="checkbox" />
-                                <ul className="selectFolder">
-                                    <li onClick={() => SetChooseFolder(null)}>선택안함</li>
-                                    <li onClick={() => SetChooseFolder("react")}>react</li>
-                                    <li onClick={() => SetChooseFolder("javascript")}>javascript</li>
-                                    <li onClick={() => SetChooseFolder("java")}>java</li>
-                                    <li onClick={() => SetChooseFolder("기타")}>기타</li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                    <span>+</span>
+        <>
+            <WriteStyle $nextButton={nextButton}>
+                <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={15} className="title" placeholder="제목을 입력하세요"/>
+                <div className="tagBox">
+                    {tagList.map((item , index) => <div key={index}>{item}</div>)}
+                    <input value={tagName} onChange={(e) => {setTagName(e.target.value)}}
+                    onKeyDown={handleTagList} className="taginput" placeholder="태그를 입력하세요"/>
                 </div>
-                <div className="previewBT">미리보기</div>
-            </div>
-            <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div>
-            <PostPreview setNextButton={setNextButton} nextButton={nextButton}/>
-        </WriteStyle>
+                <Editer value={WriteValue} setValue={setWriteValue} height={500} buttonList={[
+                    [buttonType.title1, buttonType.title2, buttonType.title3],
+                    [buttonType.bold, buttonType.italic, buttonType.strikethrough],
+                    [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.link, buttonType.image, buttonType.line]
+                ]} />
+                <div className="importFile">
+                    <div className="attachSection">
+                        <div>파일첨부</div>
+                        <ul>
+                            <li>
+                                <span>x</span>
+                                test.jsx
+                                <div>
+                                    {chooseFolder === null ? "폴더선택" : chooseFolder}
+                                    <label htmlFor="togleSelect" />
+                                    <input id="togleSelect" type="checkbox" />
+                                    <ul className="selectFolder">
+                                        <li onClick={() => SetChooseFolder(null)}>선택안함</li>
+                                        <li onClick={() => SetChooseFolder("react")}>react</li>
+                                        <li onClick={() => SetChooseFolder("javascript")}>javascript</li>
+                                        <li onClick={() => SetChooseFolder("java")}>java</li>
+                                        <li onClick={() => SetChooseFolder("기타")}>기타</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <span>x</span>
+                                test.jsx
+                                <div>
+                                    {chooseFolder === null ? "폴더선택" : chooseFolder}
+                                    <label htmlFor="togleSelect2" />
+                                    <input id="togleSelect2" type="checkbox" />
+                                    <ul className="selectFolder">
+                                        <li onClick={() => SetChooseFolder(null)}>선택안함</li>
+                                        <li onClick={() => SetChooseFolder("react")}>react</li>
+                                        <li onClick={() => SetChooseFolder("javascript")}>javascript</li>
+                                        <li onClick={() => SetChooseFolder("java")}>java</li>
+                                        <li onClick={() => SetChooseFolder("기타")}>기타</li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                        <span>+</span>
+                    </div>
+                    <div className="previewBT" onClick={() => setPreview(true)}>미리보기</div>
+                </div>
+                <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div> 
+                <PostPreview setNextButton={setNextButton} nextButton={nextButton}/>
+            </WriteStyle>
+            {preview ? <Preview title={title} content={WriteValue} tag={tagList} setPreview={setPreview} /> : null}
+        </>
     )
 }
 
