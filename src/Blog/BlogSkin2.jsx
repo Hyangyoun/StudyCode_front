@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import PostList from "../Blog/PostList";
 import Repo from "../Blog/Repo";
 import OverView from "./OverView";
@@ -7,6 +8,9 @@ import Cartegory from "./Cartegory"
 import BlogViewer from "./BlogViewer";
 
 function BlogSkin2(props) {
+
+    const navigate = useNavigate();
+    
     const {menuIndex, changeMenuIndex, overView} = props
 
     const [side, setSide] = useState(false)
@@ -42,7 +46,7 @@ function BlogSkin2(props) {
                     <img src="/image/icon/profile.png" alt="프로필사진" />
                     <span>js싫어요</span>
                 </div>
-                <div className="newPost">새 포스트</div>
+                <div className="newPost" onClick={() => navigate("/blogWrite")}>새 포스트</div>
                 <div className="listBox"> Tag
                     <ul>
                         <li>JavaScript</li>

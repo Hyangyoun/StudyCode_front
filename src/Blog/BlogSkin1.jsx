@@ -4,28 +4,31 @@ import BlogViewer from "./BlogViewer";
 
 function BlogSkin1 (props){
 
-    const {menuIndex, changeMenuIndex ,overView} = props
+    const {menuIndex} = props
 
     const [CartegoryIndex, setCartegoryIndex] = useState(1) // 코테 스터디 등 메뉴 클릭 감지 state
     
 
     return(
                 <BlogBody>
-                     <BlogHeader $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
-                        <span >{"내 토요일 내놔"}</span>
-                        <span className="blogMenu">
-                            {
-                                {
-                                    1 : "메인",
-                                    2 : "post",
-                                    3 : "repository",
-                                    4 : "팔로워",
-                                }[menuIndex]
-                            }
-                        </span>
-                     </BlogHeader>
+                    { menuIndex === 6 ?
+                     null
+                     :<BlogHeader $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
+                       <span >{"내 토요일 내놔"}</span>
+                       <span className="blogMenu">
+                           {
+                               {
+                                   1 : "메인",
+                                   2 : "post",
+                                   3 : "category",
+                                   4 : "repository",
+                                   5 : "follower"
+                               }[menuIndex]
+                           }
+                       </span>
+                    </BlogHeader>
+                    }
                 </BlogBody>
-
     )
 }
 

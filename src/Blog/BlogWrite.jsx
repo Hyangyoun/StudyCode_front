@@ -40,56 +40,48 @@ function BlogWrite(props){
     const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
 
     return(
-        <WriteStyle $addFolder={addFolder} $nextButton={nextButton}>
-            <div className="head"></div>
-            <div className="Form">                 {/**폼을 만든이유는 input세로정렬을 위해 만듬 */}
-                <input maxLength={15} className="title" placeholder="제목을 입력하세요"/>
-                <div className="tagBox">
-                    {tagList.map((item , index) => <div key={index}>{item}</div>)}
-                    <input value={tagName} onChange={(e) => {setTagName(e.target.value)}}
-                    onKeyDown={handleTagList} className="taginput" placeholder="태그를 입력하세요"/>
+            <WriteStyle $addFolder={addFolder} $nextButton={nextButton}>
+                <div className="Form">                 {/**폼을 만든이유는 input세로정렬을 위해 만듬 */}
+                    <input maxLength={15} className="title" placeholder="제목을 입력하세요"/>
+                    <div className="tagBox">
+                        {tagList.map((item , index) => <div key={index}>{item}</div>)}
+                        <input value={tagName} onChange={(e) => {setTagName(e.target.value)}}
+                        onKeyDown={handleTagList} className="taginput" placeholder="태그를 입력하세요"/>
+                    </div>
                 </div>
-            </div>
-            <div className="writeForm">             {/**writeForm 으로 감싼이유는 inportFile의 위치 고정을 위함 */}
-                <Editer value={WriteValue} setValue={setWriteValue} height={500} buttonList={[
-                    [buttonType.title1, buttonType.title2, buttonType.title3],
-                    [buttonType.bold, buttonType.italic, buttonType.strikethrough],
-                    [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.link, buttonType.image, buttonType.line]
-                ]} />
-                <ul className="importFile">
-                    <li>파일첨부</li>
-                    <li >
-                        <div>x</div>
-                        test.jsx
-                        <div onClick={() => setAddFolder(!addFolder)}>{chooseFolder === null ? "폴더선택" : chooseFolder}
-                            <ul className="selectFolder">
-                                <li onClick={() => SetChooseFolder(null)}>선택안함</li>
-                                <li onClick={() => SetChooseFolder("react")}>react</li>
-                                <li onClick={() => SetChooseFolder("javascript")}>javascript</li>
-                                <li onClick={() => SetChooseFolder("java")}>java</li>
-                                <li onClick={() => SetChooseFolder("기타")}>기타</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li >+</li>
-                </ul>
-            </div>
-            <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div>
-            <PostPreview setNextButton={setNextButton} nextButton={nextButton}/>
-        </WriteStyle>
+                <div className="writeForm">             {/**writeForm 으로 감싼이유는 inportFile의 위치 고정을 위함 */}
+                    <Editer value={WriteValue} setValue={setWriteValue} height={500} buttonList={[
+                        [buttonType.title1, buttonType.title2, buttonType.title3],
+                        [buttonType.bold, buttonType.italic, buttonType.strikethrough],
+                        [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.link, buttonType.image, buttonType.line]
+                    ]} />
+                    <ul className="importFile">
+                        <li>파일첨부</li>
+                        <li >
+                            <div>x</div>
+                            test.jsx
+                            <div onClick={() => setAddFolder(!addFolder)}>{chooseFolder === null ? "폴더선택" : chooseFolder}
+                                <ul className="selectFolder">
+                                    <li onClick={() => SetChooseFolder(null)}>선택안함</li>
+                                    <li onClick={() => SetChooseFolder("react")}>react</li>
+                                    <li onClick={() => SetChooseFolder("javascript")}>javascript</li>
+                                    <li onClick={() => SetChooseFolder("java")}>java</li>
+                                    <li onClick={() => SetChooseFolder("기타")}>기타</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li >+</li>
+                    </ul>
+                </div>
+                <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div>
+                <PostPreview setNextButton={setNextButton} nextButton={nextButton}/>
+            </WriteStyle>
     )
 }
 
 const WriteStyle = styled.form`
     width: 100%;
     height: auto;
-
-    .head{                              ///////////////로고/////////////
-        width: 90%;
-        height: 150px;
-        background-color: aqua;
-        margin: auto;
-    }
 
     .Form{                             ///////////////타이틀이랑태그/////////////
         width: 85%;
