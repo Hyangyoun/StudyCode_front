@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import MDviewer from "../MarkDownEditer/MDviewer";
 
-function Preview({title, content, tag}) {
+function Preview({title, content, tag, setPreview}) {
+
+    const [close, setClose] = useState(false);
 
     let date = new Date();
+
+    useEffect(() => {
+        let timer;
+        if(close) {
+            timer = setTimeout(() => setPreview(!close), 500)
+        }
+        return () => clearTimeout(timer)
+    },[close, setPreview])
     
     return (
-        <PreviewBox>
-            <div className="closeButton">X</div>
+        <PreviewBox $close={close}>
+            <div className="closeButton" onClick={() => setClose(true)}>X</div>
             <div  className="post">
                 <img className="logo" src="/image/icon/logo.png" alt="로고"/>
                 <div className="title" >{title}</div>
@@ -18,7 +28,7 @@ function Preview({title, content, tag}) {
                 </div>
                 <div className="tagbox">
                     {tag != null ? tag.map((item, index) => {
-                        return <li key={index}>{item.tagName}</li>
+                        return <li key={index}>{item}</li>
                     }): null}
                 </div>
                 <MDviewer content={content} />
@@ -31,13 +41,31 @@ const PreviewBox = styled.div`
     width: 100%; height: 100%;
     position: fixed;
     overflow-y: scroll;
+    transition: 0.5s;
+    background-color: var(--background);
+    animation: slide 0.5s;
+    ${props => props.$close ? `
+        transform: translateX(100%);
+        translate: 0.5s;
+    `:null}
+
+    @keyframes slide {
+        0% {
+            transform: translateX(100%);
+        }
+    
+        100% {
+            transform: translateX(0%);
+        }
+    }
+
     &::-webkit-scrollbar {
         display: none;
     }
 
     .closeButton {
         width: 30px; height: 30px;
-        position: absolute;
+        position: fixed;
         top: 20px;
         right: 20px;
         display: flex;

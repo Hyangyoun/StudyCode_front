@@ -8,19 +8,12 @@ import Cartegory from "./Cartegory"
 import BlogViewer from "./BlogViewer";
 
 function BlogSkin2(props) {
-
-    const navigate = useNavigate();
+    const {menuIndex, changeMenuIndex} = props
     
-    const {menuIndex, changeMenuIndex, overView} = props
+    const navigate = useNavigate();
 
     const [side, setSide] = useState(false)
-    const [screen, Setscreen] = useState(window.innerWidth)
     const sideRef = useRef()
-
-    /** 브라우저 창크기 변경 감지 */
-    const GetScreenSize = () => {
-        Setscreen(window.innerWidth)
-    }
 
     /** 사이드바 자동 닫힘 함수 */
     const CloseSide = (event) => {
@@ -30,10 +23,8 @@ function BlogSkin2(props) {
     }
 
     useEffect(() => {
-        window.addEventListener('resize', GetScreenSize)
         document.addEventListener('mousedown', CloseSide)
         return (() => {
-            window.removeEventListener('resize', GetScreenSize)
             document.removeEventListener('mousedown', CloseSide)
         })
     },[])
@@ -42,6 +33,7 @@ function BlogSkin2(props) {
         <>
             <SideBar $side={side} ref={sideRef}>
                 <img src="/image/icon/logo.png" alt="studycode" />
+                <span onClick={() => navigate("/blog/config")}>블로그 설정</span>
                 <div className="profileBox">
                     <img src="/image/icon/profile.png" alt="프로필사진" />
                     <span>js싫어요</span>
@@ -63,7 +55,7 @@ function BlogSkin2(props) {
                 </div>
             </SideBar>
             {side ? <SideBack /> : null}
-            <Header $menuIndex = {menuIndex} $screen = {screen}>
+            <Header $menuIndex = {menuIndex}>
                 <SideBT onClick={() => setSide(!side)}>
                     <img src="/image/icon/sideBT.png" alt="사이드버튼" />
                 </SideBT>
@@ -159,6 +151,16 @@ const SideBar = styled.div`
     &>img {
         width: 130px; height: auto;
         margin-top: 40px;
+    }
+
+    &>span {
+        font-size: 12px;
+        cursor: pointer;
+        margin-top: 3px;
+        color: var(--second);
+        &:hover {
+            color: var(--primary);
+        }
     }
 `
 

@@ -14,7 +14,7 @@ import BlogViewer from "../Blog/BlogViewer";
 function BlogPage(props){
     
     const [menuIndex, setMenuIndex] = useState(1)
-    const [skin, setSkin] = useState(1)
+    const [skin, setSkin] = useState(3)
 
     /** props로 넘어갈 state set 함수 */
     const ChangeMenuIndex = (value) => {
