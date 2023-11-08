@@ -18,7 +18,7 @@ function PostList(props){
             < >
                 {posts.map((post ,index) =>
                 <BlogPost key={index} title={post.title} content={post.content}
-                  like={post.like} data={post.data} 
+                  like={post.like} data={post.date} 
                 />
                 )}
             </> :

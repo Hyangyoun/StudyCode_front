@@ -3,10 +3,17 @@ import styled from "styled-components"
 
 function CartegoryItem(props){
 
-    const {title , setCategoryTitle} = props
+    const {title , setCategoryTitle} = props;
+
+    const style = {
+        li: {
+          cursor: "pointer",
+        }
+      };
+
 
     return(
-            <li onClick={() => setCategoryTitle(title)}>
+            <li onClick={() => setCategoryTitle(title)} style={style.li}>
                 <div className="itemBox">
                     <img src="/image/icon/naver.png" alt="post" />
                     <img src="/image/icon/sample.png" alt="post" />
@@ -18,5 +25,6 @@ function CartegoryItem(props){
             </li>
     )
 }
+
 
 export default CartegoryItem

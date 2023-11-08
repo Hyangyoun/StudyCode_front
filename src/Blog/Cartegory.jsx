@@ -5,7 +5,7 @@ import CartegoryPost from "./CartegoryPost";
 
 function Cartegory(props) {
 
-const [ categoryTitle , setCategoryTitle] = useState(null)
+    const [ categoryTitle , setCategoryTitle] = useState(null)
 
     return(
         <CartegoryList>{
@@ -38,6 +38,7 @@ const CartegoryList = styled.div`
 `
 
 const Item = styled.ul`
+    user-select: none;
     display: flex;
     margin: auto;
     width: 1200px;
@@ -82,6 +83,7 @@ const Item = styled.ul`
         justify-content: center;
         align-items: center;
         margin-bottom: 10px;
+        cursor: pointer;
     }
 `
 export default Cartegory

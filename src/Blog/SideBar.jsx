@@ -1,16 +1,29 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 /** 블로그 메인  */
 
 function SideBar(props){
+
+////////////////////////////블로그 크기에따라 밑에 위치를 고정시키는 함수,css도 있음 /////////////////////////////////////////
+    const amount = useRef();
+    
+    const [sideBottom , setSideBottom] = useState(0)
+
     const {menuIndex, changeMenuIndex} = props;
+    
+    useEffect(() => {
+        setSideBottom(amount.current.offsetHeight)
+    },[menuIndex, amount])
+
+/////////////////////////////////////////////////////////////////////////////////////
+
     const navigate = useNavigate();
 
     return(
-        <Sidebar $menuIndex={menuIndex}>
-            <img className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
+        <Sidebar $menuIndex={menuIndex} $sideBottom={sideBottom} ref={amount} >
+            <img  className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
             <div className="nickName">js싫어요</div>
             <div className="follows" >
                 {menuIndex !== 6 ?
@@ -180,6 +193,7 @@ const Sidebar = styled.div`
         bottom: 27px;
     }
     .logo{
+        position: ${props => props.$sideBottom > 1000 ? "absolute" : "static"};
         bottom: 40px;
         margin-top: 60px;
         cursor: pointer;
