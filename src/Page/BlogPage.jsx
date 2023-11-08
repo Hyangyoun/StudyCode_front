@@ -34,7 +34,7 @@ function BlogPage(props){
                 }[skin]
             }
             {
-             skin === 3 ? null : {
+             {
                     1 : <OverView overView={over.content} />,
                     2 : <PostList />,
                     3 : <Cartegory />,

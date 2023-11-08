@@ -1,57 +1,29 @@
 import styled from "styled-components";
+import CartegoryItem from "./CartegoryItem";
+import { useState } from "react";
+import CartegoryPost from "./CartegoryPost";
 
 function Cartegory(props) {
 
+const [ categoryTitle , setCategoryTitle] = useState(null)
+
     return(
-        <CartegoryList>
-            <Item>
-                <li>
-                    <div className="itemBox">
-                        <img src="/image/icon/naver.png" alt="post" />
-                        <img src="/image/icon/sample.png" alt="post" />
-                        <img src="/image/icon/google.png" alt="post" />
-                        <img src="/image/icon/kakao.png" alt="post" />
-                    </div>
-                    <span className="title" >프로젝트</span>
-                    <span className="postCount">{4}개의 포스트</span>
-                </li>
-                <li>
-                    <div className="itemBox">
-                        <img src="/image/icon/naver.png" alt="post" />
-                        <img src="/image/icon/sample.png" alt="post" />
-                        <img src="/image/icon/google.png" alt="post" />
-                        <img src="/image/icon/kakao.png" alt="post" />
-                    </div>
-                    <span className="title" >프로젝트</span>
-                    <span className="postCount">{4}개의 포스트</span>
-                </li>
-                <li>
-                    <div className="itemBox">
-                        <img src="/image/icon/naver.png" alt="post" />
-                        <img src="/image/icon/sample.png" alt="post" />
-                        <img src="/image/icon/google.png" alt="post" />
-                        <img src="/image/icon/kakao.png" alt="post" />
-                    </div>
-                    <span className="title" >프로젝트</span>
-                    <span className="postCount">{4}개의 포스트</span>
-                </li>
-                <li>
-                    <div className="itemBox">
-                        <img src="/image/icon/naver.png" alt="post" />
-                        <img src="/image/icon/sample.png" alt="post" />
-                        <img src="/image/icon/google.png" alt="post" />
-                        <img src="/image/icon/kakao.png" alt="post" />
-                    </div>
-                    <span className="title" >프로젝트</span>
-                    <span className="postCount">{4}개의 포스트</span>
-                </li>
-                <li>
-                    <div className="addCartegory">
-                        <img className="" src="/image/icon/cartegory-icon.png" alt="post" />
-                    </div>
-                    <span className="title" >카테고리 추가</span>
-                </li>
-            </Item>
+        <CartegoryList>{
+                    categoryTitle === null ? 
+                    <Item>
+                        <CartegoryItem title={"스터디"} setCategoryTitle={setCategoryTitle}/>
+                        <CartegoryItem title={"프로젝트"} setCategoryTitle={setCategoryTitle}/>
+                        <CartegoryItem title={"코테"} setCategoryTitle={setCategoryTitle}/>
+                        <CartegoryItem title={"잡다"} setCategoryTitle={setCategoryTitle}/>
+                        <li>
+                            <div className="addCartegory">
+                                <img className="" src="/image/icon/cartegory-icon.png" alt="post" />
+                            </div>
+                            <span className="title" >카테고리 추가</span>
+                        </li>
+                    </Item> 
+                    :
+                    <CartegoryPost categoryTitle={categoryTitle}/>}
         </CartegoryList>
     )
 }
