@@ -8,13 +8,13 @@ import PostList from "../Blog/PostList";
 import Cartegory from "../Blog/Cartegory";
 import Followers from "../Blog/Followers";
 import Repo from "../Blog/Repo";
-import BlogWrite from "../Blog/BlogWrite";
 import BlogViewer from "../Blog/BlogViewer";
+import over from "../DummyData/Overview.json";
 
 function BlogPage(props){
     
     const [menuIndex, setMenuIndex] = useState(1)
-    const [skin, setSkin] = useState(3)
+    const [skin, setSkin] = useState(2)
 
     /** props로 넘어갈 state set 함수 */
     const ChangeMenuIndex = (value) => {
@@ -29,14 +29,13 @@ function BlogPage(props){
                         <SideBar menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
                         <BlogSkin1 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
                         </>,
-                    2 : <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />,
-                    3 : <BlogWrite/>,
+                    2 : <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
 
                 }[skin]
             }
             {
              skin === 3 ? null : {
-                    1 : <OverView />,
+                    1 : <OverView overView={over.content} />,
                     2 : <PostList />,
                     3 : <Cartegory />,
                     4 : <Repo />,

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import BlogHeader from "../Main/BlogHeader";
 
 function BlogConfig(props) {
 
@@ -7,6 +8,7 @@ function BlogConfig(props) {
 
     return (
         <>
+            <BlogHeader />
             <ConfigSection $select={selectSkin}>
                 <div className="partBox">
                     <div className="partName">블로그 이름</div>

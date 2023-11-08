@@ -5,9 +5,9 @@ import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-function MDviewer({content}) {
+function MDviewer({content, width}) {
     return (
-        <MarkDownSection>
+        <MarkDownSection $width={width}>
             <Markdown 
                 rehypePlugins={[remarkGfm]} 
                 className={"MarkDown"} 
@@ -38,7 +38,7 @@ function MDviewer({content}) {
 }
 
 const MarkDownSection = styled.div`
-    width: 1000px; height: auto;
+    width: ${props => props.$width}; height: auto;
     box-sizing: border-box;
     margin: 10px auto 0;
     background-color: var(--background);

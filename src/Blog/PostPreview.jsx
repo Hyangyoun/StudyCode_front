@@ -1,17 +1,27 @@
-import React , {useState} from "react";
+import React , {useState, useEffect} from "react";
 import styled from "styled-components"
 
-function PostPreview(props) {
+function PostPreview({setNextButton}) {
 
-        const {setNextButton , nextButton} = props;
+    const [selectButton , setSelectButton] = useState(true);    // 최종선택에서 공개 비공개 선택버튼
 
-        const [selectButton , setSelectButton] = useState(true);    // 최종선택에서 공개 비공개 선택버튼
+    const [selectCartegory , setSelectCartegory] = useState(false)  //최종선택에서 카테고리 선택버튼
 
-        const [selectCartegory , setSelectCartegory] = useState(false)  //최종선택에서 카테고리 선택버튼
+    const [close, setClose] = useState(false)
+
+    useEffect(() => {
+        let timer;
+
+        if(close) {
+            timer = setTimeout(() => setNextButton(), 500)
+        }
+
+        return () => clearTimeout(timer)
+    },[close, setNextButton])
     
 
     return(
-        <LastPreview $nextButton={nextButton} $selectButton={selectButton}>
+        <LastPreview $selectButton={selectButton} $close={close}>
             <img src="/image/icon/logo.png" alt="로고"/>
             <div className="addSection">
                 <div className="imgSection">
@@ -47,7 +57,7 @@ function PostPreview(props) {
                 }</div>
             </div>
         <div className="yesOrNoBtn">
-            <div onClick={() => setNextButton(false)}>다시 수정하기</div>
+            <div onClick={() => setClose(true)}>다시 수정하기</div>
             <div>올리기</div>
         </div>
     </LastPreview>
@@ -59,15 +69,29 @@ const LastPreview = styled.div`
             width: 100%;
             height: 100%;
             position: fixed;
-            transition: 0.5s ease-in-out;
-            transition-delay: 0s;
-            top: ${props => props.$nextButton ? 0 : 100}vh;
-            left: 0px;
+            top: 0;
+            left: 0;
             background-color: var(--background);
             display: flex;
             flex-direction: column;
+            translate: 0.5s;
             justify-content: center;
             align-items: center;
+            animation: slideConifg 0.5s;
+            ${props => props.$close ? `
+                transform: translateY(100%);
+                transition: 0.5s;
+            `:null}
+
+            @keyframes slideConifg {
+                0% {
+                    transform: translateY(100%);
+                }
+                
+                100% {
+                    transform: translateY(0%);
+                }
+            }
     
             .addSection{                            /////////////// 공간나누는 영역/////////////
                 width: 875px;

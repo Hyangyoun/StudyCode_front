@@ -3,6 +3,7 @@ import Review from "./Review"
 import { useEffect, useRef, useState } from "react"
 import BlogHeader from "../Main/BlogHeader";
 import postInfo from "../DummyData/postInfo.json"
+import MDviewer from "../MarkDownEditer/MDviewer";
 
 
 function BlogViewer(props){
@@ -57,18 +58,15 @@ function BlogViewer(props){
                     </div>
                     <div className="tagbox">
                         <li>{postInfo.categoryName}</li>
+                        <div className="filebox">
+                            <div className="fileBtn" onClick={() => {setAddFolder(!addFolder)}} >파일첨부</div>
+                            <ul className="fileName">
+                                <li >logo.png</li>
+                                <li>lddd.png</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div className="filebox">
-                        <div className="fileBtn" onClick={() => {setAddFolder(!addFolder)}} >파일첨부</div>
-                        <ul className="fileName">
-                            <li >logo.png</li>
-                            <li>lddd.png</li>
-                        </ul>
-                    </div>
-                    <div className="images" >
-                        <img src="/image/icon/sample.png" alt="썸네일" />
-                    </div>                    
-                    <div className="contents">{postInfo.content}</div>
+                    <MDviewer content={postInfo.content} width={"1000px"} />
                     
                     <Review setEnd={setEnd}/>
                 </div >
@@ -79,7 +77,7 @@ function BlogViewer(props){
 
 const ViewerStyle = styled.div`
     user-select: none; // 드래그시 파란색 없애는 것 
-    width: 85%;
+    width: 1000px;
     height: auto;
     display: flex;
     flex-direction: row;
@@ -175,9 +173,9 @@ const ViewerStyle = styled.div`
     }
 
     .filebox{
-        margin-top: 150px;
-        width: 100%;
+        width: auto;
         display: flex;
+        margin-left: auto;
         flex-direction: column;
         align-items: flex-end;
         position: relative;

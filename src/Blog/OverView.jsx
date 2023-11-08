@@ -11,7 +11,7 @@ function OverView(props) {
     return (
         <>
             {overView != null ?
-                <MdViewer content={overView} width={80} />
+                <MdViewer content={overView} width={"80%"} />
                 :
                 <NoOverview>
                     <span>등록되어있는 소개글이 없습니다.</span>

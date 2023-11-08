@@ -3,6 +3,7 @@ import Editer, { buttonType } from "../MarkDownEditer/Editer";
 import React, { useState } from "react";
 import PostPreview from "./PostPreview";
 import Preview from "./Preview";
+import BlogHeader from "../Main/BlogHeader";
 
 function BlogWrite(props){
 
@@ -44,8 +45,9 @@ function BlogWrite(props){
 
     return(
         <>
+            <BlogHeader />
             <WriteStyle $nextButton={nextButton}>
-                <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={15} className="title" placeholder="제목을 입력하세요"/>
+                <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={15} className="postTitle" placeholder="제목을 입력하세요"/>
                 <div className="tagBox">
                     {tagList.map((item , index) => <div key={index}>{item}</div>)}
                     <input value={tagName} onChange={(e) => {setTagName(e.target.value)}}
@@ -98,8 +100,8 @@ function BlogWrite(props){
                     <div className="previewBT" onClick={() => setPreview(true)}>미리보기</div>
                 </div>
                 <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div> 
-                <PostPreview setNextButton={setNextButton} nextButton={nextButton}/>
             </WriteStyle>
+            {nextButton ? <PostPreview setNextButton={setNextButton} /> : null}
             {preview ? <Preview title={title} content={WriteValue} tag={tagList} setPreview={setPreview} /> : null}
         </>
     )
@@ -113,7 +115,7 @@ const WriteStyle = styled.div`
     flex-direction: column;
     align-items: center;
 
-    .title{                             ///////////////타이틀/////////////
+    .postTitle{                             ///////////////타이틀/////////////
         font-size: 20px;
         font-weight: bold;
         outline: none;

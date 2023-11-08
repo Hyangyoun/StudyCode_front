@@ -40,13 +40,14 @@ function Preview({title, content, tag, setPreview}) {
 const PreviewBox = styled.div`
     width: 100%; height: 100%;
     position: fixed;
+    top: 0;
+    left: 0;
     overflow-y: scroll;
-    transition: 0.5s;
     background-color: var(--background);
     animation: slide 0.5s;
     ${props => props.$close ? `
         transform: translateX(100%);
-        translate: 0.5s;
+        transition: 0.5s;
     `:null}
 
     @keyframes slide {
@@ -76,6 +77,7 @@ const PreviewBox = styled.div`
         border: 1px solid var(--second);
         border-radius: 5px;
         cursor: pointer;
+        z-index: 300;
     }
 
     .post{
