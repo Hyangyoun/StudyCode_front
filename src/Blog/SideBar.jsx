@@ -17,6 +17,8 @@ function SideBar(props){
         setSideBottom(amount.current.offsetHeight)
     },[menuIndex, amount])
 
+    console.log(amount.current.offsetHeight)
+
 /////////////////////////////////////////////////////////////////////////////////////
 
     const navigate = useNavigate();
@@ -193,7 +195,7 @@ const Sidebar = styled.div`
         bottom: 27px;
     }
     .logo{
-        position: ${props => props.$sideBottom > 1000 ? "absolute" : "static"};
+        position: ${props => props.$sideBottom < 960 ? "static" : "absolute" }; //960보다 크면 밑에 고정되게 이유는 로고가 밑에 고정시켜보이도록 함
         bottom: 40px;
         margin-top: 60px;
         cursor: pointer;

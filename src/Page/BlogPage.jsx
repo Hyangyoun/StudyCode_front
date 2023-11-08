@@ -14,7 +14,7 @@ import over from "../DummyData/Overview.json";
 function BlogPage(props){
     
     const [menuIndex, setMenuIndex] = useState(1)
-    const [skin, setSkin] = useState(2)
+    const [skin, setSkin] = useState(1)
 
     /** props로 넘어갈 state set 함수 */
     const ChangeMenuIndex = (value) => {
