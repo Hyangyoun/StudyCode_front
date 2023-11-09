@@ -11,33 +11,36 @@ function CartegoryPost(props){
 
     useEffect((() => {
         setCategoryPosts(postList)
-    }),[])
+    })
+    ,[])
 
     return(
             <CategorySection>
                 <div className="categorytitle">{categoryTitle}</div>
-                < >
+                <>
                     {categoryPosts.map((category ,index) =>
                     <BlogPost key={index} title={category.title} content={category.content}
                     like={category.like} data={category.date} 
                     />
                     )}
                 </>
-            </CategorySection> 
+            </CategorySection>
     )
 }
 
 const CategorySection = styled.div`
+
+    width: 100%;
+    
     .categorytitle{
-        width: 1000px;
+        width: 80%;
         height: 60px;
         border-bottom: 1px solid var(--second);
         display: flex;
         align-items: end;
         font-size: 20px;
         font-weight: bold;
-        margin-top: 40px;
-        
+        margin: 40px auto 0;
     }
 `
 
