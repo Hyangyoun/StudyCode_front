@@ -2,20 +2,27 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Editer, { buttonType } from "../MarkDownEditer/Editer";
 import MdViewer from "../MarkDownEditer/MDviewer";
-import { useNavigate } from "react-router-dom";
 
 function OverView(props) {
     const {overView} = props
-    const navigate = useNavigate()
     const [editOver, setEditOver] = useState("");
+    const [regist, setRegist] = useState(false)
     return (
         <>
             {overView != null ?
                 <MdViewer content={overView} width={"80%"} />
                 :
+                regist ? <RegistOverview>
+                    <Editer value={editOver} setValue={setEditOver} height={700} buttonList={[
+                        [buttonType.title1, buttonType.title2, buttonType.title3],
+                        [buttonType.bold, buttonType.italic, buttonType.strikethrough],
+                        [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.image, buttonType.link]
+                    ]} />
+                    <div className="save" onClick={() => setRegist(false)}>저장하기</div>
+                </RegistOverview> : 
                 <NoOverview>
                     <span>등록되어있는 소개글이 없습니다.</span>
-                    <div >소개글 작성하기</div>
+                    <div onClick={() => setRegist(true)}>소개글 작성하기</div>
                 </NoOverview>
             }
         </>
@@ -42,6 +49,32 @@ const NoOverview = styled.div`
         border: 1px solid var(--second);
         border-radius: 5px;
         font-size: 15px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--second);
+            color: white;
+        }
+    }
+`
+
+const RegistOverview = styled.div`
+    width: 80%;
+    margin: 50px auto 0;
+    display: flex;
+    flex-direction: column;
+
+
+    .save {
+        width: 150px; height: 50px;
+        margin: 15px auto;
+        border: 1px solid var(--second);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        color: var(--second);
         cursor: pointer;
 
         &:hover {
