@@ -35,7 +35,7 @@ const RepoList = styled.ul`
     list-style: none;
 
     >li:first-child{
-        width: 1000px;
+        width: 100%;
         height: 40px;
         border: 1px solid var(--second);
         border-radius: 5px 5px 0 0;
@@ -43,7 +43,7 @@ const RepoList = styled.ul`
 
     }
     .followerList{
-        width: 1000px;
+        width: 100%;
         height: 40px;
         display: flex;
         flex-direction: row;
