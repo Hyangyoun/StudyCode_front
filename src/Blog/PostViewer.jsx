@@ -1,12 +1,11 @@
 import styled from "styled-components"
-import Review from "./Review"
+import Review from "./BlogItem/Review"
 import { useEffect, useRef, useState } from "react"
 import BlogHeader from "../Main/BlogHeader";
 import postInfo from "../DummyData/postInfo.json"
 import MDviewer from "../MarkDownEditer/MDviewer";
 
-
-function BlogViewer(props){
+function PostViewer(props){
   
 
     const [changePosition , setChangePosition] = useState(false); //포시션 바꾸기위해 넣은 state
@@ -61,7 +60,7 @@ function BlogViewer(props){
                         <div className="filebox">
                             <div className="fileBtn" onClick={() => {setAddFolder(!addFolder)}} >파일첨부</div>
                             <ul className="fileName">
-                                <li >logo.png</li>
+                                <li>logo.png</li>
                                 <li>lddd.png</li>
                             </ul>
                         </div>
@@ -83,16 +82,15 @@ const ViewerStyle = styled.div`
     flex-direction: row;
     margin: auto;
     position: relative;
-    :not(.contents){
-    }
+
     .heart{
         height: 100%;
         position: absolute;
         top: 120px;
         left: -6%;
         z-index: 10;
-
     }
+
     .like{
         width: 55px;
         height: 100px;
@@ -124,16 +122,17 @@ const ViewerStyle = styled.div`
 
     }
     
-.title{
-    display: flex;
-    align-items: center;
-    margin-top: 55px;
-    width: 100%;
-    height: 60px;
-    font-size: 20px;
-    font-weight: bold;
-    border-bottom: 1px solid var(--primary);
-}
+    .title{
+        display: flex;
+        align-items: center;
+        margin-top: 55px;
+        width: 100%;
+        height: 60px;
+        font-size: 20px;
+        font-weight: bold;
+        border-bottom: 1px solid var(--primary);
+    }
+
     .date{
         width: 100%;
         height: auto;
@@ -145,7 +144,7 @@ const ViewerStyle = styled.div`
             margin: 0 10px;
             font-weight: bold;
         }
-}
+    }
     .tagbox{
         width: 100%;
         height: auto;
@@ -196,7 +195,6 @@ const ViewerStyle = styled.div`
             display: ${(props) => props.$addFolder ? "inline" : "none"};
             width: 200px;
             height: auto;
-            min-height: 100px;
             box-sizing: border-box;
             list-style: none;
             margin: 0;
@@ -206,23 +204,23 @@ const ViewerStyle = styled.div`
             position: absolute;
             right: 0;
             top: 35px;
-        &>li{
-            display: flex;
-            align-items: center;
-            box-sizing: border-box;
-            cursor: pointer;
-            &::before{
-                margin-right: 10px;
-                padding-top: 5px;
-                content: url("/image/icon/File.png");
+            &>li{
+                display: flex;
+                align-items: center;
+                box-sizing: border-box;
+                cursor: pointer;
+                &::before{
+                    margin-right: 10px;
+                    padding-top: 5px;
+                    content: url("/image/icon/File.png");
+                }
+                &:hover{
+                    text-decoration: underline;
+                }
+                &:last-child{
+                    margin-bottom: 5px;
+                }
             }
-            &:hover{
-                text-decoration: underline;
-            }
-            &:last-child{
-                margin-bottom: 5px;
-            }
-        }
         }
     .images{
         width: 100%;
@@ -240,4 +238,4 @@ const ViewerStyle = styled.div`
         display: flex;
     }
 `
-export default BlogViewer
+export default PostViewer

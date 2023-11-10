@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import postInfo from "../DummyData/postList.json"
-import BlogPost from "./BlogPost";
+import PostListItem from "./BlogItem/PostListItem";
 import { useNavigate } from "react-router-dom";
 
 function PostList(props){
@@ -24,10 +24,10 @@ function PostList(props){
                     <input className="searchInput" type="text" />
                     <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼"/>
                 </div>
-                {posts.map((post ,index) =>
-                <BlogPost key={index} title={post.title} content={post.content}
-                  like={post.like} data={post.date} 
-                />
+                {posts.map((post ,index) => 
+                    { return <PostListItem key={index} title={post.title} content={post.content}
+                    like={post.like} data={post.date} 
+                    />}
                 )}
             </BlogPostList> :
             <NoBlog>
@@ -44,11 +44,11 @@ const BlogPostList = styled.div`
     height: auto;
 
     .searchForm{
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    margin: 50px 80px 20px;
-    position: relative;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        margin: 50px 80px 20px;
+        position: relative;
     }
     
     .searchInput{

@@ -1,18 +1,27 @@
 import styled from "styled-components"
 import Editer, { buttonType } from "../MarkDownEditer/Editer";
 import React, { useState } from "react";
-import PostPreview from "./PostPreview";
-import Preview from "./Preview";
+import PostConfig from "./BlogItem/PostConfig";
+import Preview from "./BlogItem/Preview";
 import BlogHeader from "../Main/BlogHeader";
 
-function BlogWrite(props){
-
-    //////////////////// tag 입력받는 영역/////////////////////////////
+function PostWrite(props){
 
     const [tagList , setTagList] = useState([]) //tag리스트 공간 state
 
     const [tagName , setTagName] = useState('') //input 값받는 state
 
+    const [chooseFolder, SetChooseFolder] = useState(null); //폴더이름선택 버튼
+
+    const [WriteValue, setWriteValue] = useState(""); //에디터 사용을 위해 가져온값
+
+    const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
+
+    const [preview, setPreview] = useState(false)
+
+    const [title, setTitle] = useState("")
+
+    //TagInput Event
     const handleTagList = (e) => {
         if(e.key === "Enter"){            //키보드 값을 받을때는 e.key 사용
             let copy = tagList
@@ -30,18 +39,7 @@ function BlogWrite(props){
             }
         }
     }
-    
-    ///////////////////////////////////각종 기타 버튼들//////////////////////
 
-    const [chooseFolder, SetChooseFolder] = useState(null); //폴더이름선택 버튼
-
-    const [WriteValue, setWriteValue] = useState(""); //에디터 사용을 위해 가져온값
-
-    const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
-
-    const [preview, setPreview] = useState(false)
-
-    const [title, setTitle] = useState("")
 
     return(
         <>
@@ -78,22 +76,6 @@ function BlogWrite(props){
                                     </ul>
                                 </div>
                             </li>
-                            <li>
-                                <span>x</span>
-                                test.jsx
-                                <div>
-                                    {chooseFolder === null ? "폴더선택" : chooseFolder}
-                                    <label htmlFor="togleSelect2" />
-                                    <input id="togleSelect2" type="checkbox" />
-                                    <ul className="selectFolder">
-                                        <li onClick={() => SetChooseFolder(null)}>선택안함</li>
-                                        <li onClick={() => SetChooseFolder("react")}>react</li>
-                                        <li onClick={() => SetChooseFolder("javascript")}>javascript</li>
-                                        <li onClick={() => SetChooseFolder("java")}>java</li>
-                                        <li onClick={() => SetChooseFolder("기타")}>기타</li>
-                                    </ul>
-                                </div>
-                            </li>
                         </ul>
                         <span>+</span>
                     </div>
@@ -101,7 +83,7 @@ function BlogWrite(props){
                 </div>
                 <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div> 
             </WriteStyle>
-            {nextButton ? <PostPreview setNextButton={setNextButton} /> : null}
+            {nextButton ? <PostConfig setNextButton={setNextButton} /> : null}
             {preview ? <Preview title={title} content={WriteValue} tag={tagList} setPreview={setPreview} /> : null}
         </>
     )
@@ -309,4 +291,4 @@ const WriteStyle = styled.div`
     }
 
 `
-export default BlogWrite
+export default PostWrite

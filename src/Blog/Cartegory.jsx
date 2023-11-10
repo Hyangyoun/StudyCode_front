@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import CartegoryItem from "./CartegoryItem";
+import CartegoryItem from "./BlogItem/CartegoryItem";
 import { useState } from "react";
-import CartegoryPost from "./CartegoryPost";
+import CartegoryPost from "./BlogItem/CartegoryPost";
 
 function Cartegory(props) {
 
@@ -21,7 +21,7 @@ function Cartegory(props) {
                             </div>
                             <span className="title" >카테고리 추가</span>
                         </li>
-                    </Item> 
+                    </Item>
                     :
                     <CartegoryPost categoryTitle={categoryTitle}/>}
         </CartegoryList>

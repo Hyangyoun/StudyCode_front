@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import postList from "../DummyData/postList.json"
-import BlogPost from "./BlogPost";
+import postList from "../../DummyData/postList.json"
+import BlogPost from "./PostListItem";
 import styled from "styled-components";
 
 function CartegoryPost(props){
@@ -34,10 +34,10 @@ const CategorySection = styled.div`
     
     .categorytitle{
         width: 80%;
-        height: 60px;
+        height: 30px;
         border-bottom: 1px solid var(--second);
         display: flex;
-        align-items: end;
+        align-items: center;
         font-size: 20px;
         font-weight: bold;
         margin: 40px auto 0;

@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 function BlogSkin2(props) {
-    const {menuIndex, changeMenuIndex} = props
+    const {category} = props
+
+    const [menuIndex, setMenuIndex] = useState()
     
     const navigate = useNavigate();
 
@@ -24,6 +26,15 @@ function BlogSkin2(props) {
         })
     },[])
 
+    useEffect(() => {
+        setMenuIndex({
+            overView : 1,
+            postList : 2,
+            category : 3,
+            repository : 4,
+        }[category])
+    })
+
     return (
         <>
             <SideBar $side={side} ref={sideRef}>
@@ -34,8 +45,8 @@ function BlogSkin2(props) {
                     <span>js싫어요</span>
                 </div>
                 <div className="followBox">
-                    <span onClick={() => changeMenuIndex(5)}>팔로우{}</span>
-                    <span onClick={() => changeMenuIndex(5)}>팔로잉{}</span>
+                    <span onClick={() => navigate("/blog/follower")}>팔로우{}</span>
+                    <span onClick={() => navigate("/blog/follower")}>팔로잉{}</span>
                 </div>
                 <div className="newPost" onClick={() => navigate("/blogWrite")}>새 포스트</div>
                 <div className="listBox"> Tag
@@ -61,10 +72,10 @@ function BlogSkin2(props) {
                 <div className="blogName">내 토요일 내놔</div>
                 <div className="menuBox">
                     <div className="menu">
-                        <div onClick={() => changeMenuIndex(1)}>Overview</div>
-                        <div onClick={() => changeMenuIndex(2)}>Post</div>
-                        <div onClick={() => changeMenuIndex(3)}>Category</div>
-                        <div onClick={() => changeMenuIndex(4)}>Repository</div>
+                        <div onClick={() => navigate("/blog/overView")}>Overview</div>
+                        <div onClick={() => navigate("/blog/postList")}>Post</div>
+                        <div onClick={() => navigate("/blog/category")}>Category</div>
+                        <div onClick={() => navigate("/blog/repository")}>Repository</div>
                     </div>
                 </div>
             </Header>
@@ -184,7 +195,7 @@ const Header = styled.div`
     border-style: solid;
     border-color: var(--second);
     box-sizing: border-box;
-    margin: auto;
+    margin: 0 auto;
 
     .blogName {
         width: 100%; height: 190px;

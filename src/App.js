@@ -5,8 +5,8 @@ import MembershipPage from './Page/MembershipPage';
 import BlogPage from './Page/BlogPage';
 import BlogConfig from './Blog/BlogConfig';
 import { BrowserRouter,Route, Routes } from 'react-router-dom';
-import BlogWrite from './Blog/BlogWrite';
-import BlogViewer from './Blog/BlogViewer';
+import PostWrite from './Blog/PostWrite';
+import PostViewer from './Blog/PostViewer';
 
 function App() {
   return (
@@ -17,10 +17,10 @@ function App() {
           <Route index element = {<MainPage />} />
           <Route path="/login" element = {<LoginPage />} />
           <Route path="login/membership" element = {<MembershipPage />} />
-          <Route path="blog" element = {<BlogPage />} />
+          <Route path="blog/:category" element = {<BlogPage />} />
           <Route path="blog/config" element = {<BlogConfig />} />
-          <Route path="blogWrite" element = {<BlogWrite />} />
-          <Route path="blog/BlogViewer" element = {<BlogViewer />} />
+          <Route path="blogWrite" element = {<PostWrite />} />
+          <Route path="blog/BlogViewer" element = {<PostViewer />} />
         </Routes>
       </BrowserRouter>
     </>

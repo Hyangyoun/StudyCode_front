@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -6,30 +6,37 @@ import styled from "styled-components";
 
 function SideBar(props){
 
-    const {menuIndex, changeMenuIndex} = props;
+    const {category} = props;
+
+    const [menuIndex, setMenuIndex] = useState();
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setMenuIndex({
+            overView : 1,
+            postList : 2,
+            category : 3,
+            repository : 4,
+        }[category]
+        )
+    },)
 
     return(
         <Sidebar $menuIndex={menuIndex}>
             <img  className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
             <div className="nickName">js싫어요</div>
             <div className="follows" >
-                {menuIndex !== 6 ?
-                <> 
-                    <span onClick={() => changeMenuIndex(5)}>팔로우{}</span>
-                    <span onClick={() => changeMenuIndex(5)}>팔로잉{}</span>
-                    <div className="write" onClick={() => navigate("/blogWrite")}>새 포스트</div>
-                </>
-                :
+                <span onClick={() => navigate("/blog/follows")}>팔로우{}</span>
+                <span onClick={() => navigate("/blog/follows")}>팔로잉{}</span>
+                <div className="write" onClick={() => navigate("/blogWrite")}>새 포스트</div>
                 <div className="blogName">내 토요일 내놔</div>
-                }
             </div>
             <div className="cartegoryForm" >
-                <div onClick={() => changeMenuIndex(1)} className="overview">메인(overview)</div>
-                <div onClick={() => changeMenuIndex(2)} className="post">포스트(post)</div>
-                <div onClick={() => changeMenuIndex(3)} className="post">category</div>
-                <div onClick={() => changeMenuIndex(4)} className="repository">repository</div>
+                <div onClick={() => navigate("/blog/overView")} className="overview">메인(overview)</div>
+                <div onClick={() => navigate("/blog/postList")} className="post">포스트(post)</div>
+                <div onClick={() => navigate("/blog/category")} className="post">category</div>
+                <div onClick={() => navigate("/blog/repository")} className="repository">repository</div>
             </div>
             <div className="tagBox"> Tag
                 <ul>

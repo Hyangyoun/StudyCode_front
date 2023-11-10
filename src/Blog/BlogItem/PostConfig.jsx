@@ -1,7 +1,7 @@
 import React , {useState, useEffect} from "react";
 import styled from "styled-components"
 
-function PostPreview({setNextButton}) {
+function PostConfig({setNextButton}) {
 
     const [selectButton , setSelectButton] = useState(true);    // 최종선택에서 공개 비공개 선택버튼
 
@@ -41,12 +41,12 @@ function PostPreview({setNextButton}) {
                             </ul>
                             <div className="chooseButton">
                                 <div>취소</div>
-                                <div  onClick={() => setSelectCartegory(true)}>선택하기</div>
+                                <div  onClick={() => setSelectCartegory(false)}>선택하기</div>
                             </div> 
                         </div>
                         :
                         <>
-                            <div className="addcartegory" onClick={() => setSelectCartegory(false)}>
+                            <div className="addcartegory" onClick={() => setSelectCartegory(true)}>
                                 <img src="/image/icon/addcategory.png" alt="카테고리추가"/>카테고리에 추가하기
                             </div>
                             <div className="publicPrivate">
@@ -268,4 +268,4 @@ const LastPreview = styled.div`
         
 `
 
-export default PostPreview
+export default PostConfig

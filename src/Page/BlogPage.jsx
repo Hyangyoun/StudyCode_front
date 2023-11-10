@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BlogSkin2 from "../Blog/BlogSkin2";
 import BlogSkin1 from "../Blog/BlogSkin1";
 import styled from "styled-components";
@@ -7,41 +7,35 @@ import OverView from "../Blog/OverView";
 import PostList from "../Blog/PostList";
 import Cartegory from "../Blog/Cartegory";
 import Followers from "../Blog/Followers";
-import Repo from "../Blog/Repo";
-import BlogViewer from "../Blog/BlogViewer";
+import Repository from "../Blog/Repository";
 import over from "../DummyData/Overview.json";
+import { useParams } from "react-router-dom";
 
 function BlogPage(props){
-    
-    const [menuIndex, setMenuIndex] = useState(1)
-    const [skin, setSkin] = useState(1)
 
-    /** props로 넘어갈 state set 함수 */
-    const ChangeMenuIndex = (value) => {
-        setMenuIndex(value);
-    };
+    const [skin, setSkin] = useState(2)
+    const { category } = useParams();
 
     return(
         <BlogSection $skin={skin}>
             {
                 {
                     1 : <>
-                        <SideBar menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
-                        <BlogSkin1 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                        <SideBar category={category} />
+                        <BlogSkin1 category={category} />
                         </>,
-                    2 : <BlogSkin2 menuIndex={menuIndex} changeMenuIndex={ChangeMenuIndex} />
+                    2 : <BlogSkin2 category={category} />
 
                 }[skin]
             }
             {
                 {
-                    1 : <OverView overView={over.content} />,
-                    2 : <PostList />,
-                    3 : <Cartegory />,
-                    4 : <Repo />,
-                    5 : <Followers />,
-                    6 : <BlogViewer/>
-                }[menuIndex]
+                    overView : <OverView overView={over.content} />,
+                    postList : <PostList />,
+                    category : <Cartegory />,
+                    repository : <Repository />,
+                    followers : <Followers />,
+                }[category]
             }
         </BlogSection>
     )
@@ -49,7 +43,8 @@ function BlogPage(props){
 
 const BlogSection = styled.div`
     width: 100%; height: auto;
-    padding-left: ${props => props.$skin == 1 ? 250 : 0}px;
+    min-height: 100%;
+    padding-left: ${props => props.$skin === 1 ? 250 : 0}px;
     display: flex;
     position: relative;
     flex-direction: column;

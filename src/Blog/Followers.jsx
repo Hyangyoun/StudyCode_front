@@ -6,21 +6,21 @@ function Followers(props){
     const [following , setFollowing] = useState(true); //팔로우 언팔로우 버튼
 
     return(
-            <RepoList>
-                <li className="followerList">
-                    <div className="follower"></div>
-                </li>
-                <li className="followerList">
-                    <div className="follower">
-                        <img className="profileImage" src="/image/icon/profile.png" alt="profileImage"/>
-                        <span className="followerName">1010jk</span>
-                    </div>
-                    <div className="follwerBtn" onClick={() => setFollowing(!following)}>
-                        {following  ? "unfollow" : "follow"}
-                    </div>
-                </li>
-            </RepoList>
-        )
+        <RepoList>
+            <li className="followerList">
+                <div className="follower"></div>
+            </li>
+            <li className="followerList">
+                <div className="follower">
+                    <img className="profileImage" src="/image/icon/profile.png" alt="profileImage"/>
+                    <span className="followerName">1010jk</span>
+                </div>
+                <div className="follwerBtn" onClick={() => setFollowing(!following)}>
+                    {following  ? "unfollow" : "follow"}
+                </div>
+            </li>
+        </RepoList>
+    )
 }
 
 const RepoList = styled.ul`

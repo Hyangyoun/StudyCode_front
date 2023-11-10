@@ -1,34 +1,27 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import BlogViewer from "./BlogViewer";
 
 function BlogSkin1 (props){
 
-    const {menuIndex} = props
-
-    const [CartegoryIndex, setCartegoryIndex] = useState(1) // 코테 스터디 등 메뉴 클릭 감지 state
-    
+    const {category} = props
 
     return(
-                <BlogBody>
-                    { menuIndex === 6 ?
-                     null
-                     :<BlogHeader $CartegoryIndex={CartegoryIndex} $menuIndex={menuIndex}>
-                       <span >{"내 토요일 내놔"}</span>
-                       <span className="blogMenu">
-                           {
-                               {
-                                   1 : "메인",
-                                   2 : "post",
-                                   3 : "category",
-                                   4 : "repository",
-                                   5 : "follower"
-                               }[menuIndex]
-                           }
-                       </span>
-                    </BlogHeader>
-                    }
-                </BlogBody>
+        <BlogBody>
+            <BlogHeader>
+               <span >{"내 토요일 내놔"}</span>
+               <span className="blogMenu">
+                   {
+                       {
+                           overView : "메인",
+                           postList : "post",
+                           category : "category",
+                           repository : "repository",
+                           follower : "follower"
+                       }[category]
+                   }
+               </span>
+            </BlogHeader>
+        </BlogBody>
     )
 }
 
@@ -85,10 +78,6 @@ const BlogHeader = styled.div`
         > li:hover {
             color: white;
             background-color: var(--second);
-        }
-        :nth-child(${props =>props.$CartegoryIndex}){
-            background-color: var(--second);
-            color: white;
         }
     }
 

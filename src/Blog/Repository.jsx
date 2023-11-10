@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import styled from "styled-components"
 
-function Repo(props){
+function Repository(props){
     const [addFolder,setAddFolder] = useState(false) //폴더 추가 버튼
     const folderNameInput = useRef();
     const addFolderBox = useRef();
@@ -198,4 +198,4 @@ const RepoList = styled.ul`
         cursor: pointer;
     }
 `
-export default Repo
+export default Repository

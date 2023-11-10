@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function BlogPost({ title, content, like,  data}) {
+function PostListItem({ title, content, like,  data}) {
 
     const navigate = useNavigate()
     return(
@@ -101,4 +101,4 @@ const Post = styled.ul`
             }
     }
 `
-export default BlogPost
+export default PostListItem
