@@ -1,23 +1,25 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 /** 블로그 메인  */
 
 function SideBar(props){
+
     const {menuIndex, changeMenuIndex} = props;
+
     const navigate = useNavigate();
 
     return(
         <Sidebar $menuIndex={menuIndex}>
-            <img className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
+            <img  className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
             <div className="nickName">js싫어요</div>
             <div className="follows" >
                 {menuIndex !== 6 ?
                 <> 
-                <span onClick={() => changeMenuIndex(5)}>팔로우{}</span>
-                <span onClick={() => changeMenuIndex(5)}>팔로잉{}</span>
-                <div className="write" onClick={() => navigate("/blogWrite")}>새 포스트</div>
+                    <span onClick={() => changeMenuIndex(5)}>팔로우{}</span>
+                    <span onClick={() => changeMenuIndex(5)}>팔로잉{}</span>
+                    <div className="write" onClick={() => navigate("/blogWrite")}>새 포스트</div>
                 </>
                 :
                 <div className="blogName">내 토요일 내놔</div>
@@ -36,14 +38,6 @@ function SideBar(props){
                     <li>React</li>
                 </ul>
             </div >
-            { menuIndex === 2 || menuIndex === 3 ?
-                <div className="searchForm">
-                    <input className="searchInput" type="text" />
-                    <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼"/>
-                </div>
-                :
-                null
-            }
             <div className="logo">
                 <img src="/image/icon/logo.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
                 <div>블로그 설정</div>
@@ -54,6 +48,7 @@ function SideBar(props){
 
 /** 블로그 사이드바 스타일 컴포넌트  */
 const Sidebar = styled.div`
+
     width: 250px;
     min-height: 100%;
     height: auto;
@@ -69,7 +64,6 @@ const Sidebar = styled.div`
     background-color: var(--background);;
     z-index: 100;
 
-
     .profilePicture{
         width: 150px; height: auto;
         margin-top: 73px;
@@ -79,16 +73,17 @@ const Sidebar = styled.div`
     .nickName{
         margin-top: 10px;
         text-align: center;
+        font-size: 15px;
         cursor: pointer;
     }
     .follows{
         margin-top: 15px;
     }
 
-    div>span{
+    .follows>span{
+        font-size: 15px;
         margin:0 10px ;
-            cursor: pointer;
-            margin: 0 10px 0;
+        cursor: pointer;
     }
 
     .write{
@@ -106,7 +101,7 @@ const Sidebar = styled.div`
         &:hover {
             background-color: var(--second);
             color: white;
-        }    
+        }
     }
 
     .blogName{
@@ -159,29 +154,9 @@ const Sidebar = styled.div`
         }
     }
 
-    .searchForm{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 40px 0 60px;
-    }
-    
-    .searchInput{
-        box-sizing: border-box;
-        width: 150px; height: 30px;
-        padding-right: 30px;
-        outline: none;
-    }
-
-    .searchRight{
-        position: relative;
-        left: 60px;
-        bottom: 27px;
-    }
     .logo{
-        bottom: 40px;
-        margin-top: 60px;
+        margin-bottom: 10px;
+        margin-top: auto;
         cursor: pointer;
         > img{
             width: 150px;
@@ -197,6 +172,6 @@ const Sidebar = styled.div`
             }
         }
     }
-    `
+`
 
 export default SideBar

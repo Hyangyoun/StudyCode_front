@@ -5,8 +5,8 @@ function BlogPost({ title, content, like,  data}) {
 
     const navigate = useNavigate()
     return(
-        <Post onClick={() => {navigate("/blog/BlogViewer")}}>
-            <li className="post">
+        <Post>
+            <li className="post" onClick={() => {navigate("/blog/BlogViewer")}}>
                 <img src="/image/icon/sample.png" alt="썸네일"/>
                 <span className="title" >{title}</span>
                 <div className="content" >{content}</div>

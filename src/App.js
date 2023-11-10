@@ -14,7 +14,7 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route index element = {<MainPage />} /> 
+          <Route index element = {<MainPage />} />
           <Route path="/login" element = {<LoginPage />} />
           <Route path="login/membership" element = {<MembershipPage />} />
           <Route path="blog" element = {<BlogPage />} />
