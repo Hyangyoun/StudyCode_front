@@ -18,7 +18,7 @@ function PostViewer(props){
     
     /** 스크롤 이벤트를 받는 함수 */
     const ScrollEvent = () => {
-        if(window.scrollY <= end - 220 ) {
+        if(window.scrollY <= end - 170 ) {
             heartButton.current.style.position = "fixed"
             setChangePosition(false)
         }
@@ -60,8 +60,8 @@ function PostViewer(props){
                         <div className="filebox">
                             <div className="fileBtn" onClick={() => {setAddFolder(!addFolder)}} >파일첨부</div>
                             <ul className="fileName">
-                                <li>logo.png</li>
-                                <li>lddd.png</li>
+                                <li title="logo.png">logo.png</li>
+                                <li title="logo.png">logo.png</li>
                             </ul>
                         </div>
                     </div>
@@ -87,8 +87,9 @@ const ViewerStyle = styled.div`
         height: 100%;
         position: absolute;
         top: 120px;
-        left: -6%;
+        left: -15%;
         z-index: 10;
+        margin: auto;
     }
 
     .like{
@@ -101,8 +102,7 @@ const ViewerStyle = styled.div`
         background-color: var(--second2);
         border: 1px solid var(--second);
         border-radius: 35px;
-        top:${props => props.$changePosition ? props.$end - 220 : 270}px;
-
+        top:${props => props.$changePosition ? props.$end - 220 : 220}px;
         cursor: pointer;
 
         &>img{
@@ -125,7 +125,7 @@ const ViewerStyle = styled.div`
     .title{
         display: flex;
         align-items: center;
-        margin-top: 55px;
+        margin-top: 0px;
         width: 100%;
         height: 60px;
         font-size: 20px;
@@ -152,18 +152,16 @@ const ViewerStyle = styled.div`
         flex-wrap: wrap;
         >li {
             display: block;               //block일때만 textoverflow 사용가능
-            width: 103px; height: 25px;
+            width: auto;
+            height: 25px;
+            flex-shrink: 0;
             background-color: var(--second2);
-            border-radius: 50px;
+            border-radius: 10px;
             font-size: 15px;
             color: var(--primary);
             margin: 5px 5px 0;
             box-sizing: border-box;
             padding: 2px 10px ;
-            overflow:hidden;
-            text-overflow: ellipsis;  	// 로 ... 을 만들기 
-            white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
-            text-align: center;
             cursor: pointer;
         }
         & > li:nth-child(7n-6){
@@ -182,6 +180,7 @@ const ViewerStyle = styled.div`
         .fileBtn{
             width: 130px;
             height: 35px;
+            margin-top: 5px;
             border-radius: 5px 5px 0 0 ;
             background-color: var(--second2);
             font-size: 15px;
@@ -205,9 +204,12 @@ const ViewerStyle = styled.div`
             right: 0;
             top: 35px;
             &>li{
-                display: flex;
-                align-items: center;
+                width: 100%;
+                display: block;
                 box-sizing: border-box;
+                white-space: nowrap; //한줄로 마무리
+                overflow: hidden;
+                text-overflow: ellipsis;
                 cursor: pointer;
                 &::before{
                     margin-right: 10px;

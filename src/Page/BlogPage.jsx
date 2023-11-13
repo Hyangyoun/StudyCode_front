@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 
 function BlogPage(props){
 
-    const [skin, setSkin] = useState(2)
+    const [skin, setSkin] = useState(1)
     const { category } = useParams();
 
     return(
