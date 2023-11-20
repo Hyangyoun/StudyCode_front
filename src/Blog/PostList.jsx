@@ -24,11 +24,13 @@ function PostList(props){
                     <input className="searchInput" type="text" />
                     <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼"/>
                 </div>
+                <ul>
                 {posts.map((post ,index) => 
                     { return <PostListItem key={index} title={post.title} content={post.content}
                     like={post.like} data={post.date} 
                     />}
                 )}
+                </ul>
             </BlogPostList> :
             <NoBlog>
                 <span>등록되어있는 포스트가 없습니다.</span>
@@ -42,6 +44,11 @@ const BlogPostList = styled.div`
 
     width: 100%;
     height: auto;
+
+    &> ul{
+        margin: 0;
+        padding: 0;
+    }
 
     .searchForm{
         display: flex;

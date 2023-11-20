@@ -30,7 +30,7 @@ function Review(props) {
         return (
             setReReview(
             <div className="rereview">
-                <div className="reviewId"><img src="/image/icon/profile.png" alt="아이디프로필"/>댜대기1</div>
+                <div className="reviewId">댜대기1</div>
                 <textarea placeholder="댓글을 입력하세요" onChange={HandleInputValue}>{inputValue}</textarea>
                 <div className="exportRereview">등록</div>
                 <span onClick={() => {setReReview(<div></div>)}} className="closeBtn">X</span>
@@ -45,7 +45,7 @@ function Review(props) {
             <ul>
                 <li className="reviews">
                     <div className="review">
-                        <div className="reviewId"><img src="/image/icon/profile.png" alt="아이디프로필"/>VKI9008</div>
+                        <div className="reviewId">VKI9008</div>
                         <div className="content">
                             <img src="/image/icon/okTeakYeon.png" alt="내용이미지파일"/>
                             <div>그것도 너를향해</div>
@@ -60,7 +60,7 @@ function Review(props) {
                 </li>
             </ul>
             <div className="writeReview">
-                <span className="guest"><img src="/image/icon/profile.png" alt="게스트프로필"/>다대기1</span>
+                <span className="guest">다대기1</span>
                 <textarea placeholder="댓글을 입력하세요"></textarea>
                 <div className="exportReview">등록</div>
             </div>
@@ -94,8 +94,7 @@ const Reviews = styled.div`
         padding-left: 110px;
         border-bottom: 1px solid var(--second);
     }
-    .review{
-    }
+
     .reviewId{                      //대댓글 의 아이디도 같은 클래스를 사용함
         width: fit-content;
         height: 20px;
@@ -104,10 +103,14 @@ const Reviews = styled.div`
         align-items: center;
         margin: 10px 0;
         cursor: pointer;
-        &>img{
-            width: 20px;
-            height: auto;
-            margin-right: 20px;
+        &:before{
+            background-image: url("/image/icon/profile.png");
+            background-size:100%;
+            display: inline-block;
+            width: 20px; 
+            height: 20px;
+            content:"";
+            margin-right: 5px
         }
     }
     .content{
@@ -230,12 +233,14 @@ const Reviews = styled.div`
         background-color: var(--background);
         z-index: 5;
         flex-shrink: 1;
-        &>img{
-            object-fit: fill;
-            width: 20px;
-            height: auto;
-            margin: 0 10px;
-            
+        &:before{
+            background-image: url("/image/icon/profile.png");
+            background-size:100%;
+            display: inline-block;
+            width: 20px; 
+            height: 20px;
+            content:"";
+            margin: auto 10px;
         }
 }
     .exportReview{

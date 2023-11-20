@@ -5,71 +5,66 @@ function PostListItem({ title, content, like,  data}) {
 
     const navigate = useNavigate()
     return(
-        <Post>
-            <li className="post" onClick={() => {navigate("/blog/BlogViewer")}}>
-                <img src="/image/icon/sample.png" alt="썸네일"/>
-                <span className="title" >{title}</span>
-                <div className="content" >{content}</div>
-                <ul className="tagUl">
-                    <li>JavaScript</li>
-                    <li>React</li>
-                    <li>JavaScriptttttttttttt</li>
-                </ul>
-                <div className="likeDiv">
-                    <span className="like">{like}</span>
-                    <span>{data}</span>
-                </div>
-            </li>
+        <Post onClick={() => {navigate("/blog/BlogViewer")}}>
+            <img src="/image/icon/sample.png" alt="썸네일"/>
+            <span className="title" >{title}</span>
+            <div className="content" >{content}</div>
+            <ul className="tagUl">
+                <li>JavaScript</li>
+                <li>React</li>
+                <li>JavaScriptttttttttttt</li>
+            </ul>
+            <div className="likeDiv">
+                <span className="like">{like}</span>
+                <span>{data}</span>
+            </div>
         </Post>
     )
 }
 
-const Post = styled.ul`
-    width:100%; height: auto;
+const Post = styled.li`
+
+    width: 700px; height: 580px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    margin: auto;
+    margin: 40px auto auto;
     padding: 0;
+    background-color: var(--background);
+    border-bottom:1px solid var(--second);
+    cursor: pointer;
 
-    .post {
-        margin-top: 40px;
-        display: flex;
-        flex-direction: column;
-        width: 700px; height: 580px;
-        background-color: var(--background);
-        border-bottom:1px solid var(--second);
-        &>img{
-            width: 700px; height: 370px;
-            border-radius: 5px 5px 0 0;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .title {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 20px 0 ;
-            cursor: pointer;
-        }
-        .content {
-            font-size: 15px;
-            margin-bottom: 15px;
-            overflow:hidden;
-            text-overflow: ellipsis;  	// ... 을 만들기 
-            white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
-        }
-        .likeDiv{
-            margin-top: 20px;
-            font-size: 12px;
-        }
+    & >img{
+        width: 700px; height: 370px;
+        border-radius: 5px 5px 0 0;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .title {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 20px 0 ;
+        cursor: pointer;
+    }
+    .content {
+        font-size: 15px;
+        margin-bottom: 15px;
+        overflow:hidden;
+        text-overflow: ellipsis;  	// ... 을 만들기 
+        white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
+    }
+    .likeDiv{
+        margin-top: 20px;
+        font-size: 12px;
+    
         .like {
             cursor: pointer;
             margin-right: 10px;
             &::before{
                 object-fit: fill;
                 width: auto; height: 15px;
-                content: url("./image/icon/heart.png");
+                content: url("/image/icon/heart.png");
             }
         }
     }

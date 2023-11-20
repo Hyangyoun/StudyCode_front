@@ -30,7 +30,6 @@ function SideBar(props){
                 <span onClick={() => navigate("/blog/follows")}>팔로우{}</span>
                 <span onClick={() => navigate("/blog/follows")}>팔로잉{}</span>
                 <div className="write" onClick={() => navigate("/blogWrite")}>새 포스트</div>
-                <div className="blogName">내 토요일 내놔</div>
             </div>
             <div className="cartegoryForm" >
                 <div onClick={() => navigate("/blog/overView")} className="overview">메인(overview)</div>
@@ -111,11 +110,6 @@ const Sidebar = styled.div`
         }
     }
 
-    .blogName{
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-    }
     .cartegoryForm{
         margin-top: 70px;
         >div{
