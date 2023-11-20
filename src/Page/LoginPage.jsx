@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "../Main/Header";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function LoginPage(props) {
 
@@ -9,11 +10,27 @@ function LoginPage(props) {
     const [id , setId] = useState("");
     const [password, setPassword] = useState("");
 
-    function validation() {
+    function Validation() {
         if(id !== "" && password !== ""){
             const test = window.sessionStorage;
-            test.setItem(`id`, `${[id]}`);
-            navigate("/")
+            axios.post("/api/member/login", null, {
+                params: {
+                    memId: id,
+                    password: password
+                }
+            })
+            .then((response) => {
+                if(response.data !== "") {
+                    test.setItem("mem_id", id)
+                    console.log(response.data)
+                    test.setItem("nickName", response.data)
+                    navigate("/")
+                }
+                else {
+                    alert("아이디 혹은 비밀번호가 일치하지 않습니다.")
+                    setPassword("")
+                }
+            }).catch((e) => console.log(e))
         }
         else{
             alert("다시 로그인 하세요")
@@ -34,7 +51,7 @@ function LoginPage(props) {
                     <input id="saveId" type="checkbox" />
                     <label htmlFor="saveId">아이디저장</label>
                 </div>
-                <div className="loginBox" onClick={validation}>로그인</div>
+                <div className="loginBox" onClick={() => Validation()}>로그인</div>
                 <div className="findBox">
                     <span>아이디 찾기</span>
                     <span>비밀번호 찾기</span>

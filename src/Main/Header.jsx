@@ -11,7 +11,7 @@ function Header(props) {
 
     useEffect(() => {
         const test = window.sessionStorage
-        if(test.getItem("id") !== null ){
+        if(test.getItem("mem_id") !== null ){
             setLogin(true)
         }
         else(

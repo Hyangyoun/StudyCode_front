@@ -20,7 +20,7 @@ function SideBar(props){
             repository : 4,
         }[category]
         )
-    },)
+    },[category])
 
     return(
         <Sidebar $menuIndex={menuIndex}>
