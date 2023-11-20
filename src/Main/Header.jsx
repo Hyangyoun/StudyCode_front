@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 function Header(props) {
     const [search,setSearch] = useState("");
     const [tooltip,setTooltip] = useState(false);
-    const [login, setLogin] = useState(true)
+    const [login, setLogin] = useState(false)
     
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const test = window.sessionStorage
+        if(test.getItem("id") !== null ){
+            setLogin(true)
+        }
+        else(
+            setLogin(false)
+        )
+    },[]
+    )
 
     const ClickProfile = () => {
         if(login) {

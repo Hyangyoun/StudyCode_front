@@ -1,25 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "../Main/Header";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage(props) {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [id , setId] = useState("");
+    const [password, setPassword] = useState("");
+
+    function validation() {
+        if(id !== "" && password !== ""){
+            const test = window.sessionStorage;
+            test.setItem(`id`, `${[id]}`);
+            navigate("/")
+        }
+        else{
+            alert("다시 로그인 하세요")
+            setId("")
+            setPassword("")
+        }
+    }
 
     return(
         <>
             <Header />
             <LoginSection>
-                <input type="text" placeholder="아이디" />
-                <input type="password" placeholder="비밀번호" />
+                <input type="text" placeholder="아이디" value={id} onChange={(e) => setId(e.target.value)} />
+                <input type="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 <div className="checkBox">
                     <input id="autoLogin" type="checkbox" />
                     <label htmlFor="autoLogin">자동로그인</label>
                     <input id="saveId" type="checkbox" />
                     <label htmlFor="saveId">아이디저장</label>
                 </div>
-                <div className="loginBox">로그인</div>
+                <div className="loginBox" onClick={validation}>로그인</div>
                 <div className="findBox">
                     <span>아이디 찾기</span>
                     <span>비밀번호 찾기</span>
