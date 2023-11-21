@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 function SideBar(props){
 
-    const {category} = props;
+    const {category , userInfo} = props;
 
     const [menuIndex, setMenuIndex] = useState();
 
@@ -25,12 +25,12 @@ function SideBar(props){
     return(
         <Sidebar $menuIndex={menuIndex}>
             <img  className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
-            <div className="nickName">js싫어요</div>
+            <div className="nickName">{}</div>
             <div className="follows" >
-                <span onClick={() => navigate("/blog/follows")}>팔로우{}</span>
-                <span onClick={() => navigate("/blog/follows")}>팔로잉{}</span>
-                <div className="write" onClick={() => navigate("/blogWrite")}>새 포스트</div>
+                <span onClick={() => navigate("/blog/followers")}>팔로우{userInfo.followers}</span>
+                <span onClick={() => navigate("/blog/followers")}>팔로잉{userInfo.followers}</span>
             </div>
+                <div className="write" onClick={() => navigate("/blogWrite")}>새 포스트</div>
             <div className="cartegoryForm" >
                 <div onClick={() => navigate("/blog/overView")} className="overview">메인(overview)</div>
                 <div onClick={() => navigate("/blog/postList")} className="post">포스트(post)</div>

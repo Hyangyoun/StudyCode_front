@@ -12,7 +12,7 @@ function LoginPage(props) {
 
     function Validation() {
         if(id !== "" && password !== ""){
-            const test = window.sessionStorage;
+            const sessionStorage = window.sessionStorage;
             axios.post("/api/member/login", null, {
                 params: {
                     memId: id,
@@ -21,16 +21,16 @@ function LoginPage(props) {
             })
             .then((response) => {
                 if(response.data !== "") {
-                    test.setItem("mem_id", id)
+                    sessionStorage.setItem("mem_id", id)
                     console.log(response.data)
-                    test.setItem("nickName", response.data)
+                    sessionStorage.setItem("nickName", response.data)
                     navigate("/")
                 }
                 else {
                     alert("아이디 혹은 비밀번호가 일치하지 않습니다.")
                     setPassword("")
                 }
-            }).catch((e) => console.log(e))
+            })
         }
         else{
             alert("다시 로그인 하세요")

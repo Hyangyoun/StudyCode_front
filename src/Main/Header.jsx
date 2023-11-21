@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 function Header(props) {
     const [search,setSearch] = useState("");
-    const [tooltip,setTooltip] = useState(false);
+    const [tooltip,setTooltip] = useState(true);
     const [login, setLogin] = useState(false)
     
     const navigate = useNavigate()
+    const sessionStorage = window.sessionStorage
 
     useEffect(() => {
-        const test = window.sessionStorage
-        if(test.getItem("mem_id") !== null ){
+        if(sessionStorage.getItem("mem_id") !== null ){
             setLogin(true)
         }
         else(
@@ -44,7 +44,7 @@ function Header(props) {
                         onClick={ClickProfile} />
                         {tooltip ? <ul className="tooltips">
                         <li>마이페이지</li>
-                        <li onClick={() => navigate("/blog/overView")}>내 블로그</li>
+                        <li onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/overView`)}>내 블로그</li>
                         <li>내 팔로우</li>
                         <li>로그아웃</li>
                         </ul> : null}

@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 function BlogSkin1 (props){
 
-    const {category} = props
+    const {category , userInfo} = props
 
     return(
         <BlogBody>
             <BlogHeader>
-               <span >{"내 토요일 내놔"}</span>
+               <span >{userInfo.name}</span>
                <span className="blogMenu">
                    {
                        {

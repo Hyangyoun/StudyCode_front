@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 function BlogSkin2(props) {
-    const {category} = props
+    const {category , userInfo} = props
 
     const [menuIndex, setMenuIndex] = useState()
     
@@ -42,11 +42,11 @@ function BlogSkin2(props) {
                 <span onClick={() => navigate("/blog/config")}>블로그 설정</span>
                 <div className="profileBox">
                     <img src="/image/icon/profile.png" alt="프로필사진" />
-                    <span>js싫어요</span>
+                    <span>{}</span>
                 </div>
                 <div className="followBox">
-                    <span onClick={() => navigate("/blog/follower")}>팔로우{}</span>
-                    <span onClick={() => navigate("/blog/follower")}>팔로잉{}</span>
+                    <span onClick={() => navigate("/blog/followers")}>팔로우{userInfo.followers}</span>
+                    <span onClick={() => navigate("/blog/followers")}>팔로잉{userInfo.followers}</span>
                 </div>
                 <div className="newPost" onClick={() => navigate("/blogWrite")}>새 포스트</div>
                 <div className="listBox"> Tag
@@ -69,7 +69,7 @@ function BlogSkin2(props) {
                 <SideBT onClick={() => setSide(!side)}>
                     <img src="/image/icon/sideBT.png" alt="사이드버튼" />
                 </SideBT>
-                <div className="blogName">내 토요일 내놔</div>
+                <div className="blogName">{userInfo.name}</div>
                 <div className="menuBox">
                     <div className="menu">
                         <div onClick={() => navigate("/blog/overView")}>Overview</div>

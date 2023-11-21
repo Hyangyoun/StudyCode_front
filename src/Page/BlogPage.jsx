@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BlogSkin2 from "../Blog/BlogSkin2";
 import BlogSkin1 from "../Blog/BlogSkin1";
 import styled from "styled-components";
@@ -10,23 +10,28 @@ import Followers from "../Blog/Followers";
 import Repository from "../Blog/Repository";
 import over from "../DummyData/Overview.json";
 import { useParams } from "react-router-dom";
+import BlogInfo from "../DummyData/BlogInfo.json";
 
 function BlogPage(props){
+    
+    const [userInfo, setUserInfo] = useState(1);
+    const { category , nickName } = useParams();
 
-    const [skin, setSkin] = useState(1)
-    const { category } = useParams();
+    useEffect(() => {
+        setUserInfo(BlogInfo)
+    },[])
 
     return(
-        <BlogSection $skin={skin}>
+        <BlogSection $skin={userInfo.skin}>
             {
                 {
                     1 : <>
-                        <SideBar category={category} />
-                        <BlogSkin1 category={category} />
+                        <SideBar category={category} userInfo={userInfo}/>
+                        <BlogSkin1 category={category} userInfo={userInfo}/>
                         </>,
-                    2 : <BlogSkin2 category={category} />
+                    2 : <BlogSkin2 category={category} userInfo={userInfo} />
 
-                }[skin]
+                }[userInfo.skin]
             }
             {
                 {

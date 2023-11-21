@@ -9,6 +9,7 @@ import PostWrite from './Blog/PostWrite';
 import PostViewer from './Blog/PostViewer';
 
 function App() {
+
   return (
     <>
       <GlobalStyle />
@@ -17,7 +18,7 @@ function App() {
           <Route index element = {<MainPage />} />
           <Route path="/login" element = {<LoginPage />} />
           <Route path="login/membership" element = {<MembershipPage />} />
-          <Route path="blog/:category" element = {<BlogPage />} />
+          <Route path="blog/:nickName/:category" element = {<BlogPage />} />
           <Route path="blog/config" element = {<BlogConfig />} />
           <Route path="blogWrite" element = {<PostWrite />} />
           <Route path="blog/BlogViewer" element = {<PostViewer />} />
