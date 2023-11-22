@@ -8,22 +8,16 @@ import axios from "axios";
 function PostList(props){
 
     // const sessionStorage = window.sessionStorage
+    // const { nickName } = useParams()
 
     const navigate = useNavigate()
-
-    const [isBlog , setIsBlog] = useState(true)
 
     const [posts , setPosts] = useState([])
 
     useEffect((() => {
         // axios.post(`/api/${sessionStorage}/postList`, null ,{
         //     params:{
-        //         nickName:nickName,
-        //         postIndex:postIndex,
-        //         title: title,
-        //         content: content,
-        //         like: like,
-        //         date: date
+        //         nickName:nickName
         //     }
         // })
         // .then((response) => {
@@ -36,7 +30,7 @@ function PostList(props){
 
     return(
         <>
-        {isBlog ?
+        {posts ?
             <BlogPostList >
                 <div className="searchForm">
                     <input className="searchInput" type="text" />
