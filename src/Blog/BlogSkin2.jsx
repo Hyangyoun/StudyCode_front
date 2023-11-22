@@ -69,7 +69,7 @@ function BlogSkin2(props) {
                 <SideBT onClick={() => setSide(!side)}>
                     <img src="/image/icon/sideBT.png" alt="사이드버튼" />
                 </SideBT>
-                <div className="blogName">{userInfo.name}</div>
+                <div className="blogName">{userInfo.blogName}</div>
                 <div className="menuBox">
                     <div className="menu">
                         <div onClick={() => navigate(`/blog/${userInfo.nickName}/overView`)}>Overview</div>

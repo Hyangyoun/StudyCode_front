@@ -7,8 +7,8 @@ import axios from "axios";
 
 function PostList(props){
 
-    // const sessionStorage = window.sessionStorage
-    // const { nickName } = useParams()
+    const sessionStorage = window.sessionStorage
+    const { nickName } = useParams()
 
     const navigate = useNavigate()
 
@@ -26,17 +26,20 @@ function PostList(props){
     // }
 
     useEffect((() => {
-        // axios.post(`/api/blog/get/post/list`, null ,{
-        //     params:{
-        //         nickName:nickName
-        //     }
-        // })
-        // .then((response) => {
-        //     setPosts(response)
-        // })
-        // .catch((error) => console.log(error))
+        axios.post("/api/blog/get/post/list", null ,{
+            params:{
+                nickName: nickName
+            }
+        })
+        .then((response) => {
+            setPosts(response.data)
+            console.log(response.data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
 
-        setPosts(postInfo)
+        // setPosts(postInfo)
     }),[])
 
     return(

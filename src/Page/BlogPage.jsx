@@ -15,27 +15,28 @@ import axios from "axios";
 
 function BlogPage(props){
 
-    const [userInfo, setUserInfo] = useState(1);
+    const [userInfo, setUserInfo] = useState({});
     const { category , nickName} = useParams();
     // const sessionStorage = window.sessionStorage
     
     useEffect(() => {
-        setUserInfo(BlogInfo)
-        // axios.post(api/blog/info,null,{
-        //     params:{
-                // nickName: nickName,
-        //     }
-        // })
-        // .then((response) => {
-        //     setUserInfo(response)
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // })
+        // setUserInfo(BlogInfo)
+        axios.post("/api/blog/info",null,{
+            params:{
+                nickName: nickName,
+            }
+        })
+        .then((response) => {
+            console.log(response.data)
+            setUserInfo(response.data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     },[])
 
     return(
-        <BlogSection $skin={userInfo.skin}>
+        <BlogSection $skin={userInfo.blogSkin}>
             {
                 {
                     1 : <>
@@ -44,7 +45,7 @@ function BlogPage(props){
                         </>,
                     2 : <BlogSkin2 category={category} userInfo={userInfo} />
 
-                }[userInfo.skin]
+                }[userInfo.blogSkin]
             }
             {
                 {
