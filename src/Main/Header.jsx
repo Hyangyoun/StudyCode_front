@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function Header(props) {
     const [search,setSearch] = useState("");
-    const [tooltip,setTooltip] = useState(true);
+    const [tooltip,setTooltip] = useState(false);
     const [login, setLogin] = useState(false)
     
     const navigate = useNavigate()

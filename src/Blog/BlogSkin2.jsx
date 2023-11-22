@@ -42,11 +42,11 @@ function BlogSkin2(props) {
                 <span onClick={() => navigate("/blog/config")}>블로그 설정</span>
                 <div className="profileBox">
                     <img src="/image/icon/profile.png" alt="프로필사진" />
-                    <span>{}</span>
+                    <span>{userInfo.nickName}</span>
                 </div>
                 <div className="followBox">
-                    <span onClick={() => navigate("/blog/followers")}>팔로우{userInfo.followers}</span>
-                    <span onClick={() => navigate("/blog/followers")}>팔로잉{userInfo.followers}</span>
+                    <span onClick={() => navigate(`/blog/${userInfo.nickName}/followers`)}>팔로우{userInfo.followers}</span>
+                    <span onClick={() => navigate(`/blog/${userInfo.nickName}/followers`)}>팔로잉{userInfo.followers}</span>
                 </div>
                 <div className="newPost" onClick={() => navigate("/blogWrite")}>새 포스트</div>
                 <div className="listBox"> Tag
@@ -72,10 +72,10 @@ function BlogSkin2(props) {
                 <div className="blogName">{userInfo.name}</div>
                 <div className="menuBox">
                     <div className="menu">
-                        <div onClick={() => navigate("/blog/overView")}>Overview</div>
-                        <div onClick={() => navigate("/blog/postList")}>Post</div>
-                        <div onClick={() => navigate("/blog/category")}>Category</div>
-                        <div onClick={() => navigate("/blog/repository")}>Repository</div>
+                        <div onClick={() => navigate(`/blog/${userInfo.nickName}/overView`)}>Overview</div>
+                        <div onClick={() => navigate(`/blog/${userInfo.nickName}/postList`)}>Post</div>
+                        <div onClick={() => navigate(`/blog/${userInfo.nickName}/category`)}>Category</div>
+                        <div onClick={() => navigate(`/blog/${userInfo.nickName}/repository`)}>Repository</div>
                     </div>
                 </div>
             </Header>

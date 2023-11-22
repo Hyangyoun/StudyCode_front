@@ -11,14 +11,29 @@ import Repository from "../Blog/Repository";
 import over from "../DummyData/Overview.json";
 import { useParams } from "react-router-dom";
 import BlogInfo from "../DummyData/BlogInfo.json";
+import axios from "axios";
 
 function BlogPage(props){
-    
+
     const [userInfo, setUserInfo] = useState(1);
     const { category , nickName } = useParams();
-
+    // const sessionStorage = window.sessionStorage
+    
     useEffect(() => {
         setUserInfo(BlogInfo)
+        
+        // axios.post(`api/${sessionStorage}`,null,{
+        //     params:{
+        //         nickName: nickName
+        //     }
+        // })
+        // .then((response) => {
+        //     setUserInfo(response)
+        // })
+        // .catch((error) => {
+        //     console.log(error)
+        // })
+        
     },[])
 
     return(

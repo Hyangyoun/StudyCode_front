@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function PostListItem({ title, content, like,  data}) {
+function PostListItem({ title, content, like,  date}) {
 
     const navigate = useNavigate()
     return(
@@ -16,7 +16,7 @@ function PostListItem({ title, content, like,  data}) {
             </ul>
             <div className="likeDiv">
                 <span className="like">{like}</span>
-                <span>{data}</span>
+                <span>{date}</span>
             </div>
         </Post>
     )

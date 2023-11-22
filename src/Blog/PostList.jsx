@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import postInfo from "../DummyData/postList.json"
 import PostListItem from "./BlogItem/PostListItem";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 function PostList(props){
+
+    // const sessionStorage = window.sessionStorage
 
     const navigate = useNavigate()
 
@@ -13,6 +16,21 @@ function PostList(props){
     const [posts , setPosts] = useState([])
 
     useEffect((() => {
+        // axios.post(`/api/${sessionStorage}/postList`, null ,{
+        //     params:{
+        //         nickName:nickName,
+        //         postIndex:postIndex,
+        //         title: title,
+        //         content: content,
+        //         like: like,
+        //         date: date
+        //     }
+        // })
+        // .then((response) => {
+        //     setPosts(response)
+        // })
+        // .catch((error) => console.log(error))
+
         setPosts(postInfo)
     }),[])
 
@@ -27,7 +45,7 @@ function PostList(props){
                 <ul>
                 {posts.map((post ,index) => 
                     { return <PostListItem key={index} title={post.title} content={post.content}
-                    like={post.like} data={post.date} 
+                    like={post.like} date={post.date} 
                     />}
                 )}
                 </ul>

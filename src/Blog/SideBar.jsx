@@ -25,17 +25,17 @@ function SideBar(props){
     return(
         <Sidebar $menuIndex={menuIndex}>
             <img  className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
-            <div className="nickName">{}</div>
+            <div className="nickName">{userInfo.nickName}</div>
             <div className="follows" >
-                <span onClick={() => navigate("/blog/followers")}>팔로우{userInfo.followers}</span>
-                <span onClick={() => navigate("/blog/followers")}>팔로잉{userInfo.followers}</span>
+                <span onClick={() => navigate(`/blog/${userInfo.nickName}/followers`)}>팔로우{userInfo.followers}</span>
+                <span onClick={() => navigate(`/blog/${userInfo.nickName}/followers`)}>팔로잉{userInfo.followers}</span>
             </div>
                 <div className="write" onClick={() => navigate("/blogWrite")}>새 포스트</div>
             <div className="cartegoryForm" >
-                <div onClick={() => navigate("/blog/overView")} className="overview">메인(overview)</div>
-                <div onClick={() => navigate("/blog/postList")} className="post">포스트(post)</div>
-                <div onClick={() => navigate("/blog/category")} className="post">category</div>
-                <div onClick={() => navigate("/blog/repository")} className="repository">repository</div>
+                <div onClick={() => navigate(`/blog/${userInfo.nickName}/overView`)} className="overview">메인(overview)</div>
+                <div onClick={() => navigate(`/blog/${userInfo.nickName}/postList`)} className="post">포스트(post)</div>
+                <div onClick={() => navigate(`/blog/${userInfo.nickName}/cartegory`)} className="post">category</div>
+                <div onClick={() => navigate(`/blog/${userInfo.nickName}/repository`)} className="repository">repository</div>
             </div>
             <div className="tagBox"> Tag
                 <ul>
