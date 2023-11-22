@@ -14,8 +14,19 @@ function PostList(props){
 
     const [posts , setPosts] = useState([])
 
+    // const [searchValue , setSearchValue] = useState()
+
+    // function Test(){
+
+    //     const searchPost = posts.filter((post) => {
+    //          return (post.title === searchValue)
+    //     })
+
+    //     return setPosts(searchPost)
+    // }
+
     useEffect((() => {
-        // axios.post(`/api/${sessionStorage}/postList`, null ,{
+        // axios.post(`/api/blog/get/post/list`, null ,{
         //     params:{
         //         nickName:nickName
         //     }

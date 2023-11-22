@@ -16,15 +16,14 @@ import axios from "axios";
 function BlogPage(props){
 
     const [userInfo, setUserInfo] = useState(1);
-    const { category , nickName } = useParams();
+    const { category , nickName} = useParams();
     // const sessionStorage = window.sessionStorage
     
     useEffect(() => {
         setUserInfo(BlogInfo)
-        
-        // axios.post(`api/${sessionStorage}`,null,{
+        // axios.post(api/blog/info,null,{
         //     params:{
-        //         nickName: nickName
+                // nickName: nickName,
         //     }
         // })
         // .then((response) => {
@@ -33,7 +32,6 @@ function BlogPage(props){
         // .catch((error) => {
         //     console.log(error)
         // })
-        
     },[])
 
     return(
@@ -50,7 +48,7 @@ function BlogPage(props){
             }
             {
                 {
-                    overView : <OverView overView={over.content} />,
+                    overView : <OverView overView={userInfo.overview} />,
                     postList : <PostList />,
                     category : <Cartegory />,
                     repository : <Repository />,
