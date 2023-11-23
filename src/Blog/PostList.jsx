@@ -16,24 +16,6 @@ function PostList(props){
 
     const [inputValue , setInputValue] = useState("")
 
-    useEffect(() => {
-            if(inputValue !== ""){
-                let searchPost = []
-                posts.map((item) => {
-                    if(item.title.includes(inputValue)){
-                        return searchPost.push(item)
-                    }
-                })
-                if(searchPost != null){
-                setPosts(searchPost)
-                }
-            }
-            else(
-                setPosts(postInfo)
-            )
-        },[inputValue]
-    )
-
     useEffect((() => {
         // axios.post("/api/blog/get/post/list", null ,{
         //     params:{
@@ -59,11 +41,22 @@ function PostList(props){
                     <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼" />
                 </div>
                 <ul>
-                {posts.map((post ,index) => 
-                    { return <PostListItem key={index} title={post.title} content={post.content}
-                    like={post.like} date={post.date} postIndex={post.postIndex}
-                    />}
-                )}
+                    {posts.map((post, index) => {
+                        if(inputValue != "") {
+                            if(post.title.includes(inputValue)) {
+                                return (
+                                    <PostListItem key={index} title={post.title} content={post.content}
+                                    like={post.like} date={post.date} postIndex={post.postIndex} />
+                                )
+                            }
+                        }
+                        else {
+                            return (
+                                <PostListItem key={index} title={post.title} content={post.content}
+                                like={post.like} date={post.date} postIndex={post.postIndex} />
+                            )
+                        }
+                    })}
                 </ul>
             </BlogPostList> :
             <NoBlog>
