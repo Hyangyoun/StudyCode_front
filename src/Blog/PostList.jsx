@@ -12,34 +12,42 @@ function PostList(props){
 
     const navigate = useNavigate()
 
-    const [posts , setPosts] = useState([])
+    const [posts , setPosts] = useState([{}])
 
-    // const [searchValue , setSearchValue] = useState()
+    const [inputValue , setInputValue] = useState("")
 
-    // function Test(){
-
-    //     const searchPost = posts.filter((post) => {
-    //          return (post.title === searchValue)
-    //     })
-
-    //     return setPosts(searchPost)
-    // }
+    useEffect(() => {
+            if(inputValue !== ""){
+                let searchPost = []
+                posts.map((item) => {
+                    if(item.title.includes(inputValue)){
+                        return searchPost.push(item)
+                    }
+                })
+                if(searchPost != null){
+                setPosts(searchPost)
+                }
+            }
+            else(
+                setPosts(postInfo)
+            )
+        },[inputValue]
+    )
 
     useEffect((() => {
-        axios.post("/api/blog/get/post/list", null ,{
-            params:{
-                nickName: nickName
-            }
-        })
-        .then((response) => {
-            setPosts(response.data)
-            console.log(response.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+        // axios.post("/api/blog/get/post/list", null ,{
+        //     params:{
+        //         nickName: nickName
+        //     }
+        // })
+        // .then((response) => {
+        //     setPosts(response.data)
+        //     console.log(response.data)
+        // .catch((error) => {
+        //     console.log(error)
+        // })
 
-        // setPosts(postInfo)
+        setPosts(postInfo)
     }),[])
 
     return(
@@ -47,13 +55,13 @@ function PostList(props){
         {posts ?
             <BlogPostList >
                 <div className="searchForm">
-                    <input className="searchInput" type="text" />
-                    <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼"/>
+                    <input className="searchInput" type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
+                    <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼" />
                 </div>
                 <ul>
                 {posts.map((post ,index) => 
                     { return <PostListItem key={index} title={post.title} content={post.content}
-                    like={post.like} date={post.date} 
+                    like={post.like} date={post.date} postIndex={post.postIndex}
                     />}
                 )}
                 </ul>

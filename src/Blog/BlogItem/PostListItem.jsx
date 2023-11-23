@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function PostListItem({ title, content, like,  date}) {
+function PostListItem({ title, content, like,  date , postIndex}) {
 
     const navigate = useNavigate()
     return(
