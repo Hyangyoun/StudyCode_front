@@ -2,14 +2,30 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Editer, { buttonType } from "../MarkDownEditer/Editer";
 import MdViewer from "../MarkDownEditer/MDviewer";
+import axios from "axios";
 
 function OverView(props) {
+    const sessionStorage = window.sessionStorage
     const {overView} = props
     const [editOver, setEditOver] = useState("");
     const [regist, setRegist] = useState(false)
+
+    function SaveOverView(){
+        axios.post("/api/blog/regist/overview",null,{
+            params: {
+                overview: editOver ,
+                memId: sessionStorage.getItem("memId")
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        setRegist(false)
+    }
+
     return (
         <>
-            {overView != null ?
+            {overView != "" ?
                 <MdViewer content={overView} width={"80%"} />
                 :
                 regist ? <RegistOverview>
@@ -18,7 +34,7 @@ function OverView(props) {
                         [buttonType.bold, buttonType.italic, buttonType.strikethrough],
                         [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.image, buttonType.link]
                     ]} />
-                    <div className="save" onClick={() => setRegist(false)}>저장하기</div>
+                    <div className="save" onClick={() => SaveOverView()}>저장하기</div>
                 </RegistOverview> : 
                 <NoOverview>
                     <span>등록되어있는 소개글이 없습니다.</span>

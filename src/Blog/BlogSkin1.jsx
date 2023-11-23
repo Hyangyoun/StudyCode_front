@@ -8,7 +8,7 @@ function BlogSkin1 (props){
     return(
         <BlogBody>
             <BlogHeader>
-               <span >{userInfo.name}</span>
+               <span className="blogName">{userInfo.blogName}</span>
                <span className="blogMenu">
                    {
                        {
@@ -46,8 +46,7 @@ const BlogHeader = styled.div`
     font-weight: bold;
 
     .blogName{
-        margin-top: 80px;
-        font-size: 30px;
+        font-size: 30px!important;
         font-weight: bold;
         cursor: pointer;
     }
