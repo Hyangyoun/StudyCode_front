@@ -43,7 +43,7 @@ function PostList(props){
                 <ul>
                     {posts.map((post, index) => {
                         if(inputValue != "") {
-                            if(post.title.includes(inputValue)) {
+                            if(post.title.includes(inputValue.replace(''))) {
                                 return (
                                     <PostListItem key={index} title={post.title} content={post.content}
                                     like={post.like} date={post.date} postIndex={post.postIndex} />

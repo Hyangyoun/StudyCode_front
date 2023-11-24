@@ -2,11 +2,14 @@ import styled from "styled-components"
 import Review from "./BlogItem/Review"
 import { useEffect, useRef, useState } from "react"
 import BlogHeader from "../Main/BlogHeader";
-import postInfo from "../DummyData/postInfo.json"
+import postData from "../DummyData/postInfo.json"
+import tagList from "../DummyData/tagList.json"
+import postFileList from "../DummyData/postFileList.json"
 import MDviewer from "../MarkDownEditer/MDviewer";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function PostViewer(props){
-  
 
     const [changePosition , setChangePosition] = useState(false); //포시션 바꾸기위해 넣은 state
 
@@ -15,6 +18,52 @@ function PostViewer(props){
     const [end , setEnd] = useState() // 댓글 위치 받음
 
     const [ changeHeart , setChangeHeart] = useState(false); // 하트 색 변경
+
+    const [postInfo , setPostInfo] = useState({}) //postinfo받는 state
+
+    const [postTag , setPostTag] = useState([]) //postTag받는 state
+
+    const [postFile , setPostFile] = useState([]) //postFile 받는 state
+
+    const { postIndex } =useParams()
+
+    useEffect(() => {
+        /** postdata 받아오는 axios */
+        // axios.post("/api/blog/get/post/info" , null , {
+        //     params:{
+        //         postIndex : postIndex
+        //     }
+        // })
+        // .then((response) => {
+        //     setPostInfo(response.data)
+        // })
+        // .catch((error) => {console.log(error)})
+        
+        /** tag 받아오는 axios */
+        // axios.post("/api/blog/get/post/tag" , null , {
+        //     params:{
+        //         postIndex : postIndex
+        //     }
+        // })
+        // .then((response) => {
+        //     setPostTag(response.data)
+        // })
+        // .catch((error) => {console.log(error)})
+
+        /** tag 받아오는 axios */
+        // axios.post("/api/blog/get/post/file" , null ,{
+        //     params:{
+        //         postIndex : postIndex
+        //     }
+        // })
+        // .then((response) => {
+        //     setPostFile(response.data)
+        // })
+        // .catch((error) => {console.log(error)})
+        setPostFile(postFileList)
+        setPostInfo(postData)
+        setPostTag(tagList)
+    },[])
     
     /** 스크롤 이벤트를 받는 함수 */
     const ScrollEvent = () => {
@@ -36,12 +85,24 @@ function PostViewer(props){
         })
     })
 
+    function HandleDownLoad(item){
+        const data = `${item.filePath}`
+        const pom = document.createElement('a');
+        const blob = new Blob(["\ufeff"+data], {type: 'text/csv;charset=utf-8;'});
+        const url = window.URL.createObjectURL(blob);
+
+        pom.href = url;
+        pom.setAttribute('download', item.fileName + "성공");
+        pom.click();
+        pom.remove();
+        }
+
 
     const [addFolder, setAddFolder] = useState(false) //파일보기위한 버튼
 
     return(
         <>
-            <BlogHeader/>
+            <BlogHeader postInfo={postInfo}/>
             <ViewerStyle $addFolder={addFolder} $changePosition={changePosition} $end={end}>
                 <div  className="heart">
                     <div className="like" ref={heartButton} onClick={() => {setChangeHeart(!changeHeart)}}>
@@ -51,17 +112,20 @@ function PostViewer(props){
                 <div  className="post">
                     <div className="title" >{postInfo.title}</div>
                     <div className="date">
-                        <span >{postInfo.memId}</span>
+                        <span >{postInfo.nickName}</span>
                         <span>&#183;</span>
                         <span >{postInfo.postDate}</span>
                     </div>
                     <div className="tagbox">
-                        <li>{postInfo.categoryName}</li>
+                        { postTag.map((item,index) => {
+                            return <li key={index}>{item.tagName}</li>
+                        }) }
                         <div className="filebox">
                             <div className="fileBtn" onClick={() => {setAddFolder(!addFolder)}} >파일첨부</div>
                             <ul className="fileName">
-                                <li title="logo.png">logo.png</li>
-                                <li title="logo.png">logo.png</li>
+                                {postFile.map((item ,index) => {
+                                    return <li key={index} onClick={() => HandleDownLoad(item)} title={item.fileName}>{item.fileName}</li>
+                                })}
                             </ul>
                         </div>
                     </div>

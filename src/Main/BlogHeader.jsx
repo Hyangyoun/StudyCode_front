@@ -1,14 +1,18 @@
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import userInfo from "../DummyData/BlogInfo.json"
+import { useState } from "react"
+import postData from "../DummyData/postInfo.json"
 
 function BlogHeader(props){
 
     const navigate = useNavigate()
 
+    const { postInfo } =props
+
+
     return(
         <BlogHead>
-            <div onClick={() => navigate(`/Blog/${userInfo.nickName}/postList`)}>{userInfo.name}</div>
+            <div onClick={() => navigate(`/Blog/${postInfo.nickName}/postList`)}>{postInfo.nickName}</div>
         </BlogHead>
     )
 }
