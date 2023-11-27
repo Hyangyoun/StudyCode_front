@@ -16,7 +16,7 @@ function BlogSkin1 (props){
                            postList : "post",
                            category : "category",
                            repository : "repository",
-                           follower : "follower"
+                           followers : "follower"
                        }[category]
                    }
                </span>

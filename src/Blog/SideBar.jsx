@@ -34,7 +34,7 @@ function SideBar(props){
             <div className="cartegoryForm" >
                 <div onClick={() => navigate(`/blog/${userInfo.nickName}/overView`)} className="overview">메인(overview)</div>
                 <div onClick={() => navigate(`/blog/${userInfo.nickName}/postList`)} className="post">포스트(post)</div>
-                <div onClick={() => navigate(`/blog/${userInfo.nickName}/cartegory`)} className="post">category</div>
+                <div onClick={() => navigate(`/blog/${userInfo.nickName}/category`)} className="post">category</div>
                 <div onClick={() => navigate(`/blog/${userInfo.nickName}/repository`)} className="repository">repository</div>
             </div>
             <div className="tagBox"> Tag

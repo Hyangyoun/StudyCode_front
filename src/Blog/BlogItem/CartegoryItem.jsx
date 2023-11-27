@@ -2,7 +2,7 @@ import React from "react";
 
 function CartegoryItem(props){
 
-    const {title , setCategoryTitle} = props;
+    const {title , setClickCategory} = props;
 
     const style = {
         li: {
@@ -11,7 +11,7 @@ function CartegoryItem(props){
     }
 
     return(
-        <li onClick={() => setCategoryTitle(title)} style={style.li}>
+        <li onClick={() => setClickCategory(title)} style={style.li}>
             <div className="itemBox">
                 <img src="/image/icon/naver.png" alt="post" />
                 <img src="/image/icon/sample.png" alt="post" />
