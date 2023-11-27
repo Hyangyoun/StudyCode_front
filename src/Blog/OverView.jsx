@@ -13,20 +13,20 @@ function OverView(props) {
     function SaveOverView(){
         axios.post("/api/blog/regist/overview",null,{
             params: {
-                overview: editOver ,
-                memId: sessionStorage.getItem("memId")
-            }
+                overview: encodeURIComponent(editOver),
+                memId: sessionStorage.getItem("mem_id")
+            },
         })
         .catch((error) => {
             console.log(error)
         })
-        setRegist(false)
+        window.location.reload()
     }
 
     return (
         <>
             {overView != "" ?
-                <MdViewer content={overView} width={"80%"} />
+                <MdViewer content={overView} width={"1000px"} />
                 :
                 regist ? <RegistOverview>
                     <Editer value={editOver} setValue={setEditOver} height={700} buttonList={[

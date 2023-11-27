@@ -20,19 +20,19 @@ function BlogPage(props){
     // const sessionStorage = window.sessionStorage
     
     useEffect(() => {
-        setUserInfo(BlogInfo)
-        // axios.post("/api/blog/info",null,{
-        //     params:{
-        //         nickName: nickName,
-        //     }
-        // })
-        // .then((response) => {
-        //     console.log(response.data)
-        //     setUserInfo(response.data)
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // })
+        // setUserInfo(BlogInfo)
+        axios.post("/api/blog/info",null,{
+            params:{
+                nickName: nickName,
+            }
+        })
+        .then((response) => {
+            console.log(response.data)
+            setUserInfo(response.data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     },[])
 
     return(
