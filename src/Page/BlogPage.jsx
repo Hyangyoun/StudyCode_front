@@ -8,15 +8,15 @@ import PostList from "../Blog/PostList";
 import Cartegory from "../Blog/Cartegory";
 import Followers from "../Blog/Followers";
 import Repository from "../Blog/Repository";
-import over from "../DummyData/Overview.json";
 import { useParams } from "react-router-dom";
 import BlogInfo from "../DummyData/BlogInfo.json";
 import axios from "axios";
+import CartegoryPost from "../Blog/BlogItem/CartegoryPost";
 
 function BlogPage(props){
 
     const [userInfo, setUserInfo] = useState({});
-    const { category , nickName} = useParams();
+    const { category , nickName , categoryName} = useParams();
     // const sessionStorage = window.sessionStorage
     
     useEffect(() => {
@@ -44,18 +44,21 @@ function BlogPage(props){
                         <BlogSkin1 category={category} userInfo={userInfo}/>
                         </>,
                     2 : <BlogSkin2 category={category} userInfo={userInfo} />
-
+                    
                 }[userInfo.blogSkin]
             }
-            {
+            { categoryName == null ?
                 {
                     overView : <OverView overView={userInfo.overview} />,
                     postList : <PostList />,
-                    category : <Cartegory />,
+                    category : <Cartegory userInfo={userInfo} />,
                     repository : <Repository />,
                     followers : <Followers />,
                 }[category]
+                :
+                <CartegoryPost categoryTitle={categoryName}/>
             }
+
         </BlogSection>
     )
 }

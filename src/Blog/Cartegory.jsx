@@ -5,19 +5,16 @@ import CartegoryPost from "./BlogItem/CartegoryPost";
 import { useEffect } from "react";
 
 function Cartegory(props) {
+    const { userInfo } = props
 
-    //*카테고리추가 자동닫힘 함수
-    const categoryBox = useRef();
-    //인풋 자동 포커싱 함수
+    /** 카테고리추가와 관련된 함수 */
+    const categoryBox = useRef("");
     const focusInput = useRef();
 
-    //카테고리가 들어간 포스트리스트를 보여주는 state
+    /** 카테고리 추가버튼 */
     const [ClickCategory , setClickCategory] = useState(null)
-    //카테고리 가 진짜로 추가되는 state
     const [addCategory , setAddCategory] = useState([])
-    //카테고리 이름 state
     const [ categoryTitle , setCategoryTitle] = useState();
-    //카테고리 추가버튼
     const [plusCategory , setPlusCategory] = useState(false);
 
     useEffect(() => {
@@ -27,8 +24,8 @@ function Cartegory(props) {
     },[plusCategory])
 
     const ClickAddcategory = (event) => {
-        if(!categoryBox.current.contains(event.target)){
-            setPlusCategory(false)
+            if(!categoryBox.current.contains(event.target)){
+                setPlusCategory(false)
         }
     }
 
@@ -41,21 +38,21 @@ function Cartegory(props) {
 
     const HandleAddCartegory = () =>{
         if(categoryTitle){
-            let test = [...categoryTitle]
-            let t = test.slice(0)
-            setAddCategory(test)
-            console.log(categoryTitle)
-            console.log(addCategory)
+            let test = addCategory
+            if(!test.includes(categoryTitle)){
+                test.push(categoryTitle)
+                setAddCategory([...test])     //기존배열을 지우고 새배열을 출력
+            }
+            setCategoryTitle('')
         }
         return ;
     }
 
     return(
-        <CartegoryList>{
-            ClickCategory === null ? 
+        <CartegoryList>
                 <Item $plusCategory={plusCategory}>{
                     addCategory.map((item ,index) => {
-                        return <CartegoryItem key={index} title={index} setClickCategory={setClickCategory}/>
+                        return <CartegoryItem key={index} title={item} userInfo={userInfo}/>
                     }) 
                 }
                     <li onClick={() => setPlusCategory(true)} ref={categoryBox} >
@@ -76,8 +73,6 @@ function Cartegory(props) {
                             </>}
                     </li>
                 </Item>
-                :
-                <CartegoryPost categoryTitle={categoryTitle}/>}
         </CartegoryList>
     )
 }
@@ -116,9 +111,13 @@ const Item = styled.ul`
     }
     }
     .title {
+        width: 100%;
         font-weight: bold;
         font-size: 20px;
         margin-right: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .postCount {
         font-size: 15px;
@@ -126,6 +125,9 @@ const Item = styled.ul`
     li {
         list-style: none;
         margin: 50px;
+        max-width: 300px;
+        display: flex;
+        flex-direction: column;
     }
     .addCategory{
         width: 300px; height: 200px;
