@@ -67,7 +67,9 @@ const MarkDownSection = styled.div`
             margin: 0 0 16px;
         }
 
-        li {}
+        li {
+            line-height: 200%;
+        }
 
         hr {
             border: 2px solid var(--second);

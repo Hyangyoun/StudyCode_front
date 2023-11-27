@@ -48,6 +48,7 @@ const Post = styled.li`
         cursor: pointer;
     }
     .content {
+        width: 100%;
         font-size: 15px;
         margin-bottom: 15px;
         overflow:hidden;

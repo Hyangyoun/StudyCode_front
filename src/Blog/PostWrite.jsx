@@ -4,16 +4,18 @@ import React, { useState } from "react";
 import PostConfig from "./BlogItem/PostConfig";
 import Preview from "./BlogItem/Preview";
 import BlogHeader from "../Main/BlogHeader";
+import axios from "axios";
 
 function PostWrite(props){
 
-    const [tagList , setTagList] = useState([]) //tag리스트 공간 state
+    const sessionStorage = window.sessionStorage
 
-    const [tagName , setTagName] = useState('') //input 값받는 state
+    const [tagList , setTagList] = useState([])
+    const [tagName , setTagName] = useState('')
 
     const [chooseFolder, SetChooseFolder] = useState(null); //폴더이름선택 버튼
 
-    const [WriteValue, setWriteValue] = useState(""); //에디터 사용을 위해 가져온값
+    const [WriteValue, setWriteValue] = useState("");
 
     const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
 
@@ -40,12 +42,26 @@ function PostWrite(props){
         }
     }
 
+    const ClickPost = () => {
+        axios.post("/api/blog/regist/post", {
+            memId: sessionStorage.getItem("mem_id"),
+            title: title,
+            content: WriteValue,
+        })
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+
 
     return(
         <>
             <BlogHeader />
             <WriteStyle $nextButton={nextButton}>
-                <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={15} className="postTitle" placeholder="제목을 입력하세요"/>
+                <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={30} className="postTitle" placeholder="제목을 입력하세요"/>
                 <div className="tagBox">
                     {tagList.map((item , index) => <div key={index}>{item}</div>)}
                     <input value={tagName} onChange={(e) => {setTagName(e.target.value)}}
@@ -83,7 +99,7 @@ function PostWrite(props){
                 </div>
                 <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div> 
             </WriteStyle>
-            {nextButton ? <PostConfig setNextButton={setNextButton} /> : null}
+            {nextButton ? <PostConfig setNextButton={setNextButton} ClickPost={ClickPost} /> : null}
             {preview ? <Preview title={title} content={WriteValue} tag={tagList} setPreview={setPreview} /> : null}
         </>
     )

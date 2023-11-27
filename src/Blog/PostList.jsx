@@ -17,19 +17,20 @@ function PostList(props){
     const [inputValue , setInputValue] = useState("")
 
     useEffect((() => {
-        // axios.post("/api/blog/get/post/list", null ,{
-        //     params:{
-        //         nickName: nickName
-        //     }
-        // })
-        // .then((response) => {
-        //     setPosts(response.data)
-        //     console.log(response.data)
-        // .catch((error) => {
-        //     console.log(error)
-        // })
+        axios.post("/api/blog/get/post/list", null ,{
+            params:{
+                nickName: nickName
+            }
+        })
+        .then((response) => {
+            setPosts(response.data)
+            console.log(response.data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
 
-        setPosts(postInfo)
+        // setPosts(postInfo)
     }),[])
 
     return(

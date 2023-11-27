@@ -1,7 +1,7 @@
 import React , {useState, useEffect} from "react";
 import styled from "styled-components"
 
-function PostConfig({setNextButton}) {
+function PostConfig({setNextButton , ClickPost}) {
 
     const [selectButton , setSelectButton] = useState(true);    // 최종선택에서 공개 비공개 선택버튼
 
@@ -58,7 +58,7 @@ function PostConfig({setNextButton}) {
             </div>
         <div className="yesOrNoBtn">
             <div onClick={() => setClose(true)}>다시 수정하기</div>
-            <div>올리기</div>
+            <div onClick={() => ClickPost()}>올리기</div>
         </div>
     </LastPreview>
 
