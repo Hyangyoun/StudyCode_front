@@ -30,7 +30,7 @@ function SideBar(props){
                 <span onClick={() => navigate(`/blog/${userInfo.nickName}/followers`)}>팔로우{userInfo.followers}</span>
                 <span onClick={() => navigate(`/blog/${userInfo.nickName}/followers`)}>팔로잉{userInfo.followers}</span>
             </div>
-                <div className="write" onClick={() => navigate("/blogWrite")}>새 포스트</div>
+                <div className="write" onClick={() => navigate(`/blog/${userInfo.nickName}/blogWrite`)}>새 포스트</div>
             <div className="cartegoryForm" >
                 <div onClick={() => navigate(`/blog/${userInfo.nickName}/overView`)} className="overview">메인(overview)</div>
                 <div onClick={() => navigate(`/blog/${userInfo.nickName}/postList`)} className="post">포스트(post)</div>
@@ -46,7 +46,7 @@ function SideBar(props){
             </div >
             <div className="logo">
                 <img src="/image/icon/logo.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
-                <div>블로그 설정</div>
+                <div onClick={() => navigate(`/blog/${userInfo.nickName}/config`)}>블로그 설정</div>
             </div>
         </Sidebar>
     )

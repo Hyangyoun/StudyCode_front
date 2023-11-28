@@ -7,12 +7,11 @@ function BlogHeader(props){
 
     const navigate = useNavigate()
 
-    const { postInfo } =props
-
+    const { userInfo } =props
 
     return(
         <BlogHead>
-            <div onClick={() => navigate(`/Blog/${postInfo.nickName}/postList`)}>{postInfo.nickName}</div>
+            <div onClick={() => navigate(`/Blog/kwoos/postList`)}>{}</div>
         </BlogHead>
     )
 }

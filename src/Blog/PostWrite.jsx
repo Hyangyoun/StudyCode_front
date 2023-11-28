@@ -1,25 +1,40 @@
 import styled from "styled-components"
 import Editer, { buttonType } from "../MarkDownEditer/Editer";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PostConfig from "./BlogItem/PostConfig";
 import Preview from "./BlogItem/Preview";
 import BlogHeader from "../Main/BlogHeader";
+import axios from "axios";
 
 function PostWrite(props){
-
+    
+    //api 받는 states
+    const [userInfo , setUserInfo] = useState({})
+    
     const [tagList , setTagList] = useState([]) //tag리스트 공간 state
-
     const [tagName , setTagName] = useState('') //input 값받는 state
 
-    const [chooseFolder, SetChooseFolder] = useState(null); //폴더이름선택 버튼
-
     const [WriteValue, setWriteValue] = useState(""); //에디터 사용을 위해 가져온값
-
+    const [chooseFolder, SetChooseFolder] = useState(null); //폴더이름선택 버튼
     const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
 
     const [preview, setPreview] = useState(false)
-
     const [title, setTitle] = useState("")
+
+    // useEffect(() => {
+    //     axios.post("/api/blog/?" , null , {
+    //         params:{
+    //             nickName : nickName,
+    //         }
+    //     })
+    //     .then((response) => {
+    //         setUserInfo(response.data)
+    //         console.log(response.data)
+    //     })
+    //     .catch((error) => {
+    //         console.log(error)
+    //     })
+    // },[])
 
     //TagInput Event
     const handleTagList = (e) => {
@@ -43,7 +58,7 @@ function PostWrite(props){
 
     return(
         <>
-            <BlogHeader />
+            <BlogHeader userInfo={userInfo}/>
             <WriteStyle $nextButton={nextButton}>
                 <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={15} className="postTitle" placeholder="제목을 입력하세요"/>
                 <div className="tagBox">

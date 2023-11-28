@@ -38,10 +38,10 @@ function Cartegory(props) {
 
     const HandleAddCartegory = () =>{
         if(categoryTitle){
-            let test = addCategory
-            if(!test.includes(categoryTitle)){
-                test.push(categoryTitle)
-                setAddCategory([...test])     //기존배열을 지우고 새배열을 출력
+            let categoryBox = addCategory
+            if(!categoryBox.includes(categoryTitle)){
+                categoryBox.push(categoryTitle)
+                setAddCategory([...categoryBox])     //기존배열을 지우고 새배열을 출력
             }
             setCategoryTitle('')
         }
@@ -59,7 +59,7 @@ function Cartegory(props) {
                         {plusCategory ?
                             <>
                                 <div className="addCategory">
-                                    <input type="text" placeholder="카테고리 이름" ref={focusInput} value={categoryTitle} onChange={(e) => setCategoryTitle(e.target.value)}/>
+                                    <input maxLength={20} type="text" placeholder="카테고리 이름" ref={focusInput} value={categoryTitle} onChange={(e) => setCategoryTitle(e.target.value)}/>
                                     <div className="addButton" onClick={HandleAddCartegory} >만들기</div>
                                 </div>
                                 <span className="title" >카테고리 추가</span>

@@ -21,7 +21,7 @@ function BlogPage(props){
     
     useEffect(() => {
         setUserInfo(BlogInfo)
-        // axios.post("/api/blog/info",null,{
+        // axios.get("/api/blog/info",null,{
         //     params:{
         //         nickName: nickName,
         //     }
