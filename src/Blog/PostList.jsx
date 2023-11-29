@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import postInfo from "../DummyData/postList.json"
+import tagList from "../DummyData/tagList.json"
 import PostListItem from "./BlogItem/PostListItem";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 function PostList(props){
 
-    const sessionStorage = window.sessionStorage
-    const { nickName } = useParams()
+    const { nickname } = useParams()
 
     const navigate = useNavigate()
 
-    const [posts , setPosts] = useState([{}])
+    const [posts , setPosts] = useState([])
+    const [postTag , setPostTag] = useState([])
 
     const [inputValue , setInputValue] = useState("")
 
     useEffect((() => {
-        // axios.post("/api/blog/get/post/list", null ,{
+        // axios.get("/api/post/list"{
         //     params:{
-        //         nickName: nickName
+        //         nickname: nickname
         //     }
         // })
         // .then((response) => {
@@ -28,7 +29,20 @@ function PostList(props){
         // .catch((error) => {
         //     console.log(error)
         // })
+        // axios.get("/api/post/list/tag",{
+        //     params:{
+        //         nickname: nickname
+        //     }
+        // })
+        // .then((response) => {
+        //     setPostTag(response.data)
+        //     console.log(response.data)
+        // })
+        // .catch((error) => {
+        //     console.log(error)
+        // })
 
+        setPostTag(tagList)
         setPosts(postInfo)
     }),[])
 
@@ -44,17 +58,16 @@ function PostList(props){
                     {posts.map((post, index) => {
                         if(inputValue != "") {
                             if(post.title.includes(inputValue.replace(''))) {
+                                
                                 return (
-                                    <PostListItem key={index} title={post.title} content={post.content}
-                                    like={post.like} date={post.date} postIndex={post.postIndex} />
+                                    <PostListItem key={index} test={post} postTag={postTag.filter((item) => item.postIndex === post.postIndex)}/>
                                 )
                             }
                         }
                         else {
                             return (
-                                <PostListItem key={index} title={post.title} content={post.content}
-                                like={post.like} date={post.date} postIndex={post.postIndex} />
-                            )
+                                <PostListItem key={index} test={post} postTag={postTag.filter((item) => item.postIndex === post.postIndex)} />
+                                )
                         }
                     })}
                 </ul>

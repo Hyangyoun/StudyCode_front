@@ -28,8 +28,9 @@ function PostViewer(props){
     const { postIndex } =useParams()
 
     useEffect(() => {
+
         /** postdata 받아오는 axios */
-        // axios.post("/api/blog/get/post/info" , null , {
+        // axios.get("/api/post/info",{
         //     params:{
         //         postIndex : postIndex
         //     }
@@ -40,7 +41,7 @@ function PostViewer(props){
         // .catch((error) => {console.log(error)})
         
         /** tag 받아오는 axios */
-        // axios.post("/api/blog/get/post/tag" , null , {
+        // axios.get("/api/post/info/tag" , null , {
         //     params:{
         //         postIndex : postIndex
         //     }
@@ -50,6 +51,7 @@ function PostViewer(props){
         // })
         // .catch((error) => {console.log(error)})
 
+        // 여기는 아직 안고침
         /** tag 받아오는 axios */
         // axios.post("/api/blog/get/post/file" , null ,{
         //     params:{

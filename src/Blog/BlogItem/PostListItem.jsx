@@ -1,22 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function PostListItem({ title, content, like,  date , postIndex}) {
+function PostListItem({test , postTag}) {
+
 
     const navigate = useNavigate()
     return(
         <Post onClick={() => {navigate("/blog/BlogViewer")}}>
             <img src="/image/icon/sample.png" alt="썸네일"/>
-            <span className="title" >{title}</span>
-            <div className="content" >{content}</div>
+            <span className="title" >{test.title}</span>
+            <div className="content" >{test.content}</div>
             <ul className="tagUl">
-                <li>JavaScript</li>
-                <li>React</li>
-                <li>JavaScriptttttttttttt</li>
+                {
+                    postTag.map((item, index) => {
+                        return <li key={index}>{item.tagName}</li>
+                    })
+                }
             </ul>
             <div className="likeDiv">
-                <span className="like">{like}</span>
-                <span>{date}</span>
+                <span className="like">{test.like}</span>
+                <span>{test.date}</span>
             </div>
         </Post>
     )

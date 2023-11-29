@@ -60,12 +60,12 @@ function BlogConfig(props) {
         /**데이터 보내는 양식 */
     const HandleSaved = () =>{
         const data = {
+            // "mem_id" : ,
             "blogName" : blogNameInput,
-            "skin" : selectSkin,
+            "blogSkin" : selectSkin,
             "AddcategoryName" : userInfo ,
-            "selectCategoryName" : selectCategory === -1 ? "분류없음" : selectCategory,
+            // "selectCategoryName" : selectCategory === -1 ? "분류없음" : selectCategory,
         }
-
         if(blogNameInput){
             console.log(data)
         }
@@ -185,13 +185,13 @@ const ConfigSection = styled.div`
         justify-content: space-around;
         margin-top: 10px;
 
-        &>div:nth-child(1) {
-            border-color: var(${props => props.$select ? "--primary" : "--second"});
-            color: var(${props => props.$select ? "--primary" : "--second"});
+        &>div:nth-child(${props => props.$select ===1 ? 1 : 2}) {
+            border-color: var(--primary);
+            color: var(--primary);
         }
-        &>div:nth-child(2) {
-            border-color: var(${props => props.$select ? "--second" : "--primary"});
-            color: var(${props => props.$select ? "--second" : "--primary"});
+        &>div {
+            border-color: var(--second);
+            color: var(--second);
         }
 
         > div {

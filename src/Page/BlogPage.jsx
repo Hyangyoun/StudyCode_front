@@ -15,15 +15,15 @@ import CartegoryPost from "../Blog/BlogItem/CartegoryPost";
 
 function BlogPage(props){
 
-    const [userInfo, setUserInfo] = useState({});
-    const { category , nickName , categoryName} = useParams();
+    const [userinfo, setUserInfo] = useState({});
+    const { category , nickname , categoryName} = useParams();
     // const sessionStorage = window.sessionStorage
     
     useEffect(() => {
         setUserInfo(BlogInfo)
         // axios.get("/api/blog/info",null,{
         //     params:{
-        //         nickName: nickName,
+        //         nickname: nickname,
         //     }
         // })
         // .then((response) => {
@@ -36,22 +36,22 @@ function BlogPage(props){
     },[])
 
     return(
-        <BlogSection $skin={userInfo.blogSkin}>
+        <BlogSection $skin={userinfo.blogSkin}>
             {
                 {
                     1 : <>
-                        <SideBar category={category} userInfo={userInfo}/>
-                        <BlogSkin1 category={category} userInfo={userInfo}/>
+                        <SideBar category={category} userInfo={userinfo}/>
+                        <BlogSkin1 category={category} userInfo={userinfo}/>
                         </>,
-                    2 : <BlogSkin2 category={category} userInfo={userInfo} />
+                    2 : <BlogSkin2 category={category} userInfo={userinfo} />
                     
-                }[userInfo.blogSkin]
+                }[userinfo.blogSkin]
             }
             { categoryName == null ?
                 {
-                    overView : <OverView overView={userInfo.overview} />,
+                    overView : <OverView overView={userinfo.overview} />,
                     postList : <PostList />,
-                    category : <Cartegory userInfo={userInfo} />,
+                    category : <Cartegory userInfo={userinfo} />,
                     repository : <Repository />,
                     followers : <Followers />,
                 }[category]

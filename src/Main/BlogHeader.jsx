@@ -7,7 +7,7 @@ function BlogHeader(props){
 
     const navigate = useNavigate()
 
-    const { userInfo } =props
+    const { userinfo } =props
 
     return(
         <BlogHead>

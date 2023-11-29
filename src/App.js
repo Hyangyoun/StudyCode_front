@@ -20,10 +20,10 @@ function App() {
           <Route index element = {<MainPage />} />
           <Route path="/login" element = {<LoginPage />} />
           <Route path="login/membership" element = {<MembershipPage />} />
-          <Route path="blog/:nickName/:category" element = {<BlogPage />} />
-          <Route path="blog/:nickName/:category/:categoryName" element = {<BlogPage />} />
-          <Route path="blog/:nickName/config" element = {<BlogConfig />} />
-          <Route path="blog/:nickName/blogWrite" element = {<PostWrite />} />
+          <Route path="blog/:nickname/:category" element = {<BlogPage />} />
+          <Route path="blog/:nickname/:category/:categoryName" element = {<BlogPage />} />
+          <Route path="blog/:nickname/config" element = {<BlogConfig />} />
+          <Route path="blog/:nickname/blogWrite" element = {<PostWrite />} />
           <Route path="blog/BlogViewer" element = {<PostViewer />} />
         </Routes>
       </BrowserRouter>
