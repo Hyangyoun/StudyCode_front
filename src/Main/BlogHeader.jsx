@@ -11,7 +11,7 @@ function BlogHeader(props){
 
     return(
         <BlogHead>
-            <div onClick={() => navigate(`/Blog/kwoos/postList`)}>{}</div>
+            <div onClick={() => navigate(`/Blog/kwoos/postList`)}>kwoos</div>
         </BlogHead>
     )
 }

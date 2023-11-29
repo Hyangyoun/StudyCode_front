@@ -7,46 +7,14 @@ import axios from "axios";
 function BlogConfig(props) {
 
     //api 받는 state
-    const [userInfo , setUserInfo] = useState({});
+    const [userInfo , setUserInfo] = useState([]);
     //blogconfig state
-    const [selectSkin, setSelectSkin] = useState(1);
     const [blogNameInput , setBlogNameInput ] = useState('');
+    const [selectSkin, setSelectSkin] = useState(1);
+    //카테고리 선택 state
     const [categoryButton , setCategoryButton] = useState(false)
     const [categoryNameInput , setCategoryNameInput] = useState('');
     const [selectCategory , setSelectCategory] = useState(-1);
-    const [addCategory , setAddCategory] = useState([])
-
-    const HandleAddButton = () => {
-        setCategoryButton(!categoryButton)
-        setCategoryNameInput('')
-        setSelectCategory(-1)
-    }
-
-    const HandleAddCategory = () => {
-        if(categoryNameInput){
-            let categoryBox = addCategory
-            if(!categoryBox.includes(categoryNameInput)){
-                categoryBox.push(categoryNameInput)
-                setAddCategory([...categoryBox])     //기존배열을 지우고 새배열을 출력
-            }
-            setCategoryNameInput('')
-        }
-        return ;
-    }
-
-    const HandleSaved = () =>{
-        const data = {
-            "blogName" : blogNameInput,
-            "skin" : selectSkin,
-            "categoryName" : tagList.length + addCategory.length,
-        }
-
-        if(blogNameInput){
-            console.log(data)
-        }
-        else(alert(`블로그이름을 입력해주세요`))
-    }
-
 
     useEffect(() => {
         // axios.post("/api/blog/??" , null , {
@@ -59,8 +27,50 @@ function BlogConfig(props) {
         // }).catch((error) =>{
         //     console.log(error)
         // })
-        // setUserInfo(tagList)
+        let test = []
+        tagList.map((item) => {
+            return test.push(item.tagName)
+        })
+        setUserInfo(test)
     } , [])
+    
+    // 카테고리 추가 버튼
+    const HandleAddButton = () => {
+        setCategoryButton(!categoryButton)
+        setCategoryNameInput('')
+        setSelectCategory(-1)
+    }
+
+    const HandleAddCategory = () => {
+        if(categoryNameInput){
+                if(!userInfo.includes(categoryNameInput)){
+                    userInfo.push(categoryNameInput)
+                    setUserInfo([...userInfo])     
+                }
+            setCategoryNameInput('')
+        }
+        return ;
+    }
+
+    const RemoveCategory = (event) => {
+        let copy = userInfo
+        setUserInfo( copy.filter((e) => e != event) )
+        }
+
+        /**데이터 보내는 양식 */
+    const HandleSaved = () =>{
+        const data = {
+            "blogName" : blogNameInput,
+            "skin" : selectSkin,
+            "AddcategoryName" : userInfo ,
+            "selectCategoryName" : selectCategory === -1 ? "분류없음" : selectCategory,
+        }
+
+        if(blogNameInput){
+            console.log(data)
+        }
+        else(alert(`블로그이름을 입력해주세요`))
+    }
 
     return (
         <>
@@ -94,14 +104,13 @@ function BlogConfig(props) {
                 <div className="partBox">
                     <div className="partName">카테고리 설정</div>
                     <div className="categoryPosition">
-                    <ul className="category">{
-                        tagList.map((item , index) => {
-                             return <li onClick={() => {setSelectCategory(index)}} key={index}><span>{item.tagName}</span></li>
-                        })
-                    }
+                    <ul className="category">
                     {
-                        addCategory.map((item , index) => {
-                            return <li onClick={() => {setSelectCategory(tagList.length + index)}} key={tagList.length + index}><span>{item}</span></li>
+                        userInfo.map((item , index) => {
+                            return (
+                            <li onClick={() => {setSelectCategory(index)}} key={index}>
+                                <span>{item}</span><div onClick={() => RemoveCategory(item)}>x</div>
+                            </li>)
                         })
                     }
                         <li className="addButton" onClick={HandleAddButton}>+</li>
@@ -245,13 +254,10 @@ const ConfigSection = styled.div`
                     width: 100%;
                     position: relative;
                     margin: auto;
-        
-                    &::after {
-                        content: "X";
-                        position: absolute;
-                        right: 0;
-                        cursor: pointer;
-                    }
+                }
+
+                div{
+                    margin-bottom: 7px;
                 }
 
                 &> :nth-child(${props => props.$selectCategory + 1}){
@@ -261,6 +267,7 @@ const ConfigSection = styled.div`
         
                 .addButton {
                     cursor: pointer;
+                    color: black  !important;
                     background-color: var(--second2);
                     justify-content: center;
                 }
