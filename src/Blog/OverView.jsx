@@ -26,7 +26,7 @@ function OverView(props) {
     return (
         <>
             {overView != "" ?
-                <MdViewer content={overView} width={"80%"} />
+                <MdViewer content={overView} width={"1100px"} />
                 :
                 regist ? <RegistOverview>
                     <Editer value={editOver} setValue={setEditOver} height={700} buttonList={[

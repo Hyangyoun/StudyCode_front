@@ -16,22 +16,22 @@ function BlogConfig(props) {
     const [categoryNameInput , setCategoryNameInput] = useState('');
     const [selectCategory , setSelectCategory] = useState(-1);
 
+    const sessionStorage = window.sessionStorage
+
     useEffect(() => {
-        // axios.post("/api/blog/??" , null , {
-        //     params:{
-        //         mem_id : mem_id,
-        //     }
-        // }).then((response) => {
-        //     console.log(response)
-        //     setUserInfo(response.data)
-        // }).catch((error) =>{
-        //     console.log(error)
-        // })
-        let test = []
-        tagList.map((item) => {
-            return test.push(item.tagName)
+        axios.post("/api/blog/config", {
+            memId: sessionStorage.getItem("mem_id")
+        }).then((response) => {
+            console.log(response)
+            setUserInfo(response.data)
+        }).catch((error) =>{
+            console.log(error)
         })
-        setUserInfo(test)
+        // let test = []
+        // tagList.map((item) => {
+        //     return test.push(item.tagName)
+        // })
+        // setUserInfo(test)
     } , [])
     
     // 카테고리 추가 버튼

@@ -3,11 +3,13 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 function BlogSkin2(props) {
-    const {category , userInfo} = props
+    const {category , followers, name} = props
 
     const [menuIndex, setMenuIndex] = useState()
     
     const navigate = useNavigate();
+
+    const sessionStorage = window.sessionStorage
 
     const [side, setSide] = useState(false)
     const sideRef = useRef()
@@ -42,11 +44,11 @@ function BlogSkin2(props) {
                 <span onClick={() => navigate("/blog/config")}>블로그 설정</span>
                 <div className="profileBox">
                     <img src="/image/icon/profile.png" alt="프로필사진" />
-                    <span>{userInfo.nickName}</span>
+                    <span>{sessionStorage.getItem("nickName")}</span>
                 </div>
                 <div className="followBox">
-                    <span onClick={() => navigate(`/blog/${userInfo.nickName}/followers`)}>팔로우{userInfo.followers}</span>
-                    <span onClick={() => navigate(`/blog/${userInfo.nickName}/followers`)}>팔로잉{userInfo.followers}</span>
+                    <span onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/followers`)}>팔로우{followers}</span>
+                    <span onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/followers`)}>팔로잉{followers}</span>
                 </div>
                 <div className="newPost" onClick={() => navigate("/blogWrite")}>새 포스트</div>
                 <div className="listBox"> Tag
@@ -69,13 +71,13 @@ function BlogSkin2(props) {
                 <SideBT onClick={() => setSide(!side)}>
                     <img src="/image/icon/sideBT.png" alt="사이드버튼" />
                 </SideBT>
-                <div className="blogName">{userInfo.blogName}</div>
+                <div className="blogName">{name}</div>
                 <div className="menuBox">
                     <div className="menu">
-                        <div onClick={() => navigate(`/blog/${userInfo.nickName}/overView`)}>Overview</div>
-                        <div onClick={() => navigate(`/blog/${userInfo.nickName}/postList`)}>Post</div>
-                        <div onClick={() => navigate(`/blog/${userInfo.nickName}/category`)}>Category</div>
-                        <div onClick={() => navigate(`/blog/${userInfo.nickName}/repository`)}>Repository</div>
+                        <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/overView`)}>Overview</div>
+                        <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/postList`)}>Post</div>
+                        <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/category`)}>Category</div>
+                        <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/repository`)}>Repository</div>
                     </div>
                 </div>
             </Header>

@@ -17,41 +17,40 @@ function BlogPage(props){
 
     const [userinfo, setUserInfo] = useState({});
     const { category , nickname , categoryName} = useParams();
-    // const sessionStorage = window.sessionStorage
     
     useEffect(() => {
-        setUserInfo(BlogInfo)
-        // axios.get("/api/blog/info",null,{
-        //     params:{
-        //         nickname: nickname,
-        //     }
-        // })
-        // .then((response) => {
-        //     console.log(response.data)
-        //     setUserInfo(response.data)
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // })
+        // setUserInfo(BlogInfo)
+        axios.get("/api/blog/info",{
+            params:{
+                nickname: nickname,
+            }
+        })
+        .then((response) => {
+            console.log(response.data)
+            setUserInfo(response.data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     },[])
 
     return(
-        <BlogSection $skin={userinfo.blogSkin}>
+        <BlogSection $skin={userinfo.skin}>
             {
                 {
                     1 : <>
-                        <SideBar category={category} userInfo={userinfo}/>
-                        <BlogSkin1 category={category} userInfo={userinfo}/>
+                        <SideBar category={category} followers={userinfo.followers} />
+                        <BlogSkin1 category={category} blogName={userinfo.name} />
                         </>,
-                    2 : <BlogSkin2 category={category} userInfo={userinfo} />
+                    2 : <BlogSkin2 category={category} blogName={userinfo.name} followers={userinfo.followers} />
                     
-                }[userinfo.blogSkin]
+                }[userinfo.skin]
             }
             { categoryName == null ?
                 {
                     overView : <OverView overView={userinfo.overview} />,
                     postList : <PostList />,
-                    category : <Cartegory userInfo={userinfo} />,
+                    category : <Cartegory />,
                     repository : <Repository />,
                     followers : <Followers />,
                 }[category]

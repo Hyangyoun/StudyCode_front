@@ -13,11 +13,9 @@ function LoginPage(props) {
     function Validation() {
         if(id !== "" && password !== ""){
             const sessionStorage = window.sessionStorage;
-            axios.post("/api/member/login", null, {
-                params: {
-                    memId: id,
-                    password: password
-                }
+            axios.post("/api/member/login", {
+                memId: id,
+                password: password
             })
             .then((response) => {
                 if(response.data !== "") {

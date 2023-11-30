@@ -1,25 +1,27 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function PostListItem({test , postTag}) {
-
+function PostListItem({postInfo , postTag}) {
 
     const navigate = useNavigate()
     return(
         <Post onClick={() => {navigate("/blog/BlogViewer")}}>
             <img src="/image/icon/sample.png" alt="썸네일"/>
-            <span className="title" >{test.title}</span>
-            <div className="content" >{test.content}</div>
-            <ul className="tagUl">
-                {
-                    postTag.map((item, index) => {
-                        return <li key={index}>{item.tagName}</li>
-                    })
-                }
-            </ul>
+            <span className="title" >{postInfo.title}</span>
+            <div className="content" >{postInfo.content}</div>
+            {
+                postTag.length != 0 ?
+                <ul className="tagUl">
+                    {
+                        postTag.map((item, index) => {
+                            return <li key={index}>{item.tagName}</li>
+                        })
+                    }
+                </ul> : null
+            }
             <div className="likeDiv">
-                <span className="like">{test.like}</span>
-                <span>{test.date}</span>
+                <span className="like">{postInfo.recommend}</span>
+                <span>{postInfo.postDate}</span>
             </div>
         </Post>
     )
@@ -27,13 +29,13 @@ function PostListItem({test , postTag}) {
 
 const Post = styled.li`
 
-    width: 700px; height: 580px;
+    width: 700px; height: auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     margin: 40px auto auto;
-    padding: 0;
+    padding: 0 0 30px;
     background-color: var(--background);
     border-bottom:1px solid var(--second);
     cursor: pointer;
@@ -47,12 +49,13 @@ const Post = styled.li`
     .title {
         font-size: 20px;
         font-weight: bold;
-        margin: 20px 0 ;
+        margin-top: 20px;
         cursor: pointer;
     }
     .content {
+        width: 100%;
         font-size: 15px;
-        margin-bottom: 15px;
+        margin-top: 20px;
         overflow:hidden;
         text-overflow: ellipsis;  	// ... 을 만들기 
         white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
@@ -77,6 +80,7 @@ const Post = styled.li`
             justify-content: flex-start;
             align-items: center;
             flex-wrap: wrap;
+            margin-top: 15px;
             padding: 0;
             &>li {
                 display: block;               //block일때만 textoverflow 사용가능
