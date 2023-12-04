@@ -12,7 +12,7 @@ function OverView(props) {
 
     function SaveOverView(){
         axios.post("/api/blog/regist/overView",{
-            overView: editOver ,
+            overView: encodeURIComponent(editOver) ,
             memId: sessionStorage.getItem("memId")
         })
         .catch((error) => {
