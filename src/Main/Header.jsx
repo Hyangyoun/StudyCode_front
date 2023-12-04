@@ -11,7 +11,7 @@ function Header(props) {
     const sessionStorage = window.sessionStorage
 
     useEffect(() => {
-        if(sessionStorage.getItem("mem_id") !== null ){
+        if(sessionStorage.getItem("memId") !== null ){
             setLogin(true)
         }
         else(
@@ -44,7 +44,7 @@ function Header(props) {
                         onClick={ClickProfile} />
                         {tooltip ? <ul className="tooltips">
                         <li>마이페이지</li>
-                        <li onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/overView`)}>내 블로그</li>
+                        <li onClick={() => navigate(`/blog/${sessionStorage.getItem("nickname")}/overView`)}>내 블로그</li>
                         <li>내 팔로우</li>
                         <li>로그아웃</li>
                         </ul> : null}

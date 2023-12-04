@@ -18,33 +18,33 @@ function PostList(props){
     const [inputValue , setInputValue] = useState("")
 
     useEffect((() => {
-        axios.get("/api/post/list",{
-            params:{
-                nickname: nickname
-            }
-        })
-        .then((response) => {
-            setPosts(response.data)
-            console.log(response.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-        axios.get("/api/post/list/tag",{
-            params:{
-                nickname: nickname
-            }
-        })
-        .then((response) => {
-            setPostTag(response.data)
-            console.log(response.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+        // axios.get("/api/post/list",{
+        //     params:{
+        //         nickname: nickname
+        //     }
+        // })
+        // .then((response) => {
+        //     setPosts(response.data)
+        //     console.log(response.data)
+        // })
+        // .catch((error) => {
+        //     console.log(error)
+        // })
+        // axios.get("/api/post/list/tag",{
+        //     params:{
+        //         nickname: nickname
+        //     }
+        // })
+        // .then((response) => {
+        //     setPostTag(response.data)
+        //     console.log(response.data)
+        // })
+        // .catch((error) => {
+        //     console.log(error)
+        // })
 
-        // setPostTag(tagList)
-        // setPosts(postInfo)
+        setPostTag(tagList)
+        setPosts(postInfo)
     }),[])
 
     return(
@@ -58,8 +58,7 @@ function PostList(props){
                 <ul>
                     {posts.map((post, index) => {
                         if(inputValue != "") {
-                            if(post.title.includes(inputValue.replace(''))) {
-                                
+                            if(post.title.replace(/\s+/g, "").includes(inputValue)) { // /\s+/g 빈칸 정규식
                                 return (
                                     <PostListItem key={index} postInfo={post} postTag={postTag.filter((item) => item.postIndex === post.postIndex)}/>
                                 )

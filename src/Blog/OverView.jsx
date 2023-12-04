@@ -11,16 +11,14 @@ function OverView(props) {
     const [regist, setRegist] = useState(false)
 
     function SaveOverView(){
-        axios.post("/api/blog/regist/overview",null,{
-            params: {
-                overview: editOver ,
-                memId: sessionStorage.getItem("memId")
-            }
+        axios.post("/api/blog/regist/overView",{
+            overView: editOver ,
+            memId: sessionStorage.getItem("memId")
         })
         .catch((error) => {
             console.log(error)
         })
-        setRegist(false)
+        window.location.reload()
     }
 
     return (

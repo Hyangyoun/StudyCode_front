@@ -5,7 +5,7 @@ function PostListItem({postInfo , postTag}) {
 
     const navigate = useNavigate()
     return(
-        <Post onClick={() => {navigate("/blog/BlogViewer")}}>
+        <Post  onClick={() => {navigate(`/blog/BlogViewer/${postInfo.postIndex}`)}}>
             <img src="/image/icon/sample.png" alt="썸네일"/>
             <span className="title" >{postInfo.title}</span>
             <div className="content" >{postInfo.content}</div>

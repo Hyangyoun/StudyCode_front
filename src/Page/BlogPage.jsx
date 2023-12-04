@@ -19,19 +19,19 @@ function BlogPage(props){
     const { category , nickname , categoryName} = useParams();
     
     useEffect(() => {
-        // setUserInfo(BlogInfo)
-        axios.get("/api/blog/info",{
-            params:{
-                nickname: nickname,
-            }
-        })
-        .then((response) => {
-            console.log(response.data)
-            setUserInfo(response.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+        setUserInfo(BlogInfo)
+        // axios.get("/api/blog/info",{
+        //     params:{
+        //         nickname: nickname,
+        //     }
+        // })
+        // .then((response) => {
+        //     console.log(response.data)
+        //     setUserInfo(response.data)
+        // })
+        // .catch((error) => {
+        //     console.log(error)
+        // })
     },[])
 
     return(
@@ -50,7 +50,7 @@ function BlogPage(props){
                 {
                     overView : <OverView overView={userinfo.overview} />,
                     postList : <PostList />,
-                    category : <Cartegory />,
+                    category : <Cartegory  />,
                     repository : <Repository />,
                     followers : <Followers />,
                 }[category]

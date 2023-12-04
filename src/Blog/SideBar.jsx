@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 /** 블로그 메인  */
 
 function SideBar(props){
+
+    const { nickname } = useParams()
 
     const {category , followers} = props;
 
@@ -27,17 +29,17 @@ function SideBar(props){
     return(
         <Sidebar $menuIndex={menuIndex}>
             <img  className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
-            <div className="nickName">{sessionStorage.getItem("nickName")}</div>
+            <div className="nickName">{nickname}</div>
             <div className="follows" >
-                <span onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/followers`)}>팔로우{followers}</span>
-                <span onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/followers`)}>팔로잉{followers}</span>
+                <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로우{followers}</span>
+                <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로잉{followers}</span>
             </div>
-                <div className="write" onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/blogWrite`)}>새 포스트</div>
+                <div className="write" onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>새 포스트</div>
             <div className="cartegoryForm" >
-                <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/overView`)} className="overview">메인(overview)</div>
-                <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/postList`)} className="post">포스트(post)</div>
-                <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/category`)} className="post">category</div>
-                <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/repository`)} className="repository">repository</div>
+                <div onClick={() => navigate(`/blog/${nickname}/overView`)} className="overview">메인(overview)</div>
+                <div onClick={() => navigate(`/blog/${nickname}/postList`)} className="post">포스트(post)</div>
+                <div onClick={() => navigate(`/blog/${nickname}/category`)} className="post">category</div>
+                <div onClick={() => navigate(`/blog/${nickname}/repository`)} className="repository">repository</div>
             </div>
             <div className="tagBox"> Tag
                 <ul>
@@ -48,7 +50,7 @@ function SideBar(props){
             </div >
             <div className="logo">
                 <img src="/image/icon/logo.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
-                <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/config`)}>블로그 설정</div>
+                <div onClick={() => navigate(`/blog/config`)}>블로그 설정</div>
             </div>
         </Sidebar>
     )

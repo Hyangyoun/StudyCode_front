@@ -9,13 +9,22 @@ import PostWrite from './Blog/PostWrite';
 import PostViewer from './Blog/PostViewer';
 import CartegoryPost from './Blog/BlogItem/CartegoryPost';
 import BlogHeader from './Main/BlogHeader';
+import { useEffect } from 'react';
+import ScrollToTop from './ScrollToTop';
 
 function App() {
 
+  // 새로고침시 스크롤 초기화
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      window.scrollTo(0 , 0)
+    }
+  },[])
   return (
     <>
       <GlobalStyle />
       <BrowserRouter>
+        <ScrollToTop/>
         <Routes>
           <Route index element = {<MainPage />} />
           <Route path="/login" element = {<LoginPage />} />
@@ -24,7 +33,7 @@ function App() {
           <Route path="blog/:nickname/:category/:categoryName" element = {<BlogPage />} />
           <Route path="blog/config" element = {<BlogConfig />} />
           <Route path="blog/:nickname/blogWrite" element = {<PostWrite />} />
-          <Route path="blog/BlogViewer" element = {<PostViewer />} />
+          <Route path="blog/BlogViewer/:postIndex" element = {<PostViewer />} />
         </Routes>
       </BrowserRouter>
     </>

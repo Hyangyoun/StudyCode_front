@@ -39,6 +39,7 @@ function MDviewer({content, width}) {
 
 const MarkDownSection = styled.div`
     width: ${props => props.$width}; height: auto;
+    min-height: 500px;
     box-sizing: border-box;
     margin: 10px auto 0;
     background-color: var(--background);

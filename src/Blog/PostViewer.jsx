@@ -41,7 +41,7 @@ function PostViewer(props){
         // .catch((error) => {console.log(error)})
         
         /** tag 받아오는 axios */
-        // axios.get("/api/post/info/tag" , null , {
+        // axios.get("/api/post/info/tag", {
         //     params:{
         //         postIndex : postIndex
         //     }
@@ -52,7 +52,7 @@ function PostViewer(props){
         // .catch((error) => {console.log(error)})
 
         // 여기는 아직 안고침
-        /** tag 받아오는 axios */
+        /** file 받아오는 axios */
         // axios.post("/api/blog/get/post/file" , null ,{
         //     params:{
         //         postIndex : postIndex
@@ -108,13 +108,13 @@ function PostViewer(props){
             <ViewerStyle $addFolder={addFolder} $changePosition={changePosition} $end={end}>
                 <div  className="heart">
                     <div className="like" ref={heartButton} onClick={() => {setChangeHeart(!changeHeart)}}>
-                         <img src={ changeHeart ? "/image/icon/bigheart2.png" : "/image/icon/bigheart1.png"} alt="좋아요"/>{postInfo.like}
+                        <img src={ changeHeart ? "/image/icon/bigheart2.png" : "/image/icon/bigheart1.png"} alt="좋아요"/>{postInfo.recommend}
                     </div>
                 </div>
                 <div  className="post">
                     <div className="title" >{postInfo.title}</div>
                     <div className="date">
-                        <span >{postInfo.nickName}</span>
+                        <span >{postInfo.nickname}</span>
                         <span>&#183;</span>
                         <span >{postInfo.postDate}</span>
                     </div>

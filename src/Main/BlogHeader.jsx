@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import { useState } from "react"
 import postData from "../DummyData/postInfo.json"
@@ -7,11 +7,13 @@ function BlogHeader(props){
 
     const navigate = useNavigate()
 
-    const { userinfo } =props
+    const { postInfo } =props
 
     return(
         <BlogHead>
-            <div onClick={() => navigate(`/Blog/kwoos/postList`)}>kwoos</div>
+            {postInfo ?<div onClick={() => navigate(`/Blog/${postInfo.nickname}/postList`)}>{postInfo.blogName}</div>
+            :
+            <div><img src="/image/icon/logo.png" alt="STUDY_CODE"/></div>}
         </BlogHead>
     )
 }

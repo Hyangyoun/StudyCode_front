@@ -8,7 +8,7 @@ function BlogSkin1 (props){
     return(
         <BlogBody>
             <BlogHeader>
-               <span className="blogName">{blogName.name}</span>
+               <span className="blogName">{blogName}</span>
                <span className="blogMenu">
                    {
                        {
