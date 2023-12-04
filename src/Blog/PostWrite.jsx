@@ -15,11 +15,26 @@ function PostWrite(props){
     const [tagName , setTagName] = useState('') //input 값받는 state
 
     const [WriteValue, setWriteValue] = useState(""); //에디터 사용을 위해 가져온값
-    const [chooseFolder, SetChooseFolder] = useState(null); //폴더이름선택 버튼
+    const [fileList, setFileList] = useState([
+        {
+            fileName: "test.js",
+            folderName: "선택안함"
+        },
+        {
+            fileName: "next.js",
+            folderName: "선택안함"
+        },
+        {
+            fileName: "vue.js",
+            folderName: "선택안함"
+        },
+    ]); //파일리스트
     const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
 
     const [preview, setPreview] = useState(false)
     const [title, setTitle] = useState("")
+
+    console.log(fileList)
 
     // useEffect(() => {
     //     axios.post("/api/blog/?" , null , {
@@ -55,6 +70,16 @@ function PostWrite(props){
         }
     }
 
+    const SetSelect = (e) => {
+        const {id, value} = e.target
+        const dummy = [...fileList]
+        const index = dummy.findIndex((item) => item.fileName === id)
+        dummy[index].folderName = value
+        console.log(dummy)
+
+        setFileList(dummy)
+    }
+
 
     return(
         <>
@@ -75,22 +100,24 @@ function PostWrite(props){
                     <div className="attachSection">
                         <div>파일첨부</div>
                         <ul>
-                            <li>
-                                <span>x</span>
-                                test.jsx
-                                <div>
-                                    {chooseFolder === null ? "폴더선택" : chooseFolder}
-                                    <label htmlFor="togleSelect" />
-                                    <input id="togleSelect" type="checkbox" />
-                                    <ul className="selectFolder">
-                                        <li onClick={() => SetChooseFolder(null)}>선택안함</li>
-                                        <li onClick={() => SetChooseFolder("react")}>react</li>
-                                        <li onClick={() => SetChooseFolder("javascript")}>javascript</li>
-                                        <li onClick={() => SetChooseFolder("java")}>java</li>
-                                        <li onClick={() => SetChooseFolder("기타")}>기타</li>
-                                    </ul>
-                                </div>
-                            </li>
+                            {
+                                fileList.map((item, index) => {
+                                    return (
+                                        <li key={index}>
+                                            <span>x</span>
+                                            {item.fileName}
+                                            <div>
+                                                <select id={item.fileName} onChange={(e) => SetSelect(e)}>
+                                                    <option value={"선택안함"}>선택안함</option>
+                                                    <option value={"JavaScript"}>JavaScript</option>
+                                                    <option value={"React"}>React</option>
+                                                    <option value={"Java"}>Java</option>
+                                                </select>
+                                            </div>
+                                        </li>
+                                    )
+                                })
+                            }
                         </ul>
                         <span>+</span>
                     </div>
@@ -217,7 +244,7 @@ const WriteStyle = styled.div`
                         position: relative;
 
                         &::after {
-                            content: url("./image/icon/arrow1.png");
+                            content: url("/image/icon/arrow1.png");
                         }
 
                         > input {
@@ -247,28 +274,6 @@ const WriteStyle = styled.div`
                         border: 1px solid var(--second);
                         background-color: var(--background);
                         z-index: 100;
-
-                        &>li{                 ///////////////파일첨부안에 내용속성
-                            width: auto;
-                            height: 20px;
-                            margin: auto;
-                            font-size: 12px;
-                            padding-left:5px;
-                            display: flex;
-                            align-items: center;
-
-                            &:hover{
-                                background-color: var(--second);
-                            }
-                            &:first-child{
-                                justify-content: center;
-                            }
-                            &:not(:first-child):before{
-                                margin-right: 5px;
-                                content: url("./image/icon/folder.png");
-                            }
-                                
-                        }
                     }
                 }
             }

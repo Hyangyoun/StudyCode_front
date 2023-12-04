@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function BlogSkin2(props) {
-    const {category , followers, name} = props
+    const {category , followers, blogName} = props
 
     const [menuIndex, setMenuIndex] = useState()
+    const {nickname} = useParams()
     
     const navigate = useNavigate();
 
@@ -44,7 +46,7 @@ function BlogSkin2(props) {
                 <span onClick={() => navigate("/blog/config")}>블로그 설정</span>
                 <div className="profileBox">
                     <img src="/image/icon/profile.png" alt="프로필사진" />
-                    <span>{sessionStorage.getItem("nickName")}</span>
+                    <span>{nickname}</span>
                 </div>
                 <div className="followBox">
                     <span onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/followers`)}>팔로우{followers}</span>
@@ -71,7 +73,7 @@ function BlogSkin2(props) {
                 <SideBT onClick={() => setSide(!side)}>
                     <img src="/image/icon/sideBT.png" alt="사이드버튼" />
                 </SideBT>
-                <div className="blogName">{name}</div>
+                <div className="blogName">{blogName}</div>
                 <div className="menuBox">
                     <div className="menu">
                         <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/overView`)}>Overview</div>
