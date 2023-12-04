@@ -74,7 +74,7 @@ function PostList(props){
             </BlogPostList> :
             <NoBlog>
                 <span>등록되어있는 포스트가 없습니다.</span>
-                <div onClick={() => navigate("blogWrite")}>포스트 작성하기</div>
+                <div onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>포스트 작성하기</div>
             </NoBlog>
         }</>
     )
