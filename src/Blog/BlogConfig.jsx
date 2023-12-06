@@ -1,29 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import BlogHeader from "../Main/BlogHeader";
 import tagList from "../DummyData/tagList.json"
+import UserBlogConfig from "../DummyData/BlogConfig.json"
 import axios from "axios";
+import Editer, { buttonType } from "../MarkDownEditer/Editer";
 
 function BlogConfig(props) {
 
-    //api 받는 state
-    const [userInfo , setUserInfo] = useState([]);
     //blogconfig state
-    const [blogNameInput , setBlogNameInput ] = useState('');
+    const [blogNameInput , setBlogNameInput ] = useState("");
     const [selectSkin, setSelectSkin] = useState(1);
     //카테고리 선택 state
     const [categoryButton , setCategoryButton] = useState(false)
     const [categoryNameInput , setCategoryNameInput] = useState('');
     const [selectCategory , setSelectCategory] = useState(-1);
+    //오버뷰 state
+    const [ overViewValue , setOverViewValue] = useState("");
+
+    const focusName = useRef();
 
     const sessionStorage = window.sessionStorage
 
     useEffect(() => {
         axios.post("/api/blog/config", {
-            memId: sessionStorage.getItem("mem_id")
+            memId: sessionStorage.getItem("memId")
         }).then((response) => {
+            if(response.data !== null){
             console.log(response)
-            setUserInfo(response.data)
+            setBlogNameInput(response.data.name)
+            setSelectSkin(Number(response.data.skin))
+            setOverViewValue(response.data.overview)
+            }
         }).catch((error) =>{
             console.log(error)
         })
@@ -33,52 +41,64 @@ function BlogConfig(props) {
         // })
         // setUserInfo(test)
     } , [])
-    
+
     // 카테고리 추가 버튼
     const HandleAddButton = () => {
-        setCategoryButton(!categoryButton)
-        setCategoryNameInput('')
-        setSelectCategory(-1)
+        setCategoryButton(!categoryButton);
+        setCategoryNameInput('');
+        setSelectCategory(-1);
     }
 
-    const HandleAddCategory = () => {
-        if(categoryNameInput){
-                if(!userInfo.includes(categoryNameInput)){
-                    userInfo.push(categoryNameInput)
-                    setUserInfo([...userInfo])     
-                }
-            setCategoryNameInput('')
-        }
-        return ;
-    }
+    // const HandleAddCategory = () => {
+    //     if(categoryNameInput){
+    //             if(!userInfo.includes(categoryNameInput)){
+    //                 userInfo.push(categoryNameInput)
+    //                 setUserInfo([...userInfo])     
+    //             }
+    //     setCategoryNameInput('')
+    //     }
+    //     return ;
+    // }
 
-    const RemoveCategory = (event) => {
-        let copy = userInfo
-        setUserInfo( copy.filter((e) => e != event) )
-        }
+    // const RemoveCategory = (event) => {
+    //     let copy = userInfo;
+    //     setUserInfo( copy.filter((e) => e != event) )
+    // }
 
         /**데이터 보내는 양식 */
     const HandleSaved = () =>{
-        const data = {
-            // "mem_id" : ,
-            "blogName" : blogNameInput,
-            "blogSkin" : selectSkin,
-            "AddcategoryName" : userInfo ,
-            // "selectCategoryName" : selectCategory === -1 ? "분류없음" : selectCategory,
-        }
-        if(blogNameInput){
+        if(blogNameInput != ""){
+        //     axios.post("/api/blog/config/update",{
+        //         "memId": sessionStorage.getItem("memId"),
+        //         "name": blogNameInput,
+        //         "skin": selectSkin,
+        //         "overview": encodeURIComponent(overViewValue)
+        //     })
+        //     .then((response) => {
+        //         console.log(response.data)
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     })
+            const data = {
+                "name": blogNameInput,
+                "skin": selectSkin,
+                "overview": overViewValue
+            }
             console.log(data)
         }
-        else(alert(`블로그이름을 입력해주세요`))
+        else{
+            alert("블로그 이름을 설정해주세요")
+            focusName.current.focus()
+        }
     }
-
     return (
         <>
             <BlogHeader />
             <ConfigSection $select={selectSkin} $selectCategory={selectCategory}>
                 <div className="partBox">
-                    <div className="partName">블로그 이름</div>
-                    <input value={blogNameInput} onChange={(e) => setBlogNameInput(e.target.value)} className="nameInput" type="text" placeholder="블로그 이름 입력" />
+                    <div className="partName" >블로그 이름</div>
+                    <input ref={focusName} value={blogNameInput} onChange={(e) => setBlogNameInput(e.target.value)} className="nameInput" type="text" placeholder="블로그 이름 입력" />
                 </div>
                 <div className="partBox">
                     <div className="partName">블로그 스킨</div>
@@ -94,36 +114,49 @@ function BlogConfig(props) {
                             <img src="/image/Source/BlogSkin2Post.png" alt="sampleImage" />
                         </>
                         }
-
                     </div>
                     <div className="skinButton">
                         <div onClick={() => setSelectSkin(1)}>스킨 1</div>
                         <div onClick={() => setSelectSkin(2)}>스킨 2</div>
                     </div>
                 </div>
-                <div className="partBox">
-                    <div className="partName">카테고리 설정</div>
-                    <div className="categoryPosition">
-                    <ul className="category">
-                    {
-                        userInfo.map((item , index) => {
-                            return (
-                            <li onClick={() => {setSelectCategory(index)}} key={index}>
-                                <span>{item}</span><div onClick={() => RemoveCategory(item)}>x</div>
-                            </li>)
-                        })
-                    }
-                        <li className="addButton" onClick={HandleAddButton}>+</li>
-                    </ul>
-                    {categoryButton ? 
-                        <div className="AddCategory">
-                        <input value={categoryNameInput} onChange={(e) => setCategoryNameInput(e.target.value)} maxLength={20} type="text" placeholder="카테고리 명" />
-                        <div onClick={HandleAddCategory}>추가하기</div>
-                    </div>
+                <>{blogNameInput !== "" && overViewValue !== "" ?
+                    <>
+                        <div className="partBox">
+                            <div className="partName">카테고리 설정</div>
+                            <div className="categoryPosition">
+                                <ul className="category">
+                                {/* {userInfo.map((item , index) => {
+                                    return (
+                                    <li onClick={() => {setSelectCategory(index)}} key={index}>
+                                        <span>{item}</span><div onClick={() => RemoveCategory(item)}>x</div>
+                                    </li>)
+                                })
+                                } */}
+                                    <li className="addButton" onClick={HandleAddButton}>+</li>
+                                </ul>
+                            {categoryButton ? 
+                                <div className="AddCategory">
+                                <input value={categoryNameInput} onChange={(e) => setCategoryNameInput(e.target.value)} maxLength={20} type="text" placeholder="카테고리 명" />
+                                {/* <div onClick={HandleAddCategory}>추가하기</div> */}
+                            </div>
+                            :
+                            null}
+                            </div>
+                        </div>
+                        <div className="partBox">
+                            <div className="partName">OverView</div>
+                            <Editer value={overViewValue} setValue={setOverViewValue} height={500} buttonList={[
+                                [buttonType.title1, buttonType.title2, buttonType.title3],
+                                [buttonType.bold, buttonType.italic, buttonType.strikethrough],
+                                [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.image, buttonType.link]
+                            ]} />
+                        </div>
+                    </>
                     :
-                    null}
-                    </div>
-                </div>
+                    null
+                }
+                </>
                 <div className="done" onClick={HandleSaved}>설정 완료하기</div>
             </ConfigSection>
         </>
@@ -140,6 +173,10 @@ const ConfigSection = styled.div`
     .partBox {
         width: 100%;
         margin-top: 50px;
+
+        .Editer{
+            width: 800px;
+        }
     }
 
     .partName {
@@ -149,13 +186,13 @@ const ConfigSection = styled.div`
         align-items: center;
         width: 100%; height: 30px;
         padding-left: 10px;
+        margin-bottom: 20px;
         border-bottom: 1px solid var(--second);
     }
 
     .nameInput {
         border: 1px solid var(--second);
         outline: none;
-        margin-top: 10px;
         width: 270px; height: 40px;
         font-size: 15px;
         padding: 0 10px;
@@ -167,7 +204,7 @@ const ConfigSection = styled.div`
         align-items: center;
         justify-content: space-around;
         height: 500px;
-        margin: 20px auto auto;
+        margin: 0 auto;
         border: 1px solid var(--second2);
         border-radius: 5px;
 
@@ -185,7 +222,7 @@ const ConfigSection = styled.div`
         justify-content: space-around;
         margin-top: 10px;
 
-        &>div:nth-child(${props => props.$select ===1 ? 1 : 2}) {
+        &>div:nth-child(${props => props.$select === 1 ? 1 : 2}) {
             border-color: var(--primary);
             color: var(--primary);
         }
@@ -212,6 +249,7 @@ const ConfigSection = styled.div`
 
             .category {
                 padding: 0;
+                margin: 0;
                 width: 400px; height: 220px;
                 overflow-y: scroll;
                 border: 1px solid var(--second);
