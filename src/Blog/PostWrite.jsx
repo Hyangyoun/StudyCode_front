@@ -1,55 +1,27 @@
 import styled from "styled-components"
 import Editer, { buttonType } from "../MarkDownEditer/Editer";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PostConfig from "./BlogItem/PostConfig";
 import Preview from "./BlogItem/Preview";
 import BlogHeader from "../Main/BlogHeader";
 import axios from "axios";
 
 function PostWrite(props){
-    
-    //api 받는 states
-    const [userInfo , setUserInfo] = useState({})
-    
-    const [tagList , setTagList] = useState([]) //tag리스트 공간 state
-    const [tagName , setTagName] = useState('') //input 값받는 state
 
-    const [WriteValue, setWriteValue] = useState(""); //에디터 사용을 위해 가져온값
-    const [fileList, setFileList] = useState([
-        {
-            fileName: "test.js",
-            folderName: "선택안함"
-        },
-        {
-            fileName: "next.js",
-            folderName: "선택안함"
-        },
-        {
-            fileName: "vue.js",
-            folderName: "선택안함"
-        },
-    ]); //파일리스트
+    const Upload = useRef()
+    
+    //tag리스트 state
+    const [tagList , setTagList] = useState([])
+    const [tagName , setTagName] = useState('')
+
+    const [WriteValue, setWriteValue] = useState("");
+    const [fileList, setFileList] = useState([]); //파일리스트
     const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
 
     const [preview, setPreview] = useState(false)
     const [title, setTitle] = useState("")
 
-    console.log(fileList)
-
-    // useEffect(() => {
-    //     axios.post("/api/blog/?" , null , {
-    //         params:{
-    //             nickName : nickName,
-    //         }
-    //     })
-    //     .then((response) => {
-    //         setUserInfo(response.data)
-    //         console.log(response.data)
-    //     })
-    //     .catch((error) => {
-    //         console.log(error)
-    //     })
-    // },[])
+    // console.log(fileList)
 
     //TagInput Event
     const handleTagList = (e) => {
@@ -70,20 +42,67 @@ function PostWrite(props){
         }
     }
 
+    const sessionStorage = window.sessionStorage
+    const SendWriteData = (category,open) => {
+        // axios.post("/api/post/regist" , {
+        //     memId: sessionStorage.getItem("memId"),
+        //     categoryName: category,
+        //     title: title,
+        //     content: WriteValue,
+        //     open: open,
+        // })
+        // .then((response) => {
+        //     const copy = []
+        //     tagList.forEach((item) => {
+        //         copy.push({
+        //             postIndex: response.data,
+        //             tagName: item
+        //         })
+        //     })
+        //     axios.post("/api/post/regist/tag" , copy)
+        //     .catch((error) => {console.log(error)})
+        // })
+        // .catch((error) => console.log(error))
+        // const data ={
+        //     memId: sessionStorage.getItem("memId"),
+        //     categoryName: category,
+        //     title: title,
+        //     content: WriteValue,
+        //     open: open,
+        // }
+        // console.log(data)
+    }
+
     const SetSelect = (e) => {
         const {id, value} = e.target
         const dummy = [...fileList]
         const index = dummy.findIndex((item) => item.fileName === id)
         dummy[index].folderName = value
         console.log(dummy)
-
         setFileList(dummy)
     }
 
+    const AddFile = (e) => {
+        const NewFile = e.target.files[0]
+        // console.log(NewFile)
+        let copy = [...fileList]
+        // console.log(copy)
+        if(!copy.includes(NewFile)){//물어볼것
+        copy.push(NewFile)
+        // console.log("if")
+        setFileList(copy)
+        }
+        else{ console.log("else")}
+    }
+
+    const HandleFileList = (event) =>{
+        let copy = fileList.filter((e) => e.name !== event)
+        setFileList(copy)      ////기존배열을 지우고 새배열을 출력
+    }
 
     return(
         <>
-            <BlogHeader userInfo={userInfo}/>
+            <BlogHeader/>
             <WriteStyle $nextButton={nextButton}>
                 <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={15} className="postTitle" placeholder="제목을 입력하세요"/>
                 <div className="tagBox">
@@ -104,10 +123,10 @@ function PostWrite(props){
                                 fileList.map((item, index) => {
                                     return (
                                         <li key={index}>
-                                            <span>x</span>
-                                            {item.fileName}
+                                            <span onClick={() =>HandleFileList(item.name)}>x</span>
+                                            {item.name}
                                             <div>
-                                                <select id={item.fileName} onChange={(e) => SetSelect(e)}>
+                                                <select id={item.name} onChange={(e) => SetSelect(e)}>
                                                     <option value={"선택안함"}>선택안함</option>
                                                     <option value={"JavaScript"}>JavaScript</option>
                                                     <option value={"React"}>React</option>
@@ -119,14 +138,15 @@ function PostWrite(props){
                                 })
                             }
                         </ul>
-                        <span>+</span>
+                        <span onClick={() => Upload.current.click()}>+</span>
+                        <input onChange={AddFile} ref={Upload} type="file" style={{display: "none"}}/>
                     </div>
                     <div className="previewBT" onClick={() => setPreview(true)}>미리보기</div>
                 </div>
                 <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div> 
             </WriteStyle>
-            {nextButton ? <PostConfig setNextButton={setNextButton} /> : null}
-            {preview ? <Preview title={title} content={WriteValue} tag={tagList} setPreview={setPreview} /> : null}
+            {nextButton ? <PostConfig setNextButton={setNextButton} SendWriteData={SendWriteData} /> : null}
+            {preview ? <Preview  setPreview={setPreview} /> : null}
         </>
     )
 }

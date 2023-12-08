@@ -1,7 +1,10 @@
 import React , {useState, useEffect} from "react";
 import styled from "styled-components"
+import axios from "axios";
 
-function PostConfig({setNextButton}) {
+function PostConfig(props) {
+
+    const { setNextButton , SendWriteData } = props
 
     const [selectButton , setSelectButton] = useState(true);    // 최종선택에서 공개 비공개 선택버튼
 
@@ -19,7 +22,6 @@ function PostConfig({setNextButton}) {
         return () => clearTimeout(timer)
     },[close, setNextButton])
     
-
     return(
         <LastPreview $selectButton={selectButton} $close={close}>
             <img src="/image/icon/logo.png" alt="로고"/>
@@ -58,10 +60,9 @@ function PostConfig({setNextButton}) {
             </div>
         <div className="yesOrNoBtn">
             <div onClick={() => setClose(true)}>다시 수정하기</div>
-            <div>올리기</div>
+            <div onClick={() => SendWriteData(selectCartegory,selectButton)}>올리기</div>
         </div>
     </LastPreview>
-
     )
 }
 
