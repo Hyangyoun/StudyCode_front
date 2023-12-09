@@ -63,41 +63,42 @@ function PostWrite(props){
         //     .catch((error) => {console.log(error)})
         // })
         // .catch((error) => console.log(error))
-        // const data ={
-        //     memId: sessionStorage.getItem("memId"),
-        //     categoryName: category,
-        //     title: title,
-        //     content: WriteValue,
-        //     open: open,
-        // }
-        // console.log(data)
-    }
-
-    const SetSelect = (e) => {
-        const {id, value} = e.target
-        const dummy = [...fileList]
-        const index = dummy.findIndex((item) => item.fileName === id)
-        dummy[index].folderName = value
-        console.log(dummy)
-        setFileList(dummy)
+        const data ={
+            memId: sessionStorage.getItem("memId"),
+            categoryName: category,
+            title: title,
+            content: WriteValue,
+            open: open,
+            file: fileList
+        }
+        console.log(data)
     }
 
     const AddFile = (e) => {
         const NewFile = e.target.files[0]
-        // console.log(NewFile)
-        let copy = [...fileList]
-        // console.log(copy)
-        if(!copy.includes(NewFile)){//물어볼것
-        copy.push(NewFile)
-        // console.log("if")
-        setFileList(copy)
+        if(NewFile){
+            const copy = [...fileList]
+            const fileName = NewFile.name;
+            if(!copy.some(file => file.name === fileName)){
+                copy.push(NewFile)
+                setFileList(copy)
+            }
         }
-        else{ console.log("else")}
+    }
+
+    const ChooseFolder = (e , name) => {
+        const Folder = e.target.value
+        const file = fileList.find((i) => i.name == name )
+        Object.assign(file , {FolderName : Folder})
+        let copy = [...fileList]
+        copy.push(file)
+        copy.pop()
+        setFileList(copy)
     }
 
     const HandleFileList = (event) =>{
-        let copy = fileList.filter((e) => e.name !== event)
-        setFileList(copy)      ////기존배열을 지우고 새배열을 출력
+        let copy = fileList.filter((e) => e !== event)
+        setFileList(copy)
     }
 
     return(
@@ -123,11 +124,11 @@ function PostWrite(props){
                                 fileList.map((item, index) => {
                                     return (
                                         <li key={index}>
-                                            <span onClick={() =>HandleFileList(item.name)}>x</span>
+                                            <span onClick={() =>HandleFileList(item)}>x</span>
                                             {item.name}
                                             <div>
-                                                <select id={item.name} onChange={(e) => SetSelect(e)}>
-                                                    <option value={"선택안함"}>선택안함</option>
+                                                <select id={item.name} onChange={(e) => ChooseFolder(e , item.name)}>
+                                                    <option value={null}>선택안함</option>
                                                     <option value={"JavaScript"}>JavaScript</option>
                                                     <option value={"React"}>React</option>
                                                     <option value={"Java"}>Java</option>
@@ -146,7 +147,7 @@ function PostWrite(props){
                 <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div> 
             </WriteStyle>
             {nextButton ? <PostConfig setNextButton={setNextButton} SendWriteData={SendWriteData} /> : null}
-            {preview ? <Preview  setPreview={setPreview} /> : null}
+            {preview ? <Preview title={title} tag={tagList} content={WriteValue}  setPreview={setPreview} /> : null}
         </>
     )
 }
