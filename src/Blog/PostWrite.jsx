@@ -21,7 +21,7 @@ function PostWrite(props){
     const [preview, setPreview] = useState(false)
     const [title, setTitle] = useState("")
 
-    // console.log(fileList)
+    console.log(fileList)
 
     //TagInput Event
     const handleTagList = (e) => {
@@ -75,24 +75,28 @@ function PostWrite(props){
     }
 
     const AddFile = (e) => {
-        const NewFile = e.target.files[0]
-        if(NewFile){
+        const newFile = e.target.files[0]
+        if(newFile){
             const copy = [...fileList]
-            const fileName = NewFile.name;
-            if(!copy.some(file => file.name === fileName)){
-                copy.push(NewFile)
+            const fileName = newFile.name;
+            if(!copy.some(file => file.fileName === fileName)){
+                copy.push({
+                    file: newFile,
+                    fileName: fileName,
+                    folderName: "선택안함"
+                })
                 setFileList(copy)
             }
+            else alert("파일이 중복됩니다")
         }
     }
 
-    const ChooseFolder = (e , name) => {
-        const Folder = e.target.value
-        const file = fileList.find((i) => i.name == name )
-        Object.assign(file , {FolderName : Folder})
-        let copy = [...fileList]
-        copy.push(file)
-        copy.pop()
+    const ChooseFolder = (e) => {
+        const {id, value} = e.target
+        const copy = [...fileList]
+        const index = copy.findIndex((i) => i.fileName == id)
+        copy[index].folderName = value
+
         setFileList(copy)
     }
 
@@ -125,10 +129,10 @@ function PostWrite(props){
                                     return (
                                         <li key={index}>
                                             <span onClick={() =>HandleFileList(item)}>x</span>
-                                            {item.name}
+                                            {item.fileName}
                                             <div>
-                                                <select id={item.name} onChange={(e) => ChooseFolder(e , item.name)}>
-                                                    <option value={null}>선택안함</option>
+                                                <select id={item.fileName} onChange={(e) => ChooseFolder(e)}>
+                                                    <option value={"선택안함"}>선택안함</option>
                                                     <option value={"JavaScript"}>JavaScript</option>
                                                     <option value={"React"}>React</option>
                                                     <option value={"Java"}>Java</option>
