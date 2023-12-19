@@ -11,13 +11,17 @@ import Repository from "../Blog/Repository";
 import { useParams } from "react-router-dom";
 import BlogInfo from "../DummyData/BlogInfo.json";
 import axios from "axios";
-import CartegoryPost from "../Blog/BlogItem/CartegoryPost";
 
 function BlogPage(props){
 
     const [userinfo, setUserInfo] = useState({});
-    const { category , nickname , categoryName} = useParams();
-    
+    const [BlogTagName , setBlogTagName] = useState("")
+    const { category, nickname , categoryName} = useParams();
+
+    const ClickTag = (tagName) =>{
+        setBlogTagName(tagName)
+    }
+
     useEffect(() => {
         setUserInfo(BlogInfo)
         // axios.get("/api/blog/info",{
@@ -39,23 +43,23 @@ function BlogPage(props){
             {
                 {
                     1 : <>
-                        <SideBar category={category} followers={userinfo.followers} />
+                        <SideBar category={category} followers={userinfo.followers} profile={userinfo.profile} ClickTag={ClickTag}/>
                         <BlogSkin1 category={category} blogName={userinfo.name} />
                         </>,
-                    2 : <BlogSkin2 category={category} blogName={userinfo.name} followers={userinfo.followers} />
+                    2 : <BlogSkin2 category={category} blogName={userinfo.name} followers={userinfo.followers} profile={userinfo.profile} ClickTag={ClickTag}/>
                     
                 }[userinfo.skin]
             }
-            { categoryName == null ?
+            { categoryName == null || BlogTagName == null ?
                 {
                     overView : <OverView overView={userinfo.overview} />,
-                    postList : <PostList />,
-                    category : <Cartegory  />,
+                    postList : <PostList BlogTagName={BlogTagName}/>,
+                    category : <Cartegory/>,
                     repository : <Repository />,
                     followers : <Followers />,
                 }[category]
                 :
-                <CartegoryPost categoryTitle={categoryName}/>
+                <PostList BlogTagName={BlogTagName}/>
             }
 
         </BlogSection>

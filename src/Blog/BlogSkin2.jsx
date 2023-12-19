@@ -2,11 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import BlogTagList from "../DummyData/blogTagList.json"
 
 function BlogSkin2(props) {
-    const {category , followers, blogName} = props
+    const {category , followers, blogName , profile ,ClickTag} = props
 
     const [menuIndex, setMenuIndex] = useState()
+    const [tagList , setTagList] = useState([])
+    const [tag , setTag] = useState()
+
     const {nickname} = useParams()
     
     const navigate = useNavigate();
@@ -36,29 +40,60 @@ function BlogSkin2(props) {
             postList : 2,
             category : 3,
             repository : 4,
-        }[category])
+        }[category]
+        )
+    },[category])
+
+    useEffect(() => {
+        // axios.get("api" , {
+        //     params:{
+        //         nickname:nickname
+        //     }
+        // })
+        // .then((response) => {
+        //     setTagList(response.data);
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
+        setTagList(BlogTagList)
     })
+
+        const ChooseTag = (tagName,e) =>{
+        if(tag == e.target.value){
+            ClickTag('')
+            setTag()
+        }
+        else{
+            ClickTag(tagName)
+            setTag(e.target.value)
+        }
+        navigate(`/blog/${nickname}/postList`)
+    }
+
 
     return (
         <>
             <SideBar $side={side} ref={sideRef}>
-                <img src="/image/icon/logo.png" alt="studycode" />
-                <span onClick={() => navigate("/blog/config")}>블로그 설정</span>
+                <img src={"/image/icon/logo.png"} alt="studycode" />
+                { nickname == sessionStorage.getItem("nickname") ?
+                <span onClick={() => navigate("/blog/config")}>블로그 설정</span> : null}
                 <div className="profileBox">
-                    <img src="/image/icon/profile.png" alt="프로필사진" />
+                    <img src={profile ? profile : "/image/icon/profile.png"} alt="프로필사진" />
                     <span>{nickname}</span>
                 </div>
                 <div className="followBox">
-                    <span onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/followers`)}>팔로우{followers}</span>
-                    <span onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/followers`)}>팔로잉{followers}</span>
+                    <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로우{followers}</span>
+                    <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로잉{followers}</span>
                 </div>
-                <div className="newPost" onClick={() => navigate("/blogWrite")}>새 포스트</div>
+                {nickname == sessionStorage.getItem("nickname") ? 
+                <div className="newPost" onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>새 포스트</div> : null}
                 <div className="listBox"> Tag
-                    <ul>
-                        <li>JavaScript</li>
-                        <li>Spring</li>
-                        <li>React</li>
-                    </ul>
+                    <ul>{
+                    tagList.map((item, index) => {
+                        return <li value={index} className={tag == index ? "active" : null}
+                        onClick={(e) => {ChooseTag(item.tagName,e)}} key={index}>{item.tagName}</li>
+                    })}</ul>
                 </div>
                 <div className="listBox"> Category
                     <ul>
@@ -76,10 +111,10 @@ function BlogSkin2(props) {
                 <div className="blogName">{blogName}</div>
                 <div className="menuBox">
                     <div className="menu">
-                        <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/overView`)}>Overview</div>
-                        <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/postList`)}>Post</div>
-                        <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/category`)}>Category</div>
-                        <div onClick={() => navigate(`/blog/${sessionStorage.getItem("nickName")}/repository`)}>Repository</div>
+                        <div onClick={() => navigate(`/blog/${nickname}/overView`)}>Overview</div>
+                        <div onClick={() => navigate(`/blog/${nickname}/postList`)}>Post</div>
+                        <div onClick={() => navigate(`/blog/${nickname}/category`)}>Category</div>
+                        <div onClick={() => navigate(`/blog/${nickname}/repository`)}>Repository</div>
                     </div>
                 </div>
             </Header>
@@ -114,7 +149,9 @@ const SideBar = styled.div`
         box-sizing: border-box;
         font-size: 15px;
         & > img {
-            width: 150px; height: 150px;
+            width: 150px; 
+            height:auto;
+            border-radius: 50%;
         }
     }
 
@@ -160,6 +197,10 @@ const SideBar = styled.div`
             > li {
                 display: flex;
                 cursor: pointer;
+            }
+            .active{
+                color: var(--primary);
+                text-decoration: underline;
             }
 
             > li:hover {

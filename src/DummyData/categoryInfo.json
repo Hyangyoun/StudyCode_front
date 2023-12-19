@@ -1,0 +1,24 @@
+[
+    {"categoryName" : "코딩테스트"
+    ,"thumnailPath" :[
+        {"thumnailPath":"/image/icon/naver.png"},
+        {"thumnailPath":"/image/icon/naver.png"},
+        {"thumnailPath":"/image/icon/naver.png"},
+        {"thumnailPath":"/image/icon/naver.png"}]
+    ,"categoryPost" : 4
+    }
+    ,
+    {"categoryName" : "놀이터"
+    ,"thumnailPath" :[
+        {"thumnailPath":"/image/icon/google.png"},
+        {"thumnailPath":"/image/icon/google.png"},
+        {"thumnailPath":"/image/icon/google.png"},
+        {"thumnailPath":"/image/icon/google.png"}],
+    "categoryPost" : 4
+    },
+    {"categoryName" : "잡동사니"
+    ,"thumnailPath" :[
+        {"thumnailPath":"/image/icon/kakao.png"},
+        {"thumnailPath":"/image/icon/kakao.png"}],
+    "categoryPost" : 2}
+]

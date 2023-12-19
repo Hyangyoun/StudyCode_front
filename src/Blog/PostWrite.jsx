@@ -15,13 +15,14 @@ function PostWrite(props){
     const [tagName , setTagName] = useState('')
 
     const [WriteValue, setWriteValue] = useState("");
-    const [fileList, setFileList] = useState([]); //파일리스트
+    const [fileList, setFileList] = useState([]);
+    const [folderList , setFolderList] = useState([]);
     const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
 
     const [preview, setPreview] = useState(false)
     const [title, setTitle] = useState("")
 
-    console.log(fileList)
+    // console.log(fileList)
 
     //TagInput Event
     const handleTagList = (e) => {
@@ -43,13 +44,16 @@ function PostWrite(props){
     }
 
     const sessionStorage = window.sessionStorage
-    const SendWriteData = (category,open) => {
+    const SendWriteData = (previewImage,selectButton,chooseCategory) => {
         // axios.post("/api/post/regist" , {
-        //     memId: sessionStorage.getItem("memId"),
-        //     categoryName: category,
-        //     title: title,
-        //     content: WriteValue,
-        //     open: open,
+            // memId: sessionStorage.getItem("memId"),
+            // title: title,
+            // taglist: tagList,
+            // content: encodeURIComponent(WriteValue),
+            // categoryName: chooseCategory,
+            // fileName: fileList,
+            // open:selectButton,
+            // previewImage:previewImage
         // })
         // .then((response) => {
         //     const copy = []
@@ -65,14 +69,21 @@ function PostWrite(props){
         // .catch((error) => console.log(error))
         const data ={
             memId: sessionStorage.getItem("memId"),
-            categoryName: category,
+            categoryName: chooseCategory,
             title: title,
+            taglist: tagList,
             content: WriteValue,
-            open: open,
-            file: fileList
+            fileList: fileList,
+            folderList: folderList,
+            open:selectButton,
+            previewImage:previewImage
         }
         console.log(data)
     }
+
+    useEffect(() => {
+
+    })
 
     const AddFile = (e) => {
         const newFile = e.target.files[0]
@@ -83,7 +94,7 @@ function PostWrite(props){
                 copy.push({
                     file: newFile,
                     fileName: fileName,
-                    folderName: "선택안함"
+                    memId : sessionStorage.getItem("memId")
                 })
                 setFileList(copy)
             }
@@ -93,11 +104,11 @@ function PostWrite(props){
 
     const ChooseFolder = (e) => {
         const {id, value} = e.target
-        const copy = [...fileList]
+        console.log(value)
+        const copy = JSON.parse(JSON.stringify([...fileList]))
         const index = copy.findIndex((i) => i.fileName == id)
         copy[index].folderName = value
-
-        setFileList(copy)
+        setFolderList(copy)
     }
 
     const HandleFileList = (event) =>{

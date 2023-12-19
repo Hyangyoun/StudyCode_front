@@ -3,6 +3,7 @@
     "content": "이거 안보여줄려고 어그로 끌었다",
     "postDate": "2023-10-18",
     "title": "내 일요일 내놔",
+    "thumnail":"/image/icon/naver.png",
     "postIndex": 2,
     "recommend": 0
   },
@@ -10,6 +11,23 @@
     "content": "좋아써!",
     "postDate": "2023-10-19",
     "title": "내 화요일 저리가",
+    "thumnail":"/image/icon/okTeakYeon.png",
+    "postIndex": 4,
+    "recommend": 0
+  },
+  {
+    "content": "좋아써!",
+    "postDate": "2023-10-19",
+    "title": "내 월요일 저리가",
+    "thumnail":"",
+    "postIndex": 4,
+    "recommend": 0
+  },
+  {
+    "content": "좋아써!",
+    "postDate": "2023-10-19",
+    "title": "내 목요일 저리가",
+    "thumnail":"/image/icon/cat-.jpg",
     "postIndex": 4,
     "recommend": 0
   }

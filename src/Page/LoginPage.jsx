@@ -19,9 +19,9 @@ function LoginPage(props) {
             })
             .then((response) => {
                 if(response.data !== "") {
-                    sessionStorage.setItem("mem_id", id)
+                    sessionStorage.setItem("memId", id)
                     console.log(response.data)
-                    sessionStorage.setItem("nickName", response.data)
+                    sessionStorage.setItem("nickname", response.data)
                     navigate("/")
                 }
                 else {

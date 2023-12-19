@@ -3,10 +3,12 @@ import styled from "styled-components";
 import Editer, { buttonType } from "../MarkDownEditer/Editer";
 import MdViewer from "../MarkDownEditer/MDviewer";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function OverView(props) {
-    const sessionStorage = window.sessionStorage
-    const {overView} = props
+    const sessionStorage = window.sessionStorage;
+    const { nickname } = useParams();
+    const {overView} = props;
     const [editOver, setEditOver] = useState("");
     const [regist, setRegist] = useState(false)
 
@@ -35,8 +37,8 @@ function OverView(props) {
                     <div className="save" onClick={() => SaveOverView()}>저장하기</div>
                 </RegistOverview> : 
                 <NoOverview>
-                    <span>등록되어있는 소개글이 없습니다.</span>
-                    <div onClick={() => setRegist(true)}>소개글 작성하기</div>
+                        <span>등록되어있는 소개글이 없습니다.</span>
+                        {nickname == sessionStorage.getItem("nickname") ? <div onClick={() => setRegist(true)}>소개글 작성하기</div> : null}
                 </NoOverview>
             }
         </>

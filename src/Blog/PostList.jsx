@@ -8,16 +8,18 @@ import axios from "axios";
 
 function PostList(props){
 
-    const { nickname } = useParams()
+    const { nickname , categoryName } = useParams()
+    const { BlogTagName } = props
+    const sessionStorage = window.sessionStorage
 
     const navigate = useNavigate()
 
     const [posts , setPosts] = useState([])
     const [postTag , setPostTag] = useState([])
-
     const [inputValue , setInputValue] = useState("")
 
     useEffect((() => {
+        // 포스트리스트 받는 axio
         // axios.get("/api/post/list",{
         //     params:{
         //         nickname: nickname
@@ -30,6 +32,7 @@ function PostList(props){
         // .catch((error) => {
         //     console.log(error)
         // })
+        // 포스트리스트태그 받는 axio
         // axios.get("/api/post/list/tag",{
         //     params:{
         //         nickname: nickname
@@ -47,14 +50,41 @@ function PostList(props){
         setPosts(postInfo)
     }),[])
 
+    // categoryName에 해당하는 postInfo 받는 axios
+    // useEffect(() => {
+    //     axios.post("" , {
+    //         memId : sessionStorage.getItem("memId"),
+    //         categoryName : categoryName
+    //     })
+    //     .then((response) => {
+    //         setPosts(response.data)
+    //     })
+    // },[categoryName])
+
+    // BlogTagName에 해당하는 postInfo 받는 axios
+    // useEffect(() => {
+    //     axios.post("" , {
+    //         memId : sessionStorage.getItem("memId"),
+    //         tagName : BlogTagName
+    //     })
+    //     .then((response) => {
+    //         setPosts(response.data)
+    //     })
+    // },[BlogTagName])
+
+
     return(
         <>
         {posts ?
-            <BlogPostList >
+            <BlogPostList >{
+                categoryName !== undefined || BlogTagName !== "" ?
+                <div className="categorytitle">{categoryName !== undefined ? categoryName : BlogTagName}</div>
+                :
                 <div className="searchForm">
                     <input className="searchInput" type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
                     <img className="searchRight" src="/image/icon/icon_searchright.png" alt="검색버튼" />
                 </div>
+                }
                 <ul>
                     {posts.map((post, index) => {
                         if(inputValue != "") {
@@ -67,14 +97,14 @@ function PostList(props){
                         else {
                             return (
                                 <PostListItem key={index} postInfo={post} postTag={postTag.filter((item) => item.postIndex === post.postIndex)} />
-                                )
+                            )
                         }
                     })}
                 </ul>
             </BlogPostList> :
             <NoBlog>
                 <span>등록되어있는 포스트가 없습니다.</span>
-                <div onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>포스트 작성하기</div>
+                {nickname == sessionStorage.getItem("nickname") ? <div onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>포스트 작성하기</div> : null}
             </NoBlog>
         }</>
     )
@@ -84,6 +114,17 @@ const BlogPostList = styled.div`
 
     width: 100%;
     height: auto;
+
+    .categorytitle{
+        width: 80%;
+        height: 30px;
+        border-bottom: 1px solid var(--second);
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 40px auto 0;
+    }
 
     &> ul{
         margin: 0;

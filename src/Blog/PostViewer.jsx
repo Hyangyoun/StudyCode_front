@@ -7,25 +7,26 @@ import tagList from "../DummyData/tagList.json"
 import postFileList from "../DummyData/postFileList.json"
 import MDviewer from "../MarkDownEditer/MDviewer";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function PostViewer(props){
 
     const [changePosition , setChangePosition] = useState(false); //포시션 바꾸기위해 넣은 state
-
     const heartButton = useRef();  //하트버튼 참조용으로 만듦
+    const [ changeHeart , setChangeHeart] = useState(0); // 하트 색 변경
+    const [ warning , setWarning ] = useState(false)
 
     const [end , setEnd] = useState() // 댓글 위치 받음
 
-    const [ changeHeart , setChangeHeart] = useState(false); // 하트 색 변경
-
     const [postInfo , setPostInfo] = useState({}) //postinfo받는 state
-
     const [postTag , setPostTag] = useState([]) //postTag받는 state
-
     const [postFile , setPostFile] = useState([]) //postFile 받는 state
 
-    const { postIndex } =useParams()
+    const sessionStorage = window.sessionStorage;
+
+    const navigate = useNavigate()
+
+    const { postIndex , nickname } =useParams()
 
     useEffect(() => {
 
@@ -94,24 +95,57 @@ function PostViewer(props){
         const url = window.URL.createObjectURL(blob);
 
         pom.href = url;
-        pom.setAttribute('download', item.fileName + "성공");
+        pom.setAttribute('download', item.fileName);
         pom.click();
         pom.remove();
         }
 
-
     const [addFolder, setAddFolder] = useState(false) //파일보기위한 버튼
+
+    const ClickHeart = () => {
+        if(sessionStorage.getItem("nickname")){
+            if(!changeHeart){
+                setChangeHeart(changeHeart + 1)
+                axios.post("",{
+                    memId: sessionStorage ,
+                    postIndex: postIndex,
+                    recommend: changeHeart
+                })
+                .catch((error) => console.log(error))
+            }
+            else{
+                setChangeHeart(changeHeart - 1)
+                axios.post("",{
+                    memId: sessionStorage ,
+                    postIndex: postIndex,
+                    recommend: changeHeart
+                })
+                .catch((error) => console.log(error))
+            }}
+        else {
+            setWarning(!warning)
+        }
+    }
 
     return(
         <>
             <BlogHeader postInfo={postInfo}/>
             <ViewerStyle $addFolder={addFolder} $changePosition={changePosition} $end={end}>
                 <div  className="heart">
-                    <div className="like" ref={heartButton} onClick={() => {setChangeHeart(!changeHeart)}}>
-                        <img src={ changeHeart ? "/image/icon/bigheart2.png" : "/image/icon/bigheart1.png"} alt="좋아요"/>{postInfo.recommend}
+                    <div className="like" ref={heartButton} onClick={() => {ClickHeart()}}>
+                        <img src={ changeHeart == 1 ? "/image/icon/bigheart2.png" : "/image/icon/bigheart1.png"} alt="좋아요"/>{postInfo.recommend + changeHeart}
                     </div>
                 </div>
-                <div  className="post">
+                <div  className="post">{
+                    warning ? 
+                    <div className="Islogin">
+                        <span>로그인이 필요한 서비스입니다.</span>
+                        <span>로그인하시겠습니까?</span>
+                        <div><div onClick={() => window.location.reload()}>아니요</div><div onClick={() => {navigate("/login")}}>네</div></div>
+                    </div>
+                    :
+                    null
+                    }
                     <div className="title" >{postInfo.title}</div>
                     <div className="date">
                         <span >{postInfo.nickname}</span>
@@ -186,6 +220,39 @@ const ViewerStyle = styled.div`
         align-items:center;
         position: relative;
 
+        .Islogin{
+            position: fixed;
+            width: 300px;
+            height: 100px;  
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: var(--second2);
+            border: 1px solid var(--second);
+            border-radius: 5px;
+            font-size: 15px;
+            top: 30%;
+            & > div {
+                width: inherit;
+                display: flex;
+                justify-content: space-evenly;
+                flex-direction: row;
+                margin: 5px 0;
+                &> div{
+                    width: 60px;
+                    height: auto;
+                    border: 1px solid var(--second);
+                    border-radius: 5px;
+                    cursor: pointer;
+                    &:hover{
+                        background-color: var(--second);
+                        color: white;
+                    }
+                }
+            }
+        }
     }
     
     .title{

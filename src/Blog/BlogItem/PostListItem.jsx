@@ -6,7 +6,7 @@ function PostListItem({postInfo , postTag}) {
     const navigate = useNavigate()
     return(
         <Post  onClick={() => {navigate(`/blog/BlogViewer/${postInfo.postIndex}`)}}>
-            <img src="/image/icon/sample.png" alt="썸네일"/>
+            { postInfo.thumnail ? <img src={postInfo.thumnail} alt="썸네일"/> : null}
             <span className="title" >{postInfo.title}</span>
             <div className="content" >{postInfo.content}</div>
             {
@@ -34,34 +34,38 @@ const Post = styled.li`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    margin: 40px auto auto;
-    padding: 0 0 30px;
+    margin: 30px auto auto;
+    padding: 0px;
     background-color: var(--background);
     border-bottom:1px solid var(--second);
     cursor: pointer;
 
     & >img{
-        width: 700px; height: 370px;
+        width: auto;
+        height: auto;
+        max-width: 700px;
+        max-height: 370px;
         border-radius: 5px 5px 0 0;
         overflow: hidden;
+        margin-bottom: 20px;
         cursor: pointer;
     }
     .title {
         font-size: 20px;
         font-weight: bold;
-        margin-top: 20px;
+        margin-bottom: 20px;
         cursor: pointer;
     }
     .content {
         width: 100%;
         font-size: 15px;
-        margin-top: 20px;
+        margin-bottom: 20px;
         overflow:hidden;
         text-overflow: ellipsis;  	// ... 을 만들기 
         white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
     }
     .likeDiv{
-        margin-top: 20px;
+        margin-bottom: 20px;
         font-size: 12px;
     
         .like {
@@ -80,8 +84,8 @@ const Post = styled.li`
             justify-content: flex-start;
             align-items: center;
             flex-wrap: wrap;
-            margin-top: 15px;
             padding: 0;
+            margin-bottom: 20px;
             &>li {
                 display: block;               //block일때만 textoverflow 사용가능
                 width: 103px; height: 25px;

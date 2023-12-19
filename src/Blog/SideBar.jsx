@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+import BlogTagList from "../DummyData/blogTagList.json"
 
 /** 블로그 메인  */
 
@@ -8,11 +10,14 @@ function SideBar(props){
 
     const { nickname } = useParams()
 
-    const {category , followers} = props;
+    const {category , followers , profile , ClickTag} = props;
 
     const [menuIndex, setMenuIndex] = useState();
 
     const navigate = useNavigate();
+
+    const [tagList , setTagList] = useState([])
+    const [tag , setTag] = useState()
 
     const sessionStorage = window.sessionStorage
 
@@ -26,15 +31,42 @@ function SideBar(props){
         )
     },[category])
 
+    useEffect(() => {
+        // axios.get("api" , {
+        //     params:{
+        //         nickname:nickname
+        //     }
+        // })
+        // .then((response) => {
+        //     setTagList(response.data);
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
+        setTagList(BlogTagList)
+    })
+
+    const ChooseTag = (tagName,e) =>{
+        if(tag == e.target.value){
+            ClickTag('')
+            setTag()
+        }
+        else{
+            ClickTag(tagName)
+            setTag(e.target.value)
+        }
+        navigate(`/blog/${nickname}/postList`)
+    }
     return(
         <Sidebar $menuIndex={menuIndex}>
-            <img  className="profilePicture" src="/image/icon/profile.png" alt="프로필사진"/>
+            <img  className="profilePicture" src={profile ? profile : "/image/icon/profile.png"} alt="프로필사진"/>
             <div className="nickName">{nickname}</div>
             <div className="follows" >
                 <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로우{followers}</span>
                 <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로잉{followers}</span>
             </div>
-                <div className="write" onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>새 포스트</div>
+                {nickname == sessionStorage.getItem("nickname") ? 
+                <div className="write" onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>새 포스트</div>: null}
             <div className="cartegoryForm" >
                 <div onClick={() => navigate(`/blog/${nickname}/overView`)} className="overview">메인(overview)</div>
                 <div onClick={() => navigate(`/blog/${nickname}/postList`)} className="post">포스트(post)</div>
@@ -42,15 +74,17 @@ function SideBar(props){
                 <div onClick={() => navigate(`/blog/${nickname}/repository`)} className="repository">repository</div>
             </div>
             <div className="tagBox"> Tag
-                <ul>
-                    <li>JavaScript</li>
-                    <li>Spring</li>
-                    <li>React</li>
+                <ul>{
+                    tagList.map((item ,index) => {
+                        return <li value={index} className={tag == index ? "active" : null} onClick={(e) => {ChooseTag(item.tagName,e)}} key={index}>{item.tagName}</li>
+                    })
+                    }
                 </ul>
             </div >
             <div className="logo">
                 <img src="/image/icon/logo.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
-                <div onClick={() => navigate(`/blog/config`)}>블로그 설정</div>
+                { nickname == sessionStorage.getItem("nickname") ? 
+                <div onClick={() => navigate(`/blog/config`)}>블로그 설정</div> : null}
             </div>
         </Sidebar>
     )
@@ -75,7 +109,9 @@ const Sidebar = styled.div`
     z-index: 100;
 
     .profilePicture{
-        width: 150px; height: auto;
+        width: 150px;
+        height: auto;
+        border-radius: 50%;
         margin-top: 73px;
         cursor: pointer;
     }
@@ -148,6 +184,10 @@ const Sidebar = styled.div`
             > li {
                 display: flex;
                 cursor: pointer;
+            }
+            .active{
+                color: var(--primary);
+                text-decoration: underline;
             }
             > li:hover {
                 color: var(--primary);
