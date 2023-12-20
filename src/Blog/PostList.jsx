@@ -53,7 +53,7 @@ function PostList(props){
     // categoryName에 해당하는 postInfo 받는 axios
     // useEffect(() => {
     //     axios.post("" , {
-    //         memId : sessionStorage.getItem("memId"),
+    //         nickname: nickname,
     //         categoryName : categoryName
     //     })
     //     .then((response) => {
@@ -64,7 +64,7 @@ function PostList(props){
     // BlogTagName에 해당하는 postInfo 받는 axios
     // useEffect(() => {
     //     axios.post("" , {
-    //         memId : sessionStorage.getItem("memId"),
+    //         nickname: nickname,
     //         tagName : BlogTagName
     //     })
     //     .then((response) => {
@@ -75,7 +75,7 @@ function PostList(props){
 
     return(
         <>
-        {posts ?
+        {posts.length != 0 ?
             <BlogPostList >{
                 categoryName !== undefined || BlogTagName !== "" ?
                 <div className="categorytitle">{categoryName !== undefined ? categoryName : BlogTagName}</div>

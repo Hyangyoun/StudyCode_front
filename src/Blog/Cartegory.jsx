@@ -17,7 +17,7 @@ function Cartegory(props){
 
     /** 카테고리 추가버튼 */
     const [addCategory , setAddCategory] = useState([])
-    const [ categoryTitle , setCategoryTitle] = useState();
+    const [ categoryTitle , setCategoryTitle] = useState("");
     const [plusCategory , setPlusCategory] = useState(false);
 
     useEffect(() => {
@@ -27,15 +27,17 @@ function Cartegory(props){
     },[plusCategory])
 
     const ClickAddcategory = (event) => {
+        if(nickname == sessionStorage.getItem("nickname")){
             if(!categoryBox.current.contains(event.target)){
                 setPlusCategory(false)
+        }
         }
     }
 
     useEffect(() => {
         // categoryNameList 받는 axios
-        // axios.post("" , {
-        //     memId : sessionStorage.getItem("memId")
+        // axios.get("/api/post/category/test",{
+        //     nickname : nickname
         // })
         // .then((response) =>{
         //     setAddCategory(response.data)
@@ -53,15 +55,18 @@ function Cartegory(props){
 
     // 카테고리 추가시 보내는 axios
     const HandleAddCartegory = () =>{
-        // if(categoryTitle){
-        //     let categoryBox = addCategory
-        //     if(!categoryBox.includes(categoryTitle)){
-        //         categoryBox.push({ categoryName : categoryTitle })
-        //         setAddCategory([...categoryBox])     //기존배열을 지우고 새배열을 출력
-        //     }
-        //     setCategoryTitle('')
+        if(categoryTitle){
+            let categoryBox = addCategory
+            if(!categoryBox.includes(categoryTitle)){
+                categoryBox.push({
+                    categoryName : categoryTitle,
+                    thumbnailPath : []
+                })
+                setAddCategory([...categoryBox])     //기존배열을 지우고 새배열을 출력
+            }
+            setCategoryTitle('')
         //     axios.post("" , {
-        //         memId: sessionStorage.getItem("memId"),
+        //         memId : sessionStorage.getItem("memId"),
         //         categoryName : categoryTitle
         //     }).then((response) =>{
         //         setAddCategory(response.data)
@@ -69,49 +74,56 @@ function Cartegory(props){
         //     .catch((error) => console.log(error))
         // }
         return ;
-    }
+    }}
+    console.log(addCategory)
 
     return(
         <CartegoryList>
-                <Item $plusCategory={plusCategory}>{
-                    addCategory.map((item ,index) => {
-                        return(
-                        <li key={index} onClick={() => navigate(`/blog/${nickname}/category/${item.categoryName}`)}>
-                            <div className="itemBox">
-                                {item.thumnailPath ?
-                                <>
-                                    <img src={item.thumnailPath[0].thumnailPath} alt="썸네일"/>
-                                    <img src={item.thumnailPath[1] ? item.thumnailPath[1].thumnailPath : "/image/icon/non_image.png"} alt="썸네일"/>
-                                    <img src={item.thumnailPath[2] ? item.thumnailPath[2].thumnailPath : "/image/icon/non_image.png"} alt="썸네일"/>
-                                    <img src={item.thumnailPath[3] ? item.thumnailPath[3].thumnailPath : "/image/icon/non_image.png"} alt="썸네일"/>
-                                </>
-                                :
-                                <img src="/image/icon/logo.png" alt="썸네일."/>
-                                }
-                            </div>
-                            <div title={item.categoryName} className="title" >{item.categoryName}</div>
-                            <span className="postCount">{item.categoryPost ? item.categoryPost : 0}개의 포스트</span>
-                        </li>)
-                    }) 
-                }
-                    <li onClick={() => setPlusCategory(true)} ref={categoryBox} >
-                        {plusCategory ?
+            <Item $plusCategory={plusCategory}>{
+                addCategory.map((item ,index) => {
+                    return(
+                    <li key={index} onClick={() => navigate(`/blog/${nickname}/category/${item.categoryName}`)}>
+                        <div className="itemBox">
+                            {item.thumbnailPath.length > 0 ?
                             <>
-                                <div className="addCategory">
-                                    <input maxLength={20} type="text" placeholder="카테고리 이름" ref={focusInput} value={categoryTitle} onChange={(e) => setCategoryTitle(e.target.value)}/>
-                                    <div className="addButton" onClick={HandleAddCartegory} >만들기</div>
-                                </div>
-                                <span className="title" >카테고리 추가</span>
+                                <img src={item.thumbnailPath[0]} alt="썸네일"/>
+                                <img src={item.thumbnailPath[1] ? item.thumbnailPath[1] : "/image/icon/non_image.png"} alt="썸네일"/>
+                                <img src={item.thumbnailPath[2] ? item.thumbnailPath[2] : "/image/icon/non_image.png"} alt="썸네일"/>
+                                <img src={item.thumbnailPath[3] ? item.thumbnailPath[3] : "/image/icon/non_image.png"} alt="썸네일"/>
                             </>
-                        :
-                            <>
-                                <div className="addCategory">
-                                    <img className="" src="/image/icon/cartegory-icon.png" alt="카테고리 추가 이미지" />
-                                </div>
-                                <span className="title" >카테고리 추가</span>
-                            </>}
-                    </li>
-                </Item>
+                            :
+                            <img src="/image/icon/logo.png" alt="썸네일."/>
+                            }
+                        </div>
+                        <div title={item.categoryName} className="title" >{item.categoryName}</div>
+                        <span className="postCount">{item.categoryPost ? item.categoryPost : 0}개의 포스트</span>
+                    </li>)
+                })}
+                {nickname == sessionStorage.getItem("nickname") ?
+                <li onClick={() => setPlusCategory(true)} ref={categoryBox} >
+                    {plusCategory ?
+                        <>
+                            <div className="addCategory">
+                                <input maxLength={20} type="text" placeholder="카테고리 이름" ref={focusInput} value={categoryTitle} onChange={(e) => setCategoryTitle(e.target.value)}/>
+                                <div className="addButton" onClick={HandleAddCartegory} >만들기</div>
+                            </div>
+                            <span className="title" >카테고리 추가</span>
+                        </>
+                    :
+                        <>
+                            <div className="addCategory">
+                                <img className="" src="/image/icon/cartegory-icon.png" alt="카테고리 추가 이미지" />
+                            </div>
+                            <span className="title" >카테고리 추가</span>
+                        </>
+                    }
+                </li>
+                :
+                null}
+                {addCategory.length == 0 ? <span className="NoCategory">
+                    {nickname == sessionStorage.getItem("nickname") ? null: "카테고리가 없습니다" }
+                    </span> : null}
+            </Item>
         </CartegoryList>
     )
 }
@@ -206,6 +218,16 @@ const Item = styled.ul`
                 align-items: center;
                 cursor: pointer;
             }
+    }
+    .NoCategory{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 500px;
+        font-size: 20px;
+        color: var(--primary);
     }
 `
 export default Cartegory

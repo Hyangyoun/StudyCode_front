@@ -167,7 +167,7 @@ function PostViewer(props){
                     </div>
                     <MDviewer content={postInfo.content} width={"1000px"} />
                     
-                    <Review setEnd={setEnd}/>
+                    <Review setEnd={setEnd} setWarning={setWarning}/>
                 </div >
             </ViewerStyle >
         </>

@@ -1,9 +1,15 @@
+import axios from "axios"
 import { useEffect, useRef, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 
 function Review(props) {
 
+    const { setWarning } = props
     const amount = useRef()
+    const { nickname } = useParams()
+    const sessionStorage = window.sessionStorage
+    const navigate = useNavigate()
 
     /** 리뷰의 맨위위치를 알려주는 함수 */
     function ReviewTop(){
@@ -15,28 +21,39 @@ function Review(props) {
         () => {
         ReviewTop()
     })
+    /** 댓글 생성 삭제 state */
 
-    /** 대댓글 생성 삭제 state */
-    // textarea 에러 문제 해결해야함//
-    const [reReview, setReReview] = useState(<div></div>)
+    const [ reviewValue , setReviewValue ] = useState('')
+    const [ review , setReview ] = useState([])
 
-    const [inputValue , setInputValue] = useState('')
-    
-    const HandleInputValue = (e) => {
-        setInputValue(e.target.value)
+    const SubmitReview = () =>{
+        axios.post("" , )
     }
 
-    function AddReReview() {
-        return (
-            setReReview(
-            <div className="rereview">
-                <div className="reviewId">댜대기1</div>
-                <textarea placeholder="댓글을 입력하세요" onChange={HandleInputValue}>{inputValue}</textarea>
-                <div className="exportRereview">등록</div>
-                <span onClick={() => {setReReview(<div></div>)}} className="closeBtn">X</span>
-            </div>
-            )
-        )
+    /** 대댓글 생성 삭제 state */
+    const [ rereviewValue , setRereviewValue ] = useState('')
+    const [reReview, setReReview] = useState(false)
+
+    const ClickRereview = () =>{
+        if(sessionStorage.getItem("nickname")){
+            setReReview(true)
+        }
+        else{
+            setWarning(true)
+        }
+    }
+    
+    /** 신고하기 state */
+
+    const [ report , setReport ] = useState(false)
+
+    const ClickReport = () =>{
+        if(sessionStorage.getItem("nickname")){
+            setReport(true)
+        }
+        else{
+            setWarning(true)
+        }
     }
 
     return(
@@ -52,17 +69,30 @@ function Review(props) {
                         </div>
                         <div className="reviewInfo">
                             <span className="reviewDate">2023.09.13</span>
-                            <div className="rereviewBtn" onClick={AddReReview}>답글</div>
-                            <div className="warning"><img src="/image/icon/warning.png" alt="신고버튼"/></div>
+                            <div className="rereviewBtn" onClick={() => ClickRereview()} >답글</div>
+                            <div className="warning" onClick={() => ClickReport()}><img src="/image/icon/warning.png" alt="신고버튼"/></div>
                         </div>
                     </div>
-                    <div>{reReview}</div>
+                    {reReview ?
+                    <div className="rereview">
+                        <div className="reviewId">{sessionStorage.getItem('nickname')}</div>
+                        <textarea placeholder="댓글을 입력하세요" onChange={(e) => setRereviewValue(e.target.value)}>{rereviewValue}</textarea>
+                        <div className="exportRereview">등록</div>
+                        <span onClick={() => {setReReview(false)}} className="closeBtn">X</span>
+                    </div>
+                    : null
+                    }
                 </li>
             </ul>
-            <div className="writeReview">
-                <span className="guest">다대기1</span>
-                <textarea placeholder="댓글을 입력하세요"></textarea>
-                <div className="exportReview">등록</div>
+            <div className="writeReview">{
+                !sessionStorage.getItem('nickname') ?
+                <div className="NoReview" onClick={() => navigate("/login")}>로그인 하러가기</div>
+                :
+                <>
+                    <span className="guest">{sessionStorage.getItem('nickname')}</span>
+                    <textarea placeholder="댓글을 입력하세요" onChange={(e) => setReviewValue(e.target.value)}>{reviewValue}</textarea>
+                    <div className="exportReview" onClick={SubmitReview}>등록</div>
+                </>}
             </div>
         </Reviews>
     )
@@ -207,7 +237,25 @@ const Reviews = styled.div`
         height: 170px;
         flex-direction: column;
         display: flex;
+        justify-content: center;
+        align-items: center;
         margin: 35px auto;
+
+        .NoReview{
+        width: 150px; 
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--second);
+        border-radius: 5px;
+        font-size: 15px;
+        cursor: pointer;
+        &:hover {
+            background-color: var(--second);
+            color: white;
+        }
+        }
 
         &>textarea{
             margin:0 auto;

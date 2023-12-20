@@ -54,7 +54,7 @@ function BlogPage(props){
                 {
                     overView : <OverView overView={userinfo.overview} />,
                     postList : <PostList BlogTagName={BlogTagName}/>,
-                    category : <Cartegory/>,
+                    category : <Cartegory />,
                     repository : <Repository />,
                     followers : <Followers />,
                 }[category]
