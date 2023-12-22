@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import postInfo from "../DummyData/postList.json"
-import tagList from "../DummyData/tagList.json"
 import PostListItem from "./BlogItem/PostListItem";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -9,8 +8,9 @@ import axios from "axios";
 function PostList(props){
 
     const { nickname , categoryName } = useParams()
-    const { BlogTagName } = props
-    const sessionStorage = window.sessionStorage
+    const { BlogTagName , blogName } = props
+    // const sessionStorage = window.sessionStorage
+    const username = window.sessionStorage.getItem("nickname")
 
     const navigate = useNavigate()
 
@@ -32,21 +32,6 @@ function PostList(props){
         // .catch((error) => {
         //     console.log(error)
         // })
-        // 포스트리스트태그 받는 axio
-        // axios.get("/api/post/list/tag",{
-        //     params:{
-        //         nickname: nickname
-        //     }
-        // })
-        // .then((response) => {
-        //     setPostTag(response.data)
-        //     console.log(response.data)
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // })
-
-        setPostTag(tagList)
         setPosts(postInfo)
     }),[])
 
@@ -90,13 +75,13 @@ function PostList(props){
                         if(inputValue != "") {
                             if(post.title.replace(/\s+/g, "").includes(inputValue)) { // /\s+/g 빈칸 정규식
                                 return (
-                                    <PostListItem key={index} postInfo={post} postTag={postTag.filter((item) => item.postIndex === post.postIndex)}/>
+                                    <PostListItem key={index} postInfo={post} postTag={post.tagName}/>
                                 )
                             }
                         }
                         else {
                             return (
-                                <PostListItem key={index} postInfo={post} postTag={postTag.filter((item) => item.postIndex === post.postIndex)} />
+                                <PostListItem key={index} postInfo={post} postTag={post.tagName}/>
                             )
                         }
                     })}
@@ -104,7 +89,7 @@ function PostList(props){
             </BlogPostList> :
             <NoBlog>
                 <span>등록되어있는 포스트가 없습니다.</span>
-                {nickname == sessionStorage.getItem("nickname") ? <div onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>포스트 작성하기</div> : null}
+                {nickname == username ? <div onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>포스트 작성하기</div> : null}
             </NoBlog>
         }</>
     )

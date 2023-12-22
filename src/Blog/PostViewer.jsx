@@ -22,7 +22,8 @@ function PostViewer(props){
     const [postTag , setPostTag] = useState([]) //postTag받는 state
     const [postFile , setPostFile] = useState([]) //postFile 받는 state
 
-    const sessionStorage = window.sessionStorage;
+    // const sessionStorage = window.sessionStorage;
+    const username = window.sessionStorage.getItem("nickname")
 
     const navigate = useNavigate()
 
@@ -103,11 +104,11 @@ function PostViewer(props){
     const [addFolder, setAddFolder] = useState(false) //파일보기위한 버튼
 
     const ClickHeart = () => {
-        if(sessionStorage.getItem("nickname")){
+        if(username){
             if(!changeHeart){
                 setChangeHeart(changeHeart + 1)
                 axios.post("",{
-                    memId: sessionStorage ,
+                    memId: sessionStorage.getItem("memId") ,
                     postIndex: postIndex,
                     recommend: changeHeart
                 })
@@ -116,7 +117,7 @@ function PostViewer(props){
             else{
                 setChangeHeart(changeHeart - 1)
                 axios.post("",{
-                    memId: sessionStorage ,
+                    memId: sessionStorage.getItem("memId") ,
                     postIndex: postIndex,
                     recommend: changeHeart
                 })
@@ -129,7 +130,7 @@ function PostViewer(props){
 
     return(
         <>
-            <BlogHeader postInfo={postInfo}/>
+            <BlogHeader postInfo={postInfo} nickname={nickname}/>
             <ViewerStyle $addFolder={addFolder} $changePosition={changePosition} $end={end}>
                 <div  className="heart">
                     <div className="like" ref={heartButton} onClick={() => {ClickHeart()}}>
@@ -148,7 +149,7 @@ function PostViewer(props){
                     }
                     <div className="title" >{postInfo.title}</div>
                     <div className="date">
-                        <span >{postInfo.nickname}</span>
+                        <span >{nickname}</span>
                         <span>&#183;</span>
                         <span >{postInfo.postDate}</span>
                     </div>

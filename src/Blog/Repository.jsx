@@ -1,8 +1,19 @@
 import { useState, useRef, useEffect } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
+import axios from "axios"
+import repodata from "../DummyData/Repository.json"
+import repoFileList from "../DummyData/FileList.json"
 
 function Repository(props){
-    const [addFolder,setAddFolder] = useState(false) //폴더 추가 버튼
+    const { nickname , folderName } = useParams()
+    const username = window.sessionStorage.getItem("nickname")
+    const navigate = useNavigate()
+
+    const [ folderList , setFolderList ] = useState([]) // 폴더리스트
+    const [ fileList , setFileList ] = useState([])
+    const [ addFolder , setAddFolder ] = useState(false) //폴더 추가 버튼
+
     const folderNameInput = useRef();
     const addFolderBox = useRef();
 
@@ -19,6 +30,30 @@ function Repository(props){
     }
 
     useEffect(() => {
+        if(!folderName){
+            // axios.get("/api/blog/repository/folder" ,{
+            //     nickname: nickname
+            // })
+            // .then((response) => {
+            //     console.log(response.data)
+            //     setFolderList(response.data)
+            // })
+            // .catch((error) => {console.log(error)})
+            // const copy = [...repodata]
+            setFolderList(repodata)
+            console.log(folderList)
+        }
+        else{
+            // axios.get("/api/blog/repository/file" , {
+            //     nickname:nickname,
+            //     folderName:item
+            // })
+            // .then((response) => {
+            //     setFileList(response.data)
+            // })
+            // .catch((error) => console.log(error))
+            setFileList(repoFileList)
+        }
         document.addEventListener("mousedown", CloseBox)
         return (() => {
             document.removeEventListener("mousedown", CloseBox)
@@ -29,25 +64,36 @@ function Repository(props){
         <RepoList $addFolder={addFolder}>
             <ul className="repo">
                 <li className="repoFirst">
-                    <span className="nickName">{"js싫어요"} 의 저장소</span>
-                    <div className="folderform">
+                    <span className="nickName">{nickname} 의 저장소</span>
+                    <div className={username == nickname ? "folderform" : "disabled"}>
                         <div className="addBox" ref={addFolderBox}>
                             <input type="text" placeholder="폴더이름" ref={folderNameInput} />
                             <div className="addFolder">추가하기</div>
                         </div>
                         <div className="addFolderBtn" onClick={() => setAddFolder(true)}>폴더추가</div>
                     </div>
-                </li>
-                <li className="repoList">
-                    <span className="folderName">React</span>
-                </li>
-                <li className="repoList">
-                    <span className="fileName">test.jsx</span>
-                    <div className="download">
-                        <span className="postName"> 내 토요일 내놔</span>
-                        <img className="downloadImage" src="/image/icon/download.png" alt="다운로드 버튼"/>
-                    </div>
-                </li>
+                </li>{
+                    !folderName ?
+                    folderList.map((item , index) => {
+                        return (
+                            <li key={index} className="repoList">
+                                <span onClick={() => {navigate(`/blog/${nickname}/repository/${item}`)}} className="folderName">{item}</span>
+                            </li>        
+                        )
+                    })
+                    :
+                    fileList.map((item , index) => {
+                        return(
+                            <li key={index} className="repoList">
+                                <span className="fileName">{item.fileName}</span>
+                                <div className="download">
+                                    <span className="postName">{item.postTitle}</span>
+                                    <img className="downloadImage" src="/image/icon/download.png" alt="다운로드 버튼"/>
+                                </div>
+                            </li>
+                        )
+                    })
+                }
             </ul>
         </RepoList>
     )
@@ -86,6 +132,10 @@ const RepoList = styled.ul`
         align-items: center;
         border-radius: 5px 5px 0 0;
         background-color: var(--second2);
+    }
+
+    .disabled{
+        display: none;
     }
     
     .nickName{

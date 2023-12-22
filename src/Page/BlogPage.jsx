@@ -8,21 +8,30 @@ import PostList from "../Blog/PostList";
 import Cartegory from "../Blog/Cartegory";
 import Followers from "../Blog/Followers";
 import Repository from "../Blog/Repository";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 import BlogInfo from "../DummyData/BlogInfo.json";
 import axios from "axios";
+import BlogConfig from "../Blog/BlogConfig";
 
 function BlogPage(props){
 
     const [userinfo, setUserInfo] = useState({});
     const [BlogTagName , setBlogTagName] = useState("")
-    const { category, nickname , categoryName} = useParams();
+    const { category, nickname , categoryName , folderName} = useParams();
+    const navigate = useNavigate()
 
     const ClickTag = (tagName) =>{
         setBlogTagName(tagName)
     }
 
+    const StartUser = () =>{
+        navigate("/blog/config")
+    }
+
     useEffect(() => {
+        if(BlogInfo == ""){
+            StartUser()
+        }
         setUserInfo(BlogInfo)
         // axios.get("/api/blog/info",{
         //     params:{
@@ -39,29 +48,29 @@ function BlogPage(props){
     },[])
 
     return(
-        <BlogSection $skin={userinfo.skin}>
-            {
+            <BlogSection $skin={userinfo.skin}>
                 {
-                    1 : <>
-                        <SideBar category={category} followers={userinfo.followers} profile={userinfo.profile} ClickTag={ClickTag}/>
-                        <BlogSkin1 category={category} blogName={userinfo.name} />
-                        </>,
-                    2 : <BlogSkin2 category={category} blogName={userinfo.name} followers={userinfo.followers} profile={userinfo.profile} ClickTag={ClickTag}/>
-                    
-                }[userinfo.skin]
-            }
-            { categoryName == null || BlogTagName == null ?
-                {
-                    overView : <OverView overView={userinfo.overview} />,
-                    postList : <PostList BlogTagName={BlogTagName}/>,
-                    category : <Cartegory />,
-                    repository : <Repository />,
-                    followers : <Followers />,
-                }[category]
-                :
-                <PostList BlogTagName={BlogTagName}/>
-            }
-
+                    {
+                        1 : <>
+                            <SideBar category={category} followers={userinfo.followers} profile={userinfo.profile} ClickTag={ClickTag}/>
+                            <BlogSkin1 category={category} blogName={userinfo.name} />
+                            </>,
+                        2 : <BlogSkin2 category={category} blogName={userinfo.name} followers={userinfo.followers} profile={userinfo.profile} ClickTag={ClickTag}/>
+                        
+                    }[userinfo.skin]
+                }
+                { categoryName == null || BlogTagName == null ?
+                    {
+                        overView : <OverView overView={userinfo.overview} />,
+                        postList : <PostList BlogTagName={BlogTagName}/>,
+                        category : <Cartegory />,
+                        repository : <Repository />,
+                        followers : <Followers />,
+                    }[category]
+                    :
+                    <PostList BlogTagName={BlogTagName}/>
+                }
+                { folderName != undefined ? <Repository /> : null}
         </BlogSection>
     )
 }

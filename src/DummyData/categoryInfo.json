@@ -2,28 +2,15 @@
   {
     "categoryName": "리액트",
     "thumbnailPath": [
-      "1",
-      "5",
-      "6",
-      "7"
-    ]
+      "4"
+    ],
+    "postCount": 1
   },
   {
-    "categoryName": "스터디",
+    "categoryName": "코테",
     "thumbnailPath": [
-      "3"
-    ]
-  },
-  {
-    "categoryName": "자바",
-    "thumbnailPath": []
-  },
-  {
-    "categoryName": "테스트",
-    "thumbnailPath": []
-  },
-  {
-    "categoryName": "파이썬",
-    "thumbnailPath": []
+      "2"
+    ],
+    "postCount": 1
   }
 ]

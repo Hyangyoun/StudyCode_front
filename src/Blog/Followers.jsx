@@ -1,9 +1,13 @@
 import { useState } from "react"
+import { useParams } from "react-router-dom";
 import styled from "styled-components"
 
 function Followers(props){
 
     const [following , setFollowing] = useState(true); //팔로우 언팔로우 버튼
+
+    const { nickname } =useParams()
+    const username = window.sessionStorage.getItem("nickname")
 
     return(
         <RepoList>
@@ -15,7 +19,7 @@ function Followers(props){
                     <img className="profileImage" src="/image/icon/profile.png" alt="profileImage"/>
                     <span className="followerName">1010jk</span>
                 </div>
-                <div className="follwerBtn" onClick={() => setFollowing(!following)}>
+                <div className={nickname == username ?"follwerBtn" : "disabled"} onClick={() => setFollowing(!following)}>
                     {following  ? "unfollow" : "follow"}
                 </div>
             </li>
@@ -51,6 +55,10 @@ const RepoList = styled.ul`
         align-items: center;
         border: 1px solid var(--second);
         border-top: 0px;
+    }
+
+    .disabled{
+        display: none;
     }
 
     .follower{

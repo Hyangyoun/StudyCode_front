@@ -7,13 +7,19 @@ function BlogHeader(props){
 
     const navigate = useNavigate()
 
+    const sessionStorage = window.sessionStorage
+
     const { postInfo } =props
+
+    const { nickname } = useParams()
 
     return(
         <BlogHead>
-            {postInfo ?<div onClick={() => navigate(`/Blog/${postInfo.nickname}/postList`)}>{postInfo.blogName}</div>
+            {postInfo ?<div onClick={() => navigate(`/Blog/${nickname}/postList`)}>{postInfo.blogName}</div>
             :
-            <div><img src="/image/icon/logo.png" alt="STUDY_CODE"/></div>}
+            <div onClick={() => {
+                navigate(`/Blog/${sessionStorage.getItem("nickname") ? 
+                sessionStorage.getItem("nickname") : '/'}/overView`)}}><img src="/image/icon/logo.png" alt="STUDY_CODE"/></div>}
         </BlogHead>
     )
 }

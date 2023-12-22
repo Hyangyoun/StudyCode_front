@@ -9,6 +9,7 @@ function Review(props) {
     const amount = useRef()
     const { nickname } = useParams()
     const sessionStorage = window.sessionStorage
+    const username = window.sessionStorage.getItem("nickname")
     const navigate = useNavigate()
 
     /** 리뷰의 맨위위치를 알려주는 함수 */
@@ -35,7 +36,7 @@ function Review(props) {
     const [reReview, setReReview] = useState(false)
 
     const ClickRereview = () =>{
-        if(sessionStorage.getItem("nickname")){
+        if(username){
             setReReview(true)
         }
         else{
@@ -48,7 +49,7 @@ function Review(props) {
     const [ report , setReport ] = useState(false)
 
     const ClickReport = () =>{
-        if(sessionStorage.getItem("nickname")){
+        if(username){
             setReport(true)
         }
         else{
@@ -75,7 +76,7 @@ function Review(props) {
                     </div>
                     {reReview ?
                     <div className="rereview">
-                        <div className="reviewId">{sessionStorage.getItem('nickname')}</div>
+                        <div className="reviewId">{username}</div>
                         <textarea placeholder="댓글을 입력하세요" onChange={(e) => setRereviewValue(e.target.value)}>{rereviewValue}</textarea>
                         <div className="exportRereview">등록</div>
                         <span onClick={() => {setReReview(false)}} className="closeBtn">X</span>
@@ -85,11 +86,11 @@ function Review(props) {
                 </li>
             </ul>
             <div className="writeReview">{
-                !sessionStorage.getItem('nickname') ?
+                !username ?
                 <div className="NoReview" onClick={() => navigate("/login")}>로그인 하러가기</div>
                 :
                 <>
-                    <span className="guest">{sessionStorage.getItem('nickname')}</span>
+                    <span className="guest">{username}</span>
                     <textarea placeholder="댓글을 입력하세요" onChange={(e) => setReviewValue(e.target.value)}>{reviewValue}</textarea>
                     <div className="exportReview" onClick={SubmitReview}>등록</div>
                 </>}

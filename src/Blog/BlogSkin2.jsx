@@ -15,7 +15,8 @@ function BlogSkin2(props) {
     
     const navigate = useNavigate();
 
-    const sessionStorage = window.sessionStorage
+    // const sessionStorage = window.sessionStorage
+    const username = window.sessionStorage.getItem("nickname")
 
     const [side, setSide] = useState(false)
     const sideRef = useRef()
@@ -76,7 +77,7 @@ function BlogSkin2(props) {
         <>
             <SideBar $side={side} ref={sideRef}>
                 <img src={"/image/icon/logo.png"} alt="studycode" />
-                { nickname == sessionStorage.getItem("nickname") ?
+                { nickname == username ?
                 <span onClick={() => navigate("/blog/config")}>블로그 설정</span> : null}
                 <div className="profileBox">
                     <img src={profile ? profile : "/image/icon/profile.png"} alt="프로필사진" />
@@ -86,7 +87,7 @@ function BlogSkin2(props) {
                     <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로우{followers}</span>
                     <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로잉{followers}</span>
                 </div>
-                {nickname == sessionStorage.getItem("nickname") ? 
+                {nickname == username ? 
                 <div className="newPost" onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>새 포스트</div> : null}
                 <div className="listBox"> Tag
                     <ul>{

@@ -19,7 +19,11 @@ function SideBar(props){
     const [tagList , setTagList] = useState([])
     const [tag , setTag] = useState()
 
-    const sessionStorage = window.sessionStorage
+    // const sessionStorage = window.sessionStorage
+    const username = window.sessionStorage.getItem("nickname")
+
+    console.log(username)
+
 
     useEffect(() => {
         setMenuIndex({
@@ -65,7 +69,7 @@ function SideBar(props){
                 <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로우{followers}</span>
                 <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로잉{followers}</span>
             </div>
-                {nickname == sessionStorage.getItem("nickname") ? 
+                {nickname == username ? 
                 <div className="write" onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>새 포스트</div>: null}
             <div className="cartegoryForm" >
                 <div onClick={() => navigate(`/blog/${nickname}/overView`)} className="overview">메인(overview)</div>
@@ -83,7 +87,7 @@ function SideBar(props){
             </div >
             <div className="logo">
                 <img src="/image/icon/logo.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
-                { nickname == sessionStorage.getItem("nickname") ? 
+                { nickname == username ? 
                 <div onClick={() => navigate(`/blog/config`)}>블로그 설정</div> : null}
             </div>
         </Sidebar>

@@ -11,6 +11,7 @@ function Cartegory(props){
     const { nickname } = useParams();
 
     const sessionStorage = window.sessionStorage
+    const username = window.sessionStorage.getItem("nickname")
     /** 카테고리추가와 관련된 함수 */
     const categoryBox = useRef("");
     const focusInput = useRef();
@@ -27,7 +28,7 @@ function Cartegory(props){
     },[plusCategory])
 
     const ClickAddcategory = (event) => {
-        if(nickname == sessionStorage.getItem("nickname")){
+        if(nickname == username){
             if(!categoryBox.current.contains(event.target)){
                 setPlusCategory(false)
         }
@@ -36,7 +37,7 @@ function Cartegory(props){
 
     useEffect(() => {
         // categoryNameList 받는 axios
-        // axios.get("/api/post/category/test",{
+        // axios.get("/api/blog/category/info",{
         //     nickname : nickname
         // })
         // .then((response) =>{
@@ -96,10 +97,10 @@ function Cartegory(props){
                             }
                         </div>
                         <div title={item.categoryName} className="title" >{item.categoryName}</div>
-                        <span className="postCount">{item.categoryPost ? item.categoryPost : 0}개의 포스트</span>
+                        <span className="postCount">{item.postCount ? item.postCount : 0}개의 포스트</span>
                     </li>)
                 })}
-                {nickname == sessionStorage.getItem("nickname") ?
+                {nickname == username ?
                 <li onClick={() => setPlusCategory(true)} ref={categoryBox} >
                     {plusCategory ?
                         <>
@@ -121,7 +122,7 @@ function Cartegory(props){
                 :
                 null}
                 {addCategory.length == 0 ? <span className="NoCategory">
-                    {nickname == sessionStorage.getItem("nickname") ? null: "카테고리가 없습니다" }
+                    {nickname == username ? null: "카테고리가 없습니다" }
                     </span> : null}
             </Item>
         </CartegoryList>

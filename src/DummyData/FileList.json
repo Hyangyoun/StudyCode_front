@@ -1,23 +1,8 @@
 [
   {
-    "fileName": "index.css",
-    "folderName": "Css",
-    "memId": "thakd7092",
-    "postIndex": 3,
-    "filePath": "/"
-  },
-  {
-    "fileName": "test.css",
-    "folderName": "Css",
-    "memId": "thakd7092",
-    "postIndex": 3,
-    "filePath": "/"
-  },
-  {
-    "fileName": "test.jsx",
-    "folderName": "React",
-    "memId": "thakd7092",
+    "fileName": "Test.jsx",
     "postIndex": 1,
-    "filePath": "/"
+    "filePath": "/image/icon/logo.png",
+    "postTitle": "내 토요일 내놔"
   }
 ]

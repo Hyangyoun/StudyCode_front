@@ -1,20 +1,23 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import MDviewer from "../../MarkDownEditer/MDviewer";
 
-function PostListItem({postInfo , postTag}) {
+function PostListItem(props) {
+
+    const {postInfo , postTag } = props    
 
     const navigate = useNavigate()
     return(
-        <Post  onClick={() => {navigate(`/blog/BlogViewer/${postInfo.postIndex}`)}}>
-            { postInfo.thumnail ? <img src={postInfo.thumnail} alt="썸네일"/> : null}
+        <Post  onClick={() => {navigate(`/blog/Post/${postInfo.postIndex}`)}}>
+            { postInfo.thumbnailPath ? <img src={postInfo.thumbnailPath} alt="썸네일"/> : null}
             <span className="title" >{postInfo.title}</span>
             <div className="content" >{postInfo.content}</div>
             {
-                postTag.length != 0 ?
+                postTag.length > 0 ?
                 <ul className="tagUl">
                     {
                         postTag.map((item, index) => {
-                            return <li key={index}>{item.tagName}</li>
+                            return <li key={index}>{item}</li>
                         })
                     }
                 </ul> : null
@@ -58,8 +61,8 @@ const Post = styled.li`
     }
     .content {
         width: 100%;
-        font-size: 15px;
-        margin-bottom: 20px;
+        max-height: 100px;
+        margin-bottom: 5px;
         overflow:hidden;
         text-overflow: ellipsis;  	// ... 을 만들기 
         white-space: nowrap; 		// 아래줄로 내려가는 것을 막기위해
