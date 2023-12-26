@@ -1,51 +1,59 @@
 import React , {useState, useEffect, useRef} from "react";
-import styled from "styled-components"
+import styled from "styled-components";
 import axios from "axios";
 
 function PostConfig(props) {
     
     const UploadImage = useRef()
-
     const { setNextButton , SendWriteData } = props
-    const [ selectButton , setSelectButton ] = useState(true);    // 최종선택에서 공개 비공개 선택버튼
+
+    // 최종선택에서 공개 비공개 선택버튼
+    const [ selectButton , setSelectButton ] = useState(true);    
     const [ close, setClose ] = useState(false)
+
     //카테고리 state
     const [ openButton , setOpenButton ] = useState(false)
-    const [chooseCategory , setChooseCategory] = useState("")
-    const [categoryIndex , setCategoryIndex] = useState('')
-    const [Categorys , setCategorys] = useState(
-        [{categoryName : "코테"},
-        {categoryName : "프로젝트"}
-        ])  //최종선택에서 카테고리 선택버튼
-        const [ previewImage , setPreviewImage ] = useState('')
+    const [chooseCategory , setChooseCategory] = useState("") //선택한 카테고리가 앞에 표시됨.
+    const [categoryIndex , setCategoryIndex] = useState('')   //카테고리 인덱스를 받는state 번호에따라 css변화를 주기위한 state
+    const [Categorys , setCategorys] = useState([             //카테고리 데이터를 받는 state(원인불명으로 import에서 더미데이터를 못받고있음 , axios도 추가해야함)
+        {
+          "categoryName": "리액트",
+        },
+        {
+          "categoryName": "코테",
+        }
+      ])                  
+    const [ previewImage , setPreviewImage ] = useState('')
 
+    // 애니메이션 관련효과 useEffect
     useEffect(() => {
         let timer;
         if(close) {
             timer = setTimeout(() => setNextButton(), 500)
         }
-
         return () => clearTimeout(timer)
     },[close, setNextButton])
 
+    /** 카테고리 선택시 카테고리 이름과 카테고리 넘버 까지 같이 받는 함수 */
     const HandleChooseCategory = (categoryName , e) =>{
         setChooseCategory(categoryName)
         setCategoryIndex(e.target.value)
     }
+
     // 이미지추가
     const AddImage = (e) => {
         const newFile = e.target.files[0]
         if(newFile){
-        const reader = new FileReader();
-        reader.readAsDataURL(newFile);
+        const reader = new FileReader();      //이미지 미리보기를 구현하기 위해 FileReader API를 사용함 (FileReader는 웹 API) 
+        reader.readAsDataURL(newFile);        //readAsDataURL을 통해 파일을 URL로 만들 수 있음, 파일 정보를 주소처럼 사용 
         reader.onloadend = () => {
-            setPreviewImage(reader.result);
+            setPreviewImage(reader.result);   //그 파일을 띄움
         };
         }
     };
 
     return(
-        <LastPreview $selectButton={selectButton} $close={close} $chooseCategory={chooseCategory}>
+        <LastPreview $selectButton={selectButton} $close={close}>
             <img src="/image/icon/logo.png" alt="로고"/>
             <div className="addSection">
                 <div onClick={() => UploadImage.current.click()} className="imgSection">
@@ -57,39 +65,39 @@ function PostConfig(props) {
                 </div>
                 <div className="categorySection">{
                     openButton ?
-                        <div className="chooseCategory">카테고리 선택
-                            <ul>
-                                {Categorys.map((item ,index) => {
-                                    return(<li className={categoryIndex === index ? "active" : null} onClick={(e) => HandleChooseCategory(item.categoryName,e)} value={index} key={index}>
-                                        {item.categoryName}</li> )
-                                })
-                                }
-                            </ul>
-                            <div className="chooseButton">
-                                <div onClick={() => {setOpenButton(false);
-                                    setChooseCategory("")}}>
-                                    취소
-                                </div>
-                                <div onClick={() => setOpenButton(false)}>선택하기</div>
-                            </div> 
-                        </div>
-                        :
-                        <>
-                            <div className='addcartegory' onClick={() => setOpenButton(true)}>
-                                {chooseCategory ? chooseCategory : <><img src="/image/icon/addcategory.png" alt="카테고리추가"/>{"카테고리에 추가하기"}</>}
+                    <div className="chooseCategory">카테고리 선택
+                        <ul>
+                            {Categorys.map((item ,index) => {
+                                return(<li className={categoryIndex === index ? "active" : null} onClick={(e) => HandleChooseCategory(item.categoryName,e)} value={index} key={index}>
+                                    {item.categoryName}</li> )
+                            })
+                            }
+                        </ul>
+                        <div className="chooseButton">
+                            <div onClick={() => {setOpenButton(false);
+                                setChooseCategory("")}}>
+                                취소
                             </div>
-                            <div className="publicPrivate">
-                                <div onClick={() => setSelectButton(true)}>공개</div>
-                                <div onClick={() => setSelectButton(false)}>비공개</div>
-                            </div>
-                        </>
+                            <div onClick={() => setOpenButton(false)}>선택하기</div>
+                        </div> 
+                    </div>
+                    :
+                    <>
+                    <div className='addcartegory' onClick={() => setOpenButton(true)}>
+                        {chooseCategory ? chooseCategory : <><img src="/image/icon/addcategory.png" alt="카테고리추가"/>{"카테고리에 추가하기"}</>}
+                    </div>
+                    <div className="publicPrivate">
+                        <div onClick={() => setSelectButton(true)}>공개</div>
+                        <div onClick={() => setSelectButton(false)}>비공개</div>
+                    </div>
+                    </>
                 }</div>
             </div>
-        <div className="yesOrNoBtn">
-            <div onClick={() => setClose(true)}>다시 수정하기</div>
-            <div onClick={() => SendWriteData(previewImage,selectButton,chooseCategory)}>올리기</div>
-        </div>
-    </LastPreview>
+            <div className="yesOrNoBtn">
+                <div onClick={() => setClose(true)}>다시 수정하기</div>
+                <div onClick={() => SendWriteData(previewImage,selectButton,chooseCategory)}>올리기</div>
+            </div>
+        </LastPreview>
     )
 }
 
@@ -149,8 +157,6 @@ const LastPreview = styled.div`
                         overflow:hidden;
                         cursor:pointer;
                         &>img{
-                            /* max-width: 200px;
-                            max-height: 400px; */
                             margin-bottom: 15px;
                         }
                         &>span{

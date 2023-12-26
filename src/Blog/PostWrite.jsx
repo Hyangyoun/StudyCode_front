@@ -13,16 +13,14 @@ function PostWrite(props){
     //tag리스트 state
     const [tagList , setTagList] = useState([])
     const [tagName , setTagName] = useState('')
-
+    //글쓰기 관련 state
+    const [title, setTitle] = useState("")
     const [WriteValue, setWriteValue] = useState("");
     const [fileList, setFileList] = useState([]);
     const [folderList , setFolderList] = useState([]);
     const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
 
     const [preview, setPreview] = useState(false)
-    const [title, setTitle] = useState("")
-
-    // console.log(fileList)
 
     //TagInput Event
     const handleTagList = (e) => {
@@ -44,6 +42,7 @@ function PostWrite(props){
     }
 
     const sessionStorage = window.sessionStorage
+    /** 최종적으로 보내는 데이터 */
     const SendWriteData = (previewImage,selectButton,chooseCategory) => {
         // axios.post("/api/post/regist" , {
             // memId: sessionStorage.getItem("memId"),
@@ -81,15 +80,14 @@ function PostWrite(props){
         console.log(data)
     }
 
-    useEffect(() => {
-
-    })
-
+    /** 파일추가시 실행되는 함수  */
     const AddFile = (e) => {
         const newFile = e.target.files[0]
+        // 여기 if가 없으면 fileList의 map에서 오류가 발생하는거같음
         if(newFile){
             const copy = [...fileList]
             const fileName = newFile.name;
+            //파일추가시 같은 이름을 가진 파일이있는지 확인하는 if
             if(!copy.some(file => file.fileName === fileName)){
                 copy.push({
                     file: newFile,
@@ -101,16 +99,17 @@ function PostWrite(props){
             else alert("파일이 중복됩니다")
         }
     }
-
+    // 이곳에서 폴더리스트를 선택하는것 여기는 전체적으로 수정일 필요할수있음
     const ChooseFolder = (e) => {
         const {id, value} = e.target
         console.log(value)
+        // json으로 copy에 fileList와 같은 복사본을만들어서 거기에 파일네임과같은 인덱스를 찾아서 그값을 넣어주는것으로 만듦
         const copy = JSON.parse(JSON.stringify([...fileList]))
         const index = copy.findIndex((i) => i.fileName == id)
         copy[index].folderName = value
         setFolderList(copy)
     }
-
+    //선택한 파일을 지우는 함수
     const HandleFileList = (event) =>{
         let copy = fileList.filter((e) => e !== event)
         setFileList(copy)
@@ -134,26 +133,24 @@ function PostWrite(props){
                 <div className="importFile">
                     <div className="attachSection">
                         <div>파일첨부</div>
-                        <ul>
-                            {
-                                fileList.map((item, index) => {
-                                    return (
-                                        <li key={index}>
-                                            <span onClick={() =>HandleFileList(item)}>x</span>
-                                            {item.fileName}
-                                            <div>
-                                                <select id={item.fileName} onChange={(e) => ChooseFolder(e)}>
-                                                    <option value={"선택안함"}>선택안함</option>
-                                                    <option value={"JavaScript"}>JavaScript</option>
-                                                    <option value={"React"}>React</option>
-                                                    <option value={"Java"}>Java</option>
-                                                </select>
-                                            </div>
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
+                        <ul>{
+                            fileList.map((item, index) => {
+                                return (
+                                    <li key={index}>
+                                        <span onClick={() =>HandleFileList(item)}>x</span>
+                                        {item.fileName}
+                                        <div>
+                                            <select id={item.fileName} onChange={(e) => ChooseFolder(e)}>
+                                                <option value={"선택안함"}>선택안함</option>
+                                                <option value={"JavaScript"}>JavaScript</option>
+                                                <option value={"React"}>React</option>
+                                                <option value={"Java"}>Java</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                )
+                            })
+                        }</ul>
                         <span onClick={() => Upload.current.click()}>+</span>
                         <input onChange={AddFile} ref={Upload} type="file" style={{display: "none"}}/>
                     </div>

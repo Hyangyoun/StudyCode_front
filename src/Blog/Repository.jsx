@@ -28,7 +28,7 @@ function Repository(props){
             setAddFolder(false)
         }
     }
-
+//레포지토리 선택안함폴더 관련 기능구현,파일에서 뒤로가기기능구현,폴더추가기능구현 안함 23.12.26
     useEffect(() => {
         if(!folderName){
             // axios.get("/api/blog/repository/folder" ,{
@@ -39,14 +39,20 @@ function Repository(props){
             //     setFolderList(response.data)
             // })
             // .catch((error) => {console.log(error)})
-            // const copy = [...repodata]
             setFolderList(repodata)
-            console.log(folderList)
+            axios.get("/api/blog/repository/file" , {
+                nickname:nickname,
+                folderName: "선택안함"
+            })
+            .then((response) => {
+                setFileList(response.data)
+            })
+            .catch((error) => console.log(error))
         }
         else{
             // axios.get("/api/blog/repository/file" , {
             //     nickname:nickname,
-            //     folderName:item
+            //     folderName: folderName || "선택안함"
             // })
             // .then((response) => {
             //     setFileList(response.data)
@@ -59,7 +65,6 @@ function Repository(props){
             document.removeEventListener("mousedown", CloseBox)
         })
     },[])
-
     return(
         <RepoList $addFolder={addFolder}>
             <ul className="repo">
@@ -72,6 +77,7 @@ function Repository(props){
                         </div>
                         <div className="addFolderBtn" onClick={() => setAddFolder(true)}>폴더추가</div>
                     </div>
+                    
                 </li>{
                     !folderName ?
                     folderList.map((item , index) => {
@@ -94,6 +100,7 @@ function Repository(props){
                         )
                     })
                 }
+                {/* <li className="">{fileList.}</li> */}
             </ul>
         </RepoList>
     )
