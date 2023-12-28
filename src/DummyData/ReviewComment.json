@@ -1,0 +1,35 @@
+[
+  {
+    "commentIndex": 1,
+    "nickname": "kwoos",
+    "content": "가슴이 웅장해진다",
+    "commentDate": "2023-11-02",
+    "reply": [
+      {
+        "content": "뭐임?",
+        "nickname": "염향",
+        "commentDate": "2023-11-02"
+      }
+    ]
+  },
+  {
+    "commentIndex": 2,
+    "nickname": "염향",
+    "content": "영차!",
+    "commentDate": "2023-11-02",
+    "reply": [
+      {
+        "content": "좋아써!",
+        "nickname": "염향",
+        "commentDate": "2023-11-02"
+      }
+    ]
+  },
+  {
+    "commentIndex": 3,
+    "nickname": "kwoos",
+    "content": "실화냐",
+    "commentDate": "2023-11-02",
+    "reply": []
+  }
+]

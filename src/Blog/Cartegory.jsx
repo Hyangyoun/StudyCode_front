@@ -65,15 +65,15 @@ function Cartegory(props){
                 })
                 setAddCategory([...categoryBox])     //기존배열을 지우고 새배열을 출력
             }
-            setCategoryTitle('')
-        //     axios.post("" , {
-        //         memId : sessionStorage.getItem("memId"),
-        //         categoryName : categoryTitle
-        //     }).then((response) =>{
-        //         setAddCategory(response.data)
-        //     })
-        //     .catch((error) => console.log(error))
-        // }
+            //     axios.post("" , {
+                //         memId : sessionStorage.getItem("memId"),
+                //         categoryName : categoryTitle
+                //     }).then((response) =>{
+                    //         setAddCategory(response.data)
+                    //     })
+                    //     .catch((error) => console.log(error))
+                // }
+                    setCategoryTitle('')
         return ;
     }}
     console.log(addCategory)

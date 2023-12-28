@@ -1,10 +1,10 @@
-import styled from "styled-components"
-import Review from "./BlogItem/Review"
-import { useEffect, useRef, useState } from "react"
+import styled from "styled-components";
+import Review from "./BlogItem/Review";
+import { useEffect, useRef, useState } from "react";
 import BlogHeader from "../Main/BlogHeader";
-import postData from "../DummyData/postInfo.json"
-import tagList from "../DummyData/tagList.json"
-import postFileList from "../DummyData/postFileList.json"
+import postData from "../DummyData/postInfo.json";
+import tagList from "../DummyData/tagList.json";
+import postFileList from "../DummyData/postFileList.json";
 import MDviewer from "../MarkDownEditer/MDviewer";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,7 +34,7 @@ function PostViewer(props){
         /** postdata 받아오는 axios */
         // axios.get("/api/post/info",{
         //     params:{
-        //         postIndex : postIndex
+        //         postIndex : Number(postIndex)
         //     }
         // })
         // .then((response) => {
@@ -45,7 +45,7 @@ function PostViewer(props){
         /** tag 받아오는 axios */
         // axios.get("/api/post/info/tag", {
         //     params:{
-        //         postIndex : postIndex
+        //         postIndex : Number(postIndex)
         //     }
         // })
         // .then((response) => {
@@ -57,7 +57,7 @@ function PostViewer(props){
         /** file 받아오는 axios */
         // axios.post("/api/blog/get/post/file" , null ,{
         //     params:{
-        //         postIndex : postIndex
+        //         postIndex : Number(postIndex)
         //     }
         // })
         // .then((response) => {
@@ -92,7 +92,7 @@ function PostViewer(props){
     function HandleDownLoad(item){
         const data = `${item.filePath}`
         const pom = document.createElement('a');
-        const blob = new Blob(["\ufeff"+data], {type: 'text/csv;charset=utf-8;'});
+        const blob = new Blob(["\ufeff"+data]);
         const url = window.URL.createObjectURL(blob);
 
         pom.href = url;
@@ -109,7 +109,7 @@ function PostViewer(props){
                 setChangeHeart(changeHeart + 1)
                 axios.post("",{
                     memId: sessionStorage.getItem("memId") ,
-                    postIndex: postIndex,
+                    postIndex: Number(postIndex),
                     recommend: changeHeart
                 })
                 .catch((error) => console.log(error))
@@ -118,7 +118,7 @@ function PostViewer(props){
                 setChangeHeart(changeHeart - 1)
                 axios.post("",{
                     memId: sessionStorage.getItem("memId") ,
-                    postIndex: postIndex,
+                    postIndex: Number(postIndex),
                     recommend: changeHeart
                 })
                 .catch((error) => console.log(error))

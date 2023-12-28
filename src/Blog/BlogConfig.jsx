@@ -3,8 +3,10 @@ import styled from "styled-components";
 import BlogHeader from "../Main/BlogHeader";
 import tagList from "../DummyData/tagList.json"
 import UserBlogConfig from "../DummyData/BlogConfig.json"
+import categoryInfo from "../DummyData/categoryInfo.json"
 import axios from "axios";
 import Editer, { buttonType } from "../MarkDownEditer/Editer";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 function BlogConfig(props) {
 
@@ -14,11 +16,14 @@ function BlogConfig(props) {
     //카테고리 선택 state
     const [categoryButton , setCategoryButton] = useState(false)
     const [categoryNameInput , setCategoryNameInput] = useState('');
-    const [selectCategory , setSelectCategory] = useState(-1);
+    const [selectCategory , setSelectCategory] = useState(-1);      //카테고리선택시 색깔바뀌는 state
+    const [categoryList , setCategoryList] = useState([]);          //카테고리 받는 state
+    const [chooseCategory , setChooseCategory] = useState("")       //카테고리 선택 state
     //오버뷰 state
     const [ overViewValue , setOverViewValue] = useState("");
 
     const focusName = useRef();
+    const navigate = useNavigate()
 
     const sessionStorage = window.sessionStorage
 
@@ -39,34 +44,46 @@ function BlogConfig(props) {
         // tagList.map((item) => {
         //     return test.push(item.tagName)
         // })
-        // setUserInfo(test)
-            setBlogNameInput(UserBlogConfig.name)
-            setSelectSkin(Number(UserBlogConfig.skin))
-            setOverViewValue(UserBlogConfig.overview)
+        // setCategoryList(test)
+        setBlogNameInput(UserBlogConfig.name)
+        setSelectSkin(Number(UserBlogConfig.skin))
+        setOverViewValue(UserBlogConfig.overview)
+        setCategoryList(categoryInfo)
     } , [])
 
-    // 카테고리 추가 버튼
+    // 카테고리 추가 버튼(+)
     const HandleAddButton = () => {
         setCategoryButton(!categoryButton);
-        setCategoryNameInput('');
         setSelectCategory(-1);
     }
 
-    // const HandleAddCategory = () => {
-    //     if(categoryNameInput){
-    //             if(!userInfo.includes(categoryNameInput)){
-    //                 userInfo.push(categoryNameInput)
-    //                 setUserInfo([...userInfo])     
-    //             }
-    //     setCategoryNameInput('')
-    //     }
-    //     return ;
-    // }
+    /**카테고리 선택 버튼 */
+    const SelectCategory = (index , categoryName) => {
+        setSelectCategory(index)
+        setChooseCategory(categoryName)
+    }
 
-    // const RemoveCategory = (event) => {
-    //     let copy = userInfo;
-    //     setUserInfo( copy.filter((e) => e != event) )
-    // }
+    /**카테고리 추가 함수 */
+    const HandleAddCategory = () => {
+        if(categoryNameInput){
+            if(!categoryList.includes(categoryNameInput)){
+                const copy = [...categoryList]
+                copy.push({
+                    "categoryName": categoryNameInput,
+                    "thumbnailPath": [],
+                    "postCount": 0
+                })
+                setCategoryList([...copy])     
+            }
+        setCategoryNameInput('')
+        }
+        return ;
+    }
+    /**카테고리 삭제 함수 */
+    const RemoveCategory = (event) => {
+        let copy = categoryList;
+        setCategoryList( copy.filter((e) => e != event) )
+    }
 
         /**데이터 보내는 양식 */
     const HandleSaved = () =>{
@@ -75,7 +92,8 @@ function BlogConfig(props) {
         //         "memId": sessionStorage.getItem("memId"),
         //         "name": blogNameInput,
         //         "skin": selectSkin,
-        //         "overview": encodeURIComponent(overViewValue)
+        //         "overview": encodeURIComponent(overViewValue),
+        //         "categoryName":
         //     })
         //     .then((response) => {
         //         console.log(response.data)
@@ -86,8 +104,10 @@ function BlogConfig(props) {
             const data = {
                 "name": blogNameInput,
                 "skin": selectSkin,
-                "overview": overViewValue
+                "overview": overViewValue,
+                "categoryName": chooseCategory
             }
+            // navigate(`/blog/${sessionStorage.getItem("nickname")}/overView`)
             console.log(data)
         }
         else{
@@ -129,19 +149,19 @@ function BlogConfig(props) {
                             <div className="partName">카테고리 설정</div>
                             <div className="categoryPosition">
                                 <ul className="category">
-                                {/* {userInfo.map((item , index) => {
+                                {categoryList.map((item , index) => {
                                     return (
-                                    <li onClick={() => {setSelectCategory(index)}} key={index}>
-                                        <span>{item}</span><div onClick={() => RemoveCategory(item)}>x</div>
+                                    <li onClick={() => {SelectCategory(index , item.categoryName)}} key={index}>
+                                        <span>{item.categoryName}</span><div onClick={() => RemoveCategory(item)}>x</div>
                                     </li>)
                                 })
-                                } */}
+                                }
                                     <li className="addButton" onClick={HandleAddButton}>+</li>
                                 </ul>
                             {categoryButton ? 
                                 <div className="AddCategory">
                                 <input value={categoryNameInput} onChange={(e) => setCategoryNameInput(e.target.value)} maxLength={20} type="text" placeholder="카테고리 명" />
-                                {/* <div onClick={HandleAddCategory}>추가하기</div> */}
+                                <div onClick={HandleAddCategory}>추가하기</div>
                             </div>
                             :
                             null}
