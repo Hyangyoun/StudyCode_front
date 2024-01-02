@@ -8,14 +8,13 @@ import axios from "axios";
 function PostList(props){
 
     const { nickname , categoryName } = useParams()
-    const { BlogTagName , blogName } = props
+    const { BlogTagName } = props
     // const sessionStorage = window.sessionStorage
     const username = window.sessionStorage.getItem("nickname")
-
     const navigate = useNavigate()
 
+        /** post와 관련된 state */
     const [posts , setPosts] = useState([])
-    const [postTag , setPostTag] = useState([])
     const [inputValue , setInputValue] = useState("")
 
     useEffect((() => {
@@ -57,10 +56,9 @@ function PostList(props){
     //     })
     // },[BlogTagName])
 
-
     return(
         <>
-        {posts.length != 0 ?
+        {posts ?
             <BlogPostList >{
                 categoryName !== undefined || BlogTagName !== "" ?
                 <div className="categorytitle">{categoryName !== undefined ? categoryName : BlogTagName}</div>

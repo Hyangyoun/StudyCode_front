@@ -23,10 +23,14 @@ function Review(props) {
     /** 대댓글 생성 삭제 state */
     const [ rereviewValue , setRereviewValue ] = useState('')
     const [rereviewButton , setRereviewButton] = useState(false)
-    const [rereviewIndex , setRereviewIndex] = useState(0)
+    const [rereviewIndex , setRereviewIndex] = useState(null)
 
     /** 신고하기 state */
     const [ report , setReport ] = useState(false)
+    const [ reportComment , setReportComment ] = useState("")
+    const [ reportInput , setReportInput ] = useState("")
+    const [ reportReason , setReportReason ] = useState("A")
+    const [replyIndex , setreplyIndex ] = useState(null)
 
     /** 리뷰의 맨위위치를 알려주는 함수 */
     function ReviewTop(){
@@ -127,25 +131,63 @@ function Review(props) {
 
     /** 답글 버튼 클릭시 회원인지 확인하는함수 나오는 함수 */
     const ClickRereview = (i) =>{
-        if(!username){
-            setWarning(true)
+        if(username){
+            setRereviewIndex(i)
         }
-        setRereviewIndex(i)
+        else(
+            setWarning(true)
+        )
     }
     
     /** 신고버튼 누를때 나오는 함수 */
-    const ClickReport = () =>{
+    const ClickReport = (item , index) =>{
         if(username){
+            setReportComment(item)
+            setreplyIndex(index)
             setReport(true)
         }
         else{
             setWarning(true)
         }
     }
+    /** 신고 접수하는 함수 */
+    const ReportComments = () =>{
+        const data = {
+            postIndex : postIndex,
+            reportIndex : rereviewIndex,
+            replyIndex : replyIndex,
+            reportReason : reportReason,
+            reportComment : reportComment.content,
+            reportInput : reportInput
+        }
+        console.log(data)
+        setReportInput("")
+    }
 
     return(
         <Reviews >
             <div ref={amount} className="reviewHead">댓글</div>
+            {report ? 
+            <div className="IsReport">
+                <div>신고하기</div>
+                    <ul value={reportReason} onChange={(v) => setReportReason(v.target.value)}>
+                        <li><label htmlFor="reasonA">불법정보<input type="radio" name="reason" value="A" id="reasonA" checked/></label></li>
+                        <li><label htmlFor="reasonB">욕설/인신공격<input type="radio" name="reason" value="B" id="reasonB"/></label></li>
+                        <li><label htmlFor="reasonC">음란성/선정성<input type="radio" name="reason" value="C" id="reasonC"/></label></li>
+                        <li><label htmlFor="reasonD">개인정보노출<input type="radio" name="reason" value="D" id="reasonD"/></label></li>
+                        <li><label htmlFor="reasonE">글 도배<input type="radio" name="reason" value="E" id="reasonE"/></label></li>
+                        <li><label htmlFor="reasonF">기타<input type="radio" name="reason" value="F" id="reasonF"/></label></li>
+                    </ul>
+                    신고하실 내용을 간단하게 적어주세요
+                    <span>{reportComment.nickname + ":" + reportComment.content}</span>
+                    <textarea placeholder="신고 대신 답글을 적어 보시는 것은 어떨까요?" value={reportInput} onChange={(e) => setReportInput(e.target.value)}/>
+                    <div className="reportBtn">
+                        <div onClick={() => {setReport(false)}}>한번 더 생각해보기</div>
+                        <div onClick={() => {ReportComments()}}>신고하기</div>
+                    </div>
+            </div>
+            :
+            null}
             <ul>
                 <li ref={reviewForm} className="reviews">
                     {comments.map((item , index) => {
@@ -158,7 +200,8 @@ function Review(props) {
                         <div className="reviewInfo">
                             <span className="reviewDate">{item.commentDate}</span>
                             <div className="rereviewBtn" onClick={() => ClickRereview(item.commentIndex)} >답글</div>
-                            <div className="warning" onClick={() => ClickReport()}><img src="/image/icon/warning.png" alt="신고버튼"/></div>
+                            <div className="warning" onClick={() => ClickReport(item)}><img src="/image/icon/warning.png" alt="신고버튼"/></div>
+                            {/* 댓글작성자가 자신댓글을 지울수있는 버튼 <span onClick={() => } className="deleteBtn">X</span> */}
                         </div>
                         {/** 커멘트인덱스와 리뷰 인덱스가 같다면 답글을 보여줌 */}
                         {item.commentIndex == rereviewIndex ?
@@ -172,7 +215,7 @@ function Review(props) {
                                 </div>
                                 <div className="reviewInfo">
                                     <span className="reviewDate">{item.commentDate}</span>
-                                    <div className="warning" onClick={() => ClickReport()}><img src="/image/icon/warning.png" alt="신고버튼"/></div>
+                                    <div className="warning" onClick={() => ClickReport(item , index)}><img src="/image/icon/warning.png" alt="신고버튼"/></div>
                                 </div>
                             </div>
                             )
@@ -221,7 +264,7 @@ const Reviews = styled.div`
         padding: 0;
         margin:0;
     }
-    //안보이는 css
+    
     .disabled{
         display: none;
     }
@@ -231,6 +274,83 @@ const Reviews = styled.div`
         font-size: 20px;
         font-weight: bold;
         border-bottom: 1px solid var(--second);
+    }
+    .IsReport{
+        position: fixed;
+        width: 500px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 100;
+        background-color: var(--second2);
+        border: 1px solid var(--second);
+        border-radius: 5px;
+        font-size: 15px;
+        font-size: 16px;
+        left: 35%;
+        top: 25%;
+        & > div:nth-child(1){
+            width: 90%;
+            height: 30px;
+            border-bottom: 1px solid var(--second);
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 18px !important;
+        }
+        & > span{
+            font-size: 12px !important;
+            max-width: 90%;
+            max-height: 20px;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        & > ul{
+            list-style: none;
+            width: 90%;
+            height: 70px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--background);
+            border-radius:5px;
+            margin: 10px;
+            padding: 0;
+        }
+        & > textarea{
+            width: 90%;
+            height: 60px;
+            margin: 10px;
+            outline: none;
+            resize: none;
+        }
+        .reportBtn{
+            width: 90%;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            margin: 10px;
+            & > div{
+                width: 150px;
+                height: auto;
+                border: 1px solid var(--second);
+                border-radius: 5px;
+                text-align: center;
+                cursor: pointer;
+                    &:hover{
+                        background-color: var(--second);
+                        color: white;
+                    }
+
+            }
+        }
     }
     .reviews{
         padding-left: 80px;
@@ -291,6 +411,19 @@ const Reviews = styled.div`
     .warning{
         margin: 0 0 0 20px;
         cursor: pointer;
+    }
+    .deleteBtn{
+        width: 16px;
+        height: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid var(--second);
+        margin-left: 20px;
+        &:hover{
+            background-color: var(--primary);
+            color: white;
+        }
     }
 
     //대댓글 작성칸///////////////////////////////////////////////////

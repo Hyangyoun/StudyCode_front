@@ -10,24 +10,23 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 function PostViewer(props){
+    // const sessionStorage = window.sessionStorage;
+    const username = window.sessionStorage.getItem("nickname")
+    const navigate = useNavigate()
+    const { postIndex , nickname } =useParams()
 
-    const [changePosition , setChangePosition] = useState(false); //포시션 바꾸기위해 넣은 state
-    const heartButton = useRef();  //하트버튼 참조용으로 만듦
+    /** 하트와 관련된 state */
+    const heartButton = useRef();
+    const [changePosition , setChangePosition] = useState(false);
     const [ changeHeart , setChangeHeart] = useState(0); // 하트 색 변경
     const [ warning , setWarning ] = useState(false)
 
     const [end , setEnd] = useState() // 댓글 위치 받음
-
+    /** postInfo관련 관련된 state */
     const [postInfo , setPostInfo] = useState({}) //postinfo받는 state
     const [postTag , setPostTag] = useState([]) //postTag받는 state
     const [postFile , setPostFile] = useState([]) //postFile 받는 state
 
-    // const sessionStorage = window.sessionStorage;
-    const username = window.sessionStorage.getItem("nickname")
-
-    const navigate = useNavigate()
-
-    const { postIndex , nickname } =useParams()
 
     useEffect(() => {
 
@@ -94,7 +93,6 @@ function PostViewer(props){
         const pom = document.createElement('a');
         const blob = new Blob(["\ufeff"+data]);
         const url = window.URL.createObjectURL(blob);
-
         pom.href = url;
         pom.setAttribute('download', item.fileName);
         pom.click();
