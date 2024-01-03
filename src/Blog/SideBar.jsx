@@ -9,21 +9,15 @@ import BlogTagList from "../DummyData/blogTagList.json"
 function SideBar(props){
 
     const { nickname } = useParams()
-
-    const {category , followers , profile , ClickTag} = props;
-
-    const [menuIndex, setMenuIndex] = useState();
-
+    const {category , userinfo , ClickTag} = props;
     const navigate = useNavigate();
-
-    const [tagList , setTagList] = useState([])
-    const [tag , setTag] = useState()
-
     // const sessionStorage = window.sessionStorage
     const username = window.sessionStorage.getItem("nickname")
 
-    console.log(username)
-
+    const [menuIndex, setMenuIndex] = useState();
+    /** 태그와 관련된 state */
+    const [tagList , setTagList] = useState([])
+    const [tag , setTag] = useState()
 
     useEffect(() => {
         setMenuIndex({
@@ -63,11 +57,11 @@ function SideBar(props){
     }
     return(
         <Sidebar $menuIndex={menuIndex}>
-            <img  className="profilePicture" src={profile ? profile : "/image/icon/profile.png"} alt="프로필사진"/>
+            <img  className="profilePicture" src={userinfo.profile ? userinfo.profile : "/image/icon/profile.png"} alt="프로필사진"/>
             <div className="nickName">{nickname}</div>
             <div className="follows" >
-                <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로우{followers}</span>
-                <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로잉{followers}</span>
+                <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로우{userinfo.followers}</span>
+                <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로잉{userinfo.followers}</span>
             </div>
                 {nickname == username ? 
                 <div className="write" onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>새 포스트</div>: null}

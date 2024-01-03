@@ -15,15 +15,18 @@ import BlogConfig from "../Blog/BlogConfig";
 
 function BlogPage(props){
 
+    const navigate = useNavigate()
+    const { category, nickname , categoryName , folderName} = useParams();
+
     const [userinfo, setUserInfo] = useState({});
     const [BlogTagName , setBlogTagName] = useState("")
-    const { category, nickname , categoryName , folderName} = useParams();
-    const navigate = useNavigate()
 
+    /** 태그를 클릭시 실행되는 함수 */
     const ClickTag = (tagName) =>{
         setBlogTagName(tagName)
     }
 
+    /** 회원가입하고 처음 블로그에 들어갈때 자동으로 연결됨 */
     const StartUser = () =>{
         navigate("/blog/config")
     }
@@ -52,10 +55,10 @@ function BlogPage(props){
                 {
                     {
                         1 : <>
-                            <SideBar category={category} followers={userinfo.followers} profile={userinfo.profile} ClickTag={ClickTag}/>
+                            <SideBar category={category} userinfo={userinfo} ClickTag={ClickTag}/>
                             <BlogSkin1 category={category} blogName={userinfo.name} />
                             </>,
-                        2 : <BlogSkin2 category={category} blogName={userinfo.name} followers={userinfo.followers} profile={userinfo.profile} ClickTag={ClickTag}/>
+                        2 : <BlogSkin2 category={category} userinfo={userinfo} ClickTag={ClickTag}/>
                         
                     }[userinfo.skin]
                 }

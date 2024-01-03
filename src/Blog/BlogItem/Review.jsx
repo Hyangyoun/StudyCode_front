@@ -8,7 +8,6 @@ function Review(props) {
 
     const { setWarning } = props
     const amount = useRef()
-    const reviewForm = useRef()
     const { nickname , postIndex } = useParams()
     const navigate = useNavigate()
     let date = new Date();
@@ -42,13 +41,6 @@ function Review(props) {
         () => {
         ReviewTop()
     })
-    /** 댓글 닫아주는 함수 */
-    const CloseRereview =(e) => {
-        if(!reviewForm.current.contains(e.target)){
-            setRereviewIndex(0)
-        }
-    }
-
     // 댓글info 받는 state
     useEffect(() => {
         // axios.post("/api/post/comment",{
@@ -59,9 +51,6 @@ function Review(props) {
         // })
         // .catch((error) => { console.log(error)})
         setComments(reviewComment)
-        document.addEventListener("mousedown" , CloseRereview)
-        return (() => 
-            document.removeEventListener("mousedown" , CloseRereview))
     },[])
 
     /** 댓글 작성 함수 */
@@ -128,21 +117,12 @@ function Review(props) {
         }
         console.log(data)
     }
-
-    /** 답글 버튼 클릭시 회원인지 확인하는함수 나오는 함수 */
-    const ClickRereview = (i) =>{
-        if(username){
-            setRereviewIndex(i)
-        }
-        else(
-            setWarning(true)
-        )
-    }
     
     /** 신고버튼 누를때 나오는 함수 */
-    const ClickReport = (item , index) =>{
+    const ClickReport = (item , commentIndex , index) =>{
         if(username){
             setReportComment(item)
+            setRereviewIndex(commentIndex)
             setreplyIndex(index)
             setReport(true)
         }
@@ -150,18 +130,24 @@ function Review(props) {
             setWarning(true)
         }
     }
+
     /** 신고 접수하는 함수 */
     const ReportComments = () =>{
-        const data = {
-            postIndex : postIndex,
-            reportIndex : rereviewIndex,
-            replyIndex : replyIndex,
-            reportReason : reportReason,
-            reportComment : reportComment.content,
-            reportInput : reportInput
+        if(reportInput != ""){
+            const data = {
+                postIndex : postIndex,
+                reportIndex : rereviewIndex,
+                replyIndex : (replyIndex == undefined ? null : replyIndex) ,
+                reportReason : reportReason,
+                reportComment : reportComment.content,
+                reportInput : reportInput
+            }
+            console.log(data)
         }
-        console.log(data)
-        setReportInput("")
+        else(
+            alert("신고내용을 적어주세요")
+            )
+            setReportInput("")
     }
 
     return(
@@ -189,20 +175,19 @@ function Review(props) {
             :
             null}
             <ul>
-                <li ref={reviewForm} className="reviews">
+                <li className="reviews">
                     {comments.map((item , index) => {
-                    return (
-                    <div key={index} >
-                        <div className="reviewId">{item.nickname}</div>
-                        <div className="content">
-                            <div>{item.content}</div>
-                        </div>
-                        <div className="reviewInfo">
-                            <span className="reviewDate">{item.commentDate}</span>
-                            <div className="rereviewBtn" onClick={() => ClickRereview(item.commentIndex)} >답글</div>
-                            <div className="warning" onClick={() => ClickReport(item)}><img src="/image/icon/warning.png" alt="신고버튼"/></div>
-                            {/* 댓글작성자가 자신댓글을 지울수있는 버튼 <span onClick={() => } className="deleteBtn">X</span> */}
-                        </div>
+                        return (
+                            <div key={index} >
+                                <div className="reviewId">{item.nickname}</div>
+                                <div className="content">{item.content}</div>
+                                <div className="reviewInfo">
+                                    <span className="reviewDate">{item.commentDate}</span>
+                                    <div className="rereviewBtn" onClick={() => setRereviewIndex(item.commentIndex)} >답글</div>
+                                    <div className="warning" onClick={() => ClickReport(item , item.commentIndex)}>
+                                        <img src="/image/icon/warning.png" alt="신고버튼"/>
+                                    </div>
+                            </div>
                         {/** 커멘트인덱스와 리뷰 인덱스가 같다면 답글을 보여줌 */}
                         {item.commentIndex == rereviewIndex ?
                         <>
@@ -210,23 +195,28 @@ function Review(props) {
                             return (
                             <div  className="reviewForm">
                                 <div className="reviewId">{item.nickname}</div>
-                                <div className="content">
-                                    <div>{item.content}</div>
-                                </div>
+                                <div className="content">{item.content}</div>
                                 <div className="reviewInfo">
                                     <span className="reviewDate">{item.commentDate}</span>
-                                    <div className="warning" onClick={() => ClickReport(item , index)}><img src="/image/icon/warning.png" alt="신고버튼"/></div>
+                                    <div className="warning" onClick={() => ClickReport(item ,rereviewIndex ,index)}>
+                                        <img src="/image/icon/warning.png" alt="신고버튼"/>
+                                    </div>
                                 </div>
                             </div>
                             )
                         })}
-                        <div className="rereview">
+                        <div className="rereview">{
+                            !username ? 
+                            null
+                            :
                             <div className="reviewForm">
                                 <div className="reviewId">{username}</div>
-                                <textarea placeholder="댓글을 입력하세요"  value={rereviewValue} onChange={(e) => setRereviewValue(e.target.value)}>{rereviewValue}</textarea>
-                                <div className="exportRereview" onClick={() => SubmitRereview(item.commentIndex , item)}>등록</div>
+                                <div className="textArea">
+                                <textarea className="rereviewInput" placeholder="댓글을 입력하세요"  value={rereviewValue} onChange={(e) => setRereviewValue(e.target.value)}>{rereviewValue}</textarea>
                                 <span onClick={() => {setRereviewIndex(0)}} className="closeBtn">X</span>
-                            </div>
+                                </div>
+                                <div className="exportRereview" onClick={() => SubmitRereview(item.commentIndex , item)}>등록</div>
+                            </div>}
                         </div>
                         </>
                         :
@@ -235,6 +225,7 @@ function Review(props) {
                     })}
                 </li>
             </ul>
+            {/* 댓글 입력하는 칸 */}
             <div className="writeReview">{
                 !username ?
                 <div className="NoReview" onClick={() => navigate("/login")}>로그인 하러가기</div>
@@ -374,9 +365,7 @@ const Reviews = styled.div`
             margin-right: 5px
         }
     }
-    .reviewForm{
-        padding: 0 0 0 40px;
-    }
+
     .content{
         width: 100%;
         font-size: 15px;
@@ -429,10 +418,17 @@ const Reviews = styled.div`
     //대댓글 작성칸///////////////////////////////////////////////////
 
     .reviewForm{
+        padding: 0 0 0 40px;
         position: relative;
         box-sizing: border-box;
 
-        &>textarea{
+        .textArea{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .rereviewInput{
             margin: 0;
             padding: 0;
             font-size: 15px;
@@ -474,9 +470,7 @@ const Reviews = styled.div`
         justify-content: center;
         align-items: center;
         border: 1px solid var(--second);
-        position: absolute;
-        top: 40px;
-        left: 95%;
+        margin-left: 30px;
         cursor: pointer;
         &:hover{
             background-color: var(--primary);
@@ -495,7 +489,21 @@ const Reviews = styled.div`
         align-items: center;
         margin: 35px auto;
 
-        .NoReview{
+        &>textarea{
+            margin:0 auto;
+            background-color: var(--background);
+            padding: 0 10px;
+            font-size: 15px;
+            width: 100%;
+            min-height: 95px;
+            border: 0;
+            outline: none;
+            resize: none;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+    }
+    .NoReview{
         width: 150px; 
         height: 40px;
         display: flex;
@@ -511,20 +519,6 @@ const Reviews = styled.div`
         }
         }
 
-        &>textarea{
-            margin:0 auto;
-            background-color: var(--background);
-            padding: 0 10px;
-            font-size: 15px;
-            width: 100%;
-            min-height: 95px;
-            border: 0;
-            outline: none;
-            resize: none;
-            overflow: hidden;
-            box-sizing: border-box;
-        }
-    }
     .guest{
         width: 100% ;
         height: 35px;

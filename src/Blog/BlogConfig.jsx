@@ -9,7 +9,12 @@ import Editer, { buttonType } from "../MarkDownEditer/Editer";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 function BlogConfig(props) {
+    
+    const focusName = useRef();
+    const navigate = useNavigate()
 
+    const sessionStorage = window.sessionStorage
+    
     //blogconfig state
     const [blogNameInput , setBlogNameInput ] = useState("");
     const [selectSkin, setSelectSkin] = useState(1);
@@ -22,10 +27,6 @@ function BlogConfig(props) {
     //오버뷰 state
     const [ overViewValue , setOverViewValue] = useState("");
 
-    const focusName = useRef();
-    const navigate = useNavigate()
-
-    const sessionStorage = window.sessionStorage
 
     useEffect(() => {
         // axios.post("/api/blog/config", {

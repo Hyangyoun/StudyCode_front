@@ -31,7 +31,7 @@ function Cartegory(props){
         if(nickname == username){
             if(!categoryBox.current.contains(event.target)){
                 setPlusCategory(false)
-        }
+            }
         }
     }
 

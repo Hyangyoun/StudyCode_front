@@ -12,10 +12,10 @@ function BlogHeader(props){
     const { postInfo } =props
 
     const { nickname } = useParams()
-
+    // 위쪽은 postViewer 에서 실행되고 , 아래는 blogWrite , blogConfig 에서 실행함
     return(
         <BlogHead>
-            {postInfo ?<div onClick={() => navigate(`/Blog/${nickname}/postList`)}>{postInfo.blogName}</div>
+            {postInfo ?<div onClick={() => navigate(`/Blog/${postInfo.nickname}/postList`)}>{postInfo.blogName}</div>
             :
             <div onClick={() => {
                 navigate(`/Blog/${sessionStorage.getItem("nickname") ? 

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import BlogTagList from "../DummyData/blogTagList.json"
 
 function BlogSkin2(props) {
-    const {category , followers, blogName , profile ,ClickTag} = props
+    const {category ,userinfo ,ClickTag} = props
 
     const [menuIndex, setMenuIndex] = useState()
     const [tagList , setTagList] = useState([])
@@ -80,12 +80,12 @@ function BlogSkin2(props) {
                 { nickname == username ?
                 <span onClick={() => navigate("/blog/config")}>블로그 설정</span> : null}
                 <div className="profileBox">
-                    <img src={profile ? profile : "/image/icon/profile.png"} alt="프로필사진" />
+                    <img src={userinfo.profile ? userinfo.profile : "/image/icon/profile.png"} alt="프로필사진" />
                     <span>{nickname}</span>
                 </div>
                 <div className="followBox">
-                    <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로우{followers}</span>
-                    <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로잉{followers}</span>
+                    <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로우{userinfo.followers}</span>
+                    <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로잉{userinfo.followers}</span>
                 </div>
                 {nickname == username ? 
                 <div className="newPost" onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>새 포스트</div> : null}
@@ -109,7 +109,7 @@ function BlogSkin2(props) {
                 <SideBT onClick={() => setSide(!side)}>
                     <img src="/image/icon/sideBT.png" alt="사이드버튼" />
                 </SideBT>
-                <div className="blogName">{blogName}</div>
+                <div className="blogName">{userinfo.blogName}</div>
                 <div className="menuBox">
                     <div className="menu">
                         <div onClick={() => navigate(`/blog/${nickname}/overView`)}>Overview</div>
