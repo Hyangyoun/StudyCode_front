@@ -19,19 +19,19 @@ function PostList(props){
 
     useEffect((() => {
         // 포스트리스트 받는 axio
-        // axios.get("/api/post/list",{
-        //     params:{
-        //         nickname: nickname
-        //     }
-        // })
-        // .then((response) => {
-        //     setPosts(response.data)
-        //     console.log(response.data)
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // })
-        setPosts(postInfo)
+        axios.get("/api/post/list",{
+            params:{
+                nickname: nickname
+            }
+        })
+        .then((response) => {
+            setPosts(response.data)
+            console.log(response.data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        // setPosts(postInfo)
     }),[])
 
     // categoryName에 해당하는 postInfo 받는 axios
@@ -58,7 +58,7 @@ function PostList(props){
 
     return(
         <>
-        {posts ?
+        {posts.length != 0 ?
             <BlogPostList >{
                 categoryName !== undefined || BlogTagName !== "" ?
                 <div className="categorytitle">{categoryName !== undefined ? categoryName : BlogTagName}</div>

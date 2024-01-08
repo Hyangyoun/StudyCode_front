@@ -32,22 +32,22 @@ function BlogPage(props){
     }
 
     useEffect(() => {
-        if(BlogInfo == ""){
-            StartUser()
-        }
-        setUserInfo(BlogInfo)
-        // axios.get("/api/blog/info",{
-        //     params:{
-        //         nickname: nickname,
-        //     }
-        // })
-        // .then((response) => {
-        //     console.log(response.data)
-        //     setUserInfo(response.data)
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // })
+        // setUserInfo(BlogInfo)
+        axios.get("/api/blog/info",{
+            params:{
+                nickname: nickname,
+            }
+        })
+        .then((response) => {
+            console.log(response.data)
+            setUserInfo(response.data)
+            if(response.data == ""){
+                StartUser()
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     },[])
 
     return(
@@ -55,8 +55,8 @@ function BlogPage(props){
                 {
                     {
                         1 : <>
-                            <SideBar category={category} userinfo={userinfo} ClickTag={ClickTag}/>
-                            <BlogSkin1 category={category} blogName={userinfo.name} />
+                                <SideBar category={category} userinfo={userinfo} ClickTag={ClickTag}/>
+                                <BlogSkin1 category={category} blogName={userinfo.name} />
                             </>,
                         2 : <BlogSkin2 category={category} userinfo={userinfo} ClickTag={ClickTag}/>
                         

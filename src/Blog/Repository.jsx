@@ -35,38 +35,44 @@ function Repository(props){
 //레포지토리 기능구현
     useEffect(() => {
         if(!folderName){
-            // axios.get("/api/blog/repository/folder" ,{
-            //     nickname: nickname
-            // })
-            // .then((response) => {
-            //     console.log(response.data)
-            //     setFolderList(response.data)
-            // })
-            // .catch((error) => {console.log(error)})
+            axios.get("/api/blog/repository/folder" ,{
+                params: {
+                    nickname: nickname
+                }
+            })
+            .then((response) => {
+                console.log(response.data)
+                setFolderList(response.data)
+            })
+            .catch((error) => {console.log(error)})
             const noName = repodata.find((item) => item == "선택안함")
             const copy = repodata.filter((item) => item != "선택안함")
-            console.log(noName)
-            setFolderList(copy)
-            setFileList(repoFileList)
-        //     axios.get("/api/blog/repository/file" , {
-        //         nickname:nickname,
-        //         folderName: noName
-        //     })
-        //     .then((response) => {
-        //         setFileList(response.data)
-        //     })
-        //     .catch((error) => console.log(error))
+            // console.log(noName)
+            // setFolderList(copy)
+            // setFileList(repoFileList)
+            axios.get("/api/blog/repository/file" , {
+                params: {
+                    nickname:nickname,
+                    folderName: noName
+                }
+            })
+            .then((response) => {
+                setFileList(response.data)
+            })
+            .catch((error) => console.log(error))
         }
         else{
-            // axios.get("/api/blog/repository/file" , {
-            //     nickname:nickname,
-            //     folderName: folderName || "선택안함"
-            // })
-            // .then((response) => {
-            //     setFileList(response.data)
-            // })
-            // .catch((error) => console.log(error))
-            setFileList(repoFileList)
+            axios.get("/api/blog/repository/file" , {
+                params: {
+                    nickname:nickname,
+                    folderName: folderName || "선택안함"
+                }
+            })
+            .then((response) => {
+                setFileList(response.data)
+            })
+            .catch((error) => console.log(error))
+            // setFileList(repoFileList)
         }
         document.addEventListener("mousedown", CloseBox)
         return (() => {

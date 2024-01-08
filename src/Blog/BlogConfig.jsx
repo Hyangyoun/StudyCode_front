@@ -29,27 +29,28 @@ function BlogConfig(props) {
 
 
     useEffect(() => {
-        // axios.post("/api/blog/config", {
-        //     memId: sessionStorage.getItem("memId")
-        // }).then((response) => {
-        //     if(response.data !== null){
-        //     console.log(response)
-        //     setBlogNameInput(response.data.name)
-        //     setSelectSkin(Number(response.data.skin))
-        //     setOverViewValue(response.data.overview)
-        //     }
-        // }).catch((error) =>{
-        //     console.log(error)
-        // })
+        axios.post("/api/blog/config", {
+            memId: sessionStorage.getItem("memId")
+        }).then((response) => {
+            if(response.data !== ""){
+                console.log(response)
+                setBlogNameInput(response.data.name)
+                setSelectSkin(Number(response.data.skin))
+                setOverViewValue(response.data.overview)
+            }
+        }).catch((error) =>{
+            console.log(error)
+        })
+        focusName.current.focus()
         // let test = []
         // tagList.map((item) => {
         //     return test.push(item.tagName)
         // })
         // setCategoryList(test)
-        setBlogNameInput(UserBlogConfig.name)
-        setSelectSkin(Number(UserBlogConfig.skin))
-        setOverViewValue(UserBlogConfig.overview)
-        setCategoryList(categoryInfo)
+        // setBlogNameInput(UserBlogConfig.name)
+        // setSelectSkin(Number(UserBlogConfig.skin))
+        // setOverViewValue(UserBlogConfig.overview)
+        // setCategoryList(categoryInfo)
     } , [])
 
     // 카테고리 추가 버튼(+)
@@ -89,27 +90,27 @@ function BlogConfig(props) {
         /**데이터 보내는 양식 */
     const HandleSaved = () =>{
         if(blogNameInput != ""){
-        //     axios.post("/api/blog/config/update",{
-        //         "memId": sessionStorage.getItem("memId"),
-        //         "name": blogNameInput,
-        //         "skin": selectSkin,
-        //         "overview": encodeURIComponent(overViewValue),
-        //         "categoryName":
-        //     })
-        //     .then((response) => {
-        //         console.log(response.data)
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //     })
-            const data = {
+            axios.post("/api/blog/config/update",{
+                "memId": sessionStorage.getItem("memId"),
                 "name": blogNameInput,
                 "skin": selectSkin,
                 "overview": overViewValue,
                 "categoryName": chooseCategory
-            }
-            // navigate(`/blog/${sessionStorage.getItem("nickname")}/overView`)
-            console.log(data)
+            })
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+            // const data = {
+            //     "name": blogNameInput,
+            //     "skin": selectSkin,
+            //     "overview": overViewValue,
+            //     "categoryName": chooseCategory
+            // }
+            navigate(`/blog/${sessionStorage.getItem("nickname")}/overView`)
+            // console.log(data)
         }
         else{
             alert("블로그 이름을 설정해주세요")

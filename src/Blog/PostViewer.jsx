@@ -31,26 +31,26 @@ function PostViewer(props){
     useEffect(() => {
 
         /** postdata 받아오는 axios */
-        // axios.get("/api/post/info",{
-        //     params:{
-        //         postIndex : Number(postIndex)
-        //     }
-        // })
-        // .then((response) => {
-        //     setPostInfo(response.data)
-        // })
-        // .catch((error) => {console.log(error)})
+        axios.get("/api/post/info",{
+            params:{
+                postIndex : Number(postIndex)
+            }
+        })
+        .then((response) => {
+            setPostInfo(response.data)
+        })
+        .catch((error) => {console.log(error)})
         
         /** tag 받아오는 axios */
-        // axios.get("/api/post/info/tag", {
-        //     params:{
-        //         postIndex : Number(postIndex)
-        //     }
-        // })
-        // .then((response) => {
-        //     setPostTag(response.data)
-        // })
-        // .catch((error) => {console.log(error)})
+        axios.get("/api/post/info/tag", {
+            params:{
+                postIndex : Number(postIndex)
+            }
+        })
+        .then((response) => {
+            setPostTag(response.data)
+        })
+        .catch((error) => {console.log(error)})
 
         // 여기는 아직 안고침
         /** file 받아오는 axios */
@@ -63,9 +63,9 @@ function PostViewer(props){
         //     setPostFile(response.data)
         // })
         // .catch((error) => {console.log(error)})
-        setPostFile(postFileList)
-        setPostInfo(postData)
-        setPostTag(tagList)
+        // setPostFile(postFileList)
+        // setPostInfo(postData)
+        // setPostTag(tagList)
     },[])
     
     /** 스크롤 이벤트를 받는 함수 */

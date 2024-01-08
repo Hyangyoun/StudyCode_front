@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
-import reviewComment from "/studycode_front/studycode_front/src/DummyData/ReviewComment.json"
+import reviewComment from "../../DummyData/ReviewComment.json"
 
 function Review(props) {
 
@@ -43,14 +43,16 @@ function Review(props) {
     })
     // 댓글info 받는 state
     useEffect(() => {
-        // axios.post("/api/post/comment",{
-        //     postIndex:Number(postIndex)
-        // })
-        // .then((response) => {
-        //     setComments(response.data)
-        // })
-        // .catch((error) => { console.log(error)})
-        setComments(reviewComment)
+        axios.get("/api/post/comment",{
+            params: {
+                postIndex:Number(postIndex)
+            }
+        })
+        .then((response) => {
+            setComments(response.data)
+        })
+        .catch((error) => { console.log(error)})
+        // setComments(reviewComment)
     },[])
 
     /** 댓글 작성 함수 */
@@ -193,7 +195,7 @@ function Review(props) {
                         <>
                         {item.reply.map((item , index) => {
                             return (
-                            <div  className="reviewForm">
+                            <div className="reviewForm" key={index}>
                                 <div className="reviewId">{item.nickname}</div>
                                 <div className="content">{item.content}</div>
                                 <div className="reviewInfo">
