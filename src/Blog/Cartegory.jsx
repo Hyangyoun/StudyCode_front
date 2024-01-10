@@ -37,18 +37,18 @@ function Cartegory(props){
 
     useEffect(() => {
         // categoryNameList 받는 axios
-        axios.get("/api/blog/category/info",{
-            params: {
-                nickname : nickname
-            }
-        })
-        .then((response) =>{
-            setAddCategory(response.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-        // setAddCategory(categoryInfo)
+        // axios.get("/api/blog/category/info",{
+        //     params: {
+        //         nickname : nickname
+        //     }
+        // })
+        // .then((response) =>{
+        //     setAddCategory(response.data)
+        // })
+        // .catch((error) => {
+        //     console.log(error)
+        // })
+        setAddCategory(categoryInfo)
 
         document.addEventListener("mousedown" , ClickAddcategory)
         return (() => {

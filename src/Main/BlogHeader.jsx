@@ -32,7 +32,7 @@ function BlogHeader(props){
         align-items: center;
         margin: auto;
         & > div{
-            font-size: 20px;
+            font-size: 30px;
             font-weight: bold;
             width: auto;
             height: auto;

@@ -4,5 +4,9 @@
   "nickname": "kwoos",
   "postDate": "2023-10-18",
   "recommend": 0,
-  "blogName": "내 일요일 내놔"
+  "blogName": "내 일요일 내놔",
+  "tagName": [
+    "Python",
+    "React"
+  ]
 }

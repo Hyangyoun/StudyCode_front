@@ -19,26 +19,28 @@ function PostList(props){
 
     useEffect((() => {
         // 포스트리스트 받는 axio
-        axios.get("/api/post/list",{
-            params:{
-                nickname: nickname
-            }
-        })
-        .then((response) => {
-            setPosts(response.data)
-            console.log(response.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-        // setPosts(postInfo)
+        // axios.get("/api/post/list",{
+        //     params:{
+        //         nickname: nickname
+        //     }
+        // })
+        // .then((response) => {
+        //     setPosts(response.data)
+        //     console.log(response.data)
+        // })
+        // .catch((error) => {
+        //     console.log(error)
+        // })
+        setPosts(postInfo)
     }),[])
 
     // categoryName에 해당하는 postInfo 받는 axios
     // useEffect(() => {
-    //     axios.post("" , {
-    //         nickname: nickname,
-    //         categoryName : categoryName
+    //     axios.get("/api/post/list" , {
+            // params:{
+        //         nickname: nickname,
+        //         categoryName : categoryName
+            // }
     //     })
     //     .then((response) => {
     //         setPosts(response.data)

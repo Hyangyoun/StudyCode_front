@@ -26,31 +26,23 @@ function PostViewer(props){
     const [postInfo , setPostInfo] = useState({}) //postinfo받는 state
     const [postTag , setPostTag] = useState([]) //postTag받는 state
     const [postFile , setPostFile] = useState([]) //postFile 받는 state
+    const [addFolder, setAddFolder] = useState(false) //파일열고 닫는버튼
 
 
     useEffect(() => {
 
         /** postdata 받아오는 axios */
-        axios.get("/api/post/info",{
-            params:{
-                postIndex : Number(postIndex)
-            }
-        })
-        .then((response) => {
-            setPostInfo(response.data)
-        })
-        .catch((error) => {console.log(error)})
+        // axios.get("/api/post/info",{
+        //     params:{
+        //         postIndex : Number(postIndex)
+        //     }
+        // })
+        // .then((response) => {
+        //     setPostInfo(response.data)
+        //     setPostTag(postInfo.tagName)
+        // })
+        // .catch((error) => {console.log(error)})
         
-        /** tag 받아오는 axios */
-        axios.get("/api/post/info/tag", {
-            params:{
-                postIndex : Number(postIndex)
-            }
-        })
-        .then((response) => {
-            setPostTag(response.data)
-        })
-        .catch((error) => {console.log(error)})
 
         // 여기는 아직 안고침
         /** file 받아오는 axios */
@@ -63,9 +55,8 @@ function PostViewer(props){
         //     setPostFile(response.data)
         // })
         // .catch((error) => {console.log(error)})
-        // setPostFile(postFileList)
-        // setPostInfo(postData)
-        // setPostTag(tagList)
+        setPostFile(postFileList)
+        setPostInfo(postData)
     },[])
     
     /** 스크롤 이벤트를 받는 함수 */
@@ -98,8 +89,6 @@ function PostViewer(props){
         pom.click();
         pom.remove();
         }
-
-    const [addFolder, setAddFolder] = useState(false) //파일보기위한 버튼
 
     const ClickHeart = () => {
         if(username){
@@ -135,7 +124,9 @@ function PostViewer(props){
                         <img src={ changeHeart == 1 ? "/image/icon/bigheart2.png" : "/image/icon/bigheart1.png"} alt="좋아요"/>{postInfo.recommend + changeHeart}
                     </div>
                 </div>
-                <div  className="post">{
+                {/* 로그인 되있는지 관련 div */}
+                <div  className="post">
+                    {
                     warning ? 
                     <div className="Islogin">
                         <span>로그인이 필요한 서비스입니다.</span>
@@ -146,15 +137,18 @@ function PostViewer(props){
                     null
                     }
                     <div className="title" >{postInfo.title}</div>
-                    <div className="date">
-                        <span >{nickname}</span>
+                    <div className="date" onClick={() => navigate(`/Blog/${postInfo.nickname}/postList`)}>
+                        <span >{postInfo.nickname}</span>
                         <span>&#183;</span>
                         <span >{postInfo.postDate}</span>
                     </div>
                     <div className="tagbox">
-                        { postTag.map((item,index) => {
-                            return <li key={index}>{item.tagName}</li>
-                        }) }
+                        {postInfo.tagName ?
+                        postInfo.tagName.map((item,index) => {
+                            return <li key={index}>{item}</li>
+                        })
+                        :
+                        null }
                         <div className="filebox">
                             <div className="fileBtn" onClick={() => {setAddFolder(!addFolder)}} >파일첨부</div>
                             <ul className="fileName">

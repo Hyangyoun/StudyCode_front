@@ -43,16 +43,16 @@ function Review(props) {
     })
     // 댓글info 받는 state
     useEffect(() => {
-        axios.get("/api/post/comment",{
-            params: {
-                postIndex:Number(postIndex)
-            }
-        })
-        .then((response) => {
-            setComments(response.data)
-        })
-        .catch((error) => { console.log(error)})
-        // setComments(reviewComment)
+        // axios.get("/api/post/comment",{
+        //     params: {
+        //         postIndex:Number(postIndex)
+        //     }
+        // })
+        // .then((response) => {
+        //     setComments(response.data)
+        // })
+        // .catch((error) => { console.log(error)})
+        setComments(reviewComment)
     },[])
 
     /** 댓글 작성 함수 */

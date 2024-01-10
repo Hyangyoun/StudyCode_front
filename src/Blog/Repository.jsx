@@ -7,18 +7,18 @@ import repoFileList from "../DummyData/FileList.json"
 
 function Repository(props){
 
-    const { nickname , folderName } = useParams()
-    const username = window.sessionStorage.getItem("nickname")
-    const navigate = useNavigate()
+    const { nickname , folderName } = useParams();
+    const username = window.sessionStorage.getItem("nickname");
+    const navigate = useNavigate();
     const folderNameRef = useRef();
     const addFolderBox = useRef();
 
     // folder,file리스트 state
-    const [ folderList , setFolderList ] = useState([]) 
-    const [ fileList , setFileList ] = useState([])
+    const [ folderList , setFolderList ] = useState([]);
+    const [ fileList , setFileList ] = useState([]);
     //폴더 추가 state
-    const [ addFolder , setAddFolder ] = useState(false)
-    const [FolderInput , setFolderInput] = useState("")
+    const [ addFolder , setAddFolder ] = useState(false);
+    const [FolderInput , setFolderInput] = useState("");
 
     useEffect(() => {
         if(addFolder) {
@@ -34,51 +34,57 @@ function Repository(props){
 
 //레포지토리 기능구현
     useEffect(() => {
-        if(!folderName){
-            axios.get("/api/blog/repository/folder" ,{
-                params: {
-                    nickname: nickname
-                }
-            })
-            .then((response) => {
-                console.log(response.data)
-                setFolderList(response.data)
-            })
-            .catch((error) => {console.log(error)})
-            const noName = repodata.find((item) => item == "선택안함")
-            const copy = repodata.filter((item) => item != "선택안함")
-            // console.log(noName)
-            // setFolderList(copy)
-            // setFileList(repoFileList)
-            axios.get("/api/blog/repository/file" , {
-                params: {
-                    nickname:nickname,
-                    folderName: noName
-                }
-            })
-            .then((response) => {
-                setFileList(response.data)
-            })
-            .catch((error) => console.log(error))
-        }
-        else{
-            axios.get("/api/blog/repository/file" , {
-                params: {
-                    nickname:nickname,
-                    folderName: folderName || "선택안함"
-                }
-            })
-            .then((response) => {
-                setFileList(response.data)
-            })
-            .catch((error) => console.log(error))
-            // setFileList(repoFileList)
-        }
+        // axios.get("/api/blog/repository/folder" ,{
+        //     params: {
+        //         nickname: nickname
+        //     }
+        // })
+        // .then((response) => {
+        /**폴더 리스트를 리스폰스에서 받을때 선택안함을 걸러준다 */
+        //     console.log(response.data)
+        //     let noName= []
+        //     let copy = []
+        //     noName = response.data.find((item) => item == "선택안함")
+        //     copy = response.data.filter((item) => item != "선택안함")
+        //     setFolderList(copy)
+            if(!folderName){
+            /**폴더네임(주소값) 이 없으면 선택안함의 파일을 요청한다 */
+            //     axios.get("/api/blog/repository/file" , {
+            //         params: {
+            //             nickname:nickname,
+            //             folderName: noName
+            //         }
+            //     })
+            //     .then((response) => {
+            //         setFileList(response.data)
+            //     })
+            //     .catch((error) => console.log(error))
+                setFileList(repoFileList) //실제 사용시 주석처리
+            }
+            else{
+            /** 파일폴더가 하나도없을때 실행된다 */
+                // axios.get("/api/blog/repository/file" , {
+                //     params: {
+                //         nickname:nickname,
+                //         folderName: folderName || "선택안함"
+                //     }
+                // })
+                // .then((response) => {
+                //     setFileList(response.data)
+                // })
+                // .catch((error) => console.log(error))
+                setFileList(repoFileList) //실제 사용시 주석처리
+            }
+        //     })
+        //     .catch((error) => {console.log(error)})
+            setFolderList(repodata) //실제 사용시 주석처리
         document.addEventListener("mousedown", CloseBox)
         return (() => {
             document.removeEventListener("mousedown", CloseBox)
         })
     },[])
+
+    
     // 폴더추가 함수
     const AddFolder = () => {
         if(FolderInput){
@@ -116,6 +122,7 @@ function Repository(props){
     return(
         <RepoList $addFolder={addFolder}>
             <ul className="repo">
+                {/* 맨위 부분 */}
                 <li className="repoFirst">
                     <span className="nickName">{nickname} 의 저장소</span>
                     <div className={username == nickname && !folderName ? "folderform" : "disabled"}>
@@ -126,6 +133,7 @@ function Repository(props){
                         <div className="addFolderBtn" onClick={() => setAddFolder(true)}>폴더추가</div>
                     </div>
                 </li>
+                {/* 아래 폴더,파일 부분 , 폴더네임이 false 면(undefinded) 아래 파일리스트가 제목없음의 파일리스트만 보임*/}
                 <li className={!folderName ? "disabled" : "repoList"} ><span onClick={() => {navigate(`/blog/${nickname}/repository`)}} className="folderName">돌아가기</span></li>
                 {
                     !folderName ?

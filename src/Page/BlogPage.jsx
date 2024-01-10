@@ -27,27 +27,27 @@ function BlogPage(props){
     }
 
     /** 회원가입하고 처음 블로그에 들어갈때 자동으로 연결됨 */
-    const StartUser = () =>{
-        navigate("/blog/config")
-    }
+    // const StartUser = () =>{
+    //     navigate("/blog/config")
+    // }
 
     useEffect(() => {
-        // setUserInfo(BlogInfo)
-        axios.get("/api/blog/info",{
-            params:{
-                nickname: nickname,
-            }
-        })
-        .then((response) => {
-            console.log(response.data)
-            setUserInfo(response.data)
-            if(response.data == ""){
-                StartUser()
-            }
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+        setUserInfo(BlogInfo)
+        // axios.get("/api/blog/info",{
+        //     params:{
+        //         nickname: nickname,
+        //     }
+        // })
+        // .then((response) => {
+        //     console.log(response.data)
+        //     setUserInfo(response.data)
+        //     if(response.data == ""){
+        //         StartUser()
+        //     }
+        // })
+        // .catch((error) => {
+        //     console.log(error)
+        // })
     },[])
 
     return(

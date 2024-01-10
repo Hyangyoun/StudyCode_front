@@ -109,7 +109,7 @@ function BlogSkin2(props) {
                 <SideBT onClick={() => setSide(!side)}>
                     <img src="/image/icon/sideBT.png" alt="사이드버튼" />
                 </SideBT>
-                <div className="blogName">{userinfo.name}</div>
+                <div onClick={() => navigate(`/blog/${nickname}/overView`)} className="blogName">{userinfo.name}</div>
                 <div className="menuBox">
                     <div className="menu">
                         <div onClick={() => navigate(`/blog/${nickname}/overView`)}>Overview</div>
@@ -250,6 +250,7 @@ const Header = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
     }
     
     .menuBox {
