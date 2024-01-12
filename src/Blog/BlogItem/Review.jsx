@@ -181,22 +181,31 @@ function Review(props) {
                     {comments.map((item , index) => {
                         return (
                             <div key={index} >
-                                <div className="reviewId">{item.nickname}</div>
+                                <div className="reviewId">
+                                    <img src={item.profile} alt="profile"/>
+                                    <span >
+                                        {item.nickname}
+                                    </span>
+                                </div>
                                 <div className="content">{item.content}</div>
                                 <div className="reviewInfo">
                                     <span className="reviewDate">{item.commentDate}</span>
-                                    <div className="rereviewBtn" onClick={() => setRereviewIndex(item.commentIndex)} >답글</div>
+                                    <div className="rereviewBtn" onClick={() => setRereviewIndex(item.commentIndex)}>답글 {item.reply.length}개</div>
                                     <div className="warning" onClick={() => ClickReport(item , item.commentIndex)}>
                                         <img src="/image/icon/warning.png" alt="신고버튼"/>
-                                    </div>
+                                </div>
                             </div>
-                        {/** 커멘트인덱스와 리뷰 인덱스가 같다면 답글을 보여줌 */}
                         {item.commentIndex == rereviewIndex ?
                         <>
                         {item.reply.map((item , index) => {
                             return (
                             <div className="reviewForm" key={index}>
-                                <div className="reviewId">{item.nickname}</div>
+                                <div className="reviewId">
+                                    <img src={item.profile} alt="profile"/>
+                                    <span >
+                                        {item.nickname}
+                                    </span>
+                                </div>
                                 <div className="content">{item.content}</div>
                                 <div className="reviewInfo">
                                     <span className="reviewDate">{item.commentDate}</span>
@@ -212,12 +221,20 @@ function Review(props) {
                             null
                             :
                             <div className="reviewForm">
-                                <div className="reviewId">{username}</div>
-                                <div className="textArea">
-                                <textarea className="rereviewInput" placeholder="댓글을 입력하세요"  value={rereviewValue} onChange={(e) => setRereviewValue(e.target.value)}>{rereviewValue}</textarea>
-                                <span onClick={() => {setRereviewIndex(0)}} className="closeBtn">X</span>
+                                <div className="reviewId">
+                                    <img src={item.profile} alt="profile"/>
+                                    <span >
+                                        {item.nickname}
+                                    </span>
                                 </div>
-                                <div className="exportRereview" onClick={() => SubmitRereview(item.commentIndex , item)}>등록</div>
+                                <div className="textArea">
+                                    <textarea className="rereviewInput" placeholder="댓글을 입력하세요"  value={rereviewValue} 
+                                    onChange={(e) => setRereviewValue(e.target.value)}>{rereviewValue}</textarea>
+                                    <div className="exportRereview">
+                                    <div onClick={() => {setRereviewIndex(0)}} >닫기</div>
+                                    <div onClick={() => SubmitRereview(item.commentIndex , item)}>등록</div>
+                                    </div>
+                                </div>
                             </div>}
                         </div>
                         </>
@@ -233,8 +250,14 @@ function Review(props) {
                 <div className="NoReview" onClick={() => navigate("/login")}>로그인 하러가기</div>
                 :
                 <>
-                    <span className="guest">{username}</span>
-                    <textarea placeholder="댓글을 입력하세요" value={reviewValue} onChange={(e) => setReviewValue(e.target.value)}>{reviewValue}</textarea>
+                    <div className="guest">
+                        <img src="/image/icon/chimmonkey.png" alt="profile"/>
+                        <span >
+                            {username}
+                        </span>
+                    </div>
+                    <textarea placeholder="댓글을 입력하세요" value={reviewValue} 
+                    onChange={(e) => setReviewValue(e.target.value)}>{reviewValue}</textarea>
                     <div className="exportReview" onClick={() =>SubmitReview()}>등록</div>
                 </>}
             </div>
@@ -347,57 +370,70 @@ const Reviews = styled.div`
     }
     .reviews{
         padding-left: 80px;
+        & > div:nth-child(1){
+            padding-top: 24px;
+        }
+        
+        & > div{
+            width: 920px;
+            padding-bottom: 24px;
+            //대댓글 의 classname을 못찾아서 div의 4번째로 선택함 2번째가 아닌이유는 html 구조상 댓글의 구조가 하나로 묶일수없어 구성함
+            & > :nth-child(4){
+                padding-top: 24px;
+            }
+        }
     }
 
     .reviewId{                      //대댓글 의 아이디도 같은 클래스를 사용함
         width: fit-content;
-        height: 20px;
-        font-size: 15px;
         display: flex;
         align-items: center;
-        margin: 10px 0;
+        margin-bottom: 25px;
         cursor: pointer;
-        &:before{
-            background-image: url("/image/icon/profile.png");
-            background-size:100%;
-            display: inline-block;
-            width: 20px; 
-            height: 20px;
-            content:"";
-            margin-right: 5px
+        & > img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        & > span{
+            font-weight: bold;
+            font-size: 15px;
         }
     }
 
     .content{
-        width: 100%;
-        font-size: 15px;
+        width: 91%;
+        font-size: 20px;
+        margin: 15px 0;
+        display: flex;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        word-break: break-all;
     }
     .reviewInfo{
         width: 100%;
         height: 30px;
         display: flex;
+        margin-top: 25px;
         flex-direction: row;
         align-items: center;
         border-bottom: 1px solid var(--second);
     }
     .reviewDate{
-        font-size: 9px;
+        font-size: 12px;
     }
     .rereviewBtn{
-        width: 25px;
-        height: 17px;
-        font-size: 9px;
+        width: fit-content;
+        height: 20px;
+        font-size: 15px;
         display: flex;
         justify-content: center;
         align-items: center;
-        border:1px solid var(--second);
-        border-radius: 3px;
         margin: 0 0 0 10px;
+        color: var(--primary);
         cursor: pointer;
-        &:hover{
-            background-color: var(--primary);
-            color: white;
-        }
     }
     .warning{
         margin: 0 0 0 20px;
@@ -420,66 +456,75 @@ const Reviews = styled.div`
     //대댓글 작성칸///////////////////////////////////////////////////
 
     .reviewForm{
-        padding: 0 0 0 40px;
+        padding: 0 0 24px 50px;
         position: relative;
         box-sizing: border-box;
 
         .textArea{
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
-        }
+            width: 91%;
 
-        .rereviewInput{
+            .rereviewInput{
             margin: 0;
             padding: 0;
             font-size: 15px;
-            width: 91%;
+            width: 100%;
             min-height: 20px;
             border: 0;
             outline: none;
             resize: none;
             overflow: hidden;
-        }
+            }
 
-    .rereview{
-        width: 85%;
-        height: auto;
-        min-height: 110px;
-        flex-direction: column;
-        display: flex;
-        margin:  10px 0;
-        border-top: 1px solid var(--second);
-    }
-    .exportRereview{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 10px 0 auto auto;
-        width: 75px;
-        height: 20px;
-        position: absolute;
-        left: 82%;
-        background-color: var(--second);
-        color: white;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-    .closeBtn{
-        width: 16px;
-        height: 16px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid var(--second);
-        margin-left: 30px;
-        cursor: pointer;
-        &:hover{
-            background-color: var(--primary);
-            color: white;
+            .exportRereview{
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                margin: 10px 0 auto auto;
+                width: 100%;
+
+                & > div{
+                    width: 75px;
+                    height: 20px;
+                    text-align: center;
+                    background-color: var(--second);
+                    color: white;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    
+                    &:nth-child(1){
+                        margin-right: 20px;
+                    }
+                }
+            }
+
+            .rereview{
+                width: 85%;
+                height: auto;
+                min-height: 110px;
+                flex-direction: column;
+                display: flex;
+                margin:  10px 0;
+                border-top: 1px solid var(--second);
+            }
+        }
+        .closeBtn{
+            width: 16px;
+            height: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--second);
+            margin-left: 30px;
+            cursor: pointer;
+            &:hover{
+                background-color: var(--primary);
+                color: white;
+            }
         }
     }
-}
 
     //댓글 작성칸/////////////////////////////////////////////////////
     .writeReview{
@@ -523,23 +568,24 @@ const Reviews = styled.div`
 
     .guest{
         width: 100% ;
-        height: 35px;
-        font-size: 15px;
         display: flex;
         align-items: center;
         margin: 0 auto;
         background-color: var(--background);
         z-index: 5;
         flex-shrink: 1;
-        &:before{
-            background-image: url("/image/icon/profile.png");
-            background-size:100%;
-            display: inline-block;
-            width: 20px; 
-            height: 20px;
-            content:"";
-            margin: auto 10px;
+        & > img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 10px;
         }
+        & > span{
+            font-weight: bold;
+            font-size: 15px;
+        }
+
 }
     .exportReview{
         display: flex;

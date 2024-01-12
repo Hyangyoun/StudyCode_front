@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../Main/Header";
+import Footer from "../../src/Blog/BlogItem/Footer.jsx";
 
 function MainPage(props) {
     return (
@@ -131,6 +132,7 @@ function MainPage(props) {
                     </li>
                 </ul>
             </Guide>
+            <Footer/>
         </>
     )
 }
@@ -143,7 +145,7 @@ const Banner = styled.div`
 
 const Guide = styled.div`
     width: 1200px; height: auto;
-    margin: auto;
+    margin: auto auto 40px;
     display: flex;
     flex-direction: column;
     align-items: center;

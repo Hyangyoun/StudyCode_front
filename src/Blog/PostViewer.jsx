@@ -28,7 +28,6 @@ function PostViewer(props){
     const [postFile , setPostFile] = useState([]) //postFile 받는 state
     const [addFolder, setAddFolder] = useState(false) //파일열고 닫는버튼
 
-
     useEffect(() => {
 
         /** postdata 받아오는 axios */
@@ -331,7 +330,7 @@ const ViewerStyle = styled.div`
             top: 35px;
             &>li{
                 width: 100%;
-                display: block;
+                display: inline-block;
                 box-sizing: border-box;
                 white-space: nowrap; //한줄로 마무리
                 overflow: hidden;
@@ -344,6 +343,9 @@ const ViewerStyle = styled.div`
                 }
                 &:hover{
                     text-decoration: underline;
+                }
+                &:first-child{
+                    margin-top: 5px;
                 }
                 &:last-child{
                     margin-bottom: 5px;

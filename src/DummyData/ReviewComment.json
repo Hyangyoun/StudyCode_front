@@ -1,12 +1,14 @@
 [
   {
     "commentIndex": 1,
+    "profile" :"/image/icon/chimmonkey.png",
     "nickname": "kwoos",
     "content": "가슴이 웅장해진다",
     "commentDate": "2023-11-02",
     "reply": [
       {
         "content": "뭐임?",
+        "profile" :"/image/icon/cat-.jpg",
         "nickname": "염향",
         "commentDate": "2023-11-02"
       }
@@ -14,12 +16,14 @@
   },
   {
     "commentIndex": 2,
+    "profile" :"/image/icon/cat-.jpg",
     "nickname": "염향",
     "content": "영차!",
     "commentDate": "2023-11-02",
     "reply": [
       {
         "content": "좋아써!",
+        "profile" :"/image/icon/cat-.jpg",
         "nickname": "염향",
         "commentDate": "2023-11-02"
       }
@@ -27,6 +31,7 @@
   },
   {
     "commentIndex": 3,
+    "profile" :"/image/icon/chimmonkey.png",
     "nickname": "kwoos",
     "content": "실화냐",
     "commentDate": "2023-11-02",

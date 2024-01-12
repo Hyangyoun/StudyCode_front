@@ -12,6 +12,7 @@ import { useParams , useNavigate } from "react-router-dom";
 import BlogInfo from "../DummyData/BlogInfo.json";
 import axios from "axios";
 import BlogConfig from "../Blog/BlogConfig";
+import Footer from "../Blog/BlogItem/Footer";
 
 function BlogPage(props){
 
@@ -62,6 +63,7 @@ function BlogPage(props){
                         
                     }[userinfo.skin]
                 }
+                <div className="contentsMargin">
                 { categoryName == null || BlogTagName == null ?
                     {
                         overView : <OverView overView={userinfo.overview} />,
@@ -74,18 +76,25 @@ function BlogPage(props){
                     <PostList BlogTagName={BlogTagName}/>
                 }
                 { folderName != undefined ? <Repository /> : null}
+                </div>
+                <Footer/>
         </BlogSection>
     )
 }
 
 const BlogSection = styled.div`
     width: 100%; height: auto;
-    min-height: 100%;
+    min-height: 130%;
     padding-left: ${props => props.$skin === 1 ? 250 : 0}px;
     display: flex;
     position: relative;
     flex-direction: column;
     box-sizing: border-box;
+    
+    .contentsMargin{
+        height: 100%;
+        margin-bottom: 100px;
+    }
 `
 
 export default BlogPage
