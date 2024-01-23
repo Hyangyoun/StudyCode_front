@@ -4,14 +4,14 @@ import styled from "styled-components";
 
 function BlogSkin1 (props){
 
-    const {category , blogName} = props
-    const { nickname } = useParams()
+    const {category , blogName, userName} = props
+
     const navigate = useNavigate()
 
     return(
         <BlogBody>
             <BlogHeader>
-               <span className="blogName" onClick={() => navigate(`/blog/${nickname}/overView`)}>{blogName}</span>
+               <span className="blogName" onClick={() => navigate(`/blog/${userName}/overView`)}>{blogName}</span>
                <span className="blogMenu">
                    {
                        {

@@ -8,13 +8,15 @@ import BlogTagList from "../DummyData/blogTagList.json"
 
 function SideBar(props){
 
-    const { nickname } = useParams()
     const {category , userinfo , ClickTag} = props;
     const navigate = useNavigate();
-    // const sessionStorage = window.sessionStorage
-    const username = window.sessionStorage.getItem("nickname")
-
+    const sessionStorage = window.sessionStorage
+    const username = sessionStorage.getItem("nickname")
+    const userBlogIndex = sessionStorage.getItem("blogIndex")
+    const memId = sessionStorage.getItem("memId")
+    
     const [menuIndex, setMenuIndex] = useState();
+    const [isOwner , setIsOwner] = useState(false)
     /** 태그와 관련된 state */
     const [tagList , setTagList] = useState([])
     const [tag , setTag] = useState()
@@ -30,17 +32,31 @@ function SideBar(props){
     },[category])
 
     useEffect(() => {
+        //방문유저인지 주인인지 확인하는 axios
         // axios.get("api" , {
         //     params:{
-        //         nickname:nickname
+        //         memId:memId,
+        //         blogIndex:userBlogIndex
         //     }
         // })
         // .then((response) => {
-        //     setTagList(response.data);
+        //     setIsOwner(response.data);
         // })
         // .catch((error) => {
         //     console.log(error);
         // });
+        //태그요청하는 axios
+        // axios.get("api",{
+        //     params:{
+
+        //     }
+        // })
+        // .then((response) => {
+        //     setTagList(response.data)
+        // })
+        // .catch((error) => {
+        //     console.log(error)
+        // })
         setTagList(BlogTagList)
     })
 
@@ -53,23 +69,19 @@ function SideBar(props){
             ClickTag(tagName)
             setTag(e.target.value)
         }
-        navigate(`/blog/${nickname}/postList`)
+        navigate(`/blog/${userinfo.nickname}/postList`)
     }
     return(
         <Sidebar $menuIndex={menuIndex}>
-            <img  className="profilePicture" src={userinfo.profile ? userinfo.profile : "/image/icon/profile.png"} alt="프로필사진"/>
-            <div className="nickName">{nickname}</div>
-            <div className="follows" >
-                <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로우{userinfo.followers}</span>
-                <span onClick={() => navigate(`/blog/${nickname}/followers`)}>팔로잉{userinfo.followers}</span>
-            </div>
-                {nickname == username ? 
-                <div className="write" onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>새 포스트</div>: null}
+            <img  className="profilePicture" src={userinfo.profilePicture ? userinfo.profilePicture : "/image/icon/profile.png"} alt="프로필사진"/>
+            <div className="nickName">{userinfo.nickname}</div>
+                {isOwner ? 
+                <div className="write" onClick={() => navigate(`/blog/${userinfo.nickname}/blogWrite`)}>새 포스트</div>: null}
             <div className="cartegoryForm" >
-                <div onClick={() => navigate(`/blog/${nickname}/overView`)} className="overview">메인(overview)</div>
-                <div onClick={() => navigate(`/blog/${nickname}/postList`)} className="post">포스트(post)</div>
-                <div onClick={() => navigate(`/blog/${nickname}/category`)} className="post">category</div>
-                <div onClick={() => navigate(`/blog/${nickname}/repository`)} className="repository">repository</div>
+                <div onClick={() => navigate(`/blog/${userinfo.nickname}/overView`)} className="overview">메인(overview)</div>
+                <div onClick={() => navigate(`/blog/${userinfo.nickname}/postList`)} className="post">포스트(post)</div>
+                <div onClick={() => navigate(`/blog/${userinfo.nickname}/category`)} className="post">category</div>
+                <div onClick={() => navigate(`/blog/${userinfo.nickname}/repository`)} className="repository">repository</div>
             </div>
             <div className="tagBox"> Tag
                 <ul>{
@@ -81,7 +93,7 @@ function SideBar(props){
             </div >
             <div className="logo">
                 <img src="/image/icon/logo.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
-                { nickname == username ? 
+                { isOwner ? 
                 <div onClick={() => navigate(`/blog/config`)}>블로그 설정</div> : null}
             </div>
         </Sidebar>
@@ -118,15 +130,6 @@ const Sidebar = styled.div`
         margin-top: 10px;
         text-align: center;
         font-size: 15px;
-        cursor: pointer;
-    }
-    .follows{
-        margin-top: 15px;
-    }
-
-    .follows>span{
-        font-size: 15px;
-        margin:0 10px ;
         cursor: pointer;
     }
 

@@ -1,7 +1,8 @@
 {
-  "followers": 0,
-  "overview": "",
+  "overview": null,
   "skin": 1,
   "name": "내 일요일 내놔",
-  "profile":"/image/icon/chimmonkey.png"
+  "profilePicture":"/image/icon/chimmonkey.png",
+  "nickname":"kwoos",
+  "blogIndex":1
 }

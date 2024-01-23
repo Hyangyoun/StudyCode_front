@@ -25,7 +25,7 @@ function OverView(props) {
 
     return (
         <>
-            {overView != "" ?
+            {overView != null ?
                 <MdViewer content={overView} width={"1100px"} />
                 :
                 regist ? <RegistOverview>

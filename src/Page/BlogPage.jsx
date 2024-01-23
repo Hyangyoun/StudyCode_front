@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
 import BlogSkin2 from "../Blog/BlogSkin2";
 import BlogSkin1 from "../Blog/BlogSkin1";
-import styled from "styled-components";
 import SideBar from "../Blog/SideBar";
 import OverView from "../Blog/OverView";
 import PostList from "../Blog/PostList";
@@ -10,7 +11,6 @@ import Followers from "../Blog/Followers";
 import Repository from "../Blog/Repository";
 import { useParams , useNavigate } from "react-router-dom";
 import BlogInfo from "../DummyData/BlogInfo.json";
-import axios from "axios";
 import BlogConfig from "../Blog/BlogConfig";
 import Footer from "../Blog/BlogItem/Footer";
 
@@ -18,9 +18,11 @@ function BlogPage(props){
 
     const navigate = useNavigate()
     const { category, nickname , categoryName , folderName} = useParams();
+    const [test, setTest] = useState(false)
 
     const [userinfo, setUserInfo] = useState({});
     const [BlogTagName , setBlogTagName] = useState("")
+    const sessionStorage = window.sessionStorage
 
     /** 태그를 클릭시 실행되는 함수 */
     const ClickTag = (tagName) =>{
@@ -34,6 +36,10 @@ function BlogPage(props){
 
     useEffect(() => {
         setUserInfo(BlogInfo)
+        axios.get("/api/category/test")
+        .then((response) => {
+            setTest(response.data)
+        })
         // axios.get("/api/blog/info",{
         //     params:{
         //         nickname: nickname,
@@ -41,9 +47,12 @@ function BlogPage(props){
         // })
         // .then((response) => {
         //     console.log(response.data)
-        //     setUserInfo(response.data)
-        //     if(response.data == ""){
-        //         StartUser()
+        //     if(response.data.blogIndex == null){
+        //             StartUser()
+        //     }
+        //     else{
+        //         setUserInfo(response.data)
+        //         sessionStorage.setItem("blogIndex" , `${response.data.blogIndex}`)
         //     }
         // })
         // .catch((error) => {
@@ -57,7 +66,7 @@ function BlogPage(props){
                     {
                         1 : <>
                                 <SideBar category={category} userinfo={userinfo} ClickTag={ClickTag}/>
-                                <BlogSkin1 category={category} blogName={userinfo.name} />
+                                <BlogSkin1 category={category} userName={userinfo.nickname} blogName={userinfo.name} />
                             </>,
                         2 : <BlogSkin2 category={category} userinfo={userinfo} ClickTag={ClickTag}/>
                         
@@ -77,7 +86,7 @@ function BlogPage(props){
                 }
                 { folderName != undefined ? <Repository /> : null}
                 </div>
-                <Footer/>
+                <Footer>{test ? "true" : "False"}</Footer>
         </BlogSection>
     )
 }
