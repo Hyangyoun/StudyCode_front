@@ -77,18 +77,19 @@ function BlogSkin2(props) {
         setTagList(BlogTagList)
     })
 
-        const ChooseTag = (tagName,e) =>{
-        if(tag == e.target.value){
-            ClickTag('')
-            setTag()
-        }
-        else{
-            ClickTag(tagName)
-            setTag(e.target.value)
-        }
-        navigate(`/blog/${nickname}/postList`)
+     // 태그를 누르면 이미 클릭된 태그인지 확인하고 태그가 같은애인지를 확인하는 함수
+     const ChooseTag = (tagName,tagNumber) =>{
+        if(tag == tagNumber){
+            ClickTag(null)
+            setTag(null)
+            }
+            else{
+                ClickTag(tagName)
+                setTag(tagNumber)
+                navigate(`/blog/${userinfo.nickname}/postList`)
+                console.log("if")
+            }
     }
-
 
     return (
         <>

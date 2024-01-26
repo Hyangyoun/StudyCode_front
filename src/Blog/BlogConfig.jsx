@@ -11,17 +11,16 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 function BlogConfig(props) {
     
     const focusName = useRef();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const sessionStorage = window.sessionStorage
+    const sessionStorage = window.sessionStorage;
     
     //blogconfig state
     const [blogNameInput , setBlogNameInput ] = useState("");
     const [selectSkin, setSelectSkin] = useState(1);
     //카테고리 선택 state
-    const [categoryButton , setCategoryButton] = useState(false)
+    const [categoryButton , setCategoryButton] = useState(false);
     const [categoryNameInput , setCategoryNameInput] = useState('');
-    const [selectCategory , setSelectCategory] = useState(-1);      //카테고리선택시 색깔바뀌는 state
     const [categoryList , setCategoryList] = useState([]);          //카테고리 받는 state
     const [chooseCategory , setChooseCategory] = useState("")       //카테고리 선택 state
     //오버뷰 state
@@ -29,53 +28,40 @@ function BlogConfig(props) {
 
 
     useEffect(() => {
-        axios.post("/api/blog/config", {
-            memId: sessionStorage.getItem("memId")
-        }).then((response) => {
-            if(response.data !== ""){
-                console.log(response)
-                setBlogNameInput(response.data.name)
-                setSelectSkin(Number(response.data.skin))
-                setOverViewValue(response.data.overview)
-            }
-        }).catch((error) =>{
-            console.log(error)
-        })
-        focusName.current.focus()
-        // let test = []
-        // tagList.map((item) => {
-        //     return test.push(item.tagName)
+        // axios.post("/api/blog/config", {
+        //     blogIndex: sessionStorage.getItem("blogIndex")
+        // }).then((response) => {
+        //     if(response.data !== ""){
+        //         console.log(response)
+                // setBlogNameInput(response.data.name)
+                // setSelectSkin(Number(response.data.skin))
+                // setOverViewValue(response.data.overview)
+                // setCategoryList(response.data.categoryList)
+        //     }
+        // }).catch((error) =>{
+        //     console.log(error)
         // })
-        // setCategoryList(test)
-        // setBlogNameInput(UserBlogConfig.name)
-        // setSelectSkin(Number(UserBlogConfig.skin))
-        // setOverViewValue(UserBlogConfig.overview)
-        // setCategoryList(categoryInfo)
+        focusName.current.focus()
+        setBlogNameInput(UserBlogConfig.name)
+        setSelectSkin(Number(UserBlogConfig.skin))
+        setOverViewValue(UserBlogConfig.overview)
+        setCategoryList(UserBlogConfig.categoryList)
+
     } , [])
 
-    // 카테고리 추가 버튼(+)
-    const HandleAddButton = () => {
-        setCategoryButton(!categoryButton);
-        setSelectCategory(-1);
-    }
-
-    /**카테고리 선택 버튼 */
-    const SelectCategory = (index , categoryName) => {
-        setSelectCategory(index)
-        setChooseCategory(categoryName)
-    }
 
     /**카테고리 추가 함수 */
     const HandleAddCategory = () => {
         if(categoryNameInput){
             if(!categoryList.includes(categoryNameInput)){
                 const copy = [...categoryList]
-                copy.push({
-                    "categoryName": categoryNameInput,
-                    "thumbnailPath": [],
-                    "postCount": 0
-                })
-                setCategoryList([...copy])     
+                copy.push(categoryNameInput)
+                setCategoryList([...copy])
+                // axios.post("/api/category/create",{
+                //     "categoryName": categoryNameInput,
+                //     "blogIndex": sessionStorage.getItem("blogIndex")
+                // })
+                // .then((response) => console.log(response))
             }
         setCategoryNameInput('')
         }
@@ -83,34 +69,33 @@ function BlogConfig(props) {
     }
     /**카테고리 삭제 함수 */
     const RemoveCategory = (event) => {
+        console.log(event)
         let copy = categoryList;
         setCategoryList( copy.filter((e) => e != event) )
+        // axios.post("/api/category/delete",{
+        //     "categoryName": event,
+        //     "blogIndex": sessionStorage.getItem("blogIndex")
+        // })
+        // .then((response) => console.log(response))
     }
 
         /**데이터 보내는 양식 */
     const HandleSaved = () =>{
         if(blogNameInput != ""){
-            axios.post("/api/blog/config/update",{
-                "memId": sessionStorage.getItem("memId"),
-                "name": blogNameInput,
-                "skin": selectSkin,
-                "overview": overViewValue,
-                "categoryName": chooseCategory
-            })
-            .then((response) => {
-                console.log(response.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-            // const data = {
+            // axios.post("/api/blog/config/save",{
+            //     "blogIndex":0,
+            //     "memId": sessionStorage.getItem("memId"),
             //     "name": blogNameInput,
             //     "skin": selectSkin,
-            //     "overview": overViewValue,
-            //     "categoryName": chooseCategory
-            // }
+            //     "overview": overViewValue
+            // })
+            // .then((response) => {
+            //     console.log(response.data)
+            // })
+            // .catch((error) => {
+            //     console.log(error)
+            // })
             navigate(`/blog/${sessionStorage.getItem("nickname")}/overView`)
-            // console.log(data)
         }
         else{
             alert("블로그 이름을 설정해주세요")
@@ -120,7 +105,7 @@ function BlogConfig(props) {
     return (
         <>
             <BlogHeader />
-            <ConfigSection $select={selectSkin} $selectCategory={selectCategory}>
+            <ConfigSection $select={selectSkin}>
                 <div className="partBox">
                     <div className="partName" >블로그 이름</div>
                     <input ref={focusName} value={blogNameInput} onChange={(e) => setBlogNameInput(e.target.value)} className="nameInput" type="text" placeholder="블로그 이름 입력" />
@@ -153,12 +138,12 @@ function BlogConfig(props) {
                                 <ul className="category">
                                 {categoryList.map((item , index) => {
                                     return (
-                                    <li onClick={() => {SelectCategory(index , item.categoryName)}} key={index}>
-                                        <span>{item.categoryName}</span><div onClick={() => RemoveCategory(item)}>x</div>
+                                    <li key={index}>
+                                        <span>{item}</span><div onClick={() => RemoveCategory(item)}>x</div>
                                     </li>)
                                 })
                                 }
-                                    <li className="addButton" onClick={HandleAddButton}>+</li>
+                                    <li className="addButton" onClick={() => setCategoryButton(!categoryButton)}>+</li>
                                 </ul>
                             {categoryButton ? 
                                 <div className="AddCategory">
@@ -171,7 +156,7 @@ function BlogConfig(props) {
                         </div>
                         <div className="partBox">
                             <div className="partName">OverView</div>
-                            <Editer value={overViewValue} setValue={setOverViewValue} height={500} buttonList={[
+                            <Editer value={overViewValue || ""} setValue={setOverViewValue} height={500} buttonList={[
                                 [buttonType.title1, buttonType.title2, buttonType.title3],
                                 [buttonType.bold, buttonType.italic, buttonType.strikethrough],
                                 [buttonType.code, buttonType.codeBlock, buttonType.quote, buttonType.image, buttonType.link]
@@ -321,11 +306,6 @@ const ConfigSection = styled.div`
 
                 div{
                     margin-bottom: 7px;
-                }
-
-                &> :nth-child(${props => props.$selectCategory + 1}){
-                    color: white;
-                    background-color: var(--second);
                 }
         
                 .addButton {

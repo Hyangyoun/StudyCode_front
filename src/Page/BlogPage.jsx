@@ -13,20 +13,56 @@ import { useParams , useNavigate } from "react-router-dom";
 import BlogInfo from "../DummyData/BlogInfo.json";
 import BlogConfig from "../Blog/BlogConfig";
 import Footer from "../Blog/BlogItem/Footer";
+import postInfo from "../DummyData/postList.json"
 
 function BlogPage(props){
 
     const navigate = useNavigate()
     const { category, nickname , categoryName , folderName} = useParams();
-    const [test, setTest] = useState(false)
 
     const [userinfo, setUserInfo] = useState({});
-    const [BlogTagName , setBlogTagName] = useState("")
     const sessionStorage = window.sessionStorage
+
+    /** 태그와 관련된 state */
+    const [BlogTagPost , setBlogTagPost] = useState("") //클릭된 태그를 포스트리스트에 옮김
+    const [clickTagName , setClickTagName] = useState(null) //클릭된 태그이름을 포스트리스트에 옮김
 
     /** 태그를 클릭시 실행되는 함수 */
     const ClickTag = (tagName) =>{
-        setBlogTagName(tagName)
+        if(tagName){
+            //클릭된태그요청하는 axios
+            //     axios.post("" , {
+            //         nickname: nickname,
+            //         tagName : BlogTagPost
+            //     })
+            // })
+            // .then((response) => {
+            //     setBlogTagPost(response.data)
+            //     setClickTagName(tagName)
+            // })
+            // .catch((error) => {
+            //     console.log(error)
+            // })
+            setClickTagName(tagName)
+            setBlogTagPost(postInfo)
+        }
+        else if(tagName == null){
+            // axios.get("/api/post/list",{
+            //     params:{
+            //         nickname: nickname
+            //     }
+            // })
+            // .then((response) => {
+            //     setBlogTagPost(response.data)
+            //     setClickTagName(null)
+            //     console.log(response.data)
+            // })
+            // .catch((error) => {
+            //     console.log(error)
+            // })
+            setClickTagName(null)
+            setBlogTagPost(postInfo)
+        }
     }
 
     /** 회원가입하고 처음 블로그에 들어갈때 자동으로 연결됨 */
@@ -36,10 +72,6 @@ function BlogPage(props){
 
     useEffect(() => {
         setUserInfo(BlogInfo)
-        axios.get("/api/category/test")
-        .then((response) => {
-            setTest(response.data)
-        })
         // axios.get("/api/blog/info",{
         //     params:{
         //         nickname: nickname,
@@ -61,32 +93,27 @@ function BlogPage(props){
     },[])
 
     return(
-            <BlogSection $skin={userinfo.skin}>
+        <BlogSection $skin={userinfo.skin}>
+            {
                 {
-                    {
-                        1 : <>
-                                <SideBar category={category} userinfo={userinfo} ClickTag={ClickTag}/>
-                                <BlogSkin1 category={category} userName={userinfo.nickname} blogName={userinfo.name} />
-                            </>,
-                        2 : <BlogSkin2 category={category} userinfo={userinfo} ClickTag={ClickTag}/>
-                        
-                    }[userinfo.skin]
-                }
-                <div className="contentsMargin">
-                { categoryName == null || BlogTagName == null ?
-                    {
-                        overView : <OverView overView={userinfo.overview} />,
-                        postList : <PostList BlogTagName={BlogTagName}/>,
-                        category : <Cartegory />,
-                        repository : <Repository />,
-                        followers : <Followers />,
-                    }[category]
-                    :
-                    <PostList BlogTagName={BlogTagName}/>
-                }
-                { folderName != undefined ? <Repository /> : null}
-                </div>
-                <Footer>{test ? "true" : "False"}</Footer>
+                    1 : <>
+                            <SideBar category={category} userinfo={userinfo} ClickTag={ClickTag}/>
+                            <BlogSkin1 category={category} userName={userinfo.nickname} blogName={userinfo.name} />
+                        </>,
+                    2 : <BlogSkin2 category={category} userinfo={userinfo} ClickTag={ClickTag}/>
+                    
+                }[userinfo.skin]
+            }
+            <div className="contentsMargin">{
+                {
+                    overView : <OverView overView={userinfo.overview} />,
+                    postList : <PostList BlogTagPost={BlogTagPost} clickTagName={clickTagName}/>,
+                    category : <Cartegory />,
+                    repository : <Repository />,
+                    followers : <Followers />,
+                }[category]
+            }</div>
+            <Footer/>
         </BlogSection>
     )
 }

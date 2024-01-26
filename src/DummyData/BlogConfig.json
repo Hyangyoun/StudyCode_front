@@ -1,5 +1,9 @@
 {
-    "name": "ㄴㄴ",
-    "skin": "1",
-    "overview": "ㅇㅇ"
-  }
+  "name": "내 토요일 내놔",
+  "skin": 2,
+  "overview": null,
+  "categoryList": [
+    "자바",
+    "리액트"
+  ]
+}

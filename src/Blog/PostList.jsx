@@ -8,7 +8,7 @@ import axios from "axios";
 function PostList(props){
 
     const { nickname , categoryName } = useParams()
-    const { BlogTagName } = props
+    const { BlogTagPost , clickTagName } = props
     // const sessionStorage = window.sessionStorage
     const username = window.sessionStorage.getItem("nickname")
     const navigate = useNavigate()
@@ -16,6 +16,7 @@ function PostList(props){
         /** post와 관련된 state */
     const [posts , setPosts] = useState([])
     const [inputValue , setInputValue] = useState("")
+    const [isOwner , setIsOwner] = useState(false)
 
     useEffect((() => {
         // 포스트리스트 받는 axio
@@ -31,6 +32,20 @@ function PostList(props){
         // .catch((error) => {
         //     console.log(error)
         // })
+
+        //방문유저인지 주인인지 확인하는 axios
+        // axios.get("api" , {
+        //     params:{
+        //         memId:memId,
+        //         blogIndex:userBlogIndex
+        //     }
+        // })
+        // .then((response) => {
+        //     setIsOwner(response.data);
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
         setPosts(postInfo)
     }),[])
 
@@ -47,23 +62,14 @@ function PostList(props){
     //     })
     // },[categoryName])
 
-    // BlogTagName에 해당하는 postInfo 받는 axios
-    // useEffect(() => {
-    //     axios.post("" , {
-    //         nickname: nickname,
-    //         tagName : BlogTagName
-    //     })
-    //     .then((response) => {
-    //         setPosts(response.data)
-    //     })
-    // },[BlogTagName])
+    //태그가 적용된 state를 포스트에 넣어서 랜더링함
 
     return(
         <>
         {posts.length != 0 ?
             <BlogPostList >{
-                categoryName !== undefined || BlogTagName !== "" ?
-                <div className="categorytitle">{categoryName !== undefined ? categoryName : BlogTagName}</div>
+                categoryName !== undefined || clickTagName !== null ?
+                <div className="categorytitle">{clickTagName !== null ? clickTagName : null}</div>
                 :
                 <div className="searchForm">
                     <input className="searchInput" type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
@@ -89,7 +95,7 @@ function PostList(props){
             </BlogPostList> :
             <NoBlog>
                 <span>등록되어있는 포스트가 없습니다.</span>
-                {nickname == username ? <div onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>포스트 작성하기</div> : null}
+                {isOwner ? <div onClick={() => navigate(`/blog/${nickname}/blogWrite`)}>포스트 작성하기</div> : null}
             </NoBlog>
         }</>
     )

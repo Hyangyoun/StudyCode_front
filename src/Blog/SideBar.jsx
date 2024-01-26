@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import BlogTagList from "../DummyData/blogTagList.json"
+import axios from "axios";
 
 /** 블로그 메인  */
 
 function SideBar(props){
 
-    const {category , userinfo , ClickTag} = props;
+    const {category , userinfo , ClickTag } = props;
     const navigate = useNavigate();
     const sessionStorage = window.sessionStorage
     const username = sessionStorage.getItem("nickname")
@@ -16,10 +16,10 @@ function SideBar(props){
     const memId = sessionStorage.getItem("memId")
     
     const [menuIndex, setMenuIndex] = useState();
-    const [isOwner , setIsOwner] = useState(false)
-    /** 태그와 관련된 state */
-    const [tagList , setTagList] = useState([])
+    const [isOwner , setIsOwner] = useState(true)
+    //태그 클릭됐을떄 색깔 표시해주는 state
     const [tag , setTag] = useState()
+    const [tagList , setTagList] = useState([]) //태그리스트를 axios에서 데이터를 받은 state
 
     useEffect(() => {
         setMenuIndex({
@@ -45,6 +45,7 @@ function SideBar(props){
         // .catch((error) => {
         //     console.log(error);
         // });
+
         //태그요청하는 axios
         // axios.get("api",{
         //     params:{
@@ -58,19 +59,22 @@ function SideBar(props){
         //     console.log(error)
         // })
         setTagList(BlogTagList)
-    })
 
-    const ChooseTag = (tagName,e) =>{
-        if(tag == e.target.value){
-            ClickTag('')
-            setTag()
-        }
-        else{
-            ClickTag(tagName)
-            setTag(e.target.value)
-        }
-        navigate(`/blog/${userinfo.nickname}/postList`)
+    })
+     // 태그를 누르면 이미 클릭된 태그인지 확인하고 태그가 같은애인지를 확인하는 함수
+    const ChooseTag = (tagName,tagNumber) =>{
+        if(tag == tagNumber){
+            ClickTag(null)
+            setTag(null)
+            }
+            else{
+                ClickTag(tagName)
+                setTag(tagNumber)
+                navigate(`/blog/${userinfo.nickname}/postList`)
+                console.log("if")
+            }
     }
+    
     return(
         <Sidebar $menuIndex={menuIndex}>
             <img  className="profilePicture" src={userinfo.profilePicture ? userinfo.profilePicture : "/image/icon/profile.png"} alt="프로필사진"/>
@@ -86,7 +90,7 @@ function SideBar(props){
             <div className="tagBox"> Tag
                 <ul>{
                     tagList.map((item ,index) => {
-                        return <li value={index} className={tag == index ? "active" : null} onClick={(e) => {ChooseTag(item.tagName,e)}} key={index}>{item.tagName}</li>
+                        return <li value={item.tagName} className={tag == index ? "active" : null} onClick={() => {ChooseTag(item.tagName,index)}} key={index}>{item.tagName}</li>
                     })
                     }
                 </ul>
