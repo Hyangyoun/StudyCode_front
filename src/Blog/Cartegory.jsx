@@ -76,14 +76,14 @@ function Cartegory(props){
             if(!categoryBox.includes(categoryTitle)){
                 categoryBox.push({
                     categoryName : categoryTitle,
-                    categoryIndex : addCategory.length
+                    thumbnailPath : 2 //썸네일에 따라 달라질예정
                 })
                 setAddCategory([...categoryBox])     //기존배열을 지우고 새배열을 출력
-                axios.post("" , {
-                        blogIndex:userBlogIndex,
-                        categoryName : categoryTitle
-                    }).catch((error) => console.log(error))
-                    setCategoryTitle('')
+                // axios.post("" , {
+                //         blogIndex:userBlogIndex,
+                //         categoryName : categoryTitle
+                //     }).catch((error) => console.log(error))
+                window.location.reload()
             }
         }
     }
@@ -113,7 +113,7 @@ function Cartegory(props){
                     <>
                         <div className="addCategory">
                             <input maxLength={20} type="text" placeholder="카테고리 이름" ref={focusInput} value={categoryTitle} onChange={(e) => setCategoryTitle(e.target.value)}/>
-                            <div className="addButton" onClick={HandleAddCartegory} >만들기</div>
+                            <div className="addButton" onClick={() => HandleAddCartegory()} >만들기</div>
                         </div>
                         <span className="title" >카테고리 추가</span>
                     </>

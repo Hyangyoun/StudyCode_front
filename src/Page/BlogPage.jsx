@@ -70,7 +70,11 @@ function BlogPage(props){
             setBlogTagPost(postInfo)
         }
     }
-
+    /** 카테고리 클릭시 블로그 인덱스와 카테고리 인덱스를 보내고 처음argument는 카테고리 인덱스이고 
+     * 두번째 argument는 클릭한 카테고리 인덱스를 의미한다(더미데이터용으로사용될것으로 생각됨 
+     * response data 가 안된다면 Name 쓸예정, 받은리스트를 카테고리포스트에 넣어서 포스트리스트로 보내줌
+     *  Name 들어가면 함수 작동 시작이라보면됨
+     */
     const CLickCategory = (categoryIndex , Name) => {
         if(Name){
             // axios.post("api",{
@@ -79,31 +83,13 @@ function BlogPage(props){
             // })
             // .then((response) => {
             //     setBlogCategoryPost(response.data)
-            //     navigate(`/blog/${nickname}/category/${categoryName}`)
+            //     navigate(`/blog/${nickname}/category/${response.data.categoryName}`)
             // })
             // .catch((error) => console.log(error))
             setBlogCategoryPost(postInfo)
             console.log(BlogCategoryPost)
             navigate(`/blog/${nickname}/category/${Name}`)
-
         }
-        else if(Name == null){
-            // axios.get("/api/post/list",{
-            //     params:{
-            //         nickname: nickname
-            //     }
-            // })
-            // .then((response) => {
-            //     setBlogCategoryPost(response.data)
-            //     setClickTagName(null)
-            //     console.log(response.data)
-            // })
-            // .catch((error) => {
-            //     console.log(error)
-            // })
-            setBlogCategoryPost(postInfo)
-        }
-
     }
 
     /** 회원가입하고 처음 블로그에 들어갈때 자동으로 연결됨 */
