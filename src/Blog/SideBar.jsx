@@ -8,15 +8,11 @@ import axios from "axios";
 
 function SideBar(props){
 
-    const {category , userinfo , ClickTag } = props;
+    const {category , userinfo , ClickTag ,isOwner } = props;
     const navigate = useNavigate();
-    const sessionStorage = window.sessionStorage
-    const username = sessionStorage.getItem("nickname")
-    const userBlogIndex = sessionStorage.getItem("blogIndex")
-    const memId = sessionStorage.getItem("memId")
+    // const sessionStorage = window.sessionStorage
     
     const [menuIndex, setMenuIndex] = useState();
-    const [isOwner , setIsOwner] = useState(true)
     //태그 클릭됐을떄 색깔 표시해주는 state
     const [tag , setTag] = useState()
     const [tagList , setTagList] = useState([]) //태그리스트를 axios에서 데이터를 받은 state
@@ -32,19 +28,6 @@ function SideBar(props){
     },[category])
 
     useEffect(() => {
-        //방문유저인지 주인인지 확인하는 axios
-        // axios.get("api" , {
-        //     params:{
-        //         memId:memId,
-        //         blogIndex:userBlogIndex
-        //     }
-        // })
-        // .then((response) => {
-        //     setIsOwner(response.data);
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // });
 
         //태그요청하는 axios
         // axios.get("api",{
@@ -60,7 +43,7 @@ function SideBar(props){
         // })
         setTagList(BlogTagList)
 
-    })
+    },[])
      // 태그를 누르면 이미 클릭된 태그인지 확인하고 태그가 같은애인지를 확인하는 함수
     const ChooseTag = (tagName,tagNumber) =>{
         if(tag == tagNumber){
@@ -79,13 +62,12 @@ function SideBar(props){
         <Sidebar $menuIndex={menuIndex}>
             <img  className="profilePicture" src={userinfo.profilePicture ? userinfo.profilePicture : "/image/icon/profile.png"} alt="프로필사진"/>
             <div className="nickName">{userinfo.nickname}</div>
-                {isOwner ? 
-                <div className="write" onClick={() => navigate(`/blog/${userinfo.nickname}/blogWrite`)}>새 포스트</div>: null}
+            {isOwner ? <div className="write" onClick={() => navigate(`/blog/${userinfo.nickname}/blogWrite`)}>새 포스트</div>: null}
             <div className="cartegoryForm" >
-                <div onClick={() => navigate(`/blog/${userinfo.nickname}/overView`)} className="overview">메인(overview)</div>
-                <div onClick={() => navigate(`/blog/${userinfo.nickname}/postList`)} className="post">포스트(post)</div>
-                <div onClick={() => navigate(`/blog/${userinfo.nickname}/category`)} className="post">category</div>
-                <div onClick={() => navigate(`/blog/${userinfo.nickname}/repository`)} className="repository">repository</div>
+                <div onClick={() => navigate(`/blog/${userinfo.nickname}/overView`)}>메인(overview)</div>
+                <div onClick={() => navigate(`/blog/${userinfo.nickname}/postList`)}>포스트(post)</div>
+                <div onClick={() => navigate(`/blog/${userinfo.nickname}/category`)}>category</div>
+                <div onClick={() => navigate(`/blog/${userinfo.nickname}/repository`)}>repository</div>
             </div>
             <div className="tagBox"> Tag
                 <ul>{

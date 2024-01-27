@@ -11,7 +11,6 @@ import Followers from "../Blog/Followers";
 import Repository from "../Blog/Repository";
 import { useParams , useNavigate } from "react-router-dom";
 import BlogInfo from "../DummyData/BlogInfo.json";
-import BlogConfig from "../Blog/BlogConfig";
 import Footer from "../Blog/BlogItem/Footer";
 import postInfo from "../DummyData/postList.json"
 
@@ -22,7 +21,11 @@ function BlogPage(props){
 
     const [userinfo, setUserInfo] = useState({});
     const sessionStorage = window.sessionStorage
-
+    const username = sessionStorage.getItem("nickname")
+    const userBlogIndex = sessionStorage.getItem("blogIndex")
+    const memId = sessionStorage.getItem("memId")
+    //사용자가 블로그주인인지 확인한느state
+    const [isOwner , setIsOwner] = useState(true)
     /** 태그와 관련된 state */
     const [BlogTagPost , setBlogTagPost] = useState("") //클릭된 태그를 포스트리스트에 옮김
     const [clickTagName , setClickTagName] = useState(null) //클릭된 태그이름을 포스트리스트에 옮김
@@ -90,6 +93,20 @@ function BlogPage(props){
         // .catch((error) => {
         //     console.log(error)
         // })
+
+        //방문유저인지 주인인지 확인하는 axios
+        // axios.get("api" , {
+        //     params:{
+        //         memId:memId,
+        //         blogIndex:userBlogIndex
+        //     }
+        // })
+        // .then((response) => {
+        //     setIsOwner(response.data);
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
     },[])
 
     return(
@@ -97,19 +114,19 @@ function BlogPage(props){
             {
                 {
                     1 : <>
-                            <SideBar category={category} userinfo={userinfo} ClickTag={ClickTag}/>
+                            <SideBar category={category} userinfo={userinfo} ClickTag={ClickTag} isOwner={isOwner}/>
                             <BlogSkin1 category={category} userName={userinfo.nickname} blogName={userinfo.name} />
                         </>,
-                    2 : <BlogSkin2 category={category} userinfo={userinfo} ClickTag={ClickTag}/>
+                    2 : <BlogSkin2 category={category} userinfo={userinfo} ClickTag={ClickTag} isOwner={isOwner}/>
                     
                 }[userinfo.skin]
             }
             <div className="contentsMargin">{
                 {
-                    overView : <OverView overView={userinfo.overview} />,
-                    postList : <PostList BlogTagPost={BlogTagPost} clickTagName={clickTagName}/>,
-                    category : <Cartegory />,
-                    repository : <Repository />,
+                    overView : <OverView overView={userinfo.overview} isOwner={isOwner}/>,
+                    postList : <PostList BlogTagPost={BlogTagPost} clickTagName={clickTagName} isOwner={isOwner}/>,
+                    category : <Cartegory isOwner={isOwner}/>,
+                    repository : <Repository isOwner={isOwner}/>,
                     followers : <Followers />,
                 }[category]
             }</div>

@@ -8,7 +8,7 @@ import axios from "axios";
 function PostList(props){
 
     const { nickname , categoryName } = useParams()
-    const { BlogTagPost , clickTagName } = props
+    const { BlogTagPost , clickTagName ,isOwner } = props
     // const sessionStorage = window.sessionStorage
     const username = window.sessionStorage.getItem("nickname")
     const navigate = useNavigate()
@@ -16,7 +16,6 @@ function PostList(props){
         /** post와 관련된 state */
     const [posts , setPosts] = useState([])
     const [inputValue , setInputValue] = useState("")
-    const [isOwner , setIsOwner] = useState(false)
 
     useEffect((() => {
         // 포스트리스트 받는 axio
@@ -33,21 +32,8 @@ function PostList(props){
         //     console.log(error)
         // })
 
-        //방문유저인지 주인인지 확인하는 axios
-        // axios.get("api" , {
-        //     params:{
-        //         memId:memId,
-        //         blogIndex:userBlogIndex
-        //     }
-        // })
-        // .then((response) => {
-        //     setIsOwner(response.data);
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // });
         setPosts(postInfo)
-    }),[])
+    }),[posts])
 
     // categoryName에 해당하는 postInfo 받는 axios
     // useEffect(() => {
@@ -63,6 +49,10 @@ function PostList(props){
     // },[categoryName])
 
     //태그가 적용된 state를 포스트에 넣어서 랜더링함
+
+    useEffect(() => {
+        setPosts(BlogTagPost)
+    },[BlogTagPost])
 
     return(
         <>

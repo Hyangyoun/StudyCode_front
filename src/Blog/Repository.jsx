@@ -177,22 +177,16 @@ function Repository(props){
     )
 }
 
-const RepoList = styled.ul`
-    width: auto;
+const RepoList = styled.div`
+    width: 100%;
     height: auto;
-    display: flex;
-    padding: 0;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-
+    margin: 70px 0 0 0;
     .repo{
         width: 1000px;
         height: auto;
         padding: 0;
         list-style: none;
-        margin: 70px 0 0 0;
+        margin: auto;
         border: 1px solid var(--second);
         border-radius: 5px;
 

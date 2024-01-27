@@ -9,17 +9,19 @@ function Cartegory(props){
 
     const navigate = useNavigate();
     const { nickname } = useParams();
+    const { isOwner } = props
 
-    const sessionStorage = window.sessionStorage
-    const username = window.sessionStorage.getItem("nickname")
     /** 카테고리추가와 관련된 함수 */
     const categoryBox = useRef("");
     const focusInput = useRef();
 
     /** 카테고리 추가버튼 */
-    const [addCategory , setAddCategory] = useState([])
+    const [addCategory , setAddCategory] = useState([]);
     const [ categoryTitle , setCategoryTitle] = useState("");
     const [plusCategory , setPlusCategory] = useState(false);
+
+    const [changeCss , setChangeCss] = useState(false);
+    const windowSize = window.outerWidth;
 
     useEffect(() => {
         if(plusCategory){
@@ -28,10 +30,17 @@ function Cartegory(props){
     },[plusCategory])
 
     const ClickAddcategory = (event) => {
-        if(nickname == username){
             if(!categoryBox.current.contains(event.target)){
                 setPlusCategory(false)
             }
+    }
+
+    const ChangeWindow = () => {
+        if(windowSize > 1240){
+            setChangeCss(false)
+        }
+        else if(windowSize <= 1240){
+            setChangeCss(true)
         }
     }
 
@@ -39,7 +48,7 @@ function Cartegory(props){
         // categoryNameList 받는 axios
         // axios.get("/api/blog/category/info",{
         //     params: {
-        //         nickname : nickname
+        //         blogIndex:userBlogIndex
         //     }
         // })
         // .then((response) =>{
@@ -49,10 +58,12 @@ function Cartegory(props){
         //     console.log(error)
         // })
         setAddCategory(categoryInfo)
-
+        ChangeWindow()
         document.addEventListener("mousedown" , ClickAddcategory)
+        window.addEventListener("resize" , ChangeWindow)
         return (() => {
             document.removeEventListener("mousedown" , ClickAddcategory)
+            window.removeEventListener("resize" , ChangeWindow)
         })
     },[])
 
@@ -68,7 +79,7 @@ function Cartegory(props){
                 setAddCategory([...categoryBox])     //기존배열을 지우고 새배열을 출력
             }
             //     axios.post("" , {
-                //         memId : sessionStorage.getItem("memId"),
+                //         blogIndex:userBlogIndex,
                 //         categoryName : categoryTitle
                 //     }).then((response) =>{
                     //         setAddCategory(response.data)
@@ -78,76 +89,62 @@ function Cartegory(props){
                     setCategoryTitle('')
         return ;
     }}
-    console.log(addCategory)
 
     return(
-        <CartegoryList>
-            <Item $plusCategory={plusCategory}>{
-                addCategory.map((item ,index) => {
-                    return(
-                    <li key={index} onClick={() => navigate(`/blog/${nickname}/category/${item.categoryName}`)}>
-                        <div className="itemBox">
-                            {item.thumbnailPath.length > 0 ?
-                            <>
-                                <img src={item.thumbnailPath[0]} alt="썸네일"/>
-                                <img src={item.thumbnailPath[1] ? item.thumbnailPath[1] : "/image/icon/non_image.png"} alt="썸네일"/>
-                                <img src={item.thumbnailPath[2] ? item.thumbnailPath[2] : "/image/icon/non_image.png"} alt="썸네일"/>
-                                <img src={item.thumbnailPath[3] ? item.thumbnailPath[3] : "/image/icon/non_image.png"} alt="썸네일"/>
-                            </>
-                            :
-                            <img src="/image/icon/logo.png" alt="썸네일."/>
-                            }
+        <Item $plusCategory={plusCategory} $changeCss={changeCss}>{
+            addCategory.map((item ,index) => {
+                return(
+                <li key={index} onClick={() => navigate(`/blog/${nickname}/category/${item.categoryName}`)}>
+                    <div className="itemBox">
+                        {item.thumbnailPath.length > 0 ?
+                        <>{item.thumbnailPath.map((item , index) => {
+                            return <img key={index} src={item[index] ? item[index] : "/image/icon/non_image.png"} alt="썸네일"/>
+                        })
+                        }</>
+                        :
+                        <img src="/image/icon/logo.png" alt="썸네일."/>
+                        }
+                    </div>
+                    <div title={item.categoryName} className="title" >{item.categoryName}</div>
+                    <span className="postCount">{item.postCount ? item.postCount : 0}개의 포스트</span>
+                </li>)
+            })}
+            {isOwner ?
+            <li onClick={() => setPlusCategory(true)} ref={categoryBox} >
+                {plusCategory ?
+                    <>
+                        <div className="addCategory">
+                            <input maxLength={20} type="text" placeholder="카테고리 이름" ref={focusInput} value={categoryTitle} onChange={(e) => setCategoryTitle(e.target.value)}/>
+                            <div className="addButton" onClick={HandleAddCartegory} >만들기</div>
                         </div>
-                        <div title={item.categoryName} className="title" >{item.categoryName}</div>
-                        <span className="postCount">{item.postCount ? item.postCount : 0}개의 포스트</span>
-                    </li>)
-                })}
-                {nickname == username ?
-                <li onClick={() => setPlusCategory(true)} ref={categoryBox} >
-                    {plusCategory ?
-                        <>
-                            <div className="addCategory">
-                                <input maxLength={20} type="text" placeholder="카테고리 이름" ref={focusInput} value={categoryTitle} onChange={(e) => setCategoryTitle(e.target.value)}/>
-                                <div className="addButton" onClick={HandleAddCartegory} >만들기</div>
-                            </div>
-                            <span className="title" >카테고리 추가</span>
-                        </>
-                    :
-                        <>
-                            <div className="addCategory">
-                                <img className="" src="/image/icon/cartegory-icon.png" alt="카테고리 추가 이미지" />
-                            </div>
-                            <span className="title" >카테고리 추가</span>
-                        </>
-                    }
-                </li>
+                        <span className="title" >카테고리 추가</span>
+                    </>
                 :
-                null}
-                {addCategory.length == 0 ? <span className="NoCategory">
-                    {nickname == username ? null: "카테고리가 없습니다" }
-                    </span> : null}
-            </Item>
-        </CartegoryList>
+                    <>
+                        <div className="addCategory">
+                            <img className="" src="/image/icon/cartegory-icon.png" alt="카테고리 추가 이미지" />
+                        </div>
+                        <span className="title" >카테고리 추가</span>
+                    </>
+                }
+            </li>
+            :
+            null}
+            {addCategory.length == 0 ? <span className="NoCategory">
+                {isOwner ? null: "카테고리가 없습니다" }
+                </span> : null}
+        </Item>
     )
 }
-
-const CartegoryList = styled.div`
-    width: 1200px; height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-`
 
 const Item = styled.ul`
     user-select: none;
     display: flex;
     margin: auto;
-    width: 1200px;
+    width:${props => props.$changeCss ? "auto" : "1200px"};
     padding: 0;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: ${props => props.$changeCss ? "center" : "flex-start"};
     align-items: center;
     flex-wrap: wrap;
     .itemBox{

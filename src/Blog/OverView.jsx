@@ -9,10 +9,9 @@ function OverView(props) {
 
     const sessionStorage = window.sessionStorage;
     const { nickname } = useParams();
-    const {overView} = props;
+    const {overView ,isOwner} = props;
     const [editOver, setEditOver] = useState("");
     const [regist, setRegist] = useState(false)
-    const [isOwner , setIsOwner] = useState(false)
 
     useEffect(() => {
         //방문유저인지 주인인지 확인하는 axios
@@ -28,7 +27,7 @@ function OverView(props) {
         // .catch((error) => {
         //     console.log(error);
         // });
-    })
+    },[])
 
     function SaveOverView(){
         axios.post("/api/blog/regist/overView",{

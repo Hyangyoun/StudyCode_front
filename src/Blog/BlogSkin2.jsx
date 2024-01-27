@@ -5,21 +5,15 @@ import { useParams } from "react-router-dom";
 import BlogTagList from "../DummyData/blogTagList.json"
 
 function BlogSkin2(props) {
-    const {category ,userinfo ,ClickTag} = props
+    const {category ,userinfo ,ClickTag ,isOwner} = props
 
     const [menuIndex, setMenuIndex] = useState()
     const [tagList , setTagList] = useState([])
     const [tag , setTag] = useState()
-    const [isOwner , setIsOwner] = useState(false)
-
-    const {nickname} = useParams()
     
     const navigate = useNavigate();
 
-    const sessionStorage = window.sessionStorage
-    const username = sessionStorage.getItem("nickname")
-    const userBlogIndex = sessionStorage.getItem("blogIndex")
-    const memId = sessionStorage.getItem("memId")
+    // const sessionStorage = window.sessionStorage
 
     const [side, setSide] = useState(false)
     const sideRef = useRef()
@@ -49,19 +43,6 @@ function BlogSkin2(props) {
     },[category])
 
     useEffect(() => {
-        //방문유저인지 주인인지 확인하는 axios
-        // axios.get("api" , {
-        //     params:{
-        //         memId:memId,
-        //         blogIndex:userBlogIndex
-        //     }
-        // })
-        // .then((response) => {
-        //     setIsOwner(response.data);
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // });
         //태그요청하는 axios
         // axios.get("api",{
         //     params:{
@@ -75,7 +56,7 @@ function BlogSkin2(props) {
         //     console.log(error)
         // })
         setTagList(BlogTagList)
-    })
+    },[])
 
      // 태그를 누르면 이미 클릭된 태그인지 확인하고 태그가 같은애인지를 확인하는 함수
      const ChooseTag = (tagName,tagNumber) =>{
