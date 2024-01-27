@@ -8,7 +8,7 @@ import axios from "axios";
 function PostList(props){
 
     const { nickname , categoryName } = useParams()
-    const { BlogTagPost , clickTagName ,isOwner } = props
+    const { BlogTagPost , clickTagName, BlogCategoryPost ,isOwner } = props
     // const sessionStorage = window.sessionStorage
     const username = window.sessionStorage.getItem("nickname")
     const navigate = useNavigate()
@@ -33,33 +33,27 @@ function PostList(props){
         // })
 
         setPosts(postInfo)
+        console.log("post")
     }),[posts])
-
-    // categoryName에 해당하는 postInfo 받는 axios
-    // useEffect(() => {
-    //     axios.get("/api/post/list" , {
-            // params:{
-        //         nickname: nickname,
-        //         categoryName : categoryName
-            // }
-    //     })
-    //     .then((response) => {
-    //         setPosts(response.data)
-    //     })
-    // },[categoryName])
 
     //태그가 적용된 state를 포스트에 넣어서 랜더링함
 
     useEffect(() => {
+        console.log("tag")
         setPosts(BlogTagPost)
     },[BlogTagPost])
 
+    useEffect(() => {
+        console.log("category")
+        setPosts(BlogCategoryPost)
+    },[BlogCategoryPost])
+
     return(
         <>
-        {posts.length != 0 ?
+        {posts != null ?
             <BlogPostList >{
                 categoryName !== undefined || clickTagName !== null ?
-                <div className="categorytitle">{clickTagName !== null ? clickTagName : null}</div>
+                <div className="categorytitle">{categoryName || clickTagName !== null ? categoryName || clickTagName : null}</div>
                 :
                 <div className="searchForm">
                     <input className="searchInput" type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>

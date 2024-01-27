@@ -9,7 +9,7 @@ function Cartegory(props){
 
     const navigate = useNavigate();
     const { nickname } = useParams();
-    const { isOwner } = props
+    const {CLickCategory , isOwner } = props;
 
     /** 카테고리추가와 관련된 함수 */
     const categoryBox = useRef("");
@@ -22,6 +22,8 @@ function Cartegory(props){
 
     const [changeCss , setChangeCss] = useState(false);
     const windowSize = window.outerWidth;
+    const sessionStorage = window.sessionStorage
+    const userBlogIndex = sessionStorage.getItem("blogIndex")
 
     useEffect(() => {
         if(plusCategory){
@@ -74,27 +76,23 @@ function Cartegory(props){
             if(!categoryBox.includes(categoryTitle)){
                 categoryBox.push({
                     categoryName : categoryTitle,
-                    thumbnailPath : []
+                    categoryIndex : addCategory.length
                 })
                 setAddCategory([...categoryBox])     //기존배열을 지우고 새배열을 출력
-            }
-            //     axios.post("" , {
-                //         blogIndex:userBlogIndex,
-                //         categoryName : categoryTitle
-                //     }).then((response) =>{
-                    //         setAddCategory(response.data)
-                    //     })
-                    //     .catch((error) => console.log(error))
-                // }
+                axios.post("" , {
+                        blogIndex:userBlogIndex,
+                        categoryName : categoryTitle
+                    }).catch((error) => console.log(error))
                     setCategoryTitle('')
-        return ;
-    }}
+            }
+        }
+    }
 
     return(
         <Item $plusCategory={plusCategory} $changeCss={changeCss}>{
             addCategory.map((item ,index) => {
                 return(
-                <li key={index} onClick={() => navigate(`/blog/${nickname}/category/${item.categoryName}`)}>
+                <li key={index} onClick={() => CLickCategory(index , item.categoryName)}>
                     <div className="itemBox">
                         {item.thumbnailPath.length > 0 ?
                         <>{item.thumbnailPath.map((item , index) => {

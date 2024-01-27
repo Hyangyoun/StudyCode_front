@@ -13,6 +13,7 @@ import { useParams , useNavigate } from "react-router-dom";
 import BlogInfo from "../DummyData/BlogInfo.json";
 import Footer from "../Blog/BlogItem/Footer";
 import postInfo from "../DummyData/postList.json"
+import categoryInfo from "../DummyData/categoryInfo.json";
 
 function BlogPage(props){
 
@@ -21,14 +22,16 @@ function BlogPage(props){
 
     const [userinfo, setUserInfo] = useState({});
     const sessionStorage = window.sessionStorage
-    const username = sessionStorage.getItem("nickname")
     const userBlogIndex = sessionStorage.getItem("blogIndex")
+    const username = sessionStorage.getItem("nickname")
     const memId = sessionStorage.getItem("memId")
     //사용자가 블로그주인인지 확인한느state
     const [isOwner , setIsOwner] = useState(true)
     /** 태그와 관련된 state */
     const [BlogTagPost , setBlogTagPost] = useState("") //클릭된 태그를 포스트리스트에 옮김
     const [clickTagName , setClickTagName] = useState(null) //클릭된 태그이름을 포스트리스트에 옮김
+    /** 태그와 관련된 state */
+    const [BlogCategoryPost , setBlogCategoryPost] = useState(null) //클릭된 category를 포스트리스트에 옮김
 
     /** 태그를 클릭시 실행되는 함수 */
     const ClickTag = (tagName) =>{
@@ -68,10 +71,45 @@ function BlogPage(props){
         }
     }
 
+    const CLickCategory = (categoryIndex , Name) => {
+        if(Name){
+            // axios.post("api",{
+            //     blogIndex:userBlogIndex,
+            //     categoryIndex:categoryIndex
+            // })
+            // .then((response) => {
+            //     setBlogCategoryPost(response.data)
+            //     navigate(`/blog/${nickname}/category/${categoryName}`)
+            // })
+            // .catch((error) => console.log(error))
+            setBlogCategoryPost(postInfo)
+            console.log(BlogCategoryPost)
+            navigate(`/blog/${nickname}/category/${Name}`)
+
+        }
+        else if(Name == null){
+            // axios.get("/api/post/list",{
+            //     params:{
+            //         nickname: nickname
+            //     }
+            // })
+            // .then((response) => {
+            //     setBlogCategoryPost(response.data)
+            //     setClickTagName(null)
+            //     console.log(response.data)
+            // })
+            // .catch((error) => {
+            //     console.log(error)
+            // })
+            setBlogCategoryPost(postInfo)
+        }
+
+    }
+
     /** 회원가입하고 처음 블로그에 들어갈때 자동으로 연결됨 */
-    // const StartUser = () =>{
-    //     navigate("/blog/config")
-    // }
+    const StartUser = () =>{
+        navigate("/blog/config")
+    }
 
     useEffect(() => {
         setUserInfo(BlogInfo)
@@ -122,14 +160,18 @@ function BlogPage(props){
                 }[userinfo.skin]
             }
             <div className="contentsMargin">{
+                categoryName ?
+                <PostList BlogCategoryPost={BlogCategoryPost} isOwner={isOwner}/>
+                :
                 {
                     overView : <OverView overView={userinfo.overview} isOwner={isOwner}/>,
                     postList : <PostList BlogTagPost={BlogTagPost} clickTagName={clickTagName} isOwner={isOwner}/>,
-                    category : <Cartegory isOwner={isOwner}/>,
+                    category : <Cartegory CLickCategory={CLickCategory} isOwner={isOwner}/>,
                     repository : <Repository isOwner={isOwner}/>,
                     followers : <Followers />,
                 }[category]
-            }</div>
+            }
+            </div>
             <Footer/>
         </BlogSection>
     )
