@@ -44,7 +44,7 @@ function SideBar(props){
         setTagList(BlogTagList)
 
     },[])
-     // 태그를 누르면 이미 클릭된 태그인지 확인하고 태그가 같은애인지를 확인하는 함수
+     // 태그를 누르면 태그index와 tag의 번호가 같은지 확인해 이미 클릭된 태그인지 확인하는 함수
     const ChooseTag = (tagName,tagNumber) =>{
         if(tag == tagNumber){
             ClickTag(null)
@@ -54,7 +54,6 @@ function SideBar(props){
                 ClickTag(tagName)
                 setTag(tagNumber)
                 navigate(`/blog/${userinfo.nickname}/postList`)
-                console.log("if")
             }
     }
     

@@ -33,22 +33,26 @@ function PostList(props){
         // })
 
         setPosts(postInfo)
-        console.log("post")
-    }),[posts])
+        console.log(posts)
+    }),[])
 
     //태그가 적용된 state를 포스트에 넣어서 랜더링함
-
     useEffect(() => {
-        console.log("tag")
-        setPosts(BlogTagPost)
+        if(BlogTagPost){
+            console.log("tag")
+            setPosts(BlogTagPost)
+        }
     },[BlogTagPost])
 
     useEffect(() => {
-        console.log("category")
-        setPosts(BlogCategoryPost)
+        if(BlogCategoryPost){
+            console.log("category")
+            setPosts(BlogCategoryPost)
+        }
     },[BlogCategoryPost])
 
     return(
+        
         <>
         {posts != null ?
             <BlogPostList >{
@@ -65,13 +69,13 @@ function PostList(props){
                         if(inputValue != "") {
                             if(post.title.replace(/\s+/g, "").includes(inputValue)) { // /\s+/g 빈칸 정규식
                                 return (
-                                    <PostListItem key={index} postInfo={post} postTag={post.tagName}/>
+                                    <PostListItem key={index} postInfo={post} postTag={post.tag}/>
                                 )
                             }
                         }
                         else {
                             return (
-                                <PostListItem key={index} postInfo={post} postTag={post.tagName}/>
+                                <PostListItem key={index} postInfo={post} postTag={post.tag}/>
                             )
                         }
                     })}

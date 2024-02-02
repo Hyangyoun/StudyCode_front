@@ -3,7 +3,6 @@ import Review from "./BlogItem/Review";
 import { useEffect, useRef, useState } from "react";
 import BlogHeader from "../Main/BlogHeader";
 import postData from "../DummyData/postInfo.json";
-import tagList from "../DummyData/tagList.json";
 import postFileList from "../DummyData/postFileList.json";
 import MDviewer from "../MarkDownEditer/MDviewer";
 import axios from "axios";
@@ -142,8 +141,8 @@ function PostViewer(props){
                         <span >{postInfo.postDate}</span>
                     </div>
                     <div className="tagbox">
-                        {postInfo.tagName ?
-                        postInfo.tagName.map((item,index) => {
+                        {postInfo.tag ?
+                        postInfo.tag.map((item,index) => {
                             return <li key={index}>{item}</li>
                         })
                         :
@@ -156,6 +155,9 @@ function PostViewer(props){
                                 })}
                             </ul>
                         </div>
+                    </div>
+                    <div className="thumbnail">
+                        <img src={postInfo.thumbnailPath ? postInfo.thumbnailPath : "/image/icon/logo.png"} alt="썸네일"/>
                     </div>
                     <MDviewer content={postInfo.content} width={"1000px"} />
                     
@@ -243,6 +245,15 @@ const ViewerStyle = styled.div`
                         color: white;
                     }
                 }
+            }
+        }
+        .thumbnail{
+            width: 100%;
+            height: auto;
+            text-align: center;
+            margin-top: 30px;
+            & > img{
+                max-width: 80%;
             }
         }
     }

@@ -1,12 +1,12 @@
 {
-  "content": "이거 안보여줄려고 어그로 끌었다",
-  "title": "내 일요일 내놔",
-  "nickname": "kwoos",
-  "postDate": "2023-10-18",
+  "postIndex": 1,
+  "title": "내 토요일 내놔",
+  "content": "바꾼디",
   "recommend": 0,
-  "blogName": "내 일요일 내놔",
-  "tagName": [
-    "Python",
-    "React"
+  "postDate": "2024-01-25",
+  "thumbnailPath": null,
+  "tag": [
+    "Java",
+    "SpringBoot"
   ]
 }

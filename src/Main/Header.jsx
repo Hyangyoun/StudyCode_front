@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 function Header(props) {
+
     const [search,setSearch] = useState("");
     const [tooltip,setTooltip] = useState(false);
     const [login, setLogin] = useState(false)
     
     const navigate = useNavigate()
     const sessionStorage = window.sessionStorage
-
+    //아이디 입력시 sessionStorage의 키값memId에 값이 들어가기때문에 사용
     useEffect(() => {
         if(sessionStorage.getItem("memId") !== null ){
             setLogin(true)
@@ -19,7 +20,7 @@ function Header(props) {
         )
     },[]
     )
-
+    // login이 true면 tooltip이 눈에 보이게 하고 아니면 logIn이 false면 로그인페이지로 이동함
     const ClickProfile = () => {
         if(login) {
             setTooltip(!tooltip)

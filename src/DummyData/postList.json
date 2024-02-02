@@ -2,62 +2,34 @@
   {
     "postIndex": 1,
     "title": "내 토요일 내놔",
-    "content": "이거 보여줄려고 어그로 끌었다",
+    "content": "바꾼디",
     "recommend": 0,
-    "postDate": "2023-10-17",
-    "thumbnailPath": "1",
-    "tagName": [
+    "postDate": "2024-01-25",
+    "tag": [
       "Java",
-      "JavaScript",
+      "SpringBoot"
+    ]
+  },
+  {
+    "postIndex": 2,
+    "title": "내 일요일 내놔",
+    "content": "일요일",
+    "recommend": 0,
+    "postDate": "2024-02-01",
+    "tag": [
       "React",
-      "리액트"
+      "JavaScript"
     ]
   },
   {
     "postIndex": 3,
-    "title": "내 월요일 저리가",
-    "content": "영차!",
+    "title": "미안하다 이거 보여줄려고",
+    "content": "어그로 끌었다",
     "recommend": 0,
-    "postDate": "2023-10-16",
-    "thumbnailPath": "3",
-    "tagName": [
-      "React"
+    "postDate": "2024-02-01",
+    "tag": [
+      "React",
+      "SpringBoot"
     ]
-  },
-  {
-    "postIndex": 5,
-    "title": "내 수요일 저리가",
-    "content": "진행시켜!",
-    "recommend": 0,
-    "postDate": "2023-10-15",
-    "thumbnailPath": "5",
-    "tagName": []
-  },
-  {
-    "postIndex": 6,
-    "title": "React 시작하기",
-    "content": "![이미지](https://velog.velcdn.com/images/lky5697/post/7f0a3a75-61da-402e-afa8-382f9a6c45dd/image.jpg)\n\n> 원문: https://daily.dev/blog/moving-back-to-react\n\n> daily.dev는 개발 이슈를 해결하고 성능을 향상시키기 위해 프런트엔드 프레임워크를 Preact에서 React로 전환했습니다. \n팀 해커톤에서 실행된 이 전환은 충분한 계획, 테스트 및 코드베이스 수정이 동반되었습니다. 이러한 전환을 통해 Next.js와의 호환성이 향상되고 개발 경험이 향상되었으며 향후 기술 발전을 위한 플랫폼을 준비할 수 있었습니다.\n\n얼마 전까지만 해도 daily.dev의 내부에서 실행되던 프런트엔드 프레임워크는 Preact였습니다. 서버 사이드 렌더링, 라우팅 및 데이터 페칭과 같은 핵심 기능을 위해 선택한 프레임워크인 Next.js와 함께 사용하고 있었습니다. Preact를 선택한 주된 이유 중 하나는 작은 Preact 라이브러리 사이즈와 Next.js와의 호환성 때문이었으며 당시에는 논리적인 선택이었습니다. 하지만 최근 자바스크립트 프런트엔드 프레임워크의 발전과 몇 가지 장기적인 문제로 인해 상황이 바뀌었고, 결국 React로 전환하기로 결정했습니다. 이 글은 우리가 어떻게 그리고 왜 그렇게 했는지에 대한 내용을 소개합니다.\n\n## 설정\nPreact를 사용하면서 호환성 레이어 및 Next.js Preact 플러그인을 통해 Next.js와 일반적인 React 기능이 작동하도록 했습니다. 패키지 관리자를 통해 별칭을 지정하여 React를 Preact 라이브러리로 대체했습니다. 또한 많은 Next.js 기능을 지원하는 Vercel을 호스팅 플랫폼으로 사용했습니다. 저희는 Next.js와 Vercel에 관련된 기능을 많이 사용하기 때문에 Next.js 프레임워크의 최신 버전을 유지하고 더 나은 DX(개발 경험)를 갖고자 했습니다.\n\n## 문제\n웹 기술이 발전함에 따라 자바스크립트와 React 프레임워크 세계는 끊임없이 변화하고 있습니다. 프로젝트를 건강하게 유지하고 새로운 기술을 수용하기 위해서는 이러한 변화를 따라잡는 것이 중요합니다. 우리는 이를 염두에 두고, Preact 설정이 Next.js와 함께 작동하도록 유지하는 데 필요한 많은 해결책을 발견했습니다. 앱이 프로덕션 모에는 정상적으로 실행되지만 개발 모드에서는 몇 가지 문제가 있다는 것을 발견했습니다.\n\n* 핫 리로딩\n* 에러 핸들링\n* 전반적으로 느린 환경 및 렌더링\n\n마지막 문제는 특히 더 심각했는데, 개발 모드에서 Preact를 사용하는 것은 예상보다 훨씬 느렸습니다. 그 결과 브라우저 탭이 계속 멈추고 코드베이스가 변경되면 핫 리로드도 매우 느려졌습니다. 단순한 컴포넌트든 복잡한 페이지든 상관없이 앱의 모든 부분에서 이 문제가 발생했습니다. 모든 종류의 개발 작업에서 속도가 느려지는게 가장 큰 문제였습니다.",
-    "recommend": 0,
-    "postDate": "2023-11-27",
-    "thumbnailPath": "6",
-    "tagName": []
-  },
-  {
-    "postIndex": 7,
-    "title": "테스트 포스트",
-    "content": "테스트입니다",
-    "recommend": 0,
-    "postDate": "2023-12-06",
-    "thumbnailPath": "7",
-    "tagName": []
-  },
-  {
-    "postIndex": 8,
-    "title": "테스트 포스트",
-    "content": "테스트입니다",
-    "recommend": 0,
-    "postDate": "2023-12-06",
-    "thumbnailPath": "8",
-    "tagName": []
   }
 ]

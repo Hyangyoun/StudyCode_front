@@ -25,15 +25,19 @@ function BlogPage(props){
     const userBlogIndex = sessionStorage.getItem("blogIndex")
     const username = sessionStorage.getItem("nickname")
     const memId = sessionStorage.getItem("memId")
-    //사용자가 블로그주인인지 확인한느state
+
+    //사용자가 블로그주인인지 확인하는state
     const [isOwner , setIsOwner] = useState(true)
     /** 태그와 관련된 state */
     const [BlogTagPost , setBlogTagPost] = useState("") //클릭된 태그를 포스트리스트에 옮김
     const [clickTagName , setClickTagName] = useState(null) //클릭된 태그이름을 포스트리스트에 옮김
-    /** 태그와 관련된 state */
+    /** 카테고리와 관련된 state */
     const [BlogCategoryPost , setBlogCategoryPost] = useState(null) //클릭된 category를 포스트리스트에 옮김
 
-    /** 태그를 클릭시 실행되는 함수 */
+    /** 태그네임의 값이 들어가면(태그를 클릭) 데이터를 리스트로 받아서 blogtag에 넣고 ,
+     * tagName은 태그네임으로 포스트리스트의 이름으로 들어가게된다
+     * tagName이 값이 없으면(같은 태그를 한번더 클릭) tagName이 null이 들어가면서else if가 실행됨
+    */
     const ClickTag = (tagName) =>{
         if(tagName){
             //클릭된태그요청하는 axios
@@ -71,9 +75,9 @@ function BlogPage(props){
         }
     }
     /** 카테고리 클릭시 블로그 인덱스와 카테고리 인덱스를 보내고 처음argument는 카테고리 인덱스이고 
-     * 두번째 argument는 클릭한 카테고리 인덱스를 의미한다(더미데이터용으로사용될것으로 생각됨 
+     * 두번째 argument는 클릭한 카테고리 인덱스를 의미한다(더미데이터용으로사용되는것)
      * response data 가 안된다면 Name 쓸예정, 받은리스트를 카테고리포스트에 넣어서 포스트리스트로 보내줌
-     *  Name 들어가면 함수 작동 시작이라보면됨
+     *  Name 들어가면(카테고리클릭시) 함수 작동 시작이라보면됨
      */
     const CLickCategory = (categoryIndex , Name) => {
         if(Name){
@@ -92,7 +96,7 @@ function BlogPage(props){
         }
     }
 
-    /** 회원가입하고 처음 블로그에 들어갈때 자동으로 연결됨 */
+    /** 회원가입하고 처음 블로그에 들어갈때(blogIndex가 null일때) 자동으로 연결됨 */
     const StartUser = () =>{
         navigate("/blog/config")
     }
@@ -117,7 +121,7 @@ function BlogPage(props){
         // .catch((error) => {
         //     console.log(error)
         // })
-
+        
         //방문유저인지 주인인지 확인하는 axios
         // axios.get("api" , {
         //     params:{
@@ -145,6 +149,7 @@ function BlogPage(props){
                     
                 }[userinfo.skin]
             }
+            {/* 카테고리가 주소창에 표시되면서 조건부랜더링을 실행하기위해 선택한방법이다.*/}
             <div className="contentsMargin">{
                 categoryName ?
                 <PostList BlogCategoryPost={BlogCategoryPost} isOwner={isOwner}/>
