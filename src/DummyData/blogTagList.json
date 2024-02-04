@@ -1,5 +1,6 @@
 [
-    {"tagName": "JavaScript"},
-    {"tagName":"Java"},
-    {"tagName":"React"}
-]
+    "React",
+    "Java",
+    "JavaScript",
+    "SpringBoot"
+  ]

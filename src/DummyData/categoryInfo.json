@@ -1,16 +1,17 @@
 [
   {
-    "categoryName": "리액트",
+    "categoryName": "자바",
+    "postCount": 2,
     "thumbnailPath": [
-      "4"
-    ],
-    "postCount": 1
+      "2",
+      "1"
+    ]
   },
   {
-    "categoryName": "코테",
+    "categoryName": "리액트",
+    "postCount": 1,
     "thumbnailPath": [
-      "2"
-    ],
-    "postCount": 1
+      "3"
+    ]
   }
 ]

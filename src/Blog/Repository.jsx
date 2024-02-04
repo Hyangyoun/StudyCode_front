@@ -169,8 +169,8 @@ function Repository(props){
                         </li>
                         )
                     })
-                    :
-                    null
+                :
+                null
                 }
             </ul>
         </RepoList>

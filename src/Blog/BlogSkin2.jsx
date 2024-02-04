@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import BlogTagList from "../DummyData/blogTagList.json"
 
 function BlogSkin2(props) {
-    const {category ,userinfo ,ClickTag ,isOwner} = props
+    const {category ,userinfo ,ClickTag, clickTagName ,isOwner} = props
 
     const [menuIndex, setMenuIndex] = useState()
     const [tagList , setTagList] = useState([])
@@ -58,6 +58,13 @@ function BlogSkin2(props) {
         setTagList(BlogTagList)
     },[])
 
+    useEffect(() => {
+        if(clickTagName){
+            const tagNumber = tagList.findIndex((i) => clickTagName == i)
+            ChooseTag(clickTagName,tagNumber)
+        }
+    },[tagList])
+
      // 태그를 누르면 태그index와 tag의 번호가 같은지 확인해 이미 클릭된 태그인지 확인하는 함수
      const ChooseTag = (tagName,tagNumber) =>{
         if(tag == tagNumber){
@@ -85,17 +92,18 @@ function BlogSkin2(props) {
                 {isOwner ? 
                 <div className="newPost" onClick={() => navigate(`/blog/${userinfo.nickname}/blogWrite`)}>새 포스트</div> : null}
                 <div className="listBox"> Tag
-                    <ul>{
-                    tagList.map((item, index) => {
-                        return <li value={index} className={tag == index ? "active" : null}
-                        onClick={(e) => {ChooseTag(item.tagName,e)}} key={index}>{item.tagName}</li>
-                    })}</ul>
+                <ul>{
+                    tagList.map((item ,index) => {
+                        return <li value={item} className={tag == index ? "active" : null} onClick={() => {ChooseTag(item,index)}} key={index}>{item}</li>
+                    })
+                    }
+                </ul>
                 </div>
             </SideBar>
             {side ? <SideBack /> : null}
             <Header $menuIndex = {menuIndex}>
                 <SideBT onClick={() => setSide(!side)}>
-                    <img src="/image/icon/sideBT.png" alt="사이드버튼" />
+                    <img src="/image/icon/sideBT.png" alt="사이드버튼"/>
                 </SideBT>
                 <div onClick={() => navigate(`/blog/${userinfo.nickname}/overView`)} className="blogName">{userinfo.name}</div>
                 <div className="menuBox">

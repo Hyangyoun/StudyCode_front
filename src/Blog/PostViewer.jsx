@@ -17,13 +17,12 @@ function PostViewer(props){
     /** 하트와 관련된 state */
     const heartButton = useRef();
     const [changePosition , setChangePosition] = useState(false);
-    const [ changeHeart , setChangeHeart] = useState(0); // 하트 색 변경
-    const [ warning , setWarning ] = useState(false)
+    const [changeHeart , setChangeHeart] = useState(0); // 하트 색 변경
+    const [warning , setWarning ] = useState(false)
 
     const [end , setEnd] = useState() // 댓글 위치 받음
     /** postInfo관련 관련된 state */
     const [postInfo , setPostInfo] = useState({}) //postinfo받는 state
-    const [postTag , setPostTag] = useState([]) //postTag받는 state
     const [postFile , setPostFile] = useState([]) //postFile 받는 state
     const [addFolder, setAddFolder] = useState(false) //파일열고 닫는버튼
 
@@ -113,6 +112,15 @@ function PostViewer(props){
         }
     }
 
+    const ChooseTag = (tagName) =>{
+        navigate(`/blog/${postInfo.nickname}/postList`,{
+            state: {
+                tagName : tagName
+            }
+        })
+        console.log(tagName)
+    }
+
     return(
         <>
             <BlogHeader postInfo={postInfo} nickname={nickname}/>
@@ -143,7 +151,7 @@ function PostViewer(props){
                     <div className="tagbox">
                         {postInfo.tag ?
                         postInfo.tag.map((item,index) => {
-                            return <li key={index}>{item}</li>
+                            return <li key={index} onClick={() => ChooseTag(item)}>{item}</li>
                         })
                         :
                         null }

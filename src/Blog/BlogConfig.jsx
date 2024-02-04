@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import BlogHeader from "../Main/BlogHeader";
-import tagList from "../DummyData/tagList.json"
-import UserBlogConfig from "../DummyData/BlogConfig.json"
-import categoryInfo from "../DummyData/categoryInfo.json"
+import tagList from "../DummyData/tagList.json";
+import UserBlogConfig from "../DummyData/BlogConfig.json";
+import categoryInfo from "../DummyData/categoryInfo.json";
 import axios from "axios";
 import Editer, { buttonType } from "../MarkDownEditer/Editer";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
@@ -136,22 +136,22 @@ function BlogConfig(props) {
                             <div className="partName">카테고리 설정</div>
                             <div className="categoryPosition">
                                 <ul className="category">
-                                {categoryList.map((item , index) => {
-                                    return (
-                                    <li key={index}>
-                                        <span>{item}</span><div onClick={() => RemoveCategory(item)}>x</div>
-                                    </li>)
-                                })
-                                }
-                                    <li className="addButton" onClick={() => setCategoryButton(!categoryButton)}>+</li>
+                                    {categoryList.map((item , index) => {
+                                        return (
+                                        <li key={index}>
+                                            <span>{item}</span><div onClick={() => RemoveCategory(item)}>x</div>
+                                        </li>)
+                                    })
+                                    }
+                                        <li className="addButton" onClick={() => setCategoryButton(!categoryButton)}>+</li>
                                 </ul>
-                            {categoryButton ? 
-                                <div className="AddCategory">
-                                <input value={categoryNameInput} onChange={(e) => setCategoryNameInput(e.target.value)} maxLength={20} type="text" placeholder="카테고리 명" />
-                                <div onClick={HandleAddCategory}>추가하기</div>
-                            </div>
-                            :
-                            null}
+                                {categoryButton ? 
+                                    <div className="AddCategory">
+                                    <input value={categoryNameInput} onChange={(e) => setCategoryNameInput(e.target.value)} maxLength={20} type="text" placeholder="카테고리 명" />
+                                    <div onClick={HandleAddCategory}>추가하기</div>
+                                </div>
+                                :
+                                null}
                             </div>
                         </div>
                         <div className="partBox">
@@ -163,8 +163,8 @@ function BlogConfig(props) {
                             ]} />
                         </div>
                     </>
-                    :
-                    null
+                :
+                null
                 }
                 </>
                 <div className="done" onClick={HandleSaved}>설정 완료하기</div>

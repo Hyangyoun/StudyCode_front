@@ -8,7 +8,7 @@ import axios from "axios";
 
 function SideBar(props){
 
-    const {category , userinfo , ClickTag ,isOwner } = props;
+    const {category , userinfo , ClickTag , clickTagName ,isOwner } = props;
     const navigate = useNavigate();
     // const sessionStorage = window.sessionStorage
     
@@ -44,6 +44,14 @@ function SideBar(props){
         setTagList(BlogTagList)
 
     },[])
+
+    useEffect(() => {
+        if(clickTagName){
+            const tagNumber = tagList.findIndex((i) => clickTagName == i)
+            ChooseTag(clickTagName,tagNumber)
+        }
+    },[tagList])
+
      // 태그를 누르면 태그index와 tag의 번호가 같은지 확인해 이미 클릭된 태그인지 확인하는 함수
     const ChooseTag = (tagName,tagNumber) =>{
         if(tag == tagNumber){
@@ -71,7 +79,7 @@ function SideBar(props){
             <div className="tagBox"> Tag
                 <ul>{
                     tagList.map((item ,index) => {
-                        return <li value={item.tagName} className={tag == index ? "active" : null} onClick={() => {ChooseTag(item.tagName,index)}} key={index}>{item.tagName}</li>
+                        return <li value={item} className={tag == index ? "active" : null} onClick={() => {ChooseTag(item,index)}} key={index}>{item}</li>
                     })
                     }
                 </ul>

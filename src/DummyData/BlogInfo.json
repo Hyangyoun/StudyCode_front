@@ -1,6 +1,6 @@
 {
   "overview": "react-dom.development.js:82 warning: `value` prop on `textarea` should not be null. consider using an empty string to clear the component or `undefined` for uncontrolled components.",
-  "skin": 1,
+  "skin": 2,
   "name": "내 일요일 내놔",
   "profilePicture":"/image/icon/chimmonkey.png",
   "nickname":"kwoos",

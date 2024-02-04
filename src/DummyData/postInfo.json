@@ -4,7 +4,9 @@
   "content": "바꾼디",
   "recommend": 0,
   "postDate": "2024-01-25",
-  "thumbnailPath": null,
+  "thumbnailPath": "1",
+  "nickname": "코드벌레",
+  "blogName": "내 토요일 내놔",
   "tag": [
     "Java",
     "SpringBoot"

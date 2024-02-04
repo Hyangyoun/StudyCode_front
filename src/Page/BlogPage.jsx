@@ -9,7 +9,7 @@ import PostList from "../Blog/PostList";
 import Cartegory from "../Blog/Cartegory";
 import Followers from "../Blog/Followers";
 import Repository from "../Blog/Repository";
-import { useParams , useNavigate } from "react-router-dom";
+import { useParams , useNavigate, useLocation } from "react-router-dom";
 import BlogInfo from "../DummyData/BlogInfo.json";
 import Footer from "../Blog/BlogItem/Footer";
 import postInfo from "../DummyData/postList.json"
@@ -18,9 +18,11 @@ import categoryInfo from "../DummyData/categoryInfo.json";
 function BlogPage(props){
 
     const navigate = useNavigate()
-    const { category, nickname , categoryName , folderName} = useParams();
+    const location = useLocation()
+    const { category, nickname , categoryName } = useParams();
 
     const [userinfo, setUserInfo] = useState({});
+    const viewerTagname = location.state
     const sessionStorage = window.sessionStorage
     const userBlogIndex = sessionStorage.getItem("blogIndex")
     const username = sessionStorage.getItem("nickname")
@@ -96,6 +98,12 @@ function BlogPage(props){
         }
     }
 
+    useEffect(() => {
+        if(viewerTagname != null){
+            ClickTag(viewerTagname.tagName)
+        }
+    },[viewerTagname])
+
     /** 회원가입하고 처음 블로그에 들어갈때(blogIndex가 null일때) 자동으로 연결됨 */
     const StartUser = () =>{
         navigate("/blog/config")
@@ -142,10 +150,10 @@ function BlogPage(props){
             {
                 {
                     1 : <>
-                            <SideBar category={category} userinfo={userinfo} ClickTag={ClickTag} isOwner={isOwner}/>
+                            <SideBar category={category} userinfo={userinfo} ClickTag={ClickTag} clickTagName={clickTagName} isOwner={isOwner}/>
                             <BlogSkin1 category={category} userName={userinfo.nickname} blogName={userinfo.name} />
                         </>,
-                    2 : <BlogSkin2 category={category} userinfo={userinfo} ClickTag={ClickTag} isOwner={isOwner}/>
+                    2 : <BlogSkin2 category={category} userinfo={userinfo} ClickTag={ClickTag} clickTagName={clickTagName} isOwner={isOwner}/>
                     
                 }[userinfo.skin]
             }
