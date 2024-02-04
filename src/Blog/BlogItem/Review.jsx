@@ -42,12 +42,13 @@ function Review(props) {
         ReviewTop()
     })
     // 댓글info 받는 state
-    useEffect(() => {
+        useEffect(() => {
         // axios.get("/api/post/comment",{
         //     params: {
         //         postIndex:Number(postIndex)
         //     }
         // })
+        //패런츠인덱스에 따라 댓글 대댓글 구분이므로 패런츠인덱스에따라 setComments넣을것을 여기서 분리,필터한후에 그에따라 state를따로 넣어 구현할것
         // .then((response) => {
         //     setComments(response.data)
         // })

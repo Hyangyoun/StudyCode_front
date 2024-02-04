@@ -71,12 +71,12 @@ function BlogConfig(props) {
     const RemoveCategory = (event) => {
         console.log(event)
         let copy = categoryList;
-        setCategoryList( copy.filter((e) => e != event) )
         // axios.post("/api/category/delete",{
         //     "categoryName": event,
         //     "blogIndex": sessionStorage.getItem("blogIndex")
         // })
         // .then((response) => console.log(response))
+        setCategoryList( copy.filter((e) => e != event) )
     }
 
         /**데이터 보내는 양식 */

@@ -32,7 +32,7 @@ function Repository(props){
         }
     }
 
-//레포지토리 기능구현
+//레포지토리 기능구현 폴더리스트와 파일리스트를 구분하도록 필터한후에 그에따라 state를따로 넣어 구현할것
     useEffect(() => {
         // axios.get("/api/blog/repository/folder" ,{
         //     params: {

@@ -79,10 +79,10 @@ function Cartegory(props){
                     thumbnailPath : 2 //썸네일에 따라 달라질예정
                 })
                 setAddCategory([...categoryBox])     //기존배열을 지우고 새배열을 출력
-                // axios.post("" , {
-                //         blogIndex:userBlogIndex,
-                //         categoryName : categoryTitle
-                //     }).catch((error) => console.log(error))
+                axios.post("/api/category/create" , {
+                        blogIndex:userBlogIndex,
+                        categoryName : categoryTitle
+                    }).catch((error) => console.log(error))
                 window.location.reload()
             }
         }

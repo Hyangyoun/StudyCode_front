@@ -33,7 +33,7 @@ function PostList(props){
         // })
 
         setPosts(postInfo)
-        console.log(posts)
+        console.table(posts)
     }),[])
 
     //태그가 적용된 state를 포스트에 넣어서 랜더링함
