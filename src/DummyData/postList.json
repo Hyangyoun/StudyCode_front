@@ -5,6 +5,9 @@
     "content": "바꾼디",
     "recommend": 0,
     "postDate": "2024-01-25",
+    "thumbnailPath": "1",
+    "nickname": null,
+    "blogName": null,
     "tag": [
       "Java",
       "SpringBoot"
@@ -16,6 +19,9 @@
     "content": "일요일",
     "recommend": 0,
     "postDate": "2024-02-01",
+    "thumbnailPath": "2",
+    "nickname": null,
+    "blogName": null,
     "tag": [
       "React",
       "JavaScript"
@@ -27,6 +33,9 @@
     "content": "어그로 끌었다",
     "recommend": 0,
     "postDate": "2024-02-01",
+    "thumbnailPath": "3",
+    "nickname": null,
+    "blogName": null,
     "tag": [
       "React",
       "SpringBoot"

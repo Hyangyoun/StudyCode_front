@@ -19,7 +19,7 @@ function PostList(props){
 
     useEffect((() => {
         // 포스트리스트 받는 axio
-        // axios.get("/api/post/list",{
+        // axios.get("/api/post/postList",{
         //     params:{
         //         nickname: nickname
         //     }

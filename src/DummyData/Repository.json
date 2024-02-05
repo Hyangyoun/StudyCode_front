@@ -1,6 +1,14 @@
 [
-    "Java",
-    "JavaScript",
-    "Python",
-    "선택안함선택안함선택안함선택안함선택안함선택안함선택안함선택안함"
-  ]
+  {
+    "fileIndex": 1,
+    "folderName": "React"
+  },
+  {
+    "fileIndex": 2,
+    "folderName": "Java"
+  },
+  {
+    "fileIndex": 6,
+    "folderName": "JavaScript"
+  }
+]

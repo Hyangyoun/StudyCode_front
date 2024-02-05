@@ -13,7 +13,8 @@ function BlogSkin2(props) {
     
     const navigate = useNavigate();
 
-    // const sessionStorage = window.sessionStorage
+    const sessionStorage = window.sessionStorage
+    const userBlogIndex = sessionStorage.getItem("blogIndex")
 
     const [side, setSide] = useState(false)
     const sideRef = useRef()
@@ -44,9 +45,9 @@ function BlogSkin2(props) {
 
     useEffect(() => {
         //태그요청하는 axios
-        // axios.get("api",{
+        // axios.get("/api/blog/tag",{
         //     params:{
-
+        //         blogIndex:userBlogIndex
         //     }
         // })
         // .then((response) => {
@@ -55,6 +56,7 @@ function BlogSkin2(props) {
         // .catch((error) => {
         //     console.log(error)
         // })
+        // setTagList(BlogTagList)
         setTagList(BlogTagList)
     },[])
 

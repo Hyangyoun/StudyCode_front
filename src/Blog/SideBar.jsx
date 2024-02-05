@@ -10,7 +10,8 @@ function SideBar(props){
 
     const {category , userinfo , ClickTag , clickTagName ,isOwner } = props;
     const navigate = useNavigate();
-    // const sessionStorage = window.sessionStorage
+    const sessionStorage = window.sessionStorage
+    const userBlogIndex = sessionStorage.getItem("blogIndex")
     
     const [menuIndex, setMenuIndex] = useState();
     //태그 클릭됐을떄 색깔 표시해주는 state
@@ -30,9 +31,9 @@ function SideBar(props){
     useEffect(() => {
 
         //태그요청하는 axios
-        // axios.get("api",{
+        // axios.get("/api/blog/tag",{
         //     params:{
-
+        //         blogIndex:userBlogIndex
         //     }
         // })
         // .then((response) => {
@@ -41,8 +42,7 @@ function SideBar(props){
         // .catch((error) => {
         //     console.log(error)
         // })
-        setTagList(BlogTagList)
-
+        // setTagList(BlogTagList)
     },[])
 
     useEffect(() => {

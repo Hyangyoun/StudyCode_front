@@ -43,7 +43,7 @@ function Review(props) {
     })
     // 댓글info 받는 state
         useEffect(() => {
-        // axios.get("/api/post/comment",{
+        // axios.get("/api/post/comment/list",{
         //     params: {
         //         postIndex:Number(postIndex)
         //     }

@@ -1,40 +1,32 @@
 [
   {
     "commentIndex": 1,
-    "profile" :"/image/icon/chimmonkey.png",
-    "nickname": "kwoos",
-    "content": "가슴이 웅장해진다",
-    "commentDate": "2023-11-02",
+    "content": "이거 보여줄려고",
+    "commentDate": "2024-02-05",
+    "nickname": "코드벌레",
+    "profilePath": null,
     "reply": [
       {
-        "content": "뭐임?",
-        "profile" :"/image/icon/cat-.jpg",
-        "nickname": "염향",
-        "commentDate": "2023-11-02"
+        "content": "어그로 끌었다",
+        "nickname": "kwoos",
+        "profilePath": null,
+        "commentDate": "2024-02-05"
       }
     ]
   },
   {
     "commentIndex": 2,
-    "profile" :"/image/icon/cat-.jpg",
-    "nickname": "염향",
-    "content": "영차!",
-    "commentDate": "2023-11-02",
+    "content": "내 토요일 내놔",
+    "commentDate": "2024-02-05",
+    "nickname": "kwoos",
+    "profilePath": null,
     "reply": [
       {
-        "content": "좋아써!",
-        "profile" :"/image/icon/cat-.jpg",
-        "nickname": "염향",
-        "commentDate": "2023-11-02"
+        "content": "내 일요일 내놔",
+        "nickname": "코드벌레",
+        "profilePath": null,
+        "commentDate": "2024-02-05"
       }
     ]
-  },
-  {
-    "commentIndex": 3,
-    "profile" :"/image/icon/chimmonkey.png",
-    "nickname": "kwoos",
-    "content": "실화냐",
-    "commentDate": "2023-11-02",
-    "reply": []
   }
 ]

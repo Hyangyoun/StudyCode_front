@@ -7,19 +7,17 @@ import SideBar from "../Blog/SideBar";
 import OverView from "../Blog/OverView";
 import PostList from "../Blog/PostList";
 import Cartegory from "../Blog/Cartegory";
-import Followers from "../Blog/Followers";
 import Repository from "../Blog/Repository";
 import { useParams , useNavigate, useLocation } from "react-router-dom";
 import BlogInfo from "../DummyData/BlogInfo.json";
 import Footer from "../Blog/BlogItem/Footer";
 import postInfo from "../DummyData/postList.json"
-import categoryInfo from "../DummyData/categoryInfo.json";
 
 function BlogPage(props){
 
     const navigate = useNavigate()
     const location = useLocation()
-    const { category, nickname , categoryName } = useParams();
+    const { category, nickname , categoryName, folderName } = useParams();
 
     const [userinfo, setUserInfo] = useState({});
     const viewerTagname = location.state
@@ -43,9 +41,9 @@ function BlogPage(props){
     const ClickTag = (tagName) =>{
         if(tagName){
             //클릭된태그요청하는 axios
-            //     axios.post("" , {
-            //         nickname: nickname,
-            //         tagName : BlogTagPost
+            //     axios.post("/api/post/tagToList" , {
+            //         blogIndex: userBlogIndex,
+            //         tagName : tagName
             //     })
             // })
             // .then((response) => {
@@ -167,9 +165,9 @@ function BlogPage(props){
                     postList : <PostList BlogTagPost={BlogTagPost} clickTagName={clickTagName} isOwner={isOwner}/>,
                     category : <Cartegory CLickCategory={CLickCategory} isOwner={isOwner}/>,
                     repository : <Repository isOwner={isOwner}/>,
-                    followers : <Followers />,
                 }[category]
             }
+            {folderName ? <Repository isOwner={isOwner}/> : null}
             </div>
             <Footer/>
         </BlogSection>

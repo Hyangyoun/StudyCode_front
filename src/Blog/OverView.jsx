@@ -13,22 +13,6 @@ function OverView(props) {
     const [editOver, setEditOver] = useState("");
     const [regist, setRegist] = useState(false)
 
-    useEffect(() => {
-        //방문유저인지 주인인지 확인하는 axios
-        // axios.get("api" , {
-        //     params:{
-        //         memId:memId,
-        //         blogIndex:userBlogIndex
-        //     }
-        // })
-        // .then((response) => {
-        //     setIsOwner(response.data);
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // });
-    },[])
-
     function SaveOverView(){
         axios.post("/api/blog/regist/overView",{
             overView: editOver,
