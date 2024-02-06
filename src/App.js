@@ -35,6 +35,7 @@ function App() {
           <Route path="/blog/config" element = {<BlogConfig />} />
           <Route path="/blog/:nickname/blogWrite" element = {<PostWrite />} />
           <Route path="/blog/Post/:postIndex" element = {<PostViewer />} />
+          <Route path="/*" element={<LoginPage/>} />
         </Routes>
       </BrowserRouter>
     </>

@@ -19,7 +19,7 @@ function OverView(props) {
             memId: sessionStorage.getItem("memId")
         })
         .catch((error) => {
-            console.log(error)
+            console.log("SaveOverView",error)
         })
         window.location.reload()
     }

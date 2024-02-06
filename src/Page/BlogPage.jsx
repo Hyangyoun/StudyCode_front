@@ -41,37 +41,36 @@ function BlogPage(props){
     const ClickTag = (tagName) =>{
         if(tagName){
             //클릭된태그요청하는 axios
-            //     axios.post("/api/post/tagToList" , {
-            //         blogIndex: userBlogIndex,
-            //         tagName : tagName
-            //     })
-            // })
-            // .then((response) => {
-            //     setBlogTagPost(response.data)
-            //     setClickTagName(tagName)
-            // })
-            // .catch((error) => {
-            //     console.log(error)
-            // })
-            setClickTagName(tagName)
-            setBlogTagPost(postInfo)
+            axios.post("/api/post/tagToList" , {
+                blogIndex: userBlogIndex,
+                tagName : tagName
+            })
+            .then((response) => {
+                setBlogTagPost(response.data)
+                setClickTagName(tagName)
+            })
+            .catch((error) => {
+                console.log("ClickTag",error)
+            })
+            // setClickTagName(tagName)
+            // setBlogTagPost(postInfo)
         }
         else if(tagName == null){
-            // axios.get("/api/post/list",{
-            //     params:{
-            //         nickname: nickname
-            //     }
-            // })
-            // .then((response) => {
-            //     setBlogTagPost(response.data)
-            //     setClickTagName(null)
-            //     console.log(response.data)
-            // })
-            // .catch((error) => {
-            //     console.log(error)
-            // })
-            setClickTagName(null)
-            setBlogTagPost(postInfo)
+            axios.get("/api/post/list",{
+                params:{
+                    nickname: nickname
+                }
+            })
+            .then((response) => {
+                setBlogTagPost(response.data)
+                setClickTagName(null)
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log("ClickTag == null",error)
+            })
+            // setClickTagName(null)
+            // setBlogTagPost(postInfo)
         }
     }
     /** 카테고리 클릭시 블로그 인덱스와 카테고리 인덱스를 보내고 처음argument는 카테고리 인덱스이고 
@@ -81,18 +80,18 @@ function BlogPage(props){
      */
     const CLickCategory = (categoryIndex , Name) => {
         if(Name){
-            // axios.post("api",{
-            //     blogIndex:userBlogIndex,
-            //     categoryIndex:categoryIndex
-            // })
-            // .then((response) => {
-            //     setBlogCategoryPost(response.data)
-            //     navigate(`/blog/${nickname}/category/${response.data.categoryName}`)
-            // })
-            // .catch((error) => console.log(error))
-            setBlogCategoryPost(postInfo)
-            console.log(BlogCategoryPost)
-            navigate(`/blog/${nickname}/category/${Name}`)
+            axios.post("/api/post/postList",{
+                blogIndex:userBlogIndex,
+                categoryIndex:categoryIndex
+            })
+            .then((response) => {
+                setBlogCategoryPost(response.data)
+                navigate(`/blog/${nickname}/category/${Name}`)
+            })
+            .catch((error) => console.log("CLickCategory",error))
+            // setBlogCategoryPost(postInfo)
+            // console.log(BlogCategoryPost)
+            // navigate(`/blog/${nickname}/category/${Name}`)
         }
     }
 
@@ -104,43 +103,47 @@ function BlogPage(props){
 
     /** 회원가입하고 처음 블로그에 들어갈때(blogIndex가 null일때) 자동으로 연결됨 */
     const StartUser = () =>{
-        navigate("/blog/config")
+        navigate("/blog/config",
+        {
+            state : {
+                isOwner : isOwner
+            }
+        })
     }
-
+// 주소값유효, 블로그주인인지,처음블로그만드는지 확인하는 axios
     useEffect(() => {
-        setUserInfo(BlogInfo)
-        // axios.get("/api/blog/info",{
-        //     params:{
-        //         nickname: nickname,
-        //     }
-        // })
-        // .then((response) => {
-        //     console.log(response.data)
-        //     if(response.data.blogIndex == null){
-        //             StartUser()
-        //     }
-        //     else{
-        //         setUserInfo(response.data)
-        //         sessionStorage.setItem("blogIndex" , `${response.data.blogIndex}`)
-        //     }
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // })
-        
-        //방문유저인지 주인인지 확인하는 axios
-        // axios.get("api" , {
-        //     params:{
-        //         memId:memId,
-        //         blogIndex:userBlogIndex
-        //     }
-        // })
-        // .then((response) => {
-        //     setIsOwner(response.data);
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // });
+        // setUserInfo(BlogInfo)
+        axios.post("/api/blog/access",{
+            memId: memId,
+            nickname: nickname
+        })
+        .then((response) => {
+            setIsOwner(response.data.self)
+            if(isOwner){
+                if(response.data.blogIndex == null){
+                        StartUser()
+                }
+                else{
+                    axios.get("/api/blog/info",{
+                        params:{
+                            nickname: nickname
+                        }
+                    })
+                    .then((response) => {
+                        setUserInfo(response.data.blogIndex)
+                        sessionStorage.setItem("blogIndex" , `${response.data.blogIndex}`)
+                    })
+                    .catch((error) => console.log("setUserInfo",error))
+                }
+            }
+            else {
+                alert("잘못된 접근입니다")
+                navigate("/")
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     },[])
 
     return(

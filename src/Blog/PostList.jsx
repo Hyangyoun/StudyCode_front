@@ -19,21 +19,20 @@ function PostList(props){
 
     useEffect((() => {
         // 포스트리스트 받는 axio
-        // axios.get("/api/post/postList",{
-        //     params:{
-        //         nickname: nickname
-        //     }
-        // })
-        // .then((response) => {
-        //     setPosts(response.data)
-        //     console.log(response.data)
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // })
+        axios.get("/api/post/postList",{
+            params:{
+                nickname: nickname
+            }
+        })
+        .then((response) => {
+            setPosts(response.data)
+            console.log(response.data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
 
-        setPosts(postInfo)
-        console.table(posts)
+        // setPosts(postInfo)
     }),[])
 
     //태그가 적용된 state를 포스트에 넣어서 랜더링함

@@ -35,27 +35,26 @@ function Repository(props){
 
 //레포지토리 기능구현 폴더리스트
     useEffect(() => {
-        // axios.get("/repository/folder/list" ,{
-        //     params: {
-        //         blogindex: userBlogIndex
-        //     }
-        // })
-        // .then((response) => {
-        //     console.log(response.data)
-        //     setFolderList(response.data)
-        // }
-        // .catch((error) => {console.log(error)})
-        // axios.get("/repository/nofolder/list",{
-        //     params:{
-        //         blogindex: userBlogIndex
-        //     }
-        // })
-        // .then((response) => {
-        //     setFileList(response.data)
-        // })
-        // .catch((error) => console.log(error))
-            setFolderList(repodata) //실제 사용시 주석처리
-            setFileList(noFolderList)
+        axios.get("/repository/folder/list" ,{
+            params: {
+                blogindex: userBlogIndex
+            }
+        })
+        .then((response) => {
+            setFolderList(response.data)
+        })
+        .catch((error) => console.log("setFolderList",error))
+        axios.get("/repository/nofolder/list",{
+            params:{
+                blogindex: userBlogIndex
+            }
+        })
+        .then((response) => {
+            setFileList(response.data)
+        })
+        .catch((error) => console.log("setFileList",error))
+            // setFolderList(repodata) //실제 사용시 주석처리
+            // setFileList(noFolderList)
         document.addEventListener("mousedown", CloseBox)
         return (() => {
             document.removeEventListener("mousedown", CloseBox)
@@ -65,46 +64,46 @@ function Repository(props){
     // 폴더추가 함수
     const AddFolder = () => {
         if(FolderInput){
-            // axios.post("/repository/add/folder" , {
-            //         blogIndex : userBlogIndex,
-            //         folderName:FolderInput
-            //     })
-            //     .then((response) =>{
-            //         setFolderList(response.data)
-            //         window.location.reload()
-            //     })
-            //     .catch((error) => console.log(error))
-            let folderListBox = folderList
-            if(!folderListBox.includes(FolderInput)){
-                folderListBox.push(
-                    {
-                        "folderName": `${FolderInput}`,
-                        "fileIndex": folderListBox.length
-                      },
+            axios.post("/repository/add/folder" , {
+                    blogIndex : userBlogIndex,
+                    folderName:FolderInput
+                })
+                .then((response) =>{
+                    setFolderList(response.data)
+                    window.location.reload()
+                })
+                .catch((error) => console.log("AddFolder",error))
+            // let folderListBox = folderList
+            // if(!folderListBox.includes(FolderInput)){
+            //     folderListBox.push(
+            //         {
+            //             "folderName": `${FolderInput}`,
+            //             "fileIndex": folderListBox.length
+            //           },
                     
-                )
-                setFolderList([...folderListBox])     //기존배열을 지우고 새배열을 출력
-            }
-            setAddFolder(false)
-            setFolderInput("")
+            //     )
+            //     setFolderList([...folderListBox])     //기존배열을 지우고 새배열을 출력
+            // }
+            // setAddFolder(false)
+            // setFolderInput("")
         }
     }
 
     //폴더클릭시 실행되는 함수 , 폴더네임과 
     const ClickFolder = (folder ,fileIndex) =>{
         if(!folderName){
-        // axios.get("/repository/folder/list" ,{
-        //     params: {
-        //         folderName: folder,
-        //         fileIndex: fileIndex
-        //     }
-        // })
-        // .then((response) => {
-        //     console.log(response.data)
-        //     setFolderList(response.data)
-        // }
-        // .catch((error) => {console.log(error)})
-        navigate(`/blog/${nickname}/repository/${folder}`)
+        axios.get("/repository/folder/list" ,{
+            params: {
+                folderName: folder,
+                fileIndex: fileIndex
+            }
+        })
+        .then((response) => {
+            console.log(response.data)
+            setFolderList(response.data)
+        })
+        .catch((error) => {console.log("ClickFolder",error)})
+        // navigate(`/blog/${nickname}/repository/${folder}`)
         }
     }
 

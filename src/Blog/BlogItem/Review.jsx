@@ -43,36 +43,34 @@ function Review(props) {
     })
     // 댓글info 받는 state
         useEffect(() => {
-        // axios.get("/api/post/comment/list",{
-        //     params: {
-        //         postIndex:Number(postIndex)
-        //     }
-        // })
-        //패런츠인덱스에 따라 댓글 대댓글 구분이므로 패런츠인덱스에따라 setComments넣을것을 여기서 분리,필터한후에 그에따라 state를따로 넣어 구현할것
-        // .then((response) => {
-        //     setComments(response.data)
-        // })
-        // .catch((error) => { console.log(error)})
-        setComments(reviewComment)
+        axios.get("/api/post/comment/list",{
+            params: {
+                postIndex:Number(postIndex)
+            }
+        })
+        .then((response) => {
+            setComments(response.data)
+        })
+        .catch((error) => { console.log("댓글info",error)})
+        // setComments(reviewComment)
     },[])
 
     /** 댓글 작성 함수 */
     const SubmitReview = () =>{
         if(reviewValue){
-        // axios.post("" ,{
-        //     postIndex:Number(postIndex),
-        //     memId:sessionStorage.getItem("memId"),
-        //     content:reviewValue
-        // } )
-        // .catch((error) => {
-        //     console.log(error)
-        // })
-        console.log(comments)
+            axios.post("/api/post/comment/regist",{
+                postIndex:Number(postIndex),
+                memId:sessionStorage.getItem("memId"),
+                content:reviewValue
+            } )
+            .catch((error) => {
+                console.log("SubmitReview",error)
+            })
+        // console.log(comments)
         let commentsList = comments
         // date.toLocaleDateString()만 하면 2023. 12. 27. 이런식으로 나와서 바꿔주고 맨뒤에꺼 지워주는것으로 해결
         let commentsDate = date.toLocaleDateString().replace(/. /g,"-").slice(0 ,-1)
             commentsList.push({
-                "commentIndex": commentsList.length + 1,
                 "nickname": username,
                 "content": reviewValue,
                 "commentDate": commentsDate,
@@ -81,27 +79,20 @@ function Review(props) {
             setComments([...commentsList])     //기존배열을 지우고 새배열을 출력
             setReviewValue('')
         }
-        const data ={
-            postIndex:Number(postIndex),
-            memId:sessionStorage.getItem("memId"),
-            content:reviewValue
-        }
-        // console.log(data)
     }
 
     /**대댓글 작성 함수 */
     const SubmitRereview = (commentIndex,item) =>{
         if(rereviewValue){
-
-        // axios.post("" ,{
-        //     postIndex:Number(postIndex),
-        //     commentIndex:commentIndex,
-        //     memId:sessionStorage.getItem("memId"),
-        //     content:rereviewValue
-        // } )
-        // .catch((error) => {
-        //     console.log(error)
-        // })
+            axios.post("/api/post/comment/regist" ,{
+                postIndex:Number(postIndex),
+                commentIndex:commentIndex,
+                memId:sessionStorage.getItem("memId"),
+                content:rereviewValue
+            } )
+            .catch((error) => {
+                console.log("SubmitRereview",error)
+            })
         const rereviewList = item.reply
         let rereviewDate = date.toLocaleDateString().replace(/. /g,"-").slice(0 , -1)
         rereviewList.push({
@@ -111,28 +102,20 @@ function Review(props) {
         })
         setRereviewValue("")
         }
-
-        const data ={
-            postIndex:Number(postIndex),
-            commentIndex:commentIndex,
-            memId:sessionStorage.getItem("memId"),
-            content:rereviewValue
-        }
-        console.log(data)
     }
     
     /** 신고버튼 누를때 나오는 함수 */
-    const ClickReport = (item , commentIndex , index) =>{
-        if(username){
-            setReportComment(item)
-            setRereviewIndex(commentIndex)
-            setreplyIndex(index)
-            setReport(true)
-        }
-        else{
-            setWarning(true)
-        }
-    }
+    // const ClickReport = (item , commentIndex , index) =>{
+    //     if(username){
+    //         setReportComment(item)
+    //         setRereviewIndex(commentIndex)
+    //         setreplyIndex(index)
+    //         setReport(true)
+    //     }
+    //     else{
+    //         setWarning(true)
+    //     }
+    // }
 
     /** 신고 접수하는 함수 */
     const ReportComments = () =>{
@@ -156,7 +139,7 @@ function Review(props) {
     return(
         <Reviews >
             <div ref={amount} className="reviewHead">댓글</div>
-            {report ? 
+            {/* {report ? 
             <div className="IsReport">
                 <div>신고하기</div>
                     <ul value={reportReason} onChange={(v) => setReportReason(v.target.value)}>
@@ -176,7 +159,7 @@ function Review(props) {
                     </div>
             </div>
             :
-            null}
+            null} */}
             <ul>
                 <li className="reviews">
                     {comments.map((item , index) => {
@@ -192,7 +175,7 @@ function Review(props) {
                                 <div className="reviewInfo">
                                     <span className="reviewDate">{item.commentDate}</span>
                                     <div className="rereviewBtn" onClick={() => setRereviewIndex(item.commentIndex)}>답글 {item.reply.length}개</div>
-                                    <div className="warning" onClick={() => ClickReport(item , item.commentIndex)}>
+                                    <div className="warning" onClick={() => console.log("신고")}>
                                         <img src="/image/icon/warning.png" alt="신고버튼"/>
                                 </div>
                             </div>
@@ -210,7 +193,7 @@ function Review(props) {
                                 <div className="content">{item.content}</div>
                                 <div className="reviewInfo">
                                     <span className="reviewDate">{item.commentDate}</span>
-                                    <div className="warning" onClick={() => ClickReport(item ,rereviewIndex ,index)}>
+                                    <div className="warning" onClick={() => console.log("신고")}>
                                         <img src="/image/icon/warning.png" alt="신고버튼"/>
                                     </div>
                                 </div>

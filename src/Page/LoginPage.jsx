@@ -29,6 +29,7 @@ function LoginPage(props) {
                     setPassword("")
                 }
             })
+            .catch((error) => console.log("Validation",error))
         }
         else{
             alert("다시 로그인 하세요")

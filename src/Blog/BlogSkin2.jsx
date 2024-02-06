@@ -86,7 +86,7 @@ function BlogSkin2(props) {
             <SideBar $side={side} ref={sideRef}>
                 <img src={"/image/icon/logo.png"} alt="studycode" />
                 { isOwner ?
-                <span onClick={() => navigate("/blog/config")}>블로그 설정</span> : null}
+                <span onClick={() => navigate("/blog/config",{state:{isOwner:isOwner}})}>블로그 설정</span> : null}
                 <div className="profileBox">
                     <img src={userinfo.profile ? userinfo.profile : "/image/icon/profile.png"} alt="프로필사진" />
                     <span>{userinfo.nickname}</span>

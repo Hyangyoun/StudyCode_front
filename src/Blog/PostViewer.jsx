@@ -9,10 +9,16 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 function PostViewer(props){
-    // const sessionStorage = window.sessionStorage;
-    const username = window.sessionStorage.getItem("nickname")
+
+    const sessionStorage = window.sessionStorage;
+    const username = sessionStorage.getItem("nickname")
+    const memId = sessionStorage.getItem("memId")
+
     const navigate = useNavigate()
     const { postIndex , nickname } =useParams()
+
+    //사용자가 블로그주인인지 확인하는state
+    const [isOwner , setIsOwner] = useState(true)
 
     /** 하트와 관련된 state */
     const heartButton = useRef();
@@ -27,20 +33,17 @@ function PostViewer(props){
     const [addFolder, setAddFolder] = useState(false) //파일열고 닫는버튼
 
     useEffect(() => {
-
         /** postdata 받아오는 axios */
-        // axios.get("/api/post/info",{
-        //     params:{
-        //         postIndex : Number(postIndex)
-        //     }
-        // })
-        // .then((response) => {
-        //     setPostInfo(response.data)
-        //     setPostTag(postInfo.tagName)
-        // })
-        // .catch((error) => {console.log(error)})
+        axios.get("/api/post/info",{
+            params:{
+                postIndex : Number(postIndex)
+            }
+        })
+        .then((response) => {
+            setPostInfo(response.data)
+        })
+        .catch((error) => {console.log("postViewersetPostInfo",error)})
         
-
         // 여기는 아직 안고침
         /** file 받아오는 axios */
         // axios.post("/api/blog/get/post/file" , null ,{
@@ -52,9 +55,24 @@ function PostViewer(props){
         //     setPostFile(response.data)
         // })
         // .catch((error) => {console.log(error)})
-        setPostFile(postFileList)
-        setPostInfo(postData)
+        // setPostFile(postFileList)
+        // setPostInfo(postData)
     },[])
+
+    // 주소값유효, 블로그주인인지,처음블로그만드는지 확인하는 axios isOwner사용 //유지보수때 하기로함 02.06
+    // useEffect(() => {
+    //     axios.post("/api/blog/access",{
+    //         memId: memId,
+    //         nickname: nickname
+    //     })
+    //     .then((response) => {
+    //         setIsOwner(response.data.self)
+    //     })
+    //     .catch((error) => {
+    //         console.log(error)
+    //     })
+    // },[])
+
     
     /** 스크롤 이벤트를 받는 함수 */
     const ScrollEvent = () => {
@@ -91,21 +109,21 @@ function PostViewer(props){
         if(username){
             if(!changeHeart){
                 setChangeHeart(changeHeart + 1)
-                axios.post("",{
-                    memId: sessionStorage.getItem("memId") ,
-                    postIndex: Number(postIndex),
-                    recommend: changeHeart
-                })
-                .catch((error) => console.log(error))
+                // axios.post("",{ //유지보수때 하기로함 02.06
+                //     memId: sessionStorage.getItem("memId") ,
+                //     postIndex: Number(postIndex),
+                //     recommend: changeHeart
+                // })
+                // .catch((error) => console.log("ClickHeart",error))
             }
             else{
                 setChangeHeart(changeHeart - 1)
-                axios.post("",{
-                    memId: sessionStorage.getItem("memId") ,
-                    postIndex: Number(postIndex),
-                    recommend: changeHeart
-                })
-                .catch((error) => console.log(error))
+                // axios.post("",{
+                //     memId: sessionStorage.getItem("memId") ,
+                //     postIndex: Number(postIndex),
+                //     recommend: changeHeart
+                // })
+                // .catch((error) => console.log("ClickHeart",error))
             }}
         else {
             setWarning(!warning)

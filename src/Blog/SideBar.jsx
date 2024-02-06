@@ -29,19 +29,18 @@ function SideBar(props){
     },[category])
 
     useEffect(() => {
-
         //태그요청하는 axios
-        // axios.get("/api/blog/tag",{
-        //     params:{
-        //         blogIndex:userBlogIndex
-        //     }
-        // })
-        // .then((response) => {
-        //     setTagList(response.data)
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // })
+        axios.get("/api/blog/tag",{
+            params:{
+                blogIndex:userBlogIndex
+            }
+        })
+        .then((response) => {
+            setTagList(response.data)
+        })
+        .catch((error) => {
+            console.log("setTagList",error)
+        })
         // setTagList(BlogTagList)
     },[])
 
@@ -87,7 +86,7 @@ function SideBar(props){
             <div className="logo">
                 <img src="/image/icon/logo.png" alt="메인화면으로돌아가기" onClick={() => navigate("/")}/>
                 { isOwner ? 
-                <div onClick={() => navigate(`/blog/config`)}>블로그 설정</div> : null}
+                <div onClick={() => navigate("/blog/config",{state:{isOwner:isOwner}})}>블로그 설정</div> : null}
             </div>
         </Sidebar>
     )

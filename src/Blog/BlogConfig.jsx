@@ -6,15 +6,18 @@ import UserBlogConfig from "../DummyData/BlogConfig.json";
 import categoryInfo from "../DummyData/categoryInfo.json";
 import axios from "axios";
 import Editer, { buttonType } from "../MarkDownEditer/Editer";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams, useLocation } from "react-router-dom";
 
 function BlogConfig(props) {
     
     const focusName = useRef();
     const navigate = useNavigate();
+    const location = useLocation();
+    const CheckOwner = location.state?.isOwner
 
     const sessionStorage = window.sessionStorage;
-    
+    const userBlogIndex = sessionStorage.getItem("blogIndex")
+
     //blogconfig state
     const [blogNameInput , setBlogNameInput ] = useState("");
     const [selectSkin, setSelectSkin] = useState(1);
@@ -28,25 +31,30 @@ function BlogConfig(props) {
 
 
     useEffect(() => {
-        // axios.post("/api/blog/config", {
-        //     blogIndex: sessionStorage.getItem("blogIndex")
-        // }).then((response) => {
-        //     if(response.data !== ""){
-        //         console.log(response)
-                // setBlogNameInput(response.data.name)
-                // setSelectSkin(Number(response.data.skin))
-                // setOverViewValue(response.data.overview)
-                // setCategoryList(response.data.categoryList)
-        //     }
-        // }).catch((error) =>{
-        //     console.log(error)
-        // })
-        focusName.current.focus()
-        setBlogNameInput(UserBlogConfig.name)
-        setSelectSkin(Number(UserBlogConfig.skin))
-        setOverViewValue(UserBlogConfig.overview)
-        setCategoryList(UserBlogConfig.categoryList)
-
+        if(CheckOwner){
+            axios.post("/api/blog/config", {
+                blogIndex: sessionStorage.getItem("blogIndex")
+            }).then((response) => {
+                if(response.data !== ""){
+                    console.log(response)
+                    setBlogNameInput(response.data.name)
+                    setSelectSkin(Number(response.data.skin))
+                    setOverViewValue(response.data.overview)
+                    setCategoryList(response.data.categoryList)
+                    focusName.current.focus()
+                }
+            }).catch((error) =>{
+                console.log(error)
+            })
+        }
+        else{
+            alert("잘못된 접근입니다")
+            navigate("/")
+        }
+        // setBlogNameInput(UserBlogConfig.name)
+        // setSelectSkin(Number(UserBlogConfig.skin))
+        // setOverViewValue(UserBlogConfig.overview)
+        // setCategoryList(UserBlogConfig.categoryList)
     } , [])
 
 
@@ -54,14 +62,15 @@ function BlogConfig(props) {
     const HandleAddCategory = () => {
         if(categoryNameInput){
             if(!categoryList.includes(categoryNameInput)){
+                axios.post("/api/category/create",{
+                    "categoryName": categoryNameInput,
+                    "blogIndex": sessionStorage.getItem("blogIndex")
+                })
+                .then((response) => console.log(response))
+
                 const copy = [...categoryList]
                 copy.push(categoryNameInput)
                 setCategoryList([...copy])
-                // axios.post("/api/category/create",{
-                //     "categoryName": categoryNameInput,
-                //     "blogIndex": sessionStorage.getItem("blogIndex")
-                // })
-                // .then((response) => console.log(response))
             }
         setCategoryNameInput('')
         }
@@ -71,30 +80,31 @@ function BlogConfig(props) {
     const RemoveCategory = (event) => {
         console.log(event)
         let copy = categoryList;
-        // axios.post("/api/category/delete",{
-        //     "categoryName": event,
-        //     "blogIndex": sessionStorage.getItem("blogIndex")
-        // })
-        // .then((response) => console.log(response))
+
+        axios.post("/api/category/delete",{
+            "categoryName": event,
+            "blogIndex": sessionStorage.getItem("blogIndex")
+        })
+        .then((response) => console.log(response))
         setCategoryList( copy.filter((e) => e != event) )
     }
 
         /**데이터 보내는 양식 */
     const HandleSaved = () =>{
         if(blogNameInput != ""){
-            // axios.post("/api/blog/config/save",{
-            //     "blogIndex":0,
-            //     "memId": sessionStorage.getItem("memId"),
-            //     "name": blogNameInput,
-            //     "skin": selectSkin,
-            //     "overview": overViewValue
-            // })
-            // .then((response) => {
-            //     console.log(response.data)
-            // })
-            // .catch((error) => {
-            //     console.log(error)
-            // })
+            axios.post("/api/blog/config/save",{
+                "blogIndex":userBlogIndex,
+                "memId": sessionStorage.getItem("memId"),
+                "name": blogNameInput,
+                "skin": selectSkin,
+                "overview": overViewValue
+            })
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
             navigate(`/blog/${sessionStorage.getItem("nickname")}/overView`)
         }
         else{

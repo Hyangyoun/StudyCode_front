@@ -11,7 +11,6 @@ function BlogHeader(props){
 
     const { postInfo } =props
 
-    console.log(postInfo)
     const { nickname } = useParams()
     // 위쪽은 postViewer 에서 실행되고 , 아래는 blogWrite , blogConfig 에서 실행함
     return(
