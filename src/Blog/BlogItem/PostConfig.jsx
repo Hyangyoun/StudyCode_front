@@ -1,4 +1,5 @@
 import React , {useState, useEffect, useRef} from "react";
+import categoryInfo from "../../DummyData/categoryInfo.json"
 import styled from "styled-components";
 import axios from "axios";
 
@@ -15,14 +16,7 @@ function PostConfig(props) {
     const [ openButton , setOpenButton ] = useState(false)
     const [chooseCategory , setChooseCategory] = useState("") //선택한 카테고리가 앞에 표시됨.
     const [categoryIndex , setCategoryIndex] = useState('')   //카테고리 인덱스를 받는state 번호에따라 css변화를 주기위한 state
-    const [Categorys , setCategorys] = useState([             //카테고리 데이터를 받는 state(원인불명으로 import에서 더미데이터를 못받고있음 , axios도 추가해야함)
-        {
-          "categoryName": "리액트",
-        },
-        {
-          "categoryName": "코테",
-        }
-      ])                  
+    const [Categorys , setCategorys] = useState([])                  
     const [ previewImage , setPreviewImage ] = useState('')
 
     // 애니메이션 관련효과 useEffect
@@ -51,6 +45,10 @@ function PostConfig(props) {
         };
         }
     };
+
+    useEffect(() => {
+        setCategorys(categoryInfo)
+    })
 
     return(
         <LastPreview $selectButton={selectButton} $close={close}>

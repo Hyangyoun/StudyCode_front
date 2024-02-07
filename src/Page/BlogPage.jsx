@@ -119,19 +119,19 @@ function BlogPage(props){
         })
         .then((response) => {
             setIsOwner(response.data.self)
-            if(isOwner){
+            sessionStorage.setItem("blogIndex" ,`${response.data.blogIndex}`)
+            if(response.data.self.blogIndex != null){
                 if(response.data.blogIndex == null){
                         StartUser()
                 }
                 else{
                     axios.get("/api/blog/info",{
                         params:{
-                            nickname: nickname
+                            blogIndex: sessionStorage.getItem("blogIndex")
                         }
                     })
                     .then((response) => {
                         setUserInfo(response.data.blogIndex)
-                        sessionStorage.setItem("blogIndex" , `${response.data.blogIndex}`)
                     })
                     .catch((error) => console.log("setUserInfo",error))
                 }
