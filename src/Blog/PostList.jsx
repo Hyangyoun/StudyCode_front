@@ -10,45 +10,39 @@ function PostList(props){
     const { nickname , categoryName } = useParams()
     const { BlogTagPost , clickTagName, BlogCategoryPost ,isOwner } = props
     // const sessionStorage = window.sessionStorage
-    const username = window.sessionStorage.getItem("nickname")
+    const blogIndex = window.sessionStorage.getItem("blogIndex")
     const navigate = useNavigate()
 
         /** post와 관련된 state */
     const [posts , setPosts] = useState([])
     const [inputValue , setInputValue] = useState("")
 
-    useEffect((() => {
-        // 포스트리스트 받는 axio
-        axios.get("/api/post/postList",{
-            params:{
-                nickname: nickname
-            }
-        })
-        .then((response) => {
-            setPosts(response.data)
-            console.log(response.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-
-        // setPosts(postInfo)
-    }),[])
-
     //태그가 적용된 state를 포스트에 넣어서 랜더링함
-    useEffect(() => {
-        if(BlogTagPost){
-            console.log("tag")
-            setPosts(BlogTagPost)
-        }
-    },[BlogTagPost])
-
     useEffect(() => {
         if(BlogCategoryPost){
             console.log("category")
             setPosts(BlogCategoryPost)
         }
-    },[BlogCategoryPost])
+        else if(BlogTagPost) {
+            console.log("tag")
+            setPosts(BlogTagPost)
+        }
+        else {
+            axios.get("/api/post/postList",{
+                params:{
+                    blogIndex: blogIndex
+                }
+            })
+            .then((response) => {
+                setPosts(response.data)
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        }
+    },[BlogTagPost,BlogCategoryPost])
+
 
     return(
         

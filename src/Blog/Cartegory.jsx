@@ -48,18 +48,18 @@ function Cartegory(props){
 
     useEffect(() => {
         // categoryNameList 받는 axios
-        // axios.get("/api/blog/category/info",{
-        //     params: {
-        //         blogIndex:userBlogIndex
-        //     }
-        // })
-        // .then((response) =>{
-        //     setAddCategory(response.data)
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // })
-        setAddCategory(categoryInfo)
+        axios.get("/api/category/info",{
+            params: {
+                blogIndex:userBlogIndex
+            }
+        })
+        .then((response) =>{
+            setAddCategory(response.data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        // setAddCategory(categoryInfo)
         ChangeWindow()
         document.addEventListener("mousedown" , ClickAddcategory)
         window.addEventListener("resize" , ChangeWindow)
@@ -92,7 +92,7 @@ function Cartegory(props){
         <Item $plusCategory={plusCategory} $changeCss={changeCss}>{
             addCategory.map((item ,index) => {
                 return(
-                <li key={index} onClick={() => CLickCategory(index , item.categoryName)}>
+                <li key={index} onClick={() => CLickCategory(item.categoryIndex , item.categoryName)}>
                     <div className="itemBox">
                         {item.thumbnailPath.length > 0 ?
                         <>{item.thumbnailPath.map((item , index) => {

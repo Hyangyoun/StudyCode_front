@@ -15,7 +15,7 @@ function PostViewer(props){
     const memId = sessionStorage.getItem("memId")
 
     const navigate = useNavigate()
-    const { postIndex , nickname } =useParams()
+    const { postIndex , nickname } = useParams()
 
     //사용자가 블로그주인인지 확인하는state
     const [isOwner , setIsOwner] = useState(true)
@@ -34,9 +34,9 @@ function PostViewer(props){
 
     useEffect(() => {
         /** postdata 받아오는 axios */
-        axios.get("/api/post/info",{
+        axios.get("/api/post/postInfo",{
             params:{
-                postIndex : Number(postIndex)
+                postIndex : postIndex
             }
         })
         .then((response) => {

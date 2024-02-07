@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import axios from "axios"
 import repodata from "../DummyData/Repository.json"
@@ -11,6 +11,7 @@ function Repository(props){
     const userBlogIndex = sessionStorage.getItem("blogIndex");
     const { isOwner } = props;
     const navigate = useNavigate();
+    const location = useLocation()
     const folderNameRef = useRef();
     const addFolderBox = useRef();
 
@@ -35,26 +36,44 @@ function Repository(props){
 
 //레포지토리 기능구현 폴더리스트
     useEffect(() => {
-        axios.get("/repository/folder/list" ,{
-            params: {
-                blogindex: userBlogIndex
-            }
-        })
-        .then((response) => {
-            setFolderList(response.data)
-        })
-        .catch((error) => console.log("setFolderList",error))
-        axios.get("/repository/nofolder/list",{
-            params:{
-                blogindex: userBlogIndex
-            }
-        })
-        .then((response) => {
-            setFileList(response.data)
-        })
-        .catch((error) => console.log("setFileList",error))
-            // setFolderList(repodata) //실제 사용시 주석처리
-            // setFileList(noFolderList)
+        if(!folderName){
+            axios.get("/api/repository/folder/list" ,{
+                params: {
+                    blogIndex: userBlogIndex
+                }
+            })
+            .then((response) => {
+                setFolderList(response.data)
+                console.log(response.data)
+            })
+            .catch((error) => console.log("setFolderList",error))
+    
+            axios.get("/api/repository/nofolder/list",{
+                params:{
+                    blogIndex: userBlogIndex
+                }
+            })
+            .then((response) => {
+                setFileList(response.data)
+            })
+            .catch((error) => console.log("setFileList",error))
+        }
+        else { 
+            axios.get("/api/repository/file/list" ,{
+                params: {
+                    blogIndex: userBlogIndex,
+                    fileIndex: location.state.fileIndex
+                }
+            })
+            .then((response) => {
+                console.log(response.data)
+                setFileList(response.data)
+            })
+            .catch((error) => {console.log("ClickFolder",error)})
+        }
+        // setFolderList(repodata) //실제 사용시 주석처리
+        // setFileList(noFolderList)
+
         document.addEventListener("mousedown", CloseBox)
         return (() => {
             document.removeEventListener("mousedown", CloseBox)
@@ -64,15 +83,14 @@ function Repository(props){
     // 폴더추가 함수
     const AddFolder = () => {
         if(FolderInput){
-            axios.post("/repository/add/folder" , {
+            axios.get("/api/repository/add/folder" , {
+                params: {
                     blogIndex : userBlogIndex,
-                    folderName:FolderInput
-                })
-                .then((response) =>{
-                    setFolderList(response.data)
-                    window.location.reload()
-                })
-                .catch((error) => console.log("AddFolder",error))
+                    folderName: FolderInput
+                }
+            })
+            .catch((error) => console.log("AddFolder",error))
+            window.location.reload()
             // let folderListBox = folderList
             // if(!folderListBox.includes(FolderInput)){
             //     folderListBox.push(
@@ -91,20 +109,9 @@ function Repository(props){
 
     //폴더클릭시 실행되는 함수 , 폴더네임과 
     const ClickFolder = (folder ,fileIndex) =>{
-        if(!folderName){
-        axios.get("/repository/folder/list" ,{
-            params: {
-                folderName: folder,
-                fileIndex: fileIndex
-            }
+        navigate(`/blog/${nickname}/repository/${folder}`,{
+            state:{fileIndex: fileIndex}
         })
-        .then((response) => {
-            console.log(response.data)
-            setFolderList(response.data)
-        })
-        .catch((error) => {console.log("ClickFolder",error)})
-        // navigate(`/blog/${nickname}/repository/${folder}`)
-        }
     }
 
     //파일 다운로드
@@ -118,7 +125,7 @@ function Repository(props){
         pom.setAttribute('download', item.fileName);
         pom.click();
         pom.remove();
-        }
+    }
 
     return(
         <RepoList $addFolder={addFolder}>
@@ -129,13 +136,13 @@ function Repository(props){
                     <div className={isOwner && !folderName ? "folderform" : "disabled"}>
                         <div className="addBox" ref={addFolderBox}>
                             <input type="text" maxLength={20} placeholder="폴더이름" ref={folderNameRef} value={FolderInput} onChange={(e) => setFolderInput(e.target.value)}/>
-                            <div className="addFolder" onClick={AddFolder}>추가하기</div>
+                            <div className="addFolder" onClick={() => AddFolder()}>추가하기</div>
                         </div>
                         <div className="addFolderBtn" onClick={() => setAddFolder(true)}>폴더추가</div>
                     </div>
                 </li>
                 {/* 아래 폴더,파일 부분 , 폴더네임이 false 면(undefinded) 아래 파일리스트가 제목없음의 파일리스트만 보임*/}
-                <li className={!folderName ? "disabled" : "repoList"} ><span onClick={() => {navigate(`/blog/${nickname}/repository`)}} className="folderName">돌아가기</span></li>
+                <li className={folderName ? "repoList" : "disabled"} ><span onClick={() => {navigate(`/blog/${nickname}/repository`)}} className="folderName">돌아가기</span></li>
                 {!folderName ?
                 // 처음 보이는 폴더 리스트맵
                     folderList.map((item , index) => {
@@ -147,7 +154,7 @@ function Repository(props){
                     })
                     :
                     // 폴더클릭시 보이는 리스트 맵
-                    folderList.map((item , index) => {
+                    fileList.map((item , index) => {
                         return (
                         <li key={index} className="repoList">
                             <span className="fileName">{item.fileName}</span>

@@ -45,14 +45,14 @@ function PostWrite(props){
     /** 최종적으로 보내는 데이터 */
     const SendWriteData = (previewImage,selectButton,chooseCategory) => {
         // axios.post("/api/post/regist" , {
-            // memId: sessionStorage.getItem("memId"),
-            // title: title,
-            // taglist: tagList,
-            // content: encodeURIComponent(WriteValue),
-            // categoryName: chooseCategory,
-            // fileName: fileList,
-            // open:selectButton,
-            // previewImage:previewImage
+        //     memId: sessionStorage.getItem("memId"),
+        //     title: title,
+        //     taglist: tagList,
+        //     content: encodeURIComponent(WriteValue),
+        //     categoryName: chooseCategory,
+        //     fileName: fileList,
+        //     open:selectButton,
+        //     previewImage:previewImage
         // })
         // .then((response) => {
         //     const copy = []
@@ -66,6 +66,16 @@ function PostWrite(props){
         //     .catch((error) => {console.log(error)})
         // })
         // .catch((error) => console.log(error))
+
+        const formdata = new FormData()
+        formdata.append("postIndex",1)
+        formdata.append("tag",tagList)
+        fileList.map((item) => {
+            formdata.append("files",item.file)
+        })
+
+        axios.post("/api/post/post/data",formdata)
+
         const data ={
             memId: sessionStorage.getItem("memId"),
             categoryName: chooseCategory,

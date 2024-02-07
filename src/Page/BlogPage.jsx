@@ -20,7 +20,7 @@ function BlogPage(props){
     const { category, nickname , categoryName, folderName } = useParams();
 
     const [userinfo, setUserInfo] = useState({});
-    const viewerTagname = location.state
+    const viewerTagname = location.state?.tagName;
     const sessionStorage = window.sessionStorage
     const userBlogIndex = sessionStorage.getItem("blogIndex")
     const username = sessionStorage.getItem("nickname")
@@ -41,9 +41,11 @@ function BlogPage(props){
     const ClickTag = (tagName) =>{
         if(tagName){
             //클릭된태그요청하는 axios
-            axios.post("/api/post/tagToList" , {
-                blogIndex: userBlogIndex,
-                tagName : tagName
+            axios.get("/api/post/tagToList" , {
+                params: {
+                    blogIndex: userBlogIndex,
+                    tagName: tagName
+                }
             })
             .then((response) => {
                 setBlogTagPost(response.data)
@@ -56,15 +58,14 @@ function BlogPage(props){
             // setBlogTagPost(postInfo)
         }
         else if(tagName == null){
-            axios.get("/api/post/list",{
+            axios.get("/api/post/postList",{
                 params:{
-                    nickname: nickname
+                    blogIndex: userBlogIndex
                 }
             })
             .then((response) => {
                 setBlogTagPost(response.data)
                 setClickTagName(null)
-                console.log(response.data)
             })
             .catch((error) => {
                 console.log("ClickTag == null",error)
@@ -73,20 +74,24 @@ function BlogPage(props){
             // setBlogTagPost(postInfo)
         }
     }
+
     /** 카테고리 클릭시 블로그 인덱스와 카테고리 인덱스를 보내고 처음argument는 카테고리 인덱스이고 
      * 두번째 argument는 클릭한 카테고리 인덱스를 의미한다(더미데이터용으로사용되는것)
      * response data 가 안된다면 Name 쓸예정, 받은리스트를 카테고리포스트에 넣어서 포스트리스트로 보내줌
      *  Name 들어가면(카테고리클릭시) 함수 작동 시작이라보면됨
      */
-    const CLickCategory = (categoryIndex , Name) => {
-        if(Name){
-            axios.post("/api/post/postList",{
-                blogIndex:userBlogIndex,
-                categoryIndex:categoryIndex
+    const CLickCategory = (categoryIndex , categoryName) => {
+        console.log(categoryIndex)
+        if(categoryName){
+            axios.get("/api/post/postList",{
+                params: {
+                    blogIndex: userBlogIndex,
+                    categoryIndex: categoryIndex
+                }
             })
             .then((response) => {
                 setBlogCategoryPost(response.data)
-                navigate(`/blog/${nickname}/category/${Name}`)
+                navigate(`/blog/${nickname}/category/${categoryName}`)
             })
             .catch((error) => console.log("CLickCategory",error))
             // setBlogCategoryPost(postInfo)
@@ -110,7 +115,8 @@ function BlogPage(props){
             }
         })
     }
-// 주소값유효, 블로그주인인지,처음블로그만드는지 확인하는 axios
+
+    // 주소값유효, 블로그주인인지,처음블로그만드는지 확인하는 axios
     useEffect(() => {
         // setUserInfo(BlogInfo)
         axios.post("/api/blog/access",{
@@ -120,25 +126,25 @@ function BlogPage(props){
         .then((response) => {
             setIsOwner(response.data.self)
             sessionStorage.setItem("blogIndex" ,`${response.data.blogIndex}`)
-            if(response.data.self.blogIndex != null){
-                if(response.data.blogIndex == null){
-                        StartUser()
-                }
-                else{
-                    axios.get("/api/blog/info",{
-                        params:{
-                            blogIndex: sessionStorage.getItem("blogIndex")
-                        }
-                    })
-                    .then((response) => {
-                        setUserInfo(response.data.blogIndex)
-                    })
-                    .catch((error) => console.log("setUserInfo",error))
-                }
+            if(response.data.blogIndex != null){
+                axios.get("/api/blog/info",{
+                    params:{
+                        blogIndex: sessionStorage.getItem("blogIndex")
+                    }
+                })
+                .then((response) => {
+                    setUserInfo(response.data)
+                })
+                .catch((error) => console.log("setUserInfo",error))
             }
             else {
-                alert("잘못된 접근입니다")
-                navigate("/")
+                if(isOwner){
+                    StartUser()
+                }
+                else {
+                    alert("잘못된 접근입니다")
+                    navigate("/")
+                }
             }
         })
         .catch((error) => {

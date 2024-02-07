@@ -32,8 +32,10 @@ function BlogConfig(props) {
 
     useEffect(() => {
         if(CheckOwner){
-            axios.post("/api/blog/config", {
-                blogIndex: sessionStorage.getItem("blogIndex")
+            axios.get("/api/blog/config", {
+                params: {
+                    blogIndex: sessionStorage.getItem("blogIndex")
+                }
             }).then((response) => {
                 if(response.data !== ""){
                     console.log(response)
