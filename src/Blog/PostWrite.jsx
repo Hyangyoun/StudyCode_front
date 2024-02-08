@@ -21,6 +21,20 @@ function PostWrite(props){
     const [nextButton , setNextButton] = useState(false) //글다쓰고 최종선택으로 넘어가기 직전 버튼
 
     const [preview, setPreview] = useState(false)
+    const sessionStorage = window.sessionStorage
+    const userBlogIndex = sessionStorage.getItem("blogIndex")
+
+
+    useEffect(() => {
+        axios.get("/api/repository/folder/list",{
+            params:{
+                blogIndex:userBlogIndex
+            }
+        })
+        .then((response) => {
+            setFolderList(response.data)
+        })
+    })
 
     //TagInput Event
     const handleTagList = (e) => {
@@ -41,53 +55,26 @@ function PostWrite(props){
         }
     }
 
-    const sessionStorage = window.sessionStorage
     /** 최종적으로 보내는 데이터 */
-    const SendWriteData = (previewImage,selectButton,chooseCategory) => {
-        // axios.post("/api/post/regist" , {
-        //     memId: sessionStorage.getItem("memId"),
-        //     title: title,
-        //     taglist: tagList,
-        //     content: encodeURIComponent(WriteValue),
-        //     categoryName: chooseCategory,
-        //     fileName: fileList,
-        //     open:selectButton,
-        //     previewImage:previewImage
-        // })
-        // .then((response) => {
-        //     const copy = []
-        //     tagList.forEach((item) => {
-        //         copy.push({
-        //             postIndex: response.data,
-        //             tagName: item
-        //         })
-        //     })
-        //     axios.post("/api/post/regist/tag" , copy)
-        //     .catch((error) => {console.log(error)})
-        // })
-        // .catch((error) => console.log(error))
+    const SendWriteData = (postThumbnail,selectButton,categoryIndex) => {
 
-        const formdata = new FormData()
-        formdata.append("postIndex",1)
-        formdata.append("tag",tagList)
-        fileList.map((item) => {
-            formdata.append("files",item.file)
+        axios.post("/api/post/regist",{
+            blogIndex: userBlogIndex,
+            categoryIndex : categoryIndex,
+            content:WriteValue,
+            title:title,
         })
-
-        axios.post("/api/post/post/data",formdata)
-
-        const data ={
-            memId: sessionStorage.getItem("memId"),
-            categoryName: chooseCategory,
-            title: title,
-            taglist: tagList,
-            content: WriteValue,
-            fileList: fileList,
-            folderList: folderList,
-            open:selectButton,
-            previewImage:previewImage
-        }
-        console.log(data)
+        .then((response) => {
+            const formdata = new FormData()
+            formdata.append("postIndex",response.data)
+            formdata.append("tag",tagList)
+            formdata.append("blogIndex",userBlogIndex)
+            formdata.append("thumnail" , postThumbnail)
+            fileList.map((item) => {
+                formdata.append("files",item.file)
+            })
+            axios.post("/api/post/data",formdata)
+        })
     }
 
     /** 파일추가시 실행되는 함수  */
@@ -100,9 +87,7 @@ function PostWrite(props){
             //파일추가시 같은 이름을 가진 파일이있는지 확인하는 if
             if(!copy.some(file => file.fileName === fileName)){
                 copy.push({
-                    file: newFile,
-                    fileName: fileName,
-                    memId : sessionStorage.getItem("memId")
+                    file: newFile
                 })
                 setFileList(copy)
             }
@@ -149,14 +134,15 @@ function PostWrite(props){
                                     <li key={index}>
                                         <span onClick={() =>HandleFileList(item)}>x</span>
                                         {item.fileName}
-                                        <div>
+                                        {/* <div> 폴더구조문제로 유지보수때 하기로함
                                             <select id={item.fileName} onChange={(e) => ChooseFolder(e)}>
                                                 <option value={"선택안함"}>선택안함</option>
-                                                <option value={"JavaScript"}>JavaScript</option>
-                                                <option value={"React"}>React</option>
-                                                <option value={"Java"}>Java</option>
+                                                {folderList.map((item, index) => {
+                                                    <option index={item.fileIndex} value={item.folderName}>{item.folderName}</option>
+                                                })
+                                                }
                                             </select>
-                                        </div>
+                                        </div> */}
                                     </li>
                                 )
                             })
@@ -168,7 +154,7 @@ function PostWrite(props){
                 </div>
                 <div className="writeBtn" onClick={() => setNextButton(true)}>다음</div> 
             </WriteStyle>
-            {nextButton ? <PostConfig setNextButton={setNextButton} SendWriteData={SendWriteData} /> : null}
+            {nextButton ? <PostConfig setNextButton={setNextButton} SendWriteData={SendWriteData} userBlogIndex={userBlogIndex} /> : null}
             {preview ? <Preview title={title} tag={tagList} content={WriteValue}  setPreview={setPreview} /> : null}
         </>
     )
