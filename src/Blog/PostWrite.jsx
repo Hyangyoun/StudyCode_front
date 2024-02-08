@@ -34,7 +34,7 @@ function PostWrite(props){
         .then((response) => {
             setFolderList(response.data)
         })
-    })
+    },[])
 
     //TagInput Event
     const handleTagList = (e) => {
@@ -66,10 +66,10 @@ function PostWrite(props){
         })
         .then((response) => {
             const formdata = new FormData()
-            formdata.append("postIndex",response.data)
-            formdata.append("tag",tagList)
-            formdata.append("blogIndex",userBlogIndex)
-            formdata.append("thumnail" , postThumbnail)
+            formdata.append("postIndex", response.data)
+            formdata.append("tag", tagList)
+            formdata.append("blogIndex", userBlogIndex)
+            formdata.append("thumbnail" , postThumbnail)
             fileList.map((item) => {
                 formdata.append("files",item.file)
             })
